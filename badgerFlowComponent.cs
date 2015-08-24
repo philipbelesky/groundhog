@@ -16,7 +16,7 @@ namespace badger
         /// new tabs/panels will automatically be created.
         /// </summary>
         public badgerFlowComponent()
-            : base("Badger", "Flows",
+            : base("Flow Simulation", "Flows",
                 "Construct flow paths along a surface",
                 "Badger", "Hydro")
         {
@@ -27,16 +27,9 @@ namespace badger
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            // Use the pManager object to register your input parameters.
-            // You can often supply default values when creating parameters.
-            // All parameters must have the correct access type. If you want 
-            // to import lists or trees of values, modify the ParamAccess flag.
             pManager.AddSurfaceParameter("Surface", "S", "Base surface for the flows", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
             pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
-
-            // If you want to change properties of certain parameters, 
-            // you can use the pManager instance to access them by index:
             pManager[2].Optional = true;
         }
 
@@ -45,8 +38,6 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            // Use the pManager object to register your output parameters.
-            // Output parameters do not have default values, but they too must have the correct access type.
             pManager.AddCurveParameter("C", "C", "Flow paths", GH_ParamAccess.list);
             pManager.AddPointParameter("P", "P", "Flow points", GH_ParamAccess.list);
 
@@ -62,14 +53,12 @@ namespace badger
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // First, we need to retrieve all data from the input parameters.
-            // We'll start by declaring variables and assigning them starting values.
+            // Create holder variables for input parameters
             Surface FLOW_SURFACE = default(Surface);
             List<Point3d> FLOW_ORIGINS = new List<Point3d>();
             double FLOW_FIDELITY = 0.0;
 
-            // Then we need to access the input parameters individually. 
-            // When data cannot be extracted from a parameter, we should abort this method.
+            // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref FLOW_SURFACE)) return;
             if (!DA.GetDataList(1, FLOW_ORIGINS)) return;
             if (!DA.GetData(2, ref FLOW_FIDELITY)) return;
@@ -91,12 +80,15 @@ namespace badger
                 return;
             }
 
-            // Output Holders
+            // Create holder variables for output parameters
             List<Point3d> allFlowSteps = new List<Point3d>();
             List<Curve> allFlowPaths = new List<Curve>();
 
+            var calculateTotal = System.Diagnostics.Stopwatch.StartNew();
+            
             foreach (Point3d flowOrigin in FLOW_ORIGINS)
             {
+                Console.WriteLine("test2");
                 int iterations = 0;
                 List<Point3d> flowSteps = new List<Point3d>();
                 flowSteps.Add(flowOrigin);
@@ -144,7 +136,10 @@ namespace badger
 
             }
 
-            // Finally assign the spiral to the output parameter.
+            calculateTotal.Stop();
+            Rhino.RhinoApp.WriteLine("{0}:{1} took {2} ms", this.Name, "calculateTotal", calculateTotal.ElapsedMilliseconds.ToString());
+
+            // Assign variables to output parameters
             DA.SetDataList(0, allFlowPaths);
             DA.SetDataList(1, allFlowSteps);
         }

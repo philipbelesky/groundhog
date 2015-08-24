@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="badgerFloodComponent.cs" />
     <Compile Include="badgerFlowComponent.cs" />
     <Compile Include="badgerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
