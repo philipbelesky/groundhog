@@ -211,9 +211,7 @@ namespace badger
         {
             get
             {
-                // You can add image files to your project resources and access them like this:
-                //return Resources.IconForThisComponent;
-                return null;
+                return badger.Properties.Resources.icon_flows;
             }
         }
 
@@ -224,7 +222,7 @@ namespace badger
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{eac37735-fdd4-4464-80f8-8062006e7b0c}"); }
+            get { return new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d1}"); }
         }
     }
 }
