@@ -88,7 +88,6 @@ namespace badger
             
             foreach (Point3d flowOrigin in FLOW_ORIGINS)
             {
-                Console.WriteLine("test2");
                 int iterations = 0;
                 List<Point3d> flowSteps = new List<Point3d>();
                 flowSteps.Add(flowOrigin);
@@ -137,7 +136,6 @@ namespace badger
             }
 
             calculateTotal.Stop();
-            Rhino.RhinoApp.WriteLine("{0}:{1} took {2} ms", this.Name, "calculateTotal", calculateTotal.ElapsedMilliseconds.ToString());
 
             // Assign variables to output parameters
             DA.SetDataList(0, allFlowPaths);

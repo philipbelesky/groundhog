@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 namespace badger
@@ -29,10 +30,10 @@ namespace badger
         {
             pManager.AddGenericParameter("Plants", "P", "The plant objects to simulate", GH_ParamAccess.list);
             pManager.AddPointParameter("Locations", "L", "The plant locations to simulate", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Grown %", "G", "The growth percentage of each plant to display", GH_ParamAccess.list);
-            pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Visualisations", "V", "Whether to show a full L-system visualisation (true) or just the base geoemtries (false)", GH_ParamAccess.item, false);
+            pManager.AddNumberParameter("Times", "T", "The time (in years) since planting to display", GH_ParamAccess.list);
             pManager[2].Optional = true;
+            //pManager.AddBooleanParameter("Visualisations", "V", "Whether to show a full L-system visualisation (true) or just the base geoemtries (false)", GH_ParamAccess.item, false);
+            //pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -55,21 +56,79 @@ namespace badger
         /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
-        {            
-            // Create holder variables for output parameters
-            //double DATUM, YEAR, RISE, SURGE;
-            //DATUM = YEAR = RISE = SURGE = 0;
-            
+        {
+            // Create holder variables for input parameters
+            List<PlantSpecies> plantSpecies = new List<PlantSpecies>();
+            List<Point3d> plantLocations = new List<Point3d>();
+            List<double> plantTimes = new List<double>();
+
             // Access and extract data from the input parameters individually
-            //if (!DA.GetData(0, ref DATUM)) return;
+            DA.GetDataList(1, plantLocations);
+            DA.GetDataList(2, plantTimes);
 
-            // TODO: determine if I need to do input validation here
-                                               
+            // Need to unwrap the species from generic list to a plantSpecies list
+            List<GH_ObjectWrapper> wrappedSpecies = new List<GH_ObjectWrapper>();
+            if (!DA.GetDataList<GH_ObjectWrapper>(0, wrappedSpecies)) return;
+            foreach (GH_ObjectWrapper unwrappedObject in wrappedSpecies)
+            {
+                plantSpecies.Add(unwrappedObject.Value as PlantSpecies);
+            }
+
+                        
+            // We should now validate the data and warn the user if invalid data is supplied.
+            if (plantLocations.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 1");
+                return;
+            }
+            else if (plantLocations.Count > plantSpecies.Count)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "There were more locations than plants, so locations have been truncated");
+                plantLocations.RemoveRange(plantSpecies.Count, plantLocations.Count - plantSpecies.Count);
+            }
+
+            if (plantSpecies.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 3");
+                return;
+            }
+            else if (plantSpecies.Count > plantLocations.Count)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "There were more plants than locations, so plants have been truncated");
+                plantSpecies.RemoveRange(plantLocations.Count, plantSpecies.Count - plantLocations.Count);
+            }
+
+            if (plantTimes.Count < plantSpecies.Count)
+            {
+                for (int i = 0; i <= (plantSpecies.Count - plantTimes.Count); i++)
+                {
+                    plantTimes.Add(50.0);
+                }
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "There were more species than times, so have auto-added new times set to 50");
+            }
+
+                         
             // Create holder variables for output parameters
-            //PlaneSurface seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
+            List<Circle> allTrunks = new List<Circle>();
+            List<Circle> allRoots = new List<Circle>();
+            List<Circle> allCrowns = new List<Circle>();
 
+            Rhino.RhinoApp.WriteLine("Total species {0}", plantSpecies.Count);
+            for (int i = 0; i < plantSpecies.Count; i++)
+            {
+                Rhino.RhinoApp.WriteLine("_______");
+                PlantSpecies plantInstance = plantSpecies[i];
+                Rhino.RhinoApp.WriteLine("  starting on {0}", plantInstance.speciesName);
+
+                allTrunks.Add(plantInstance.getTrunk(plantLocations[i], plantTimes[i]));
+                allRoots.Add(plantInstance.getRoot(plantLocations[i], plantTimes[i]));
+                allCrowns.Add(plantInstance.getCrown(plantLocations[i], plantTimes[i]));
+            }
+            
             // Assign variables to output parameters
-            //DA.SetData(0, seaLevel);
+            DA.SetDataList(0, allTrunks);
+            DA.SetDataList(1, allRoots);
+            DA.SetDataList(2, allCrowns);
         }
 
  

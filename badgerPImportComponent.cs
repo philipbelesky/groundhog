@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 namespace badger
@@ -16,7 +17,7 @@ namespace badger
         /// new tabs/panels will automatically be created.
         /// </summary>
         public badgerPImportComponent()
-            : base("Species Attribute Importer", "Import Species",
+            : base("Species Attribute Importer", "PImport",
                 "Create plant attributes from an imported spreadsheet",
                 "Badger", "Flora")
         {
@@ -27,7 +28,6 @@ namespace badger
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plants", "P", "The plant objects to simulate", GH_ParamAccess.list);
             pManager.AddGenericParameter("CSV File", "C", "The output of a CSV set to a Read File component", GH_ParamAccess.list);
         }
 
@@ -36,10 +36,8 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plants", "P", "The resulting plant objects", GH_ParamAccess.list);
-            // Sometimes you want to hide a specific parameter from the Rhino preview.
-            // You can use the HideParameter() method as a quick way:
-            //pManager.HideParameter(0);
+            // Generic is its a GH_ObjectWrapper wrapper for our custom class
+            pManager.Register_GenericParam("Plants", "P", "The resulting plant objects");
         }
 
         /// <summary>
@@ -48,21 +46,42 @@ namespace badger
         /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
-        {            
-            // Create holder variables for output parameters
-            //double DATUM, YEAR, RISE, SURGE;
-            //DATUM = YEAR = RISE = SURGE = 0;
-            
+        {
+            // Create holder variables for input parameters
+            List<string> CSV_CONTENTS = new List<string>();
+
             // Access and extract data from the input parameters individually
-            //if (!DA.GetData(0, ref DATUM)) return;
+            if (!DA.GetDataList(0, CSV_CONTENTS)) return;
 
-            // TODO: determine if I need to do input validation here
-                                               
             // Create holder variables for output parameters
-            //PlaneSurface seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
+            List<PlantSpecies> csvPlantSpecies = new List<PlantSpecies>();
 
+            // Format
+            string csvHeaders = CSV_CONTENTS[0];
+            CSV_CONTENTS.Remove(csvHeaders);
+            //Rhino.RhinoApp.WriteLine("headers: {0}", csvHeaders);
+
+            List<string> csvValues = CSV_CONTENTS;
+            foreach (string csvValue in csvValues)
+            {
+                //Rhino.RhinoApp.WriteLine("__________");
+                //Rhino.RhinoApp.WriteLine("  importing {0}", csvValue);
+                Dictionary<string, string> instanceDictionary = PlantFactory.parseToDictionary(csvHeaders, csvValue);
+                //Rhino.RhinoApp.WriteLine("  made dictionary {0}", instanceDictionary.Values.ToString());
+                PlantSpecies instanceSpecies = PlantFactory.parseFromDictionary(instanceDictionary);
+                //Rhino.RhinoApp.WriteLine("  made species {0}", instanceSpecies.ToString());
+                csvPlantSpecies.Add(instanceSpecies);
+            }
+
+            // Need to add each species instance to a generic wrapper so they can be output
+            List<GH_ObjectWrapper> wrappedSpecies = new List<GH_ObjectWrapper>();
+            foreach (PlantSpecies species in csvPlantSpecies)
+            {
+                wrappedSpecies.Add(new GH_ObjectWrapper(species));
+            }
             // Assign variables to output parameters
-            //DA.SetData(0, seaLevel);
+            DA.SetDataList(0, wrappedSpecies);
+
         }
 
  
