@@ -100,10 +100,14 @@ namespace badger
 
             if (plantTimes.Count < plantSpecies.Count)
             {
-                for (int i = 0; i <= (plantSpecies.Count - plantTimes.Count); i++)
+                int toAdd = plantSpecies.Count - plantTimes.Count;
+                int i = 0;
+                while (i < toAdd)
                 {
                     plantTimes.Add(50.0);
+                    i++;
                 }
+
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "There were more species than times, so have auto-added new times set to 50");
             }
 
@@ -113,13 +117,9 @@ namespace badger
             List<Circle> allRoots = new List<Circle>();
             List<Circle> allCrowns = new List<Circle>();
 
-            Rhino.RhinoApp.WriteLine("Total species {0}", plantSpecies.Count);
             for (int i = 0; i < plantSpecies.Count; i++)
             {
-                Rhino.RhinoApp.WriteLine("_______");
                 PlantSpecies plantInstance = plantSpecies[i];
-                Rhino.RhinoApp.WriteLine("  starting on {0}", plantInstance.speciesName);
-
                 allTrunks.Add(plantInstance.getTrunk(plantLocations[i], plantTimes[i]));
                 allRoots.Add(plantInstance.getRoot(plantLocations[i], plantTimes[i]));
                 allCrowns.Add(plantInstance.getCrown(plantLocations[i], plantTimes[i]));
