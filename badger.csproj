@@ -69,7 +69,6 @@
     <Compile Include="badgerPImportComponent.cs" />
     <Compile Include="badgerPGenericComponent.cs" />
     <Compile Include="badgerShowerComponent.cs" />
-    <Compile Include="badgerGrowerComponent.cs" />
     <Compile Include="badgerFloodComponent.cs" />
     <Compile Include="badgerFlowComponent.cs" />
     <Compile Include="badgerInfo.cs" />
@@ -93,6 +92,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_flows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_pimport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icons_pimport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_pimport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_floods.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_flows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_pshower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_pplacer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_pgeneric.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

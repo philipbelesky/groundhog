@@ -121,10 +121,25 @@
   <data name="generic_plants" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\generic_plants.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="icon_floods" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_floods.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icon_flora" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_flora.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_flows" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon_flows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\images\icon_flows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_pgeneric" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_pgeneric.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_pimport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_pimport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_pplacer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_pplacer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_pshower" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_pshower.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

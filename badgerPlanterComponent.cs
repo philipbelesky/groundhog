@@ -87,7 +87,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_flora;
+                return badger.Properties.Resources.icon_pplacer;
             }
         }
 

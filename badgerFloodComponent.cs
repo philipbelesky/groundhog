@@ -147,7 +147,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_flows;
+                return badger.Properties.Resources.icon_floods;
             }
         }
 
