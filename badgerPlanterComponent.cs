@@ -27,7 +27,7 @@ namespace badger
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plants", "P", "The plant objects to simulate", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Plants", "P", "The planting pallete from which to select from", GH_ParamAccess.list);
             pManager.AddSurfaceParameter("Area", "A", "The area in which to place the plants", GH_ParamAccess.item);
         }
 
