@@ -24,13 +24,16 @@ namespace badger
             int i;
             for (i = 0; i < splitKeys.Length; i = i + 1)
             {
-                dictionary.Add(splitKeys[i], splitValues[i]);
+                if (splitValues[i].Trim() != "")
+                {
+                    dictionary.Add(splitKeys[i].Trim(), splitValues[i].Trim());
+                }
             }
 
             return dictionary;
         }
 
-        public static PlantSpecies parseFromDictionary(Dictionary<string, string> speciesInstance)
+        public static Tuple<PlantSpecies, string> parseFromDictionary(Dictionary<string, string> speciesInstance)
         {
             string warnings = "";
             // Naming
@@ -48,131 +51,169 @@ namespace badger
             int displayR, displayG, displayB;
 
             if (speciesInstance.ContainsKey("Species Name")) {
-                speciesName = speciesInstance["Common Name"];
+                speciesName = speciesInstance["Species Name"];
             } else {
                 speciesName = "Unnamed";
-                warnings += "No Species name";
+                warnings += "no Species name; ";
             }
             if (speciesInstance.ContainsKey("Common Name")) {
                 commonName = speciesInstance["Common Name"];
             } else {
                 commonName = "Unnamed";
-                warnings += "No Common name";
+                warnings += "no Common name; ";
             }
             if (speciesInstance.ContainsKey("Indigenous Name")) {
                 indigenousName = speciesInstance["Indigenous Name"];
             } else {
                 indigenousName = "Unnamed";
-                warnings += "No Indigenous name";
+                warnings += "no Indigenous name; ";
             }
             
             if (speciesInstance.ContainsKey("Time to Maturity")) {
                 timetoMaturity = Convert.ToDouble(speciesInstance["Time to Maturity"]);
             } else {
                 timetoMaturity = 100.0;
-                warnings += "No Time to Maturity";
+                warnings += "no Time to Maturity; ";
             }
             if (speciesInstance.ContainsKey("Death Rate")) {
                 deathRate = Convert.ToDouble(speciesInstance["Death Rate"]);
             } else {
                 deathRate = 10.0;
-                warnings += "No Death Rate";
+                warnings += "no Death Rate; ";
             }
             
             if (speciesInstance.ContainsKey("Relative Distribution")) {
                 relativeDistribution = Convert.ToDouble(speciesInstance["Relative Distribution"]);
             } else {
                 relativeDistribution = 1.0;
-                warnings += "No Relative Distribution";
+                warnings += "no Relative Distribution; ";
             }
             if (speciesInstance.ContainsKey("Spacing Radius")) {
                 requiredSpacingRadius = Convert.ToDouble(speciesInstance["Spacing Radius"]);
             } else {
                 requiredSpacingRadius = 1000.0;
-                warnings += "No Relative Distribution";
+                warnings += "no Spacing Radius; ";
             }
             if (speciesInstance.ContainsKey("Cost")) {
                 cost = Convert.ToDouble(speciesInstance["Cost"]);
             } else {
                 cost = 10.0;
-                warnings += "No Cost";
+                warnings += "no Cost; ";
             }
             
             if (speciesInstance.ContainsKey("Initial Crown Radius")) {
                 initialCrownRadius = Convert.ToDouble(speciesInstance["Initial Crown Radius"]);
             } else {
                 initialCrownRadius = 10.0;
-                warnings += "No Initial Crown Radius";
+                warnings += "no Initial Crown Radius; ";
             }            
             if (speciesInstance.ContainsKey("Mature Crown Radius")) {
                 matureCrownRadius = Convert.ToDouble(speciesInstance["Mature Crown Radius"]);
             } else {
                 matureCrownRadius = 10.0;
-                warnings += "No Mature Crown Radius";
+                warnings += "no Mature Crown Radiu; s";
             } 
             if (speciesInstance.ContainsKey("Crown Variance")) {
                 varianceCrownRadius = Convert.ToDouble(speciesInstance["Crown Variance"]);
             } else {
                 varianceCrownRadius = 10.0;
-                warnings += "No Crown Variance";
+                warnings += "no Crown Variance; ";
             }
-            
+
+
+            if (speciesInstance.ContainsKey("Initial Trunk Radius"))
+            {
+                initialTrunkRadius = Convert.ToDouble(speciesInstance["Initial Trunk Radius"]);
+            }
+            else
+            {
+                initialTrunkRadius = 10.0;
+                warnings += "no Initial Trunk Radius; ";
+            }
+            if (speciesInstance.ContainsKey("Mature Height"))
+            {
+                matureTrunkRadius = Convert.ToDouble(speciesInstance["Mature Trunk Radius"]);
+            }
+            else
+            {
+                matureTrunkRadius = 100.0;
+                warnings += "no Mature Trunk Radius; ";
+            }
+            if (speciesInstance.ContainsKey("Trunk Variance"))
+            {
+                varianceTrunkRadius = Convert.ToDouble(speciesInstance["Trunk Variance"]);
+            }
+            else
+            {
+                varianceTrunkRadius = 10.0;
+                warnings += "no Trunk Variance; ";
+            }
+
+            if (speciesInstance.ContainsKey("Initial Height"))
+            {
+                initialHeight = Convert.ToDouble(speciesInstance["Initial Height"]);
+            }
+            else
+            {
+                initialHeight = 1000.0;
+                warnings += "no Initial Height; ";
+            }
+            if (speciesInstance.ContainsKey("Mature Height"))
+            {
+                matureHeight = Convert.ToDouble(speciesInstance["Mature Height"]);
+            }
+            else
+            {
+                matureHeight = 1000.0;
+                warnings += "no Mature Height; ";
+            }
+            if (speciesInstance.ContainsKey("Height Variance"))
+            {
+                varianceHeight = Convert.ToDouble(speciesInstance["Height Variance"]);
+            }
+            else
+            {
+                varianceHeight = 10.0;
+                warnings += "no Height Variance; ";
+            }
+
             if (speciesInstance.ContainsKey("Initial Root Radius")) {
-                initialRootRadius = Convert.ToDouble(speciesInstance["Crown Variance"]);
+                initialRootRadius = Convert.ToDouble(speciesInstance["Initial Root Radius"]);
             } else {
                 initialRootRadius = 1000.0;
-                warnings += "No Initial Root Radius";
+                warnings += "no Initial Root Radius; ";
             }
             if (speciesInstance.ContainsKey("Mature Root Radius")) {
                 matureRootRadius = Convert.ToDouble(speciesInstance["Mature Root Radius"]);
             } else {
                 matureRootRadius = 1000.0;
-                warnings += "No Mature Root Radius";
+                warnings += "no Mature Root Radius; ";
             }
             if (speciesInstance.ContainsKey("Root Variance")) {
                 varianceRootRadius = Convert.ToDouble(speciesInstance["Root Variance"]);
             } else {
                 varianceRootRadius = 10.0;
-                warnings += "No Root Variance";
+                warnings += "no Root Variance; ";
             }
-
             
-            if (speciesInstance.ContainsKey("Initial Height")) {
-                initialHeight = Convert.ToDouble(speciesInstance["Initial Height"]);
-            } else {
-                initialHeight = 1000.0;
-                warnings += "No Initial Height";
-            }
-            if (speciesInstance.ContainsKey("Mature Height")) {
-                matureHeight = Convert.ToDouble(speciesInstance["Mature Height"]);
-            } else {
-                matureHeight = 1000.0;
-                warnings += "No Mature Height";
-            }
-            if (speciesInstance.ContainsKey("Height Variance")) {
-                varianceHeight = Convert.ToDouble(speciesInstance["Height Variance"]);
-            } else {
-                varianceHeight = 10.0;
-                warnings += "No Height Variance";
-            }
             
             if (speciesInstance.ContainsKey("Display R")) {
-                initialHeight = Convert.ToInt16(speciesInstance["Display R"]);
+                displayR = Convert.ToInt16(speciesInstance["Display R"]);
             } else {
-                initialHeight = 100;
-                warnings += "No Display R";
+                displayR = 100;
+                warnings += "no Display R; ";
             }
             if (speciesInstance.ContainsKey("Display G")) {
-                matureHeight = Convert.ToInt16(speciesInstance["Display G"]);
+                displayG = Convert.ToInt16(speciesInstance["Display G"]);
             } else {
-                matureHeight = 255;
-                warnings += "Display G";
+                displayG = 255;
+                warnings += "no Display G; ";
             }
             if (speciesInstance.ContainsKey("Display B")) {
-                varianceHeight = Convert.ToInt16(speciesInstance["Display B"]);
+                displayB = Convert.ToInt16(speciesInstance["Display B"]);
             } else {
-                varianceHeight = 100;
-                warnings += "No Display B";
+                displayB = 100;
+                warnings += "no Display B; ";
             }
 
             PlantSpecies initialisedSpecies = new PlantSpecies(
@@ -186,7 +227,7 @@ namespace badger
                 displayR: displayR, displayG: displayG, displayB: displayB                
             );
 
-            return initialisedSpecies;
+            return Tuple.Create(initialisedSpecies, warnings);
         }
 
 

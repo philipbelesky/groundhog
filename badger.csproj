@@ -88,6 +88,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\generic_plants.csv" />
     <None Include="Resources\icon_flora.png" />
   </ItemGroup>
   <ItemGroup>
