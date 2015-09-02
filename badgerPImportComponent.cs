@@ -48,28 +48,30 @@ namespace badger
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            List<string> CSV_CONTENTS = new List<string>();
+            List<string> csvContents = new List<string>();
 
             // Access and extract data from the input parameters individually
-            if (!DA.GetDataList(0, CSV_CONTENTS)) return;
+            if (!DA.GetDataList(0, csvContents)) return;
 
             // Create holder variables for output parameters
             List<PlantSpecies> csvPlantSpecies = new List<PlantSpecies>();
 
             // Format
-            string csvHeaders = CSV_CONTENTS[0];
-            CSV_CONTENTS.Remove(csvHeaders);
-            //Rhino.RhinoApp.WriteLine("headers: {0}", csvHeaders);
+            string csvHeaders = csvContents[0];
+            csvContents.Remove(csvHeaders);
 
-            List<string> csvValues = CSV_CONTENTS;
-            foreach (string csvValue in csvValues)
+            foreach (string csvValue in csvContents)
             {
-                //Rhino.RhinoApp.WriteLine("__________");
-                //Rhino.RhinoApp.WriteLine("  importing {0}", csvValue);
                 Dictionary<string, string> instanceDictionary = PlantFactory.parseToDictionary(csvHeaders, csvValue);
-                //Rhino.RhinoApp.WriteLine("  made dictionary {0}", instanceDictionary.Values.ToString());
-                PlantSpecies instanceSpecies = PlantFactory.parseFromDictionary(instanceDictionary);
-                //Rhino.RhinoApp.WriteLine("  made species {0}", instanceSpecies.ToString());
+                var createSpecies = PlantFactory.parseFromDictionary(instanceDictionary);
+
+                PlantSpecies instanceSpecies = createSpecies.Item1;
+                string instanceWarnings = createSpecies.Item2;
+                if (instanceWarnings.Length > 0)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
+                }
+
                 csvPlantSpecies.Add(instanceSpecies);
             }
 

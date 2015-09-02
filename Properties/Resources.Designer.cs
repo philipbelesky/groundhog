@@ -61,6 +61,17 @@ namespace badger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Species Name,Common Name,Indigenous Name,Time to Maturity,Death Rate,Relative Distribution,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Cost,Display R,Display G,Display B
+        ///Generic Shrub,,,25,1,1,750,500,3000,15,75,200,15,500,12500,15,150,2500,15,55,16,148,59
+        ///Generic Grass,,,50,1,3,750,500,1500,25,100,250,25,1000,16000,25,200, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string generic_plants {
+            get {
+                return ResourceManager.GetString("generic_plants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap icon_flora {

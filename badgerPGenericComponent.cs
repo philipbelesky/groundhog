@@ -51,20 +51,34 @@ namespace badger
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // Create holder variables for output parameters
-            //double DATUM, YEAR, RISE, SURGE;
-            //DATUM = YEAR = RISE = SURGE = 0;
 
-            // Access and extract data from the input parameters individually
-            //if (!DA.GetData(0, ref DATUM)) return;
+            List<PlantSpecies> csvPlantSpecies = new List<PlantSpecies>();
 
-            // TODO: determine if I need to do input validation here
+            string[] csvStrings = Properties.Resources.generic_plants.Split('\n');
+            List<string> csvContents = new List<string>(csvStrings);
 
-            // Create holder variables for output parameters
-            //PlaneSurface seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
+            string csvHeaders = csvContents[0];
+            csvContents.Remove(csvHeaders);
+
+            foreach (string csvValue in csvContents)
+            {
+                Dictionary<string, string> instanceDictionary = PlantFactory.parseToDictionary(csvHeaders, csvValue);
+                var createSpecies = PlantFactory.parseFromDictionary(instanceDictionary);
+
+                PlantSpecies instanceSpecies = createSpecies.Item1;
+                string instanceWarnings = createSpecies.Item2;
+                if (instanceWarnings.Length > 0)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
+                }
+
+                csvPlantSpecies.Add(instanceSpecies);
+            }
 
             // Assign variables to output parameters
-            //DA.SetData(0, seaLevel);
+            DA.SetData(0, csvPlantSpecies.Find(i => i.speciesName == "Generic Shrub"));
+            DA.SetData(1, csvPlantSpecies.Find(i => i.speciesName == "Generic Grass"));
+            DA.SetData(2, csvPlantSpecies.Find(i => i.speciesName == "Generic Tree"));
         }
 
 
