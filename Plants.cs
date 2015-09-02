@@ -11,6 +11,7 @@ using Rhino.Geometry;
 
 namespace badger
 {
+
     class PlantFactory
     {
 
@@ -262,8 +263,10 @@ namespace badger
         // Get geometry
         public Circle getCrown(Point3d location, double time)
         {
+            double height = getGrowth(this.initialHeight, this.matureHeight, time);
             double radius = getGrowth(this.initialCrownRadius, this.matureCrownRadius, time);
-            return new Circle(location, radius);
+            Point3d canopyLocation = new Point3d(location.X, location.Y, (location.Z + height));
+            return new Circle(canopyLocation, radius);
         }
         public Circle getRoot(Point3d location, double time)
         {
@@ -275,6 +278,21 @@ namespace badger
             double radius = getGrowth(this.initialTrunkRadius, this.matureTrunkRadius, time);
             return new Circle(location, radius);
         }
+        public Circle getSpacing(Point3d location)
+        {
+            return new Circle(location, this.requiredSpacingRadius);
+        }
+
+        public System.Drawing.Color getColour()
+        {
+            System.Drawing.Color colour = System.Drawing.Color.FromArgb(this.displayR, this.displayG, this.displayB);
+            return colour;
+        }
+        public GH_String getLabel()
+        {
+            return new GH_String(this.speciesName);
+        }
+
 
         #region properties
         public override GH_Exposure Exposure
