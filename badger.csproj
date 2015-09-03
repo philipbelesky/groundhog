@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="badgerFieldComponent.cs" />
     <Compile Include="badgerPlanterComponent.cs" />
     <Compile Include="badgerPImportComponent.cs" />
     <Compile Include="badgerPGenericComponent.cs" />
@@ -116,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images\icon_pgeneric.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_field.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
