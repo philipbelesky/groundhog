@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace badger
 {
-    public class badgerFloodComponent : GH_Component
+    public class badgerSeaFloodComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -15,9 +15,9 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerFloodComponent()
-            : base("Flood Simulator", "Floods",
-                "Examine flooding levels along a surface",
+        public badgerSeaFloodComponent()
+            : base("Sea Flood Simulator", "Sea Floods",
+                "Examine flooding levels along a surface from a tidal source",
                 "Badger", "Hydro")
         {
         }
@@ -158,7 +158,7 @@ namespace badger
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d0}"); }
+            get { return new Guid("{2d234bdc-ecaa-4cf7-815a-c8111d1798d0}"); }
         }
     }
 }
