@@ -31,6 +31,8 @@ namespace badger
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
             pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
             pManager[2].Optional = true;
+            pManager.AddNumberParameter("Jump", "J", "A vertical jump component to override small basin effects", GH_ParamAccess.item, 100.0);
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -38,8 +40,9 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("C", "C", "Flow paths", GH_ParamAccess.list);
-            pManager.AddPointParameter("P", "P", "Flow points", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Flow Paths", "F", "The paths of each simulated point", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Flow Catchments", "C", "The catchment zones based on adjacent end points", GH_ParamAccess.list);
+            pManager.AddPointParameter("Flow End Points", "P", "When each simulated point ends up", GH_ParamAccess.list);
 
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
@@ -114,6 +117,12 @@ namespace badger
                     {
                         // If the input and output points are the same its a local maxima / basin
                         AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Breaking due to local maxima");
+                        break;
+                    }
+                    else if (Math.Abs(flowEnd.Z - flowStart.Z) <= Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
+                    {
+                         // If the Z hasn't changed significantly its also probably trapped
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Breaking due to flat plane maxima");
                         break;
                     }
                     else

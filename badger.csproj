@@ -69,8 +69,9 @@
     <Compile Include="badgerPlanterComponent.cs" />
     <Compile Include="badgerPImportComponent.cs" />
     <Compile Include="badgerPGenericComponent.cs" />
+    <Compile Include="badgerRiverFloodComponent.cs" />
     <Compile Include="badgerShowerComponent.cs" />
-    <Compile Include="badgerFloodComponent.cs" />
+    <Compile Include="badgerSeaFloodComponent.cs" />
     <Compile Include="badgerFlowComponent.cs" />
     <Compile Include="badgerInfo.cs" />
     <Compile Include="Plants.cs" />
