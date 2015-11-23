@@ -8,3 +8,7 @@
 *.vbproj merge=union
 *.fsproj merge=union
 *.dbproj merge=union
+
+# For LFS
+
+*.3dm filter=lfs -text
