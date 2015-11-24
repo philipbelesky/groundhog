@@ -17,7 +17,7 @@ namespace badger
         /// </summary>
         public badgerContourClipComponent()
             : base("Contour Clip", "Contour Clip",
-                "Checks contours are planar, corrects them if not",
+                "Checks contours meet a specific boundary, otherwise extend/trim them",
                 "Badger", "Terrain")
         {
         }
@@ -38,8 +38,8 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Contours", "C", "The clipped contours", GH_ParamAccess.list); 
-            pManager.AddCurveParameter("Failed Contours", "F", "The contours that couldn't be clipped", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Contours", "C", "The clipped contours", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Edged Contours", "E", "All contours with edges following the boundary ", GH_ParamAccess.list);
          }
 
         /// <summary>
@@ -59,11 +59,14 @@ namespace badger
 
             // Create holder variables for ouput parameters
             List<Curve> fixedContours = new List<Curve>();
-            List<Curve> failedContours = new List<Curve>();
+            List<Curve> edgedContours = new List<Curve>();
 
+
+            // Get lowest point
             List<double> heightGuages = new List<double>();
-            foreach (Curve curve in ALL_CONTOURS) {
-              heightGuages.Add(curve.PointAtEnd.Z);
+            foreach (Curve curve in ALL_CONTOURS)
+            {
+                heightGuages.Add(curve.PointAtEnd.Z);
             }
             heightGuages.Sort();
 
@@ -73,12 +76,17 @@ namespace badger
             // Move plane to lowest point
             double boundaryZ = BOUNDARY.PointAtEnd.Z;
             double boundaryMove;
-            if (boundaryZ < contourLow) {
-              boundaryMove = boundaryZ - contourLow;
-            } else if (boundaryZ > contourLow) {
-              boundaryMove = contourLow - boundaryZ;
-            } else {
-              boundaryMove = 0;
+            if (boundaryZ < contourLow)
+            {
+                boundaryMove = boundaryZ - contourLow;
+            }
+            else if (boundaryZ > contourLow)
+            {
+                boundaryMove = contourLow - boundaryZ;
+            }
+            else
+            {
+                boundaryMove = 0;
             }
 
             // Extrude up to highest - lowest
@@ -87,123 +95,162 @@ namespace badger
             Vector3d boundaryExtrusion = new Vector3d(0, 0, contourHigh - contourLow + 2);
             Surface boundarySrf = Surface.CreateExtrusion(BOUNDARY, boundaryExtrusion);
 
-            // Clip
-            double tolerance = Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+            // End Point Clipping
             foreach (Curve curve in ALL_CONTOURS)
             {
-                Rhino.Geometry.Intersect.CurveIntersections ci = Rhino.Geometry.Intersect.Intersection.CurveSurface(curve, boundarySrf, tolerance, tolerance);
-
-                if (ci.Count > 2)
+                Curve curveWithEndClipped;
+                if (curve.IsClosed == false)
                 {
-                    if (ci.Count % 2 == 0)
-                    {
-                        List<Curve> insideSegments = new List<Curve>();
-                        for (int i = 0; i < ci.Count; i = i + 2)
-                        {
-                            Curve trim = curve.Trim(ci[i].OverlapA.T0, ci[i + 1].OverlapA.T1);
-                            insideSegments.Add(trim);
-                        }
-                        foreach (Curve segment in insideSegments)
-                        {
-                            fixedContours.Add(segment);
-                        }
-                    }
-                    else
-                    {
-                        failedContours.Add(curve);
-                        //Print("2+ odd");
-                        //is odd
-                    }
-
+                    Curve curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
+                    curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY, boundarySrf);
                 }
-                else if (ci.Count == 2)
+                else
                 {
-                    // Simple two point overlap
-                    Curve trim = curve.Trim(ci[0].OverlapA.T0, ci[1].OverlapA.T1);
-                    fixedContours.Add(trim);
+                    curveWithEndClipped = curve;
                 }
-                else if (ci.Count == 1)
+
+                List<Curve> curveWithMiddlesClipped = clipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
+                foreach (Curve curveClip in curveWithMiddlesClipped)
                 {
-                    //Print("1");
-
-                    // Split into two; grab the larger inner end
-                    Curve[] splitCurves = curve.Split(ci[0].OverlapA.T0);
-                    Curve insideSegment;
-                    if (splitCurves[0].GetLength() > splitCurves[1].GetLength())
-                    {
-                        insideSegment = splitCurves[0];
-                    }
-                    else
-                    {
-                        insideSegment = splitCurves[1];
-                    }
-
-                    // TODO: deduplicate this with the below function
-                    double u;
-                    double v;
-
-                    Point3d start = insideSegment.PointAtStart;
-                    boundarySrf.ClosestPoint(start, out u, out v);
-                    Point3d srfStartEnd = boundarySrf.PointAt(u, v);
-                    Line startCrv = new Line(start, srfStartEnd);
-
-                    Point3d end = insideSegment.PointAtEnd;
-                    boundarySrf.ClosestPoint(end, out u, out v);
-                    Point3d srfEndEnd = boundarySrf.PointAt(u, v);
-                    Line endCrv = new Line(end, srfEndEnd);
-
-                    var toJoin = new List<Curve> { startCrv.ToNurbsCurve(), insideSegment, endCrv.ToNurbsCurve() };
-                    Curve[] joinedCrv = Curve.JoinCurves(toJoin);
-
-                    if (joinedCrv.Length == 1)
-                    {
-                        fixedContours.Add(joinedCrv[0]); // Its an island; no need to intersect
-                    }
-
-                    // Extend both
-
-                }
-                else if (ci.Count == 0)
-                {
-                    if (curve.IsClosed == true)
-                    {
-                        fixedContours.Add(curve); // Its an island; no need to intersect
-                    }
-                    else
-                    {
-                        double u;
-                        double v;
-
-                        Point3d start = curve.PointAtStart;
-                        boundarySrf.ClosestPoint(start, out u, out v);
-                        Point3d srfStartEnd = boundarySrf.PointAt(u, v);
-                        Line startCrv = new Line(start, srfStartEnd);
-
-                        Point3d end = curve.PointAtEnd;
-                        boundarySrf.ClosestPoint(end, out u, out v);
-                        Point3d srfEndEnd = boundarySrf.PointAt(u, v);
-                        Line endCrv = new Line(end, srfEndEnd);
-
-                        var toJoin = new List<Curve> { startCrv.ToNurbsCurve(), curve, endCrv.ToNurbsCurve() };
-                        Curve[] joinedCrv = Curve.JoinCurves(toJoin);
-
-                        if (joinedCrv.Length == 1)
-                        {
-                            fixedContours.Add(joinedCrv[0]); // Its an island; no need to intersect
-                        }
-
-                    }
-                    // Extend both
+                    fixedContours.Add(curveClip);
                 }
 
             }
 
             // Assign variables to output parameters
             DA.SetDataList(0, fixedContours);
-            DA.SetDataList(1, failedContours);
+            DA.SetDataList(1, edgedContours);
         }
 
 
+        private Curve clipCurveTerminus(Curve initialCurve, Point3d point, Curve BOUNDARY, Surface boundarySrf)
+        {
+            // Test, for a particular point where it is in relation to boundary and clip curve accordingly
+
+            Point3d testPoint = new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
+
+            Rhino.Geometry.PointContainment pointContainment = BOUNDARY.Contains(testPoint);
+
+            if (pointContainment.ToString() == "Inside")
+            {
+                // Extend
+                Curve extendedCurve = extendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
+                return extendedCurve;
+
+            }
+            else
+            {
+                return initialCurve;
+            }
+
+        }
+
+        private Curve clipCurveEndsToBoundary(Curve initialCurve, Point3d targetPoint, Surface boundarySrf)
+        {
+            double tolerance = Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+            Curve trimmedCurveEnds;
+
+            // Find where the boundary and curve intersect
+            Curve[] intersectCurves;
+            Point3d[] intersectPoints;
+            Rhino.Geometry.Intersect.Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, out intersectCurves, out intersectPoints);
+
+            // Get closest point from intersections and its parameters
+            double? minimumDistance = null;
+            int index = -1;
+            for (int i = 0; i < intersectPoints.Length; i++)
+            {
+                double thisNum = intersectPoints[i].DistanceTo(targetPoint);
+                if (!minimumDistance.HasValue || thisNum < minimumDistance.Value)
+                {
+                    minimumDistance = thisNum;
+                    index = i;
+                }
+            }
+            Point3d closestPoint = intersectPoints[index];
+            double startTrim;
+            initialCurve.ClosestPoint(closestPoint, out startTrim, 0); // Get Paramter of Intersection
+
+            // Trim the curve bit that over extends
+            if (startTrim != 0.0)
+            {
+                // Is the intersection closer to the start or end curve parameter?
+                double t0Distance = initialCurve.PointAt(initialCurve.Domain.T0).DistanceTo(targetPoint);
+                double t1Distance = initialCurve.PointAt(initialCurve.Domain.T1).DistanceTo(targetPoint);
+
+                // Trim off the useless bit
+                if (t0Distance > t1Distance)
+                {
+                    // If its closest to the start of the curve we delete before t0, and keep after intersect
+                    trimmedCurveEnds = initialCurve.Trim(initialCurve.Domain.T0, startTrim);
+                }
+                else
+                {
+                    // If its closest to the end of the curve we delete before t0, and keep after intersect
+                    trimmedCurveEnds = initialCurve.Trim(startTrim, initialCurve.Domain.T1);
+                }
+
+            }
+            else
+            {
+                trimmedCurveEnds = initialCurve;
+            }
+
+            return trimmedCurveEnds;
+
+        }
+
+        private Curve extendCurveTerminusToBoundary(Curve initialCurve, Point3d startPoint, Surface boundarySrf)
+        {
+            double u;
+            double v;
+            boundarySrf.ClosestPoint(startPoint, out u, out v);
+            Point3d srftEndPoint = boundarySrf.PointAt(u, v);
+
+            Line connectingCurve = new Line(startPoint, srftEndPoint);
+            List<Curve> bothCurves = new List<Curve> { connectingCurve.ToNurbsCurve(), initialCurve };
+            Curve[] joinedCurve = Curve.JoinCurves(bothCurves);
+
+            if (joinedCurve.Length == 1)
+            {
+                return joinedCurve[0]; // Its an island; no need to intersect
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        private List<Curve> clipMeanderingCurvesToBoundary(Curve initialCurve, Curve BOUNDARY, Surface boundarySrf)
+        {
+            double tolerance = Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+            List<Curve> returnCurves = new List<Curve>();
+
+            Curve[] splitCurves = initialCurve.Split(boundarySrf, tolerance);
+
+            if (splitCurves.Length > 0)
+            {
+                for (int i = 0; i < splitCurves.Length; i = i + 1)
+                {
+                    Point3d testPoint = splitCurves[i].PointAt(splitCurves[i].Domain.Mid);
+                    testPoint.Z = BOUNDARY.PointAtEnd.Z;
+
+                    Rhino.Geometry.PointContainment pointContainment = BOUNDARY.Contains(testPoint);
+
+                    if (pointContainment.ToString() == "Inside")
+                    {
+                        returnCurves.Add(splitCurves[i]);
+                    }
+                }
+            }
+            else
+            {
+                returnCurves.Add(initialCurve);
+            }
+            return returnCurves;
+
+        }
 
            /// <summary>
         /// The Exposure property controls where in the panel a component icon 
