@@ -30,7 +30,6 @@ namespace badger
             pManager.AddSurfaceParameter("Surface", "S", "Base surface for the flows", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
             pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
-            pManager[2].Optional = true;
             pManager.AddNumberParameter("Jump", "J", "A vertical jump component to override small basin effects", GH_ParamAccess.item, 100.0);
             pManager[3].Optional = true;
         }
@@ -75,11 +74,6 @@ namespace badger
             if (FLOW_ORIGINS.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 2");
-                return;
-            }
-            if (FLOW_FIDELITY == 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 3");
                 return;
             }
 
@@ -148,7 +142,7 @@ namespace badger
 
             // Assign variables to output parameters
             DA.SetDataList(0, allFlowPaths);
-            DA.SetDataList(1, allFlowSteps);
+            DA.SetDataList(2, allFlowSteps);
         }
 
         private Tuple<double, double> getClosestUVOnSurface(Surface FLOW_SURFACE, Point3d point)

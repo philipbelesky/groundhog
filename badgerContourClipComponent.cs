@@ -31,6 +31,8 @@ namespace badger
             pManager[0].Optional = false;
             pManager.AddCurveParameter("Boundary", "B", "The boundary rectangle to clip to", GH_ParamAccess.item);
             pManager[1].Optional = false;
+            pManager.AddBooleanParameter("Create PlanarSrfs", "P", "Whether to create planar surfaces; may be slow with large quantities of contours!", GH_ParamAccess.item);
+            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -39,7 +41,8 @@ namespace badger
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddCurveParameter("Contours", "C", "The clipped contours", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Edged Contours", "E", "All contours with edges following the boundary ", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Edged Contours", "E", "All contours with edges following the boundary", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Planar Surfaces", "P", "Edge contours as planar surfaces (must be toggled on)", GH_ParamAccess.list);
          }
 
         /// <summary>
@@ -52,15 +55,17 @@ namespace badger
             // Create holder variables for input parameters
             List<Curve> ALL_CONTOURS = new List<Curve>();
             Curve BOUNDARY = default(Curve);
-            
+            bool CREATE_SRFS = false;
+         
             // Access and extract data from the input parameters individually
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
             if (!DA.GetData(1, ref BOUNDARY)) return;
+            DA.GetData(2, ref CREATE_SRFS);
 
             // Create holder variables for ouput parameters
             List<Curve> fixedContours = new List<Curve>();
             List<Curve> edgedContours = new List<Curve>();
-
+            List<Brep> planarSrfs = new List<Brep>();
 
             // Get lowest point
             List<double> heightGuages = new List<double>();
@@ -113,13 +118,29 @@ namespace badger
                 foreach (Curve curveClip in curveWithMiddlesClipped)
                 {
                     fixedContours.Add(curveClip);
-                }
+                    Curve edgedContour = getBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
+                    edgedContours.Add(edgedContour);
 
+                }
+                
             }
+
+            if (CREATE_SRFS == true)
+            {
+                Curve[] allContours = edgedContours.ToArray();
+                Brep[] planarSrfsArray = new Brep[allContours.Length - 1];
+                System.Threading.Tasks.Parallel.For(0, allContours.Length - 1, i => // Shitty multithreading
+                {
+                    Brep[] planarSurfaces = Rhino.Geometry.Brep.CreatePlanarBreps(allContours[i]); // Create planar surfaces
+                    planarSrfsArray[i] = planarSurfaces[0];
+                });
+                planarSrfs = new List<Brep>(planarSrfsArray); // Probably unecessary
+            }                
 
             // Assign variables to output parameters
             DA.SetDataList(0, fixedContours);
             DA.SetDataList(1, edgedContours);
+            DA.SetDataList(2, planarSrfs);
         }
 
 
@@ -246,6 +267,38 @@ namespace badger
                 returnCurves.Add(initialCurve);
             }
             return returnCurves;
+
+        }
+
+        private Curve getBoundedContour(Curve initialCurve, Curve BOUNDARY)
+        {
+            double tolerance = Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+
+            // Move the boundary down to the same plane so we can do a curve curve intersection
+            BOUNDARY.Transform(Transform.Translation(new Vector3d(0, 0, initialCurve.PointAtEnd.Z - BOUNDARY.PointAtEnd.Z)));
+
+            Rhino.Geometry.Intersect.CurveIntersections ccx = Rhino.Geometry.Intersect.Intersection.CurveCurve(initialCurve, BOUNDARY, tolerance, tolerance);
+
+            if (ccx.Count > 0)
+            {
+                Curve innerEdgeA = BOUNDARY.Trim(ccx[0].ParameterB, ccx[1].ParameterB); // remove before t0; after t1
+                Curve innerEdgeB = BOUNDARY.Trim(ccx[1].ParameterB, ccx[0].ParameterB); // remove before t0; after t1
+
+                // This is going to be incorrect sometimes, but we want to get the shorter of the two pieces
+                if (innerEdgeA.GetLength() >= innerEdgeB.GetLength())
+                {
+                    Curve[] innerEdge = Curve.JoinCurves(new Curve[] { innerEdgeB, initialCurve }, tolerance);
+                    return innerEdge[0];
+                }
+                else
+                {
+                    Curve[] innerEdge = Curve.JoinCurves(new Curve[] { innerEdgeA, initialCurve }, tolerance);
+                    return innerEdge[0];
+                }
+            } else 
+            {
+                return initialCurve;
+            }
 
         }
 

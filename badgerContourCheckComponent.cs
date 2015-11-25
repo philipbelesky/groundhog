@@ -17,7 +17,7 @@ namespace badger
         /// </summary>
         public badgerContourCheckComponent()
             : base("Contour Fix", "Contour Fix",
-                "Checks contours are planar, corrects them if not",
+                "Checks contours are planar and corrects them if not",
                 "Badger", "Terrain")
         {
         }
