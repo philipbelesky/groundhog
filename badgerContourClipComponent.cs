@@ -202,23 +202,20 @@ namespace badger
 
         private Curve extendCurveTerminusToBoundary(Curve initialCurve, Point3d startPoint, Surface boundarySrf)
         {
-            double u;
-            double v;
-            boundarySrf.ClosestPoint(startPoint, out u, out v);
-            Point3d srftEndPoint = boundarySrf.PointAt(u, v);
 
-            Line connectingCurve = new Line(startPoint, srftEndPoint);
-            List<Curve> bothCurves = new List<Curve> { connectingCurve.ToNurbsCurve(), initialCurve };
-            Curve[] joinedCurve = Curve.JoinCurves(bothCurves);
+            Brep[] boundaryCollision = new Brep[] { boundarySrf.ToBrep() };
 
-            if (joinedCurve.Length == 1)
+            Curve extendedCurve;
+            if (startPoint.DistanceTo(initialCurve.PointAtEnd) == 0)
             {
-                return joinedCurve[0]; // Its an island; no need to intersect
+                extendedCurve = initialCurve.Extend(CurveEnd.End, CurveExtensionStyle.Smooth, boundaryCollision);
             }
             else
             {
-                return null;
+                extendedCurve = initialCurve.Extend(CurveEnd.Start, CurveExtensionStyle.Smooth, boundaryCollision);
             }
+            
+            return extendedCurve;
 
         }
 
