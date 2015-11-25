@@ -61,7 +61,6 @@ namespace badger
             if (!DA.GetDataList(2, areas)) return;
 
             // Create holder variables for output parameters
-            Surface field; // temp
 
             // Assign variables to output parameters
             //DA.SetData(0, field);
