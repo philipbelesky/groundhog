@@ -143,6 +143,7 @@ namespace badger
             // Assign variables to output parameters
             DA.SetDataList(0, allFlowPaths);
             DA.SetDataList(2, allFlowSteps);
+
         }
 
         private Tuple<double, double> getClosestUVOnSurface(Surface FLOW_SURFACE, Point3d point)

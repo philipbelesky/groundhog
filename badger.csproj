@@ -76,6 +76,7 @@
     <Compile Include="badgerContourCheckComponent.cs" />
     <Compile Include="badgerFlowComponent.cs" />
     <Compile Include="badgerInfo.cs" />
+    <Compile Include="badgerMeshGradeComponent.cs" />
     <Compile Include="Plants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
