@@ -12,3 +12,4 @@
 # For LFS
 
 *.3dm filter=lfs -text
+.3dm filter=lfs diff=lfs merge=lfs -text
