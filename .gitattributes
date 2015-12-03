@@ -10,5 +10,6 @@
 *.dbproj merge=union
 # For LFS
 *.3dm filter=lfs -text
+.3dm filter=lfs diff=lfs merge=lfs -text
 site/**/*.png filter=lfs diff=lfs merge=lfs -text
 site/**/*.jpg filter=lfs diff=lfs merge=lfs -text
