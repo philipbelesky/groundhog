@@ -27,11 +27,12 @@ namespace badger
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "S", "Base surface for the flows", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface or Mesh", "L", "Base landscape (surface of mesh) for the flows", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
             pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
-            pManager.AddNumberParameter("Jump", "J", "A vertical jump component to override small basin effects", GH_ParamAccess.item, 100.0);
+            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the calculation", GH_ParamAccess.item, false);
             pManager[3].Optional = true;
+
         }
 
         /// <summary>
@@ -39,9 +40,8 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Flow Paths", "F", "The paths of each simulated point", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Flow Catchments", "C", "The catchment zones based on adjacent end points", GH_ParamAccess.list);
-            pManager.AddPointParameter("Flow End Points", "P", "When each simulated point ends up", GH_ParamAccess.list);
+            pManager.AddPointParameter("Flow Points", "F", "The points of each simulated point of movement", GH_ParamAccess.tree);
+            pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each point", GH_ParamAccess.tree);
 
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
@@ -56,143 +56,189 @@ namespace badger
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            Surface FLOW_SURFACE = default(Surface);
+            System.Object FLOW_LANDSCAPE;
             List<Point3d> FLOW_ORIGINS = new List<Point3d>();
-            double FLOW_FIDELITY = 0.0;
-
+            double FLOW_FIDELITY = 1000.0;
+            
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref FLOW_SURFACE)) return;
+            if (!DA.GetData(0, ref FLOW_LANDSCAPE)) return;
             if (!DA.GetDataList(1, FLOW_ORIGINS)) return;
             if (!DA.GetData(2, ref FLOW_FIDELITY)) return;
 
-            // We should now validate the data and warn the user if invalid data is supplied.
-            if (FLOW_SURFACE == default(Surface))
+            Point3d[] startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading
+            List<Point3d>[] allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
+            List<Point3d> flowPoints = new List<Point3d>();
+
+            Brep FLOW_SURFACE = default(Brep);
+            Mesh FLOW_MESH = default(Mesh);
+
+            if (FLOW_LANDSCAPE is Surface)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 1");
-                return;
+                FLOW_SURFACE = Brep.CreateFromSurface(FLOW_LANDSCAPE as Surface);
             }
-            if (FLOW_ORIGINS.Count == 0)
+            else if (FLOW_LANDSCAPE is Brep)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 2");
-                return;
+                FLOW_SURFACE = FLOW_LANDSCAPE as Brep;
             }
-
-            // Create holder variables for output parameters
-            List<Point3d> allFlowSteps = new List<Point3d>();
-            List<Curve> allFlowPaths = new List<Curve>();
-
-            var calculateTotal = System.Diagnostics.Stopwatch.StartNew();
-            
-            foreach (Point3d flowOrigin in FLOW_ORIGINS)
+            else if (FLOW_LANDSCAPE is Mesh)
             {
-                int iterations = 0;
-                List<Point3d> flowSteps = new List<Point3d>();
-                flowSteps.Add(flowOrigin);
-                Point3d flowStart = flowOrigin;
-
-                while (true)
-                {
-                    iterations++;
-
-                    Vector3d flowDirection = getFlowDirection(FLOW_SURFACE, flowStart);
-                    Point3d flowEnd = getFlowEnd(FLOW_SURFACE, flowStart, flowDirection, FLOW_FIDELITY);
-
-                    if (iterations > 1000)
-                    {
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Breaking due to iterations limit");
-                        break;
-                    }
-                    else if (flowEnd == default(Point3d))
-                    {
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Breaking due to point being off the surface");
-                        break;
-                    }
-                    else if (flowEnd.DistanceTo(flowStart) < Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
-                    {
-                        // If the input and output points are the same its a local maxima / basin
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Breaking due to local maxima");
-                        break;
-                    }
-                    else if (Math.Abs(flowEnd.Z - flowStart.Z) <= Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
-                    {
-                         // If the Z hasn't changed significantly its also probably trapped
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Breaking due to flat plane maxima");
-                        break;
-                    }
-                    else
-                    {
-                        flowSteps.Add(flowEnd);
-                        // Setup the next iteration
-                        flowStart = flowEnd;
-                    }
-
-                }
-
-                allFlowSteps.AddRange(flowSteps);
-
-                if (flowSteps.Count > 1)
-                {
-                    var flowPath = Curve.CreateInterpolatedCurve(flowSteps, 3);       
-                    allFlowPaths.Add(flowPath);
-                }
-
-            }
-
-            calculateTotal.Stop();
-
-            // Assign variables to output parameters
-            DA.SetDataList(0, allFlowPaths);
-            DA.SetDataList(2, allFlowSteps);
-
-        }
-
-        private Tuple<double, double> getClosestUVOnSurface(Surface FLOW_SURFACE, Point3d point)
-        {
-            double closestU, closestV;
-            FLOW_SURFACE.ClosestPoint(point, out closestU, out closestV);
-            return Tuple.Create(closestU, closestV);
-        }
-
-        private Point3d getClosestPointOnSurface(Surface FLOW_SURFACE, Point3d point)
-        {
-            var uv = getClosestUVOnSurface(FLOW_SURFACE, point);
-            Point3d closestPoint = FLOW_SURFACE.PointAt(uv.Item1, uv.Item2);
-            return closestPoint;
-        }
-
-        private Vector3d getFlowDirection(Surface FLOW_SURFACE, Point3d flowOrigin)
-        {
-            double rotationAngle = Rhino.RhinoMath.ToRadians(90);
-            var closestUV = getClosestUVOnSurface(FLOW_SURFACE, flowOrigin);
-
-            Vector3d flowNormal = FLOW_SURFACE.NormalAt(closestUV.Item1, closestUV.Item2);
-            Vector3d flowCrossProduct = Rhino.Geometry.Vector3d.CrossProduct(flowNormal, Vector3d.ZAxis);
-            flowCrossProduct.Rotate(rotationAngle, flowNormal);
-            flowCrossProduct.Unitize();
-            return flowCrossProduct;
-        }
-
-        private Point3d getFlowEnd(Surface FLOW_SURFACE, Point3d startPoint, Vector3d flowVector, double flowDistance)
-        {
-            // Apply the vector to the flow origin to get the flow end point
-            Vector3d flowVectorMagnitude = Rhino.Geometry.Vector3d.Multiply(flowVector, flowDistance);
-            var moveTranslation = Transform.Translation(flowVectorMagnitude);
-
-            Point3d endPoint = startPoint; // It's passing by value right?
-            endPoint.Transform(moveTranslation);
-
-            Point3d testPoint = getClosestPointOnSurface(FLOW_SURFACE, endPoint);
-
-            if (endPoint.DistanceTo(testPoint) > (flowDistance / 5))
-            {
-                // Return nothing if line has overshot the surface
-                return default(Point3d);
+                FLOW_MESH = FLOW_LANDSCAPE as Mesh;
             }
             else
             {
-                return endPoint;
+                // TODO: nope
             }
+
+            if (T == true)
+            {
+
+                System.Threading.Tasks.Parallel.For(0, startPoints.Length, i => // Shitty multithreading
+                //for (int i = 0; i < startPoints.Length; i = i + 1)
+                {
+                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], M);
+                }
+                  );
+
+            }
+            else
+            {
+
+                for (int i = 0; i < startPoints.Length; i = i + 1)
+                {
+                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], M);
+                }
+
+            }
+
+            Grasshopper.DataTree<System.Object> allFlowPathPointsTree = new Grasshopper.DataTree<System.Object>();
+            Grasshopper.DataTree<Polyline> allFlowPathCurvesTree = new Grasshopper.DataTree<Polyline>();
+
+            for (int i = 0; i < allFlowPathPoints.Length; i++)
+            {
+                GH_Path path = new GH_Path(i);
+
+                // For each flow path make the polyline
+                if (allFlowPathPoints[i].Count > 1)
+                {
+                    Polyline flowPath = new Polyline(allFlowPathPoints[i]);
+                    allFlowPathCurvesTree.Add(flowPath, path);
+                }
+
+                // And make a branch for the list of points
+                for (int j = 0; j < allFlowPathPoints[i].Count; j++)
+                {
+                    // For each flow path point
+                    allFlowPathPointsTree.Add(allFlowPathPoints[i][j], path);
+                }
+            }
+
+            // Assign variables to output parameters
+            DA.SetDataList(0, allFlowPathPointsTree);
+            DA.SetDataList(1, allFlowPathCurvesTree);
+
         }
+
+
+        private List<Point3d> dispatchFlowPoints(Brep FLOW_SURFACE, Mesh FLOW_MESH, Point3d initialStartPoint, double MOVE_DISTANCE)
+        {
+
+            List<Point3d> flowPoints = new List<Point3d>(); // Holds each step
+
+            bool usingMesh = (FLOW_MESH == default(Mesh)) ? false : true;
+
+            Point3d startPoint;
+            if (usingMesh)
+            {
+                startPoint = FLOW_MESH.ClosestPoint(initialStartPoint);
+            }
+            else
+            {
+                startPoint = FLOW_SURFACE.ClosestPoint(initialStartPoint);
+            }
+            flowPoints.Add(startPoint);
+
+            while (true)
+            {
+
+                Point3d nextPoint;
+                if (usingMesh)
+                {
+                    nextPoint = getNextFlowStepOnMesh(FLOW_MESH, startPoint, MOVE_DISTANCE);
+                }
+                else
+                {
+                    nextPoint = getNextFlowStepOnSurface(FLOW_SURFACE, startPoint, MOVE_DISTANCE);
+                }
+
+                if (nextPoint.DistanceTo(startPoint) <= Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
+                {
+                    break;  // Test the point has actully moved
+                }
+                else if (nextPoint.Z >= startPoint.Z)
+                {
+                    break;  // Test this point is actually lower
+                }
+                else
+                {
+                    flowPoints.Add(nextPoint);
+                    startPoint = nextPoint;  // Checks out; iterate on
+                }
+
+            }
+
+            return flowPoints;
+
+        }
+
+        private Point3d getNextFlowStepOnSurface(Brep FLOW_SURFACE, Point3d startPoint, double MOVE_DISTANCE)
+        {
+            double closestS, closestT;
+            double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
+            Vector3d closestNormal;
+            Rhino.Geometry.ComponentIndex closestCI;
+            Point3d closestPoint;
+
+            // Get closest point
+            FLOW_SURFACE.ClosestPoint(startPoint, out closestPoint, out closestCI, out closestS, out closestT, maximumDistance, out closestNormal);
+
+            // Get the vector to flow down
+            Vector3d flowVector = Rhino.Geometry.Vector3d.CrossProduct(Rhino.Geometry.Vector3d.ZAxis, closestNormal);
+            flowVector.Unitize();
+            flowVector.Reverse();
+            flowVector.Transform(Rhino.Geometry.Transform.Rotation(Math.PI / 2, closestNormal, closestPoint));
+
+            // Flow to the new point
+            Point3d nextFlowPoint = Point3d.Add(closestPoint, flowVector * MOVE_DISTANCE);
+
+            // Need to snap back to the surface (the vector may be pointing off the edge)
+            return FLOW_SURFACE.ClosestPoint(nextFlowPoint);
+
+        }
+
+        private Point3d getNextFlowStepOnMesh(Mesh FLOW_MESH, Point3d startPoint, double MOVE_DISTANCE)
+        {
+            double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
+            Vector3d closestNormal;
+            Point3d closestPoint;
+
+            // Get closest point
+            FLOW_MESH.ClosestPoint(startPoint, out closestPoint, out closestNormal, maximumDistance);
+
+            // Get the vector to flow down
+            Vector3d flowVector = Rhino.Geometry.Vector3d.CrossProduct(Rhino.Geometry.Vector3d.ZAxis, closestNormal);
+            flowVector.Unitize();
+            flowVector.Reverse();
+            flowVector.Transform(Rhino.Geometry.Transform.Rotation(Math.PI / 2, closestNormal, closestPoint));
+
+            // Flow to the new point
+            //Point3d nextFlowPoint = Point3d.Add(closestPoint, V * MOVE_DISTANCE);
+            Point3d nextFlowPoint = Point3d.Add(closestPoint, flowVector * MOVE_DISTANCE);
+
+            // Need to snap back to the surface (the vector may be pointing off the edge)
+            return FLOW_MESH.ClosestPoint(nextFlowPoint);
+
+        }
+
 
         /// <summary>
         /// The Exposure property controls where in the panel a component icon 
