@@ -24,6 +24,7 @@ namespace badger
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh", "M", "The terrain mesh", GH_ParamAccess.item);
+            pManager[0].Optional = false;
         }
 
         /// <summary>
@@ -50,6 +51,7 @@ namespace badger
             List<Mesh> subMeshes = Explode(M);
             List<double> subAngles = getAngles(M);
             List<Point3d> subCentres = getCenters(M);
+            
             List<Vector3d> subDirections = getDirections(subMeshes, subCentres);
 
             // Assign variables to output parameters

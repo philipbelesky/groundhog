@@ -56,14 +56,16 @@ namespace badger
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            System.Object FLOW_LANDSCAPE;
+            System.Object FLOW_LANDSCAPE = null;
             List<Point3d> FLOW_ORIGINS = new List<Point3d>();
             double FLOW_FIDELITY = 1000.0;
+            bool T = false;
             
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref FLOW_LANDSCAPE)) return;
             if (!DA.GetDataList(1, FLOW_ORIGINS)) return;
             if (!DA.GetData(2, ref FLOW_FIDELITY)) return;
+            if (!DA.GetData(3, ref FLOW_FIDELITY)) return;
 
             Point3d[] startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading
             List<Point3d>[] allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
@@ -94,10 +96,10 @@ namespace badger
 
                 System.Threading.Tasks.Parallel.For(0, startPoints.Length, i => // Shitty multithreading
                 //for (int i = 0; i < startPoints.Length; i = i + 1)
-                {
-                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], M);
-                }
-                  );
+                    {
+                        allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
+                    }
+                );
 
             }
             else
@@ -105,7 +107,7 @@ namespace badger
 
                 for (int i = 0; i < startPoints.Length; i = i + 1)
                 {
-                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], M);
+                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
                 }
 
             }
@@ -115,7 +117,8 @@ namespace badger
 
             for (int i = 0; i < allFlowPathPoints.Length; i++)
             {
-                GH_Path path = new GH_Path(i);
+
+                Grasshopper.Kernel.Data.GH_Path path = new Grasshopper.Kernel.Data.GH_Path(i);
 
                 // For each flow path make the polyline
                 if (allFlowPathPoints[i].Count > 1)
@@ -133,8 +136,8 @@ namespace badger
             }
 
             // Assign variables to output parameters
-            DA.SetDataList(0, allFlowPathPointsTree);
-            DA.SetDataList(1, allFlowPathCurvesTree);
+            DA.SetDataTree(0, allFlowPathPointsTree);
+            DA.SetDataTree(1, allFlowPathCurvesTree);
 
         }
 
