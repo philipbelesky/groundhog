@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 namespace badger
 {
-    public class badgerContourCheckComponent : GH_Component
+    public class badgerContourCheckPlanarityComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -15,8 +15,8 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerContourCheckComponent()
-            : base("Contour Fix", "Contour Fix",
+        public badgerContourCheckPlanarityComponent()
+            : base("Contour Planarity Fix", "Contour Planarity Fix",
                 "Checks contours are planar and corrects them if not",
                 "Badger", "Terrain")
         {
