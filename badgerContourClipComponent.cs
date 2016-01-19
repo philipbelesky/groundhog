@@ -61,7 +61,7 @@ namespace badger
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
             if (!DA.GetData(1, ref BOUNDARY)) return;
             DA.GetData(2, ref CREATE_SRFS);
-
+            
             // Create holder variables for ouput parameters
             List<Curve> fixedContours = new List<Curve>();
             List<Curve> edgedContours = new List<Curve>();
@@ -74,7 +74,7 @@ namespace badger
                 heightGuages.Add(curve.PointAtEnd.Z);
             }
             heightGuages.Sort();
-
+            
             double contourLow = heightGuages[0];
             double contourHigh = heightGuages[heightGuages.Count - 1];
 
@@ -93,7 +93,7 @@ namespace badger
             {
                 boundaryMove = 0;
             }
-
+            
             // Extrude up to highest - lowest
             BOUNDARY.Transform(Transform.Translation(new Vector3d(0, 0, boundaryMove - 1)));
 
@@ -103,28 +103,38 @@ namespace badger
             // End Point Clipping
             foreach (Curve curve in ALL_CONTOURS)
             {
-                Curve curveWithEndClipped;
-                if (curve.IsClosed == false)
+                if (curve.IsValid == false)
                 {
-                    Curve curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
-                    curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY, boundarySrf);
-                }
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A contour curve was not valid and has been skipped. You probably want to find and fix that curve.");
+                } 
                 else
                 {
-                    curveWithEndClipped = curve;
+
+                    Curve curveWithEndClipped;
+                    if (curve.IsClosed == false)
+                    {
+                        Curve curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
+                        curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY, boundarySrf);
+                    }
+                    else 
+                    {
+                        curveWithEndClipped = curve;
+                    }
+
+                    List<Curve> curveWithMiddlesClipped = clipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
+                    foreach (Curve curveClip in curveWithMiddlesClipped)
+                    {
+                        fixedContours.Add(curveClip);
+                        Curve edgedContour = getBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
+                        edgedContours.Add(edgedContour);
+                    }
+
                 }
 
-                List<Curve> curveWithMiddlesClipped = clipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
-                foreach (Curve curveClip in curveWithMiddlesClipped)
-                {
-                    fixedContours.Add(curveClip);
-                    Curve edgedContour = getBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
-                    edgedContours.Add(edgedContour);
 
-                }
                 
             }
-
+            
             if (CREATE_SRFS == true)
             {
                 Curve[] allContours = edgedContours.ToArray();
@@ -135,8 +145,8 @@ namespace badger
                     planarSrfsArray[i] = planarSurfaces[0];
                 });
                 planarSrfs = new List<Brep>(planarSrfsArray); // Probably unecessary
-            }                
-
+            }
+            
             // Assign variables to output parameters
             DA.SetDataList(0, fixedContours);
             DA.SetDataList(1, edgedContours);

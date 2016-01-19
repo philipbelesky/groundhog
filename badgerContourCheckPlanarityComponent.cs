@@ -36,8 +36,8 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("All Contours", "AC", "The contours that were fixed", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Fixed Contours", "FC", "The contours that were fixed", GH_ParamAccess.list);
+            pManager.AddCurveParameter("All Contours", "AC", "All contours whether or not they were fixed", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Fixed Contours", "FC", "Just the non-planar contours that were fixed", GH_ParamAccess.list);
         }
 
         /// <summary>
