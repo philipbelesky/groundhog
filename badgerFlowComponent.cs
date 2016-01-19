@@ -59,13 +59,13 @@ namespace badger
             System.Object FLOW_LANDSCAPE = null;
             List<Point3d> FLOW_ORIGINS = new List<Point3d>();
             double FLOW_FIDELITY = 1000.0;
-            bool T = false;
+            bool THREAD = false;
             
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref FLOW_LANDSCAPE)) return;
             if (!DA.GetDataList(1, FLOW_ORIGINS)) return;
             if (!DA.GetData(2, ref FLOW_FIDELITY)) return;
-            if (!DA.GetData(3, ref FLOW_FIDELITY)) return;
+            if (!DA.GetData(3, ref THREAD)) return;
 
             Point3d[] startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading
             List<Point3d>[] allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
@@ -91,7 +91,7 @@ namespace badger
                 // TODO: nope
             }
 
-            if (T == true)
+            if (THREAD == true)
             {
 
                 System.Threading.Tasks.Parallel.For(0, startPoints.Length, i => // Shitty multithreading
