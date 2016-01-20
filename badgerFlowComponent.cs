@@ -27,11 +27,14 @@ namespace badger
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface or Mesh", "L", "Base landscape (surface of mesh) for the flows", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as surface) for the flows", GH_ParamAccess.item);
+            pManager[0].Optional = true;
+            pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as mesh) for the flows", GH_ParamAccess.item);
+            pManager[1].Optional = true;
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
             pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
             pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the calculation", GH_ParamAccess.item, false);
-            pManager[3].Optional = true;
+            pManager[4].Optional = true;
 
         }
 
@@ -56,70 +59,59 @@ namespace badger
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            System.Object FLOW_LANDSCAPE = null;
+            Surface FLOW_SURFACE = default(Surface);
+            Mesh FLOW_MESH = default(Mesh);
             List<Point3d> FLOW_ORIGINS = new List<Point3d>();
             double FLOW_FIDELITY = 1000.0;
             bool THREAD = false;
             
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref FLOW_LANDSCAPE)) return;
-            if (!DA.GetDataList(1, FLOW_ORIGINS)) return;
-            if (!DA.GetData(2, ref FLOW_FIDELITY)) return;
-            if (!DA.GetData(3, ref THREAD)) return;
-
+            DA.GetData(0, ref FLOW_SURFACE);
+            DA.GetData(1, ref FLOW_MESH);
+            if (!DA.GetDataList(2, FLOW_ORIGINS)) return;
+            if (!DA.GetData(3, ref FLOW_FIDELITY)) return;
+            if (!DA.GetData(4, ref THREAD)) return;
+            
             Point3d[] startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading
             List<Point3d>[] allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
             List<Point3d> flowPoints = new List<Point3d>();
 
-            Brep FLOW_SURFACE = default(Brep);
-            Mesh FLOW_MESH = default(Mesh);
 
-            if (FLOW_LANDSCAPE is Surface)
+            if (FLOW_SURFACE != default(Surface) && FLOW_MESH != default(Mesh))
             {
-                FLOW_SURFACE = Brep.CreateFromSurface(FLOW_LANDSCAPE as Surface);
+                // TODO: stop the component running
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Chose to add either a surface or a mesh - not both!");
             }
-            else if (FLOW_LANDSCAPE is Brep)
-            {
-                FLOW_SURFACE = FLOW_LANDSCAPE as Brep;
-            }
-            else if (FLOW_LANDSCAPE is Mesh)
-            {
-                FLOW_MESH = FLOW_LANDSCAPE as Mesh;
-            }
-            else
-            {
-                // TODO: nope
+
+            Brep FLOW_BREP = default(Brep);
+            if (FLOW_SURFACE != default(Surface)) {
+                FLOW_BREP = FLOW_SURFACE.ToBrep();
             }
 
             if (THREAD == true)
             {
 
                 System.Threading.Tasks.Parallel.For(0, startPoints.Length, i => // Shitty multithreading
-                //for (int i = 0; i < startPoints.Length; i = i + 1)
                     {
-                        allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
+                        allFlowPathPoints[i] = dispatchFlowPoints(FLOW_BREP, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
                     }
                 );
 
             }
             else
             {
-
                 for (int i = 0; i < startPoints.Length; i = i + 1)
                 {
-                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_SURFACE, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
+                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_BREP, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
                 }
-
             }
-
+            
             Grasshopper.DataTree<System.Object> allFlowPathPointsTree = new Grasshopper.DataTree<System.Object>();
             Grasshopper.DataTree<Polyline> allFlowPathCurvesTree = new Grasshopper.DataTree<Polyline>();
 
             for (int i = 0; i < allFlowPathPoints.Length; i++)
             {
-
                 Grasshopper.Kernel.Data.GH_Path path = new Grasshopper.Kernel.Data.GH_Path(i);
-
                 // For each flow path make the polyline
                 if (allFlowPathPoints[i].Count > 1)
                 {
@@ -134,7 +126,7 @@ namespace badger
                     allFlowPathPointsTree.Add(allFlowPathPoints[i][j], path);
                 }
             }
-
+            
             // Assign variables to output parameters
             DA.SetDataTree(0, allFlowPathPointsTree);
             DA.SetDataTree(1, allFlowPathCurvesTree);
@@ -144,13 +136,24 @@ namespace badger
 
         private List<Point3d> dispatchFlowPoints(Brep FLOW_SURFACE, Mesh FLOW_MESH, Point3d initialStartPoint, double MOVE_DISTANCE)
         {
-
             List<Point3d> flowPoints = new List<Point3d>(); // Holds each step
 
-            bool usingMesh = (FLOW_MESH == default(Mesh)) ? false : true;
+            if (FLOW_MESH == default(Mesh) && FLOW_SURFACE == default(Brep))
+            { // If the mesh hasn't been set
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Both are null"); 
+            }
+            bool usingMesh;
+            if (FLOW_MESH == default(Mesh))
+            { // If the mesh hasn't been set
+                usingMesh = false;
+            }
+            else 
+            {
+                usingMesh = true;
+            }
 
             Point3d startPoint;
-            if (usingMesh)
+            if (usingMesh == true)
             {
                 startPoint = FLOW_MESH.ClosestPoint(initialStartPoint);
             }
@@ -159,6 +162,7 @@ namespace badger
                 startPoint = FLOW_SURFACE.ClosestPoint(initialStartPoint);
             }
             flowPoints.Add(startPoint);
+
 
             while (true)
             {
