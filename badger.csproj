@@ -68,6 +68,7 @@
     <Compile Include="badgerContourCheckGapsComponent.cs" />
     <Compile Include="badgerContourClipComponent.cs" />
     <Compile Include="badgerFieldComponent.cs" />
+    <Compile Include="badgerCatchmenComponent.cs" />
     <Compile Include="badgerPlanterComponent.cs" />
     <Compile Include="badgerPImportComponent.cs" />
     <Compile Include="badgerPGenericComponent.cs" />
