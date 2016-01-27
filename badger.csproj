@@ -65,27 +65,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="badgerContourCheckGapsComponent.cs" />
-    <Compile Include="badgerContourClipComponent.cs" />
-    <Compile Include="badgerFieldComponent.cs" />
-    <Compile Include="badgerCatchmenComponent.cs" />
-    <Compile Include="badgerPlanterComponent.cs" />
-    <Compile Include="badgerPImportComponent.cs" />
-    <Compile Include="badgerPGenericComponent.cs" />
-    <Compile Include="badgerRiverFloodComponent.cs" />
-    <Compile Include="badgerSeaFloodComponent.cs" />
-    <Compile Include="badgerShowerComponent.cs" />
-    <Compile Include="badgerContourCheckPlanarityComponent.cs" />
-    <Compile Include="badgerFlowComponent.cs" />
     <Compile Include="badgerInfo.cs" />
-    <Compile Include="badgerMeshGradeComponent.cs" />
-    <Compile Include="Plants.cs" />
+    <Compile Include="Hydro\badgerCatchmentComponent.cs" />
+    <Compile Include="Hydro\badgerFlowComponent.cs" />
+    <Compile Include="Hydro\badgerRiverFloodComponent.cs" />
+    <Compile Include="Hydro\badgerSeaFloodComponent.cs" />
+    <Compile Include="Mapping\badgerFieldComponent.cs" />
+    <Compile Include="Plants\badgerPGenericComponent.cs" />
+    <Compile Include="Plants\badgerPImportComponent.cs" />
+    <Compile Include="Plants\badgerPlanterComponent.cs" />
+    <Compile Include="Plants\badgerShowerComponent.cs" />
+    <Compile Include="Plants\Plants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Terrain\badgerContourCheckGapsComponent.cs" />
+    <Compile Include="Terrain\badgerContourCheckPlanarityComponent.cs" />
+    <Compile Include="Terrain\badgerContourClipComponent.cs" />
+    <Compile Include="Terrain\badgerMeshGradeComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -94,6 +94,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hydro\Floods Examples.3dm" />
+    <None Include="Hydro\Floods Examples.gh" />
+    <None Include="Hydro\Flows Examples.3dm" />
+    <None Include="Hydro\Flows Examples.gh" />
+    <None Include="Hydro\Flows Tests.3dm" />
+    <None Include="Hydro\Flows Tests.gh" />
     <None Include="Resources\generic_plants.csv" />
     <None Include="Resources\icon_flora.png" />
   </ItemGroup>

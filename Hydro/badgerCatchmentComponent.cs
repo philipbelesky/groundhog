@@ -41,8 +41,9 @@ namespace badger
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Catchments", "C", "The catchment boundaries identified", GH_ParamAccess.tree);
+            pManager.AddCurveParameter("Catchments", "B", "The catchment boundaries identified", GH_ParamAccess.tree);
             pManager.AddCurveParameter("Flow Paths", "P", "The flow paths grouped by catchment", GH_ParamAccess.tree);
+            pManager.AddColourParameter("Color Codes", "C", "Colour codes the uniquely identify each path and boundary", GH_ParamAccess.tree);
 
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
@@ -141,9 +142,16 @@ namespace badger
                 }
             }
 
+
             // Create the branch structures where each path is a catchment group and add the relevant geometry
             Grasshopper.DataTree<Curve> groupedCurves = new Grasshopper.DataTree<Curve>();
             Grasshopper.DataTree<Curve> groupedBounds = new Grasshopper.DataTree<Curve>();
+            Grasshopper.DataTree<System.Drawing.Color> groupedColors = new Grasshopper.DataTree<System.Drawing.Color>();
+
+            // We want the colors to randomly pick from an available index as their seed; otherwise adjancet cells have similar valuesList<int> iList = new List<int>();
+            var colorIndices = Enumerable.Range(0, holdingListCurves.Length).ToList();
+            var shuffledIndices = colorIndices.OrderBy(a => Guid.NewGuid());
+   
             for (int i = 0; i < holdingListCurves.Length; i++)
             {
                 if (holdingListCurves[i] != null)
@@ -151,19 +159,74 @@ namespace badger
                     int nextPath = groupedCurves.Paths.Count;
                     groupedCurves.EnsurePath(nextPath);
                     groupedBounds.EnsurePath(nextPath);
+                    groupedColors.EnsurePath(nextPath);
                     groupedCurves.AddRange(holdingListCurves[i], groupedCurves.Path(nextPath));
                     groupedBounds.AddRange(holdingListBoundsCurves[i], groupedBounds.Path(nextPath));
+                    groupedColors.AddRange(
+                        generateGroupColors(shuffledIndices.ElementAt(i), holdingListCurves[i].Count, holdingListCurves.Length), groupedColors.Path(nextPath)
+                    );
 
                 }
             }
-
+            
             // Assign variables to output parameters
             DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
+            DA.SetDataTree(2, groupedColors);
 
         }
 
+        private List<System.Drawing.Color> generateGroupColors(int groupIndex, int groupSize, int groupsCount)
+        {
+            // Here are want to create a rectangularly shaped matrix to try and maximise contrast
+            // Given an area of X, we want to find x/y lengths given an 2:1 ratio
+            double ratio = groupsCount / 2.0;
+            double square = Math.Sqrt(ratio);
+            int xMax = (int)Math.Floor(square * 2.0) + 1;
+            int yMax = (int)Math.Floor(square * 1.0);
 
+            // Once we have the lengths we go from the index to the x/y position
+            int x;
+            if (groupIndex == 0)
+            {
+                x = 0;
+            }
+            else
+            {
+                x = groupIndex % xMax; // Get position on x axis
+            }
+            int y;
+            if (groupIndex == 0)
+            {
+                y = 0;
+            }
+            else
+            {
+                double yPos = groupIndex / xMax;
+                y = (int)Math.Floor(yPos); // Get position on y axis
+            }
+
+            //Print("{2}: {0} {1} maxes: {3} {4}", x.ToString(), y.ToString(), groupIndex.ToString(), xMax.ToString(), yMax.ToString());
+
+            // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)            
+            double hue = colorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
+            double saturation = 1.0; // Maximise contrast
+            double luminance = colorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
+            Rhino.Display.ColorHSL groupColorHSL = new Rhino.Display.ColorHSL(hue, saturation, luminance);
+
+            // Convert to RGB and make a list with a color for each item in the branch
+            System.Drawing.Color groupColorARGB = groupColorHSL.ToArgbColor();
+            List<System.Drawing.Color> groupColors = Enumerable.Repeat(groupColorARGB, groupSize).ToList();
+
+            return groupColors;
+        }
+
+        private double colorDistributionInRange(double lower, double upper, int index, int count)
+        {
+            double step = (upper - lower) / count;
+            double value = lower + (step * index);
+            return value;
+        }
 
         private List<Line> deduplicateLines(List<Line> inputLines, double tolerance)
         {
