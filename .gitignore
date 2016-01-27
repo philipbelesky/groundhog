@@ -16,7 +16,7 @@
 *.gz
 *.iso
 *.jar
-Philips-iMac:badger philip$ cat .gitignore
+
 # OS Related
 
 # Compiled source #
