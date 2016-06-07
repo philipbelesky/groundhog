@@ -53,13 +53,13 @@
     </Reference>
     <Reference Include="Grasshopper">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath Condition="Exists('C:\Users\s3321811\')">C:\Users\s3321811\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper {B45A29B1-4343-4035-989E-044E8580D9CF}\0.9.76.0\Grasshopper.dll</HintPath>
+      <HintPath Condition="Exists('C:\Users\s3321811\')">C:\Program Files (x86)\Grasshopper for Rhino 5\Grasshopper.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath Condition="Exists('C:\Users\s3321811\')">C:\Users\s3321811\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper {B45A29B1-4343-4035-989E-044E8580D9CF}\0.9.76.0\GH_IO.dll</HintPath>
+      <HintPath Condition="Exists('C:\Users\s3321811\')">C:\Program Files (x86)\Grasshopper for Rhino 5\GH_IO.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
