@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerCatchmentComponent : GH_Component
+    public class groundhogCatchmentComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -16,10 +16,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerCatchmentComponent()
+        public groundhogCatchmentComponent()
             : base("Flow Catchments", "Catchments",
                 "Identify the catchments within a set of flow paths",
-                "Badger", "Hydro")
+                "Groundhog", "Hydro")
         {
         }
 
@@ -343,7 +343,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_flows;
+                return groundhog.Properties.Resources.icon_flows;
             }
         }
 

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerPlanterComponent : GH_Component
+    public class groundhogPlanterComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -15,10 +15,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerPlanterComponent()
+        public groundhogPlanterComponent()
             : base("Plant Placement Solver", "Placer",
                 "Place particular plant objects at a spatial point given particular inputs and constraints",
-                "Badger", "Flora")
+                "Groundhog", "Flora")
         {
         }
 
@@ -87,7 +87,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_pplacer;
+                return groundhog.Properties.Resources.icon_pplacer;
             }
         }
 

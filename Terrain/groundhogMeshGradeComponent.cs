@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerMeshGradeComponent : GH_Component
+    public class groundhogMeshGradeComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public badgerMeshGradeComponent()
+        public groundhogMeshGradeComponent()
             : base("Mesh Slope", "Mesh",
                 "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade",
-                "Badger", "Terrain")
+                "Groundhog", "Terrain")
         {
         }
 

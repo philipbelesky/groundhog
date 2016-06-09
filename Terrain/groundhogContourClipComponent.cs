@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerContourClipComponent : GH_Component
+    public class groundhogContourClipComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -15,10 +15,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerContourClipComponent()
+        public groundhogContourClipComponent()
             : base("Contour Clip", "Contour Clip",
                 "Checks contours meet a specific boundary, otherwise extend/trim them",
-                "Badger", "Terrain")
+                "Groundhog", "Terrain")
         {
         }
 
@@ -331,7 +331,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_pplacer;
+                return groundhog.Properties.Resources.icon_pplacer;
             }
         }
 

@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerShowerComponent : GH_Component
+    public class groundhogShowerComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -16,10 +16,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerShowerComponent()
+        public groundhogShowerComponent()
             : base("Plant Appearance Simulator", "Shower",
                 "Simulate the appearance of a particular plant instance",
-                "Badger", "Flora")
+                "Groundhog", "Flora")
         {
         }
 
@@ -154,7 +154,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_pshower;
+                return groundhog.Properties.Resources.icon_pshower;
             }
         }
 
