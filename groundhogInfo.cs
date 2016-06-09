@@ -2,15 +2,15 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerInfo : GH_AssemblyInfo
+    public class groundhogInfo : GH_AssemblyInfo
     {
         public override string Name
         {
             get
             {
-                return "Badger";
+                return "Groundhog";
             }
         }
         public override Bitmap Icon
@@ -42,7 +42,7 @@ namespace badger
             get
             {
                 //Return a string identifying you or your company.
-                return "";
+                return "Philip Belesky";
             }
         }
         public override string AuthorContact
@@ -50,7 +50,7 @@ namespace badger
             get
             {
                 //Return a string representing your preferred contact details.
-                return "";
+                return "contact@philipbelesky.com";
             }
         }
     }

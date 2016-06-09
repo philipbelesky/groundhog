@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerSeaFloodComponent : GH_Component
+    public class groundhogSeaFloodComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -15,10 +15,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerSeaFloodComponent()
+        public groundhogSeaFloodComponent()
             : base("Sea Flood Simulator", "Sea Floods",
                 "Examine flooding levels along a surface from a tidal source",
-                "Badger", "Hydro")
+                "Groundhog", "Hydro")
         {
         }
 
@@ -147,7 +147,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_floods;
+                return groundhog.Properties.Resources.icon_floods;
             }
         }
 

@@ -5,9 +5,9 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerFieldComponent : GH_Component
+    public class groundhogPImportComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -16,10 +16,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerFieldComponent()
-            : base("Field Mapper", "Field",
-                "Create ",
-                "Badger", "Mapping")
+        public groundhogPImportComponent()
+            : base("Species Attribute Importer", "PImport",
+                "Create plant attributes from an imported spreadsheet",
+                "Groundhog", "Flora")
         {
         }
 
@@ -28,10 +28,7 @@ namespace badger
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Divisions", "D", "Number of divisions to create for sample points", GH_ParamAccess.item);
-            pManager[1].Optional = true;
-            pManager.AddCurveParameter("Areas", "A", "Closed curves representing particular values", GH_ParamAccess.list);
+            pManager.AddGenericParameter("CSV File", "C", "The output of a CSV set to a Read File component", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -40,7 +37,7 @@ namespace badger
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             // Generic is its a GH_ObjectWrapper wrapper for our custom class
-            pManager.AddSurfaceParameter("Field", "F", "Resulting field", GH_ParamAccess.item);
+            pManager.Register_GenericParam("Plants", "P", "The resulting plant objects");
         }
 
         /// <summary>
@@ -51,19 +48,41 @@ namespace badger
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            Curve gridBounds = null;
-            int gridDivisions = 24;
-            List<Curve> areas = new List<Curve>();
+            List<string> csvContents = new List<string>();
 
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref gridBounds)) return;
-            if (!DA.GetData(1, ref gridDivisions)) return;
-            if (!DA.GetDataList(2, areas)) return;
+            if (!DA.GetDataList(0, csvContents)) return;
 
             // Create holder variables for output parameters
+            List<PlantSpecies> csvPlantSpecies = new List<PlantSpecies>();
 
+            // Format
+            string csvHeaders = csvContents[0];
+            csvContents.Remove(csvHeaders);
+
+            foreach (string csvValue in csvContents)
+            {
+                Dictionary<string, string> instanceDictionary = PlantFactory.parseToDictionary(csvHeaders, csvValue);
+                var createSpecies = PlantFactory.parseFromDictionary(instanceDictionary);
+
+                PlantSpecies instanceSpecies = createSpecies.Item1;
+                string instanceWarnings = createSpecies.Item2;
+                if (instanceWarnings.Length > 0)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
+                }
+
+                csvPlantSpecies.Add(instanceSpecies);
+            }
+
+            // Need to add each species instance to a generic wrapper so they can be output
+            List<GH_ObjectWrapper> wrappedSpecies = new List<GH_ObjectWrapper>();
+            foreach (PlantSpecies species in csvPlantSpecies)
+            {
+                wrappedSpecies.Add(new GH_ObjectWrapper(species));
+            }
             // Assign variables to output parameters
-            //DA.SetData(0, field);
+            DA.SetDataList(0, wrappedSpecies);
 
         }
 
@@ -88,7 +107,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_field;
+                return groundhog.Properties.Resources.icon_pimport;
             }
         }
 
@@ -99,7 +118,7 @@ namespace badger
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("{2d268bdc-ecaa-4cf7-811a-c8111d1798d4}"); }
+            get { return new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d4}"); }
         }
     }
 }

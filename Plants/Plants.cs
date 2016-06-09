@@ -9,7 +9,7 @@ using Grasshopper.Kernel.Types;
 using Grasshopper.Kernel.Data;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
 
     class PlantFactory
@@ -308,7 +308,7 @@ namespace badger
         }
         public override string ToString()
         {
-            return "Badger Plant Species (" + speciesName + ")";
+            return "groundhog Plant Species (" + speciesName + ")";
         }
         #endregion
 

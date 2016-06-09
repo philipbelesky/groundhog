@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace badger
+namespace groundhog
 {
-    public class badgerContourCheckPlanarityComponent : GH_Component
+    public class groundhogContourCheckPlanarityComponent : GH_Component
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -15,10 +15,10 @@ namespace badger
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public badgerContourCheckPlanarityComponent()
+        public groundhogContourCheckPlanarityComponent()
             : base("Contour Planarity Fix", "Contour Planarity Fix",
                 "Checks contours are planar and corrects them if not",
-                "Badger", "Terrain")
+                "Groundhog", "Terrain")
         {
         }
 
@@ -175,7 +175,7 @@ namespace badger
         {
             get
             {
-                return badger.Properties.Resources.icon_pplacer;
+                return groundhog.Properties.Resources.icon_pplacer;
             }
         }
 
