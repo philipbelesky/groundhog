@@ -29,9 +29,9 @@ namespace groundhog
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Divisions", "D", "Number of divisions to create for sample points", GH_ParamAccess.item);
-            pManager[1].Optional = true;
-            pManager.AddCurveParameter("Areas", "A", "Closed curves representing particular values", GH_ParamAccess.list);
+            pManager[0].Optional = true;
+            pManager.AddPointParameter("Points", "P", "Sample points for the resulting field", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Areas", "A", "Closed curves representing particular values", GH_ParamAccess.tree);
         }
 
         /// <summary>
