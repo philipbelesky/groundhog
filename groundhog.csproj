@@ -49,18 +49,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath Condition="Exists('C:\Program Files\Rhinoceros 5.0 (64-bit)\System\')">C:\Program Files\Rhinoceros 5.0 (64-bit)\System\RhinoCommon.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\rhinocommon.dll</HintPath>
+      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
+      <HintPath Condition="Exists('/Applications/Rhinoceros.app/')">/Applications/RhinoWIP.app/Contents/Resources/RhinoCommon.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath Condition="Exists('C:\Users\s3321811\')">C:\Program Files (x86)\Grasshopper for Rhino 5\Grasshopper.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <HintPath Condition="Exists('C:\Program Files (x86)\Grasshopper for Rhino 5\')">C:\Program Files (x86)\Grasshopper for Rhino 5\Grasshopper.dll</HintPath>
+      <!-- UNEEDED?: <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath> -->
+      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
+      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/ManagedPlugIns/GrasshopperPlugin.rhp/Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath Condition="Exists('C:\Users\s3321811\')">C:\Program Files (x86)\Grasshopper for Rhino 5\GH_IO.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <HintPath Condition="Exists('C:\Program Files (x86)\Grasshopper for Rhino 5\')">C:\Program Files (x86)\Grasshopper for Rhino 5\GH_IO.dll</HintPath>
+      <!-- UNEEDED?: <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath> -->
+      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
+      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/ManagedPlugIns/GrasshopperPlugin.rhp/GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -141,9 +147,17 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">
+    <PostBuildEvent>
+      Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+      Erase "$(TargetPath)"
+    </PostBuildEvent>
+  </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Erase "$(TargetPath)"</PostBuildEvent>
+    <!-- OSX copy to compiled file to ExplicitHistory path as DeveloperSettings is currently crashing. Note quotes start after the ~ (otherwise it wont expand) -->
+    <PostBuildEvent>
+      cp "$(TargetDir)groundhog.dll" ~/"Library/Application Support/McNeel/Rhinoceros/MacPlugIns/Grasshopper/Libraries/groundhog.gha"
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
     <StartArguments>
