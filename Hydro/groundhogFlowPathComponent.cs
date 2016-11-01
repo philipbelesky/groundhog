@@ -9,10 +9,10 @@ namespace groundhog
     public class groundhogFlowComponent : GH_Component
     {
         /// <summary>
-        /// Each implementation of GH_Component must provide a public 
+        /// Each implementation of GH_Component must provide a public
         /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
+        /// Category represents the Tab in which the component will appear,
+        /// Subcategory the panel. If you use non-existing tab or panel names,
         /// new tabs/panels will automatically be created.
         /// </summary>
         public groundhogFlowComponent()
@@ -54,7 +54,7 @@ namespace groundhog
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
+        /// <param name="DA">The DA object can be used to retrieve data from input parameters and
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -64,14 +64,14 @@ namespace groundhog
             List<Point3d> FLOW_ORIGINS = new List<Point3d>();
             double FLOW_FIDELITY = 1000.0;
             bool THREAD = false;
-            
+
             // Access and extract data from the input parameters individually
             DA.GetData(0, ref FLOW_SURFACE);
             DA.GetData(1, ref FLOW_MESH);
             if (!DA.GetDataList(2, FLOW_ORIGINS)) return;
             if (!DA.GetData(3, ref FLOW_FIDELITY)) return;
             if (!DA.GetData(4, ref THREAD)) return;
-            
+
             Point3d[] startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading
             List<Point3d>[] allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
             List<Point3d> flowPoints = new List<Point3d>();
@@ -105,7 +105,7 @@ namespace groundhog
                     allFlowPathPoints[i] = dispatchFlowPoints(FLOW_BREP, FLOW_MESH, startPoints[i], FLOW_FIDELITY);
                 }
             }
-            
+
             Grasshopper.DataTree<System.Object> allFlowPathPointsTree = new Grasshopper.DataTree<System.Object>();
             Grasshopper.DataTree<Polyline> allFlowPathCurvesTree = new Grasshopper.DataTree<Polyline>();
 
@@ -126,7 +126,7 @@ namespace groundhog
                     allFlowPathPointsTree.Add(allFlowPathPoints[i][j], path);
                 }
             }
-            
+
             // Assign variables to output parameters
             DA.SetDataTree(0, allFlowPathPointsTree);
             DA.SetDataTree(1, allFlowPathCurvesTree);
@@ -140,14 +140,14 @@ namespace groundhog
 
             if (FLOW_MESH == default(Mesh) && FLOW_SURFACE == default(Brep))
             { // If the mesh hasn't been set
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Both are null"); 
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Both are null");
             }
             bool usingMesh;
             if (FLOW_MESH == default(Mesh))
             { // If the mesh hasn't been set
                 usingMesh = false;
             }
-            else 
+            else
             {
                 usingMesh = true;
             }
@@ -248,9 +248,9 @@ namespace groundhog
 
 
         /// <summary>
-        /// The Exposure property controls where in the panel a component icon 
-        /// will appear. There are seven possible locations (primary to septenary), 
-        /// each of which can be combined with the GH_Exposure.obscure flag, which 
+        /// The Exposure property controls where in the panel a component icon
+        /// will appear. There are seven possible locations (primary to septenary),
+        /// each of which can be combined with the GH_Exposure.obscure flag, which
         /// ensures the component will only be visible on panel dropdowns.
         /// </summary>
         public override GH_Exposure Exposure
@@ -271,8 +271,8 @@ namespace groundhog
         }
 
         /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
+        /// Each component must have a unique Guid to identify it.
+        /// It is vital this Guid doesn't change otherwise old ghx files
         /// that use the old ID will partially fail during loading.
         /// </summary>
         public override Guid ComponentGuid

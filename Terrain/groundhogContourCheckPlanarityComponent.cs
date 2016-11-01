@@ -9,10 +9,10 @@ namespace groundhog
     public class groundhogContourCheckPlanarityComponent : GH_Component
     {
         /// <summary>
-        /// Each implementation of GH_Component must provide a public 
+        /// Each implementation of GH_Component must provide a public
         /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
+        /// Category represents the Tab in which the component will appear,
+        /// Subcategory the panel. If you use non-existing tab or panel names,
         /// new tabs/panels will automatically be created.
         /// </summary>
         public groundhogContourCheckPlanarityComponent()
@@ -43,13 +43,13 @@ namespace groundhog
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
+        /// <param name="DA">The DA object can be used to retrieve data from input parameters and
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
-        {            
+        {
             // Create holder variables for input parameters
             List<Curve> ALL_CONTOURS = new List<Curve>();
-            
+
             // Access and extract data from the input parameters individually
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
 
@@ -61,11 +61,11 @@ namespace groundhog
             {
                 int degree = contour.Degree;
                 if (contour.IsPolyline()) {
-                    
+
                     Polyline contourPLine;
                     contour.TryGetPolyline(out contourPLine); // Convert to Polyline
 
-                    List<double> zValues = getZValues(new List<Point3d>(contourPLine.ToArray())); 
+                    List<double> zValues = getZValues(new List<Point3d>(contourPLine.ToArray()));
 
                     if (zValues[0] != zValues[zValues.Count - 1]) {
                         // All are not the same z-index
@@ -94,7 +94,7 @@ namespace groundhog
                 {
                     // TODO: probably shouldn't just assume the curve is nurbs
                     NurbsCurve contourNurbsCurve = contour.ToNurbsCurve();
-                    
+
                     List<Point3d> pts = new List<Point3d>();
                     foreach (ControlPoint ncp in contourNurbsCurve.Points)
                     {
@@ -122,7 +122,7 @@ namespace groundhog
                         allContours.Add(contour);
                     }
 
-   
+
                 }
 
 
@@ -141,7 +141,7 @@ namespace groundhog
                 throw new InvalidOperationException("Empty collection");
             } else {
                 // Doesn't matter if odd or evenly sized, will just get middleish
-                return values[Convert.ToInt32(count / 2)]; 
+                return values[Convert.ToInt32(count / 2)];
             }
         }
 
@@ -157,9 +157,9 @@ namespace groundhog
         }
 
            /// <summary>
-        /// The Exposure property controls where in the panel a component icon 
-        /// will appear. There are seven possible locations (primary to septenary), 
-        /// each of which can be combined with the GH_Exposure.obscure flag, which 
+        /// The Exposure property controls where in the panel a component icon
+        /// will appear. There are seven possible locations (primary to septenary),
+        /// each of which can be combined with the GH_Exposure.obscure flag, which
         /// ensures the component will only be visible on panel dropdowns.
         /// </summary>
         public override GH_Exposure Exposure
@@ -175,13 +175,13 @@ namespace groundhog
         {
             get
             {
-                return groundhog.Properties.Resources.icon_pplacer;
+                return groundhog.Properties.Resources.icon_contour_planarity;
             }
         }
 
         /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
+        /// Each component must have a unique Guid to identify it.
+        /// It is vital this Guid doesn't change otherwise old ghx files
         /// that use the old ID will partially fail during loading.
         /// </summary>
         public override Guid ComponentGuid

@@ -63,11 +63,51 @@ namespace groundhog.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Species Name,Common Name,Indigenous Name,Time to Maturity,Death Rate,Relative Distribution,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Cost,Display R,Display G,Display B
         ///Generic Shrub,Generic Shrub,Generic Shrub,25,1,1,750,500,3000,15,75,200,15,500,12500,15,150,2500,15,55,16,148,59
-        ///Generic Grass,Generic Grass,Generic Grass, [rest of string was truncated]&quot;;.
+        ///Generic Grass,Generic Grass,Generic Grass,50 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string generic_plants {
             get {
                 return ResourceManager.GetString("generic_plants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_catchments {
+            get {
+                object obj = ResourceManager.GetObject("icon_catchments", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_contour_clip {
+            get {
+                object obj = ResourceManager.GetObject("icon_contour_clip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_contour_gap {
+            get {
+                object obj = ResourceManager.GetObject("icon_contour_gap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_contour_planarity {
+            get {
+                object obj = ResourceManager.GetObject("icon_contour_planarity", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -84,9 +124,19 @@ namespace groundhog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_floods {
+        internal static System.Drawing.Bitmap icon_floods_river {
             get {
-                object obj = ResourceManager.GetObject("icon_floods", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_floods_river", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_floods_sea {
+            get {
+                object obj = ResourceManager.GetObject("icon_floods_sea", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -97,6 +147,16 @@ namespace groundhog.Properties {
         internal static System.Drawing.Bitmap icon_flows {
             get {
                 object obj = ResourceManager.GetObject("icon_flows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_mesh_slope {
+            get {
+                object obj = ResourceManager.GetObject("icon_mesh_slope", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

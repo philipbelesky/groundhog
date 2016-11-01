@@ -9,10 +9,10 @@ namespace groundhog
     public class groundhogSeaFloodComponent : GH_Component
     {
         /// <summary>
-        /// Each implementation of GH_Component must provide a public 
+        /// Each implementation of GH_Component must provide a public
         /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
+        /// Category represents the Tab in which the component will appear,
+        /// Subcategory the panel. If you use non-existing tab or panel names,
         /// new tabs/panels will automatically be created.
         /// </summary>
         public groundhogSeaFloodComponent()
@@ -65,28 +65,28 @@ namespace groundhog
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
+        /// <param name="DA">The DA object can be used to retrieve data from input parameters and
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
-        {            
+        {
             // Create holder variables for output parameters
             double DATUM, YEAR, RISE, SURGE;
             DATUM = YEAR = RISE = SURGE = 0;
             double HIGH_NEAP, LOW_NEAP, HIGH_SPRING, LOW_SPRING;
             HIGH_NEAP = LOW_NEAP = HIGH_SPRING = LOW_SPRING = 0;
-            
+
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref DATUM)) return;
             if (!DA.GetData(1, ref YEAR)) return;
             if (!DA.GetData(2, ref RISE)) return;
-            if (!DA.GetData(3, ref SURGE)) return;            
+            if (!DA.GetData(3, ref SURGE)) return;
             if (!DA.GetData(4, ref HIGH_NEAP)) return;
             if (!DA.GetData(5, ref LOW_NEAP)) return;
             if (!DA.GetData(6, ref HIGH_SPRING)) return;
             if (!DA.GetData(7, ref LOW_SPRING)) return;
 
             // TODO: determine if I need to do input validation here
-                                               
+
             // Create holder variables for output parameters
             PlaneSurface seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
             PlaneSurface stormSurgeLevel = createLevel(calculateValue(YEAR, DATUM, RISE, SURGE));
@@ -124,14 +124,14 @@ namespace groundhog
               new Interval(0, origin.DistanceTo(xExtent)),
               new Interval(0, origin.DistanceTo(yExtent))
             );
-            
+
             return plane_surface;
         }
 
            /// <summary>
-        /// The Exposure property controls where in the panel a component icon 
-        /// will appear. There are seven possible locations (primary to septenary), 
-        /// each of which can be combined with the GH_Exposure.obscure flag, which 
+        /// The Exposure property controls where in the panel a component icon
+        /// will appear. There are seven possible locations (primary to septenary),
+        /// each of which can be combined with the GH_Exposure.obscure flag, which
         /// ensures the component will only be visible on panel dropdowns.
         /// </summary>
         public override GH_Exposure Exposure
@@ -147,13 +147,13 @@ namespace groundhog
         {
             get
             {
-                return groundhog.Properties.Resources.icon_floods;
+                return groundhog.Properties.Resources.icon_floods_sea;
             }
         }
 
         /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
+        /// Each component must have a unique Guid to identify it.
+        /// It is vital this Guid doesn't change otherwise old ghx files
         /// that use the old ID will partially fail during loading.
         /// </summary>
         public override Guid ComponentGuid
