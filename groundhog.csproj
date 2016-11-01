@@ -46,7 +46,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="RhinoCommon">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath Condition="Exists('C:\Program Files\Rhinoceros 5.0 (64-bit)\System\')">C:\Program Files\Rhinoceros 5.0 (64-bit)\System\RhinoCommon.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\rhinocommon.dll</HintPath>
       <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
@@ -54,7 +53,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5')">C:\Program Files (x86)\Grasshopper for Rhino 5\Grasshopper.dll</HintPath>
       <!-- Below is RMIT Local -->
       <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
@@ -63,7 +61,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath Condition="Exists('C:\Program Files (x86)\Grasshopper for Rhino 5\')">C:\Program Files (x86)\Grasshopper for Rhino 5\GH_IO.dll</HintPath>
       <!-- Below is RMIT Local -->
       <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
@@ -109,37 +106,84 @@
     <None Include="Hydro\Flows Tests.3dm" />
     <None Include="Hydro\Flows Tests.gh" />
     <None Include="Resources\generic_plants.csv" />
-    <None Include="Resources\icon_flora.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_catchments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_contour_clip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_contour_gap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_contour_planarity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_field.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_floods_river.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_floods_sea.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_flows.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon_mesh_slope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_pgeneric.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\icon_pimport.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\icons_pimport.png" />
+    <None Include="Resources\icon_pplacer.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\icon_pimport.png" />
+    <None Include="Resources\icon_pshower.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\icon_floods.png" />
+    <None Include="Resources\images\icon_catchments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_contour_clip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_contour_gap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_contour_planarity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_field.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_floods_river.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_floods_sea.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images\icon_flows.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\icon_pshower.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\images\icon_pplacer.png" />
+    <None Include="Resources\images\icon_mesh_slope.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images\icon_pgeneric.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\icon_field.png" />
+    <None Include="Resources\images\icon_pimport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_pplacer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\icon_pshower.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -149,32 +193,27 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
   <PropertyGroup Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">
     <PostBuildEvent>
       Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
       Erase "$(TargetPath)"
     </PostBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
     <!-- OSX copy to compiled file to ExplicitHistory path as DeveloperSettings is currently crashing. Note quotes start after the ~ (otherwise it wont expand) -->
     <PostBuildEvent>
       cp "$(TargetDir)groundhog.dll" ~/"Library/Application Support/McNeel/Rhinoceros/MacPlugIns/Grasshopper/Libraries/groundhog.gha"
     </PostBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug32|AnyCPU'">
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
     <StartProgram Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe</StartProgram>
   </PropertyGroup>
-
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
     <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\')">C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
     <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5.0 (64-bit)\')">C:\Program Files\Rhinoceros 5.0 (64-bit)\System\Rhino.exe</StartProgram>
@@ -182,5 +221,4 @@
     </StartArguments>
     <StartAction>Program</StartAction>
   </PropertyGroup>
-
 </Project>

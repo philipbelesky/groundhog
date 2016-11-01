@@ -51,7 +51,7 @@ namespace groundhog
             List<Mesh> subMeshes = Explode(M);
             List<double> subAngles = getAngles(M);
             List<Point3d> subCentres = getCenters(M);
-            
+
             List<Vector3d> subDirections = getDirections(subMeshes, subCentres);
 
             // Assign variables to output parameters
@@ -155,9 +155,7 @@ namespace groundhog
         {
             get
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
+                return groundhog.Properties.Resources.icon_mesh_slope;
             }
         }
 

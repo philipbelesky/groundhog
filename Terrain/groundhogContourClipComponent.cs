@@ -9,10 +9,10 @@ namespace groundhog
     public class groundhogContourClipComponent : GH_Component
     {
         /// <summary>
-        /// Each implementation of GH_Component must provide a public 
+        /// Each implementation of GH_Component must provide a public
         /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
+        /// Category represents the Tab in which the component will appear,
+        /// Subcategory the panel. If you use non-existing tab or panel names,
         /// new tabs/panels will automatically be created.
         /// </summary>
         public groundhogContourClipComponent()
@@ -48,20 +48,20 @@ namespace groundhog
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
+        /// <param name="DA">The DA object can be used to retrieve data from input parameters and
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
-        {            
+        {
             // Create holder variables for input parameters
             List<Curve> ALL_CONTOURS = new List<Curve>();
             Curve BOUNDARY = default(Curve);
             bool CREATE_SRFS = false;
-         
+
             // Access and extract data from the input parameters individually
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
             if (!DA.GetData(1, ref BOUNDARY)) return;
             DA.GetData(2, ref CREATE_SRFS);
-            
+
             // Create holder variables for ouput parameters
             List<Curve> fixedContours = new List<Curve>();
             List<Curve> edgedContours = new List<Curve>();
@@ -74,7 +74,7 @@ namespace groundhog
                 heightGuages.Add(curve.PointAtEnd.Z);
             }
             heightGuages.Sort();
-            
+
             double contourLow = heightGuages[0];
             double contourHigh = heightGuages[heightGuages.Count - 1];
 
@@ -93,7 +93,7 @@ namespace groundhog
             {
                 boundaryMove = 0;
             }
-            
+
             // Extrude up to highest - lowest
             BOUNDARY.Transform(Transform.Translation(new Vector3d(0, 0, boundaryMove - 1)));
 
@@ -106,7 +106,7 @@ namespace groundhog
                 if (curve.IsValid == false)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A contour curve was not valid and has been skipped. You probably want to find and fix that curve.");
-                } 
+                }
                 else
                 {
 
@@ -116,7 +116,7 @@ namespace groundhog
                         Curve curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
                         curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY, boundarySrf);
                     }
-                    else 
+                    else
                     {
                         curveWithEndClipped = curve;
                     }
@@ -132,9 +132,9 @@ namespace groundhog
                 }
 
 
-                
+
             }
-            
+
             if (CREATE_SRFS == true)
             {
                 Curve[] allContours = edgedContours.ToArray();
@@ -146,7 +146,7 @@ namespace groundhog
                 });
                 planarSrfs = new List<Brep>(planarSrfsArray); // Probably unecessary
             }
-            
+
             // Assign variables to output parameters
             DA.SetDataList(0, fixedContours);
             DA.SetDataList(1, edgedContours);
@@ -245,7 +245,7 @@ namespace groundhog
             {
                 extendedCurve = initialCurve.Extend(CurveEnd.Start, CurveExtensionStyle.Smooth, boundaryCollision);
             }
-            
+
             return extendedCurve;
 
         }
@@ -305,7 +305,7 @@ namespace groundhog
                     Curve[] innerEdge = Curve.JoinCurves(new Curve[] { innerEdgeA, initialCurve }, tolerance);
                     return innerEdge[0];
                 }
-            } else 
+            } else
             {
                 return initialCurve;
             }
@@ -313,9 +313,9 @@ namespace groundhog
         }
 
            /// <summary>
-        /// The Exposure property controls where in the panel a component icon 
-        /// will appear. There are seven possible locations (primary to septenary), 
-        /// each of which can be combined with the GH_Exposure.obscure flag, which 
+        /// The Exposure property controls where in the panel a component icon
+        /// will appear. There are seven possible locations (primary to septenary),
+        /// each of which can be combined with the GH_Exposure.obscure flag, which
         /// ensures the component will only be visible on panel dropdowns.
         /// </summary>
         public override GH_Exposure Exposure
@@ -331,13 +331,13 @@ namespace groundhog
         {
             get
             {
-                return groundhog.Properties.Resources.icon_pplacer;
+                return groundhog.Properties.Resources.icon_contour_clip;
             }
         }
 
         /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
+        /// Each component must have a unique Guid to identify it.
+        /// It is vital this Guid doesn't change otherwise old ghx files
         /// that use the old ID will partially fail during loading.
         /// </summary>
         public override Guid ComponentGuid

@@ -121,14 +121,32 @@
   <data name="generic_plants" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\generic_plants.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="icon_catchments" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_catchments.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_contour_clip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_contour_clip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_contour_gap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_contour_gap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_contour_planarity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_contour_planarity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icon_field" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images\icon_field.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icon_floods" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images\icon_floods.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_floods_river" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_floods_river.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_floods_sea" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_floods_sea.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_flows" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images\icon_flows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_mesh_slope" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\icon_mesh_slope.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_pgeneric" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images\icon_pgeneric.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

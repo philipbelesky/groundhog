@@ -10,10 +10,10 @@ namespace groundhog
     public class groundhogCatchmentComponent : GH_Component
     {
         /// <summary>
-        /// Each implementation of GH_Component must provide a public 
+        /// Each implementation of GH_Component must provide a public
         /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
+        /// Category represents the Tab in which the component will appear,
+        /// Subcategory the panel. If you use non-existing tab or panel names,
         /// new tabs/panels will automatically be created.
         /// </summary>
         public groundhogCatchmentComponent()
@@ -53,7 +53,7 @@ namespace groundhog
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
+        /// <param name="DA">The DA object can be used to retrieve data from input parameters and
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -68,7 +68,7 @@ namespace groundhog
 
             // TODO: add a warning/note that these should be a flat list
             //AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Make a flat list");
-            
+
             // Create the flowStructure objects
             List<FlowStructure> flowStructures = new List<FlowStructure>();
             for (int i = 0; i < FLOW_PATHS.Count; i++)
@@ -151,7 +151,7 @@ namespace groundhog
             // We want the colors to randomly pick from an available index as their seed; otherwise adjancet cells have similar valuesList<int> iList = new List<int>();
             var colorIndices = Enumerable.Range(0, holdingListCurves.Length).ToList();
             var shuffledIndices = colorIndices.OrderBy(a => Guid.NewGuid());
-   
+
             for (int i = 0; i < holdingListCurves.Length; i++)
             {
                 if (holdingListCurves[i] != null)
@@ -168,7 +168,7 @@ namespace groundhog
 
                 }
             }
-            
+
             // Assign variables to output parameters
             DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
@@ -208,7 +208,7 @@ namespace groundhog
 
             //Print("{2}: {0} {1} maxes: {3} {4}", x.ToString(), y.ToString(), groupIndex.ToString(), xMax.ToString(), yMax.ToString());
 
-            // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)            
+            // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)
             double hue = colorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
             double saturation = 1.0; // Maximise contrast
             double luminance = colorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
@@ -325,9 +325,9 @@ namespace groundhog
         }
 
         /// <summary>
-        /// The Exposure property controls where in the panel a component icon 
-        /// will appear. There are seven possible locations (primary to septenary), 
-        /// each of which can be combined with the GH_Exposure.obscure flag, which 
+        /// The Exposure property controls where in the panel a component icon
+        /// will appear. There are seven possible locations (primary to septenary),
+        /// each of which can be combined with the GH_Exposure.obscure flag, which
         /// ensures the component will only be visible on panel dropdowns.
         /// </summary>
         public override GH_Exposure Exposure
@@ -343,13 +343,13 @@ namespace groundhog
         {
             get
             {
-                return groundhog.Properties.Resources.icon_flows;
+                return groundhog.Properties.Resources.icon_catchments;
             }
         }
 
         /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
+        /// Each component must have a unique Guid to identify it.
+        /// It is vital this Guid doesn't change otherwise old ghx files
         /// that use the old ID will partially fail during loading.
         /// </summary>
         public override Guid ComponentGuid
