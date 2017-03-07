@@ -69,7 +69,7 @@ namespace groundhog
             // Create holder variables for input parameters
             List<PlantSpecies> plantSpecies = new List<PlantSpecies>();
             List<Point3d> plantLocations = new List<Point3d>();
-            double plantTime = 50.0; // default value
+            double plantTime = 10.0; // default value
 
             // Access and extract data from the input parameters individually
             DA.GetDataList(1, plantLocations);
