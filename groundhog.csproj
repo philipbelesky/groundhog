@@ -46,6 +46,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="RhinoCommon">
+      <HintPath Condition="Exists('C:\Program Files\Rhino WIP\System\')">C:\Program Files\Rhino WIP\System\RhinoCommon.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files\Rhinoceros 5.0 (64-bit)\System\')">C:\Program Files\Rhinoceros 5.0 (64-bit)\System\RhinoCommon.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\rhinocommon.dll</HintPath>
       <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
@@ -53,6 +54,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Grasshopper">
+      <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5')">C:\Program Files (x86)\Grasshopper for Rhino 5\Grasshopper.dll</HintPath>
       <!-- Below is RMIT Local -->
       <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
@@ -61,6 +63,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
+      <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files (x86)\Grasshopper for Rhino 5\')">C:\Program Files (x86)\Grasshopper for Rhino 5\GH_IO.dll</HintPath>
       <!-- Below is RMIT Local -->
       <HintPath Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\')">C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
@@ -192,13 +195,20 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  Removed the below in favour of setting folder path to the \bin\ directory
+  <PropertyGroup Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\Components\')">
+    <PostBuildEvent>
+      Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+      Erase "$(TargetPath)"
+    </PostBuildEvent>
+  </PropertyGroup>
   <PropertyGroup Condition="Exists('C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\')">
     <PostBuildEvent>
       Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
       Erase "$(TargetPath)"
     </PostBuildEvent>
   </PropertyGroup>
+    -->
   <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
     <!-- OSX copy to compiled file to ExplicitHistory path as DeveloperSettings is currently crashing. Note quotes start after the ~ (otherwise it wont expand) -->
     <PostBuildEvent>
@@ -215,8 +225,8 @@
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\')">C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
-    <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5.0 (64-bit)\')">C:\Program Files\Rhinoceros 5.0 (64-bit)\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('C:\Program Files\Rhino WIP\System\')">C:\Program Files\Rhino WIP\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
