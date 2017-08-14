@@ -36,9 +36,12 @@ namespace groundhog
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("ShrubP", "ShrubP", "Placeholder description 1", GH_ParamAccess.item);
-            pManager.AddGenericParameter("GrassP", "GrassP", "Placeholder description 2", GH_ParamAccess.item);
-            pManager.AddGenericParameter("TreeP", "TreeP", "Placeholder description 3", GH_ParamAccess.item);
+            var sHelp = "Placeholder description 1";
+            pManager.AddGenericParameter("ShrubP", "ShrubP", sHelp, GH_ParamAccess.item);
+            var gHelp = "Placeholder description 2";
+            pManager.AddGenericParameter("GrassP", "GrassP", gHelp, GH_ParamAccess.item);
+            var tHelp = "Placeholder description 3";
+            pManager.AddGenericParameter("TreeP", "TreeP", tHelp, GH_ParamAccess.item);
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
             //pManager.HideParameter(0);

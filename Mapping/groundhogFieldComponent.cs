@@ -28,9 +28,14 @@ namespace groundhog
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Divisions", "D", "Fidelity / sample points for the resulting field (greatest extent in one direction)", GH_ParamAccess.item);
-            pManager.AddCurveParameter("Areas", "A", "Closed curves representing particular values", GH_ParamAccess.list);
+            var bHelp = "Boundary box for the resulting field";
+            pManager.AddCurveParameter("Bounds", "B", bHelp, GH_ParamAccess.item);
+            var dHelp = "Sample points spacings for the resulting field (greatest extent in one direction)";
+            pManager.AddNumberParameter("Divisions", "D", dHelp, GH_ParamAccess.item);
+            var aHelp = "Boundary box for the resulting field";
+            pManager.AddCurveParameter("Areas", "A", aHelp, GH_ParamAccess.list);
+            var zHelp = "Maximum height of the surface field (defaults to 5% of boundary width/height)";
+            pManager.AddNumberParameter("ZSpan", "Z", zHelp, GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -40,6 +45,7 @@ namespace groundhog
         {
             // Generic is its a GH_ObjectWrapper wrapper for our custom class
             pManager.AddSurfaceParameter("Field", "F", "Resulting field", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Z", "Z", "Resulting z", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -53,20 +59,20 @@ namespace groundhog
             Curve gridBounds = null;
             double gridDivisions = 24.0;
             List<Curve> areas = new List<Curve>();
+            double zRange = 0; // Default value; is later set to 5% of maximum dimension if still 0
 
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref gridBounds)) return;
             if (!DA.GetData(1, ref gridDivisions)) return;
             if (!DA.GetDataList(2, areas)) return;
+            if (!DA.GetData(1, ref zRange)) return;
 
             double TOLERANCE = Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             int FIDELITY = Convert.ToInt32(gridDivisions); 
             Curve BOUNDARY = gridBounds;
             List<Curve> ALL_DATA_REGIONS = areas;
-            double Z_RANGE; // Hight differential; defaults to 10% of width/height
             bool INTERPOLATE = true;
 
-            Z_RANGE = 0; // default value
 
             // Validate input curves are planar
             if (!BOUNDARY.IsPlanar())
@@ -103,10 +109,10 @@ namespace groundhog
             }
 
             // Construct the grid points
-            var gridInfo = createGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, Z_RANGE);
+            var gridInfo = createGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, zRange);
             // Unpack the returned values
             var gridPts = gridInfo.Item1;
-            double zRange = gridInfo.Item2;
+            zRange = gridInfo.Item2;
             int xGridExtents = gridInfo.Item3;
             int yGridExtents = gridInfo.Item4;
 
@@ -171,13 +177,13 @@ namespace groundhog
                 for (int y = 0; y < gridPts.GetLength(1); y = y + 1)
                 {
                     var pt = gridPts[x, y];
-                    var newZ = pt.Location.Z + overlapsMax * pt.LargestOverlap();
+                    var newZ = pt.Location.Z + (pt.LargestOverlap() / overlapsMax) * zRange;
                     pt.Location = new Point3d(pt.Location.X, pt.Location.Y, newZ);
                 }
             }
 
             // Real Output
-            //var pointsList = gridPts.Select(item => item.Location).ToList(); ONLY for visual studio
+            // var pointsList = gridPts.Select(item => item.Location).ToList(); ONLY for visual studio
             // Replacement for C#:
             List<Point3d> pointsList = new List<Point3d>(xGridExtents * yGridExtents);
             int size1 = gridPts.GetLength(1);
@@ -194,6 +200,7 @@ namespace groundhog
 
             // Assign variables to output parameters
             DA.SetData(0, fieldSrf);
+            DA.SetData(1, zRange);
 
         }
 
@@ -344,7 +351,9 @@ namespace groundhog
 
         }
 
-        private Tuple<GridPt[,], double, int, int> createGridPts(Curve BOUNDARY, BoundingBox boundaryBox, bool BOUNDARY_IS_RECT, int FIDELITY, double zRange)
+        private Tuple<GridPt[,], double, int, int> createGridPts(Curve BOUNDARY, BoundingBox boundaryBox, 
+                                                                 bool BOUNDARY_IS_RECT, int FIDELITY, 
+                                                                 double zRange)
         {
             // Determine boundary dimensions
             Point3d[] corners = boundaryBox.GetCorners();
@@ -391,13 +400,14 @@ namespace groundhog
 
             if (zRange == 0)
             {
-                // If Z_RANGE is not set use 5% of the maximum side
-                zRange = Math.Max(xLength, yLength) * 0.10;
+                // If Z_RANGE is not set use 10% of the maximum side
+                zRange = Math.Max(xLength, yLength) * 0.05;
             }
             //Print("createGridPts: with a Z range of {0}", zRange);
 
             // Make grid points
             GridPt[,] gridPts = new GridPt[xGridExtents, yGridExtents];
+
             var i = 0;
             for (int x = 0; x < xGridExtents; x++)
             {
