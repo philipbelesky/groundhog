@@ -1,2 +1,16 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# For C#
+*.cs     diff=csharp
+# For Visual Studio
+*.sln    merge=union
+*.csproj merge=union
+*.vbproj merge=union
+*.fsproj merge=union
+*.dbproj merge=union
+# For Git Large File Storage
+*.3dm filter=lfs -text
+.3dm filter=lfs diff=lfs merge=lfs -text
 site/**/*.png filter=lfs diff=lfs merge=lfs -text
 site/**/*.jpg filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "groundhog", "groundhog.csproj", "{B7E79B45-51E8-4B72-9B2D-44F3454273B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug32|Any CPU = Debug32|Any CPU
+		Debug64|Any CPU = Debug64|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7E79B45-51E8-4B72-9B2D-44F3454273B6}.Debug32|Any CPU.ActiveCfg = Debug32|Any CPU
+		{B7E79B45-51E8-4B72-9B2D-44F3454273B6}.Debug32|Any CPU.Build.0 = Debug32|Any CPU
+		{B7E79B45-51E8-4B72-9B2D-44F3454273B6}.Debug64|Any CPU.ActiveCfg = Debug64|Any CPU
+		{B7E79B45-51E8-4B72-9B2D-44F3454273B6}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
+		{B7E79B45-51E8-4B72-9B2D-44F3454273B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7E79B45-51E8-4B72-9B2D-44F3454273B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.TextStylePolicy = $2
+		$2.FileWidth = 110
+		$2.TabsToSpaces = True
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 80
+		$4.TabsToSpaces = True
+		$4.scope = text/plain
+		$0.StandardHeader = $5
+		$0.VersionControlPolicy = $6
+	EndGlobalSection
+EndGlobal
