@@ -227,8 +227,8 @@
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <StartProgram Condition="Exists('C:\Program Files\Rhino WIP\System\')">
-      C:\Program Files\Rhino WIP\System\Rhino.exe
+    <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
+      C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe
     </StartProgram>
     <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
       C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe
