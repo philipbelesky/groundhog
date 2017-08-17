@@ -35,7 +35,7 @@ namespace groundhog
             var aHelp = "Boundary box for the resulting field";
             pManager.AddCurveParameter("Areas", "A", aHelp, GH_ParamAccess.list);
             var zHelp = "Maximum height of the surface field (defaults to 5% of boundary width/height)";
-            pManager.AddNumberParameter("ZSpan", "Z", zHelp, GH_ParamAccess.item);
+            pManager.AddNumberParameter("zRange", "Z", zHelp, GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -45,7 +45,6 @@ namespace groundhog
         {
             // Generic is its a GH_ObjectWrapper wrapper for our custom class
             pManager.AddSurfaceParameter("Field", "F", "Resulting field", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Z", "Z", "Resulting z", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace groundhog
             if (!DA.GetData(0, ref gridBounds)) return;
             if (!DA.GetData(1, ref gridDivisions)) return;
             if (!DA.GetDataList(2, areas)) return;
-            if (!DA.GetData(1, ref zRange)) return;
+            if (!DA.GetData(3, ref zRange)) return;
 
             double TOLERANCE = Rhino.RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             int FIDELITY = Convert.ToInt32(gridDivisions); 
@@ -200,7 +199,6 @@ namespace groundhog
 
             // Assign variables to output parameters
             DA.SetData(0, fieldSrf);
-            DA.SetData(1, zRange);
 
         }
 
