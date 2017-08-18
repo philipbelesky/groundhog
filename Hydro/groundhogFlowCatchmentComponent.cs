@@ -32,8 +32,6 @@ namespace groundhog
             pManager[0].Optional = false;
             pManager.AddNumberParameter("Proximty Threshold", "T", "The distance between end points required to form a catchment", GH_ParamAccess.item);
             pManager[1].Optional = true;
-
-
         }
 
         /// <summary>
