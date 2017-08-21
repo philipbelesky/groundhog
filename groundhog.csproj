@@ -35,7 +35,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>bin\release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -96,6 +96,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Hydro\Floods Examples.3dm" />
     <None Include="Hydro\Floods Examples.gh" />
@@ -158,7 +159,7 @@
     </PostBuildEvent>
   </PropertyGroup>
   <!--
-    POST BUILD EVENTS
+    POST BUILD EVENTS (Start Rhino)
   -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug32|AnyCPU'">
     <StartArguments>
@@ -179,4 +180,23 @@
     </StartArguments>
     <StartAction>Program</StartAction>
   </PropertyGroup>
+  <!--
+    POST BUILD COMPILATION
+   -->
+  <Target Name="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Copy SourceFiles="$(ProjectDir)README.md" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="$(ProjectDir)CHANGELOG.md" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="$(ProjectDir)LICENSE" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="$(ProjectDir)Hydro/Flows Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Hydro/Flows Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Mapping/Fields Example.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Mapping/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Plants/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Plants/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Terrain/Contour Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Terrain/Contour Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Terrain/Terrain Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Terrain/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
+
+  </Target>
 </Project>
