@@ -35,7 +35,7 @@ namespace groundhog
             var aHelp = "Boundary box for the resulting field";
             pManager.AddCurveParameter("Areas", "A", aHelp, GH_ParamAccess.list);
             var zHelp = "Maximum height of the surface field (defaults to 5% of boundary width/height)";
-            pManager.AddNumberParameter("zRange", "Z", zHelp, GH_ParamAccess.item);
+            pManager.AddNumberParameter("Z Range", "Z", zHelp, GH_ParamAccess.item, 0.0);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace groundhog
             Curve gridBounds = null;
             double gridDivisions = 24.0;
             List<Curve> areas = new List<Curve>();
-            double zRange = 0; // Default value; is later set to 5% of maximum dimension if still 0
+            double zRange = 0.0; // Default value; is later set to 5% of maximum dimension if still 0
 
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref gridBounds)) return;
