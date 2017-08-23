@@ -45,26 +45,29 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="RhinoCommon">
-      <HintPath Condition="Exists('C:\Program Files\Rhino WIP\System\')">C:\Program Files\Rhino WIP\System\RhinoCommon.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Rhinoceros 5.0 (64-bit)\System\')">C:\Program Files\Rhinoceros 5.0 (64-bit)\System\RhinoCommon.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\rhinocommon.dll</HintPath>
-      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
-      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/RhinoCommon.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <!-- Note to prevent hardcoding a Windows App Data UDID I've just copy/pasted Grasshopper.dll and GH_IO.dll into C:\Program Files (x86)\Rhinoceros 5\System\-->
     <Reference Include="Grasshopper">
-      <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5')">C:\Program Files (x86)\Grasshopper for Rhino 5\Grasshopper.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <!-- <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\Grasshopper.dll</HintPath> -->
+      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\Grasshopper.dll</HintPath>
       <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
       <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/ManagedPlugIns/GrasshopperPlugin.rhp/Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
-      <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files (x86)\Grasshopper for Rhino 5\')">C:\Program Files (x86)\Grasshopper for Rhino 5\GH_IO.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <!-- <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\GH_IO.dll</HintPath> -->
+      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\GH_IO.dll</HintPath>
       <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
       <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/ManagedPlugIns/GrasshopperPlugin.rhp/GH_IO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RhinoCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <!-- <HintPath Condition="Exists('C:\Program Files\Rhino WIP\System\')">C:\Program Files\Rhino WIP\System\RhinoCommon.dll</HintPath> -->
+      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\rhinoCommon.dll</HintPath>
+      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
+      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/RhinoCommon.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
