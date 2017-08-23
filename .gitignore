@@ -1,3 +1,16 @@
+# Groundhog Specific
+
+# Build files/dirs #
+###################
+bin/
+release/
+
+# Rhino files #
+###################
+*.3dm.rhl
+*.3dmbak
+
+
 # Compiled source #
 ###################
 *.com
@@ -27,11 +40,6 @@
 *.exe
 *.o
 *.so
-
-# Rhino files #
-###################
-*.3dm.rhl
-*.3dmbak
 
 # Packages #
 ############

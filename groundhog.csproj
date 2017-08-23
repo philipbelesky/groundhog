@@ -35,7 +35,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\release</OutputPath>
+    <OutputPath>release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -192,7 +192,7 @@
     <Copy SourceFiles="$(ProjectDir)LICENSE" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="$(ProjectDir)Hydro/Flows Examples.3dm" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)Hydro/Flows Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Mapping/Fields Example.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)Mapping/Fields Examples.gh" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)Mapping/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)Plants/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)Plants/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />

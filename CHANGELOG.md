@@ -1,8 +1,8 @@
 ## Changelog
 
-#### 0.6a
+#### 0.51a
 
--
+- Flow Path component outputs paths as a flat list; not a tree
 
 #### 0.5a
 
