@@ -1,10 +1,20 @@
-# Badger
+# Groundhog
 
-Badger is a plugin for the Grasshopper™ parametric design platform.
+Groundhog is a plugin for the Grasshopper parametric design platform.
 
 ## Installation
 
 ## Use
+
+## Building
+
+#### OS X
+
+
+
+#### Windows
+
+Note to prevent hardcoding a Windows App Data UDID I've just copy/pasted Grasshopper.dll and GH_IO.dll into C:\Program Files (x86)\Rhinoceros 5\System\. You'll need to do the same or go into groundhog.csproj and change the reference paths.
 
 ## Contributions & Feedback
 
@@ -12,7 +22,7 @@ Both are welcome.
 
 ## License
 
-Copyright 2015 Philip Belesky.
+Copyright 2017 Philip Belesky.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

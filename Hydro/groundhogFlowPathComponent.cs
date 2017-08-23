@@ -44,7 +44,7 @@ namespace groundhog
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddPointParameter("Flow Points", "F", "The points of each simulated point of movement", GH_ParamAccess.tree);
-            pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each point", GH_ParamAccess.tree);
+            pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each point", GH_ParamAccess.list);
 
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
@@ -107,7 +107,8 @@ namespace groundhog
             }
 
             Grasshopper.DataTree<System.Object> allFlowPathPointsTree = new Grasshopper.DataTree<System.Object>();
-            Grasshopper.DataTree<Polyline> allFlowPathCurvesTree = new Grasshopper.DataTree<Polyline>();
+            List<Polyline> allFlowPathCurvesList = new List<Polyline>();
+ 
 
             for (int i = 0; i < allFlowPathPoints.Length; i++)
             {
@@ -116,7 +117,7 @@ namespace groundhog
                 if (allFlowPathPoints[i].Count > 1)
                 {
                     Polyline flowPath = new Polyline(allFlowPathPoints[i]);
-                    allFlowPathCurvesTree.Add(flowPath, path);
+                    allFlowPathCurvesList.Add(flowPath);
                 }
 
                 // And make a branch for the list of points
@@ -129,7 +130,7 @@ namespace groundhog
 
             // Assign variables to output parameters
             DA.SetDataTree(0, allFlowPathPointsTree);
-            DA.SetDataTree(1, allFlowPathCurvesTree);
+            DA.SetDataList(1, allFlowPathCurvesList);
 
         }
 
