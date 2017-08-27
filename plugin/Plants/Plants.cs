@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Grasshopper;
+using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using Grasshopper.Kernel.Data;
 using Rhino.Geometry;
 
 namespace groundhog
 {
-
-    class PlantFactory
+    internal class PlantFactory
     {
-
         public static Dictionary<string, string> ParseToDictionary(string headers, string values)
         {
             var dictionary = new Dictionary<string, string>();
@@ -48,60 +42,84 @@ namespace groundhog
             int displayR, displayG, displayB;
 
             // Naming
-            if (speciesInstance.ContainsKey("Species Name")) {
+            if (speciesInstance.ContainsKey("Species Name"))
+            {
                 speciesName = speciesInstance["Species Name"];
-            } else {
+            }
+            else
+            {
                 speciesName = "Unnamed";
                 warnings += "no Species name; ";
             }
-            if (speciesInstance.ContainsKey("Common Name")) {
+            if (speciesInstance.ContainsKey("Common Name"))
+            {
                 commonName = speciesInstance["Common Name"];
-            } else {
+            }
+            else
+            {
                 commonName = "Unnamed";
                 warnings += "no Common name; ";
             }
-            if (speciesInstance.ContainsKey("Indigenous Name")) {
+            if (speciesInstance.ContainsKey("Indigenous Name"))
+            {
                 indigenousName = speciesInstance["Indigenous Name"];
-            } else {
+            }
+            else
+            {
                 indigenousName = "Unnamed";
                 warnings += "no Indigenous name; ";
             }
 
             // Lifespan
-            if (speciesInstance.ContainsKey("Time to Maturity")) {
+            if (speciesInstance.ContainsKey("Time to Maturity"))
+            {
                 timetoMaturity = Convert.ToDouble(speciesInstance["Time to Maturity"]);
-            } else {
+            }
+            else
+            {
                 timetoMaturity = 100.0;
                 warnings += "no Time to Maturity; ";
             }
 
             // Placement
-            if (speciesInstance.ContainsKey("Spacing Radius")) {
+            if (speciesInstance.ContainsKey("Spacing Radius"))
+            {
                 requiredSpacingRadius = Convert.ToDouble(speciesInstance["Spacing Radius"]);
-            } else {
+            }
+            else
+            {
                 requiredSpacingRadius = 1000.0;
                 warnings += "no Spacing Radius; ";
             }
 
             // Form
-            if (speciesInstance.ContainsKey("Initial Crown Radius")) {
+            if (speciesInstance.ContainsKey("Initial Crown Radius"))
+            {
                 initialCrownRadius = Convert.ToDouble(speciesInstance["Initial Crown Radius"]);
-            } else {
+            }
+            else
+            {
                 initialCrownRadius = 10.0;
                 warnings += "no Initial Crown Radius; ";
-            }            
-            if (speciesInstance.ContainsKey("Mature Crown Radius")) {
+            }
+            if (speciesInstance.ContainsKey("Mature Crown Radius"))
+            {
                 matureCrownRadius = Convert.ToDouble(speciesInstance["Mature Crown Radius"]);
-            } else {
+            }
+            else
+            {
                 matureCrownRadius = 10.0;
                 warnings += "no Mature Crown Radiu; s";
-            } 
-            if (speciesInstance.ContainsKey("Crown Variance")) {
+            }
+            if (speciesInstance.ContainsKey("Crown Variance"))
+            {
                 varianceCrownRadius = Convert.ToDouble(speciesInstance["Crown Variance"]);
-            } else {
+            }
+            else
+            {
                 varianceCrownRadius = 10.0;
                 warnings += "no Crown Variance; ";
-            }          
+            }
             if (speciesInstance.ContainsKey("Initial Trunk Radius"))
             {
                 initialTrunkRadius = Convert.ToDouble(speciesInstance["Initial Trunk Radius"]);
@@ -157,27 +175,29 @@ namespace groundhog
                 warnings += "no Height Variance; ";
             }
 
-            if (speciesInstance.ContainsKey("Initial Root Radius")) 
+            if (speciesInstance.ContainsKey("Initial Root Radius"))
             {
                 initialRootRadius = Convert.ToDouble(speciesInstance["Initial Root Radius"]);
-            } 
-            else 
+            }
+            else
             {
                 initialRootRadius = 1000.0;
                 warnings += "no Initial Root Radius; ";
             }
-            if (speciesInstance.ContainsKey("Mature Root Radius")) {
+            if (speciesInstance.ContainsKey("Mature Root Radius"))
+            {
                 matureRootRadius = Convert.ToDouble(speciesInstance["Mature Root Radius"]);
-            } 
-            else 
+            }
+            else
             {
                 matureRootRadius = 1000.0;
                 warnings += "no Mature Root Radius; ";
             }
-            if (speciesInstance.ContainsKey("Root Variance")) {
+            if (speciesInstance.ContainsKey("Root Variance"))
+            {
                 varianceRootRadius = Convert.ToDouble(speciesInstance["Root Variance"]);
-            } 
-            else 
+            }
+            else
             {
                 varianceRootRadius = 10.0;
                 warnings += "no Root Variance; ";
@@ -213,104 +233,47 @@ namespace groundhog
             }
 
             var initialisedSpecies = new PlantSpecies(
-                speciesName, commonName, indigenousName,                        
-                timetoMaturity,                     
-                requiredSpacingRadius,         
+                speciesName, commonName, indigenousName,
+                timetoMaturity,
+                requiredSpacingRadius,
                 initialCrownRadius, matureCrownRadius, varianceCrownRadius,
-                initialRootRadius, matureRootRadius, varianceRootRadius,                    
-                initialHeight, matureHeight, varianceHeight,                        
+                initialRootRadius, matureRootRadius, varianceRootRadius,
+                initialHeight, matureHeight, varianceHeight,
                 initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius,
                 displayR, displayG, displayB
             );
 
             return Tuple.Create(initialisedSpecies, warnings);
         }
-
-
     }
 
 
     internal class PlantSpecies : GH_Param<IGH_Goo>
     {
-        // Naming
-        public readonly string speciesName, commonName, indigenousName;
-        // Lifespan
-        private readonly double timetoMaturity;
-        // Placement
-        private readonly double requiredSpacingRadius;
-        // Form
-        private readonly double initialCrownRadius, matureCrownRadius, varianceCrownRadius;
-        private readonly double initialRootRadius, matureRootRadius, varianceRootRadius;
-        private readonly double initialHeight, matureHeight, varianceHeight;
-        private readonly double initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius;
         // Aesthetics
         private readonly int displayR, displayG, displayB;
 
-        // Get current state
-        private double getGrowth(double initial, double eventual, double time)
-        {
-            var annualRate = (eventual - initial) / timetoMaturity;
-            var grownTime = Math.Min(time, timetoMaturity);
-            var grownState = grownTime * annualRate + initial;
-            return grownState;
-        }
+        // Form
+        private readonly double initialCrownRadius, matureCrownRadius, varianceCrownRadius;
 
-        // Get geometry
-        public Circle getCrown(Point3d location, double time)
-        {
-            var height = getGrowth(initialHeight, matureHeight, time);
-            var radius = getGrowth(initialCrownRadius, matureCrownRadius, time);
-            var canopyLocation = new Point3d(location.X, location.Y, location.Z + height);
-            return new Circle(canopyLocation, radius);
-        }
-        public Circle getRoot(Point3d location, double time)
-        {
-            var radius = getGrowth(initialRootRadius, matureRootRadius, time);
-            return new Circle(location, radius);
-        }
-        public Circle getTrunk(Point3d location, double time)
-        {
-            var radius = getGrowth(initialTrunkRadius, matureTrunkRadius, time);
-            return new Circle(location, radius);
-        }
-        public Circle getSpacing(Point3d location)
-        {
-            return new Circle(location, requiredSpacingRadius);
-        }
+        private readonly double initialHeight, matureHeight, varianceHeight;
+        private readonly double initialRootRadius, matureRootRadius, varianceRootRadius;
 
-        public System.Drawing.Color getColour()
-        {
-            var colour = System.Drawing.Color.FromArgb(displayR, displayG, displayB);
-            return colour;
-        }
-        public GH_String getLabel()
-        {
-            return new GH_String(speciesName);
-        }
+        private readonly double initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius;
 
+        // Placement
+        private readonly double requiredSpacingRadius;
 
-        #region properties
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        // Naming
+        public readonly string speciesName, commonName, indigenousName;
 
-        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
-
-        public override string ToString()
-        {
-            return "groundhog Plant Species (" + speciesName + ")";
-        }
-        #endregion
-
-        #region casting
-        protected override IGH_Goo InstantiateT()
-        {
-            return new GH_ObjectWrapper();
-        }
-        #endregion
+        // Lifespan
+        private readonly double timetoMaturity;
 
         // Init
         public PlantSpecies(
             string speciesName, string commonName, string indigenousName,
-            double timetoMaturity, 
+            double timetoMaturity,
             double requiredSpacingRadius,
             double initialCrownRadius, double matureCrownRadius, double varianceCrownRadius,
             double initialRootRadius, double matureRootRadius, double varianceRootRadius,
@@ -347,6 +310,73 @@ namespace groundhog
             this.displayB = displayB;
         }
 
-    }
+        // Get current state
+        private double getGrowth(double initial, double eventual, double time)
+        {
+            var annualRate = (eventual - initial) / timetoMaturity;
+            var grownTime = Math.Min(time, timetoMaturity);
+            var grownState = grownTime * annualRate + initial;
+            return grownState;
+        }
 
+        // Get geometry
+        public Circle getCrown(Point3d location, double time)
+        {
+            var height = getGrowth(initialHeight, matureHeight, time);
+            var radius = getGrowth(initialCrownRadius, matureCrownRadius, time);
+            var canopyLocation = new Point3d(location.X, location.Y, location.Z + height);
+            return new Circle(canopyLocation, radius);
+        }
+
+        public Circle getRoot(Point3d location, double time)
+        {
+            var radius = getGrowth(initialRootRadius, matureRootRadius, time);
+            return new Circle(location, radius);
+        }
+
+        public Circle getTrunk(Point3d location, double time)
+        {
+            var radius = getGrowth(initialTrunkRadius, matureTrunkRadius, time);
+            return new Circle(location, radius);
+        }
+
+        public Circle getSpacing(Point3d location)
+        {
+            return new Circle(location, requiredSpacingRadius);
+        }
+
+        public Color getColour()
+        {
+            var colour = Color.FromArgb(displayR, displayG, displayB);
+            return colour;
+        }
+
+        public GH_String getLabel()
+        {
+            return new GH_String(speciesName);
+        }
+
+        #region casting
+
+        protected override IGH_Goo InstantiateT()
+        {
+            return new GH_ObjectWrapper();
+        }
+
+        #endregion
+
+
+        #region properties
+
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
+        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
+
+        public override string ToString()
+        {
+            return "groundhog Plant Species (" + speciesName + ")";
+        }
+
+        #endregion
+    }
 }

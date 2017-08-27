@@ -25,7 +25,7 @@ namespace groundhog
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Datum", "d", "The local mean sea level", GH_ParamAccess.item, 0d);
             pManager[0].Optional = true;
@@ -48,7 +48,7 @@ namespace groundhog
         /// <summary>
         /// Registers all the output parameters for this component.
         /// </summary>
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Sea Level", "SL", "The simulated mean sea level", GH_ParamAccess.item);
             pManager.AddSurfaceParameter("Storm Surge Level", "SS", "The simulated mean storm surge level", GH_ParamAccess.item);
@@ -88,12 +88,12 @@ namespace groundhog
             // TODO: determine if I need to do input validation here
 
             // Create holder variables for output parameters
-            PlaneSurface seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
-            PlaneSurface stormSurgeLevel = createLevel(calculateValue(YEAR, DATUM, RISE, SURGE));
-            PlaneSurface highNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
-            PlaneSurface lowNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_NEAP));
-            PlaneSurface highSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
-            PlaneSurface lowSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_SPRING));
+            var seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
+            var stormSurgeLevel = createLevel(calculateValue(YEAR, DATUM, RISE, SURGE));
+            var highNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
+            var lowNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_NEAP));
+            var highSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
+            var lowSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_SPRING));
 
             // Assign variables to output parameters
             DA.SetData(0, seaLevel);
@@ -107,8 +107,8 @@ namespace groundhog
         private double calculateValue(double SIMULATED_YEAR, double DATUM, double RISE, double EVENT_HEIGHT)
         {
             // TODO: test with negative years; fractional years...
-            double yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
-            double simulatedLevel = DATUM + EVENT_HEIGHT + Math.Pow(RISE, yearsElapased);
+            var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
+            var simulatedLevel = DATUM + EVENT_HEIGHT + Math.Pow(RISE, yearsElapased);
             return simulatedLevel;
         }
 
@@ -134,31 +134,19 @@ namespace groundhog
         /// each of which can be combined with the GH_Exposure.obscure flag, which
         /// ensures the component will only be visible on panel dropdowns.
         /// </summary>
-        public override GH_Exposure Exposure
-        {
-            get { return GH_Exposure.primary; }
-        }
+        public override GH_Exposure Exposure => GH_Exposure.primary;
 
         /// <summary>
         /// Provides an Icon for every component that will be visible in the User Interface.
         /// Icons need to be 24x24 pixels.
         /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-				return groundhog.Properties.Resources.icon_floods_river;
-            }
-        }
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.icon_floods_river;
 
         /// <summary>
         /// Each component must have a unique Guid to identify it.
         /// It is vital this Guid doesn't change otherwise old ghx files
         /// that use the old ID will partially fail during loading.
         /// </summary>
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d0}"); }
-        }
+        public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d0}");
     }
 }
