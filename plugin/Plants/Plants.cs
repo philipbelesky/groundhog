@@ -15,7 +15,7 @@ namespace groundhog
     class PlantFactory
     {
 
-        public static Dictionary<string, string> parseToDictionary(string headers, string values)
+        public static Dictionary<string, string> ParseToDictionary(string headers, string values)
         {
             var dictionary = new Dictionary<string, string>();
 
@@ -30,9 +30,9 @@ namespace groundhog
             return dictionary;
         }
 
-        public static Tuple<PlantSpecies, string> parseFromDictionary(Dictionary<string, string> speciesInstance)
+        public static Tuple<PlantSpecies, string> ParseFromDictionary(Dictionary<string, string> speciesInstance)
         {
-            string warnings = "";
+            var warnings = "";
             // Naming
             string speciesName, commonName, indigenousName;
             // Lifespan
@@ -212,15 +212,15 @@ namespace groundhog
                 warnings += "no Display B; ";
             }
 
-            PlantSpecies initialisedSpecies = new PlantSpecies(
-                speciesName: speciesName, commonName: commonName, indigenousName: indigenousName,                        
-                timetoMaturity: timetoMaturity,                     
-                requiredSpacingRadius: requiredSpacingRadius,         
-                initialCrownRadius: initialCrownRadius, matureCrownRadius: matureCrownRadius, varianceCrownRadius: varianceCrownRadius,
-                initialRootRadius: initialRootRadius, matureRootRadius: matureRootRadius, varianceRootRadius: varianceRootRadius,                    
-                initialHeight: initialHeight, matureHeight: matureHeight, varianceHeight: varianceHeight,                        
-                initialTrunkRadius: initialTrunkRadius, matureTrunkRadius: matureTrunkRadius, varianceTrunkRadius: varianceTrunkRadius,
-                displayR: displayR, displayG: displayG, displayB: displayB
+            var initialisedSpecies = new PlantSpecies(
+                speciesName, commonName, indigenousName,                        
+                timetoMaturity,                     
+                requiredSpacingRadius,         
+                initialCrownRadius, matureCrownRadius, varianceCrownRadius,
+                initialRootRadius, matureRootRadius, varianceRootRadius,                    
+                initialHeight, matureHeight, varianceHeight,                        
+                initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius,
+                displayR, displayG, displayB
             );
 
             return Tuple.Create(initialisedSpecies, warnings);
@@ -229,8 +229,8 @@ namespace groundhog
 
     }
 
-        
-    class PlantSpecies : GH_Param<IGH_Goo>
+
+    internal class PlantSpecies : GH_Param<IGH_Goo>
     {
         // Naming
         public readonly string speciesName, commonName, indigenousName;
@@ -249,58 +249,51 @@ namespace groundhog
         // Get current state
         private double getGrowth(double initial, double eventual, double time)
         {
-            double annualRate = (eventual - initial) / this.timetoMaturity;
-            double grownTime = Math.Min(time, this.timetoMaturity);
-            double grownState = (grownTime * annualRate) + initial;
+            var annualRate = (eventual - initial) / timetoMaturity;
+            var grownTime = Math.Min(time, timetoMaturity);
+            var grownState = grownTime * annualRate + initial;
             return grownState;
         }
 
         // Get geometry
         public Circle getCrown(Point3d location, double time)
         {
-            double height = getGrowth(this.initialHeight, this.matureHeight, time);
-            double radius = getGrowth(this.initialCrownRadius, this.matureCrownRadius, time);
-            Point3d canopyLocation = new Point3d(location.X, location.Y, (location.Z + height));
+            var height = getGrowth(initialHeight, matureHeight, time);
+            var radius = getGrowth(initialCrownRadius, matureCrownRadius, time);
+            var canopyLocation = new Point3d(location.X, location.Y, location.Z + height);
             return new Circle(canopyLocation, radius);
         }
         public Circle getRoot(Point3d location, double time)
         {
-            double radius = getGrowth(this.initialRootRadius, this.matureRootRadius, time);
+            var radius = getGrowth(initialRootRadius, matureRootRadius, time);
             return new Circle(location, radius);
         }
         public Circle getTrunk(Point3d location, double time)
         {
-            double radius = getGrowth(this.initialTrunkRadius, this.matureTrunkRadius, time);
+            var radius = getGrowth(initialTrunkRadius, matureTrunkRadius, time);
             return new Circle(location, radius);
         }
         public Circle getSpacing(Point3d location)
         {
-            return new Circle(location, this.requiredSpacingRadius);
+            return new Circle(location, requiredSpacingRadius);
         }
 
         public System.Drawing.Color getColour()
         {
-            System.Drawing.Color colour = System.Drawing.Color.FromArgb(this.displayR, this.displayG, this.displayB);
+            var colour = System.Drawing.Color.FromArgb(displayR, displayG, displayB);
             return colour;
         }
         public GH_String getLabel()
         {
-            return new GH_String(this.speciesName);
+            return new GH_String(speciesName);
         }
 
 
         #region properties
-        public override GH_Exposure Exposure
-        {
-            get
-            {
-                return GH_Exposure.primary;
-            }
-        }
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7"); }
-        }
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
+        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
+
         public override string ToString()
         {
             return "groundhog Plant Species (" + speciesName + ")";

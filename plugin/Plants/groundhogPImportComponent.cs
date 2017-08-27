@@ -62,8 +62,8 @@ namespace groundhog
 
             foreach (string csvValue in csvContents)
             {
-                Dictionary<string, string> instanceDictionary = PlantFactory.parseToDictionary(csvHeaders, csvValue);
-                var createSpecies = PlantFactory.parseFromDictionary(instanceDictionary);
+                Dictionary<string, string> instanceDictionary = PlantFactory.ParseToDictionary(csvHeaders, csvValue);
+                var createSpecies = PlantFactory.ParseFromDictionary(instanceDictionary);
 
                 PlantSpecies instanceSpecies = createSpecies.Item1;
                 string instanceWarnings = createSpecies.Item2;

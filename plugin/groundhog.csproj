@@ -89,12 +89,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Hydro\Floods Examples.3dm" />
-    <None Include="Hydro\Floods Examples.gh" />
-    <None Include="Hydro\Flows Examples.3dm" />
-    <None Include="Hydro\Flows Examples.gh" />
-    <None Include="Hydro\Flows Tests.3dm" />
-    <None Include="Hydro\Flows Tests.gh" />
     <None Include="Resources\generic_plants.csv" />
     <None Include="Resources\icon_catchments.png" />
     <None Include="Resources\icon_contour_clip.png" />
@@ -122,7 +116,7 @@
   <!--
     COMPILATION
   -->
-<!--   <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
+  <!--   <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
 
       OSX copy to compiled file to ExplicitHistory path as DeveloperSettings is currently crashing.
       Note quotes start after the ~ (otherwise it wont expand)
