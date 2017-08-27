@@ -1,7 +1,4 @@
-Species Name,Common Name,Indigenous Name,Time to Maturity,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Display R,Display G,Display B
-Rhopalostylis sapida,Nikau,Nikau,25,750,500,3000,15,75,200,15,500,12500,15,150,2500,15,16,148,59
-Cordyline australis,Cabbage Tree,Ti Kouka,50,750,500,1500,25,100,250,25,1000,16000,25,200,1750,25,26,171,23
-Phorium Tenax,NZ Flax,Harakeke,20,450,300,2000,20,50,175,20,300,3000,20,100,1500,20,110,171,23
-Kunzea ericoides,White tea-tree,Kanuka,12,750,500,3000,30,100,250,20,500,6000,20,200,1850,20,130,201,54
-Metrosideros excelsa,Pohutukawa,Pohutukawa,40,750,500,1500,20,75,350,20,500,20000,20,150,1100,20,17,198,98
-Podocarpus totara,Totara,Totara,30,800,800,1600,33,110,350,30,500,22000,30,220,1200,30,17,198,43
+Species Name, Common Name,Indigenous Name,Time to Maturity,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Display R,Display G,Display B
+Generic Shrub,Generic Shrub,Generic Shrub,25,1,500,3000,10,15,750,10,200,500,15,150,12500,15,16,148,59
+Generic Grass,Generic Grass,Generic Grass,50,1,500,1500,10,25,750,10,250,1000,25,200,16000,25,26,171,23
+Generic Tree,Generic Tree,Generic Tree,20,1,300,2000,10,20,450,10,175,300,20,100,3000,20,110,171,23
