@@ -17,19 +17,15 @@ namespace groundhog
 
         public static Dictionary<string, string> parseToDictionary(string headers, string values)
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            var dictionary = new Dictionary<string, string>();
 
-            string[] splitKeys = headers.Split(',');
-            string[] splitValues = values.Split(',');
+            var splitKeys = headers.Split(',');
+            var splitValues = values.Split(',');
 
             int i;
             for (i = 0; i < splitKeys.Length; i = i + 1)
-            {
                 if (splitValues[i].Trim() != "")
-                {
                     dictionary.Add(splitKeys[i].Trim(), splitValues[i].Trim());
-                }
-            }
 
             return dictionary;
         }
@@ -49,7 +45,7 @@ namespace groundhog
             double initialHeight, matureHeight, varianceHeight;
             double initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius;
             // Aesthetics
-            string displayRGB;
+            int displayR, displayG, displayB;
 
             // Naming
             if (speciesInstance.ContainsKey("Species Name")) {
@@ -186,15 +182,34 @@ namespace groundhog
                 varianceRootRadius = 10.0;
                 warnings += "no Root Variance; ";
             }
-            
+
             // Aesthetics
-            if (speciesInstance.ContainsKey("Display RGB")) {
-                displayRGB = speciesInstance["Display RGB"];
-            } 
-            else 
+            if (speciesInstance.ContainsKey("Display R"))
             {
-                displayRGB = "100,100,100";
-                warnings += "no Display RGB; ";
+                displayR = Convert.ToInt16(speciesInstance["Display R"]);
+            }
+            else
+            {
+                displayR = 100;
+                warnings += "no Display R; ";
+            }
+            if (speciesInstance.ContainsKey("Display G"))
+            {
+                displayG = Convert.ToInt16(speciesInstance["Display G"]);
+            }
+            else
+            {
+                displayG = 255;
+                warnings += "no Display G; ";
+            }
+            if (speciesInstance.ContainsKey("Display B"))
+            {
+                displayB = Convert.ToInt16(speciesInstance["Display B"]);
+            }
+            else
+            {
+                displayB = 100;
+                warnings += "no Display B; ";
             }
 
             PlantSpecies initialisedSpecies = new PlantSpecies(
@@ -205,7 +220,7 @@ namespace groundhog
                 initialRootRadius: initialRootRadius, matureRootRadius: matureRootRadius, varianceRootRadius: varianceRootRadius,                    
                 initialHeight: initialHeight, matureHeight: matureHeight, varianceHeight: varianceHeight,                        
                 initialTrunkRadius: initialTrunkRadius, matureTrunkRadius: matureTrunkRadius, varianceTrunkRadius: varianceTrunkRadius,
-                displayRGB: displayRGB                
+                displayR: displayR, displayG: displayG, displayB: displayB
             );
 
             return Tuple.Create(initialisedSpecies, warnings);
@@ -229,7 +244,7 @@ namespace groundhog
         private readonly double initialHeight, matureHeight, varianceHeight;
         private readonly double initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius;
         // Aesthetics
-        private readonly string displayRGB;
+        private readonly int displayR, displayG, displayB;
 
         // Get current state
         private double getGrowth(double initial, double eventual, double time)
@@ -265,15 +280,7 @@ namespace groundhog
 
         public System.Drawing.Color getColour()
         {
-            // Parse the comma seperated string into an array of ints
-            string[] colorComponents = this.displayRGB.Split(',');
-            int[] colorValues = new int[3];
-            for (int i = 0; i < colorComponents.Length; i++)
-            {
-                colorValues[i] = Convert.ToInt16(colorComponents[i].Trim());
-            }
-
-            System.Drawing.Color colour = System.Drawing.Color.FromArgb(colorValues[0], colorValues[1], colorValues[2]);
+            System.Drawing.Color colour = System.Drawing.Color.FromArgb(this.displayR, this.displayG, this.displayB);
             return colour;
         }
         public GH_String getLabel()
@@ -316,7 +323,7 @@ namespace groundhog
             double initialRootRadius, double matureRootRadius, double varianceRootRadius,
             double initialHeight, double matureHeight, double varianceHeight,
             double initialTrunkRadius, double matureTrunkRadius, double varianceTrunkRadius,
-            string displayRGB
+            int displayR, int displayG, int displayB
         )
             : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
         {
@@ -342,7 +349,9 @@ namespace groundhog
             this.matureTrunkRadius = matureTrunkRadius;
             this.varianceTrunkRadius = varianceTrunkRadius;
             // Aesthetics
-            this.displayRGB = displayRGB;
+            this.displayR = displayR;
+            this.displayG = displayG;
+            this.displayB = displayB;
         }
 
     }
