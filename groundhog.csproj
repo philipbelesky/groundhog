@@ -46,28 +46,16 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <!-- Note to prevent hardcoding a Windows App Data UDID I've just copy/pasted Grasshopper.dll and GH_IO.dll into C:\Program Files (x86)\Rhinoceros 5\System\-->
-    <Reference Include="Grasshopper">
-      <SpecificVersion>False</SpecificVersion>
-      <!-- <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\Grasshopper.dll</HintPath> -->
-      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\Grasshopper.dll</HintPath>
-      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
-      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/ManagedPlugIns/GrasshopperPlugin.rhp/Grasshopper.dll</HintPath>
+    <Reference Include="RhinoCommon">
+      <HintPath>packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GH_IO">
-      <SpecificVersion>False</SpecificVersion>
-      <!-- <HintPath Condition="Exists('C:\Program Files\Rhino WIP\Plug-ins\Grasshopper')">C:\Program Files\Rhino WIP\Plug-ins\Grasshopper\GH_IO.dll</HintPath> -->
-      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\GH_IO.dll</HintPath>
-      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
-      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/ManagedPlugIns/GrasshopperPlugin.rhp/GH_IO.dll</HintPath>
+      <HintPath>packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RhinoCommon">
-      <SpecificVersion>False</SpecificVersion>
-      <!-- <HintPath Condition="Exists('C:\Program Files\Rhino WIP\System\')">C:\Program Files\Rhino WIP\System\RhinoCommon.dll</HintPath> -->
-      <HintPath Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\rhinoCommon.dll</HintPath>
-      <!-- OSX Development; change from WIP to the main Rhinoceros bundle once Grasshopper is released there -->
-      <HintPath Condition="Exists('/Applications/RhinoWIP.app/')">/Applications/RhinoWIP.app/Contents/Resources/RhinoCommon.dll</HintPath>
+    <Reference Include="Grasshopper">
+      <HintPath>packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -134,6 +122,7 @@
     <None Include="Resources\images\icon_pimport.png" />
     <None Include="Resources\images\icon_pplacer.png" />
     <None Include="Resources\images\icon_pshower.png" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -202,4 +191,6 @@
     <Copy SourceFiles="$(ProjectDir)Terrain/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
 
   </Target>
+  <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
+  <Import Project="packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
 </Project>
