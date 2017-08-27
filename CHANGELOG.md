@@ -1,8 +1,9 @@
 ## Changelog
 
-#### 0.51a
+#### 0.6a
 
 - Flow Path component outputs paths as a flat list; not a tree
+- Switched references to use NuGet
 
 #### 0.5a
 

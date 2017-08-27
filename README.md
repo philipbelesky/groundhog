@@ -8,13 +8,7 @@ Groundhog is a plugin for the Grasshopper parametric design platform.
 
 ## Building
 
-#### OS X
-
-
-
-#### Windows
-
-Note to prevent hardcoding a Windows App Data UDID I've just copy/pasted Grasshopper.dll and GH_IO.dll into C:\Program Files (x86)\Rhinoceros 5\System\. You'll need to do the same or go into groundhog.csproj and change the reference paths.
+Building requires [Visual Studio Community](https://www.visualstudio.com/vs/) for Mac or Windows. Upon first build it should fetch the required RhinoCommon and Grasshopper references from NuGet (an internet connection is required).
 
 ## Contributions & Feedback
 
