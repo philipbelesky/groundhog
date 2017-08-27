@@ -176,20 +176,19 @@
     POST BUILD COMPILATION
    -->
   <Target Name="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <Copy SourceFiles="$(ProjectDir)README.md" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(ProjectDir)CHANGELOG.md" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(ProjectDir)LICENSE" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(ProjectDir)Hydro/Flows Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Hydro/Flows Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Mapping/Fields Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Mapping/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Plants/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Plants/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Terrain/Contour Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Terrain/Contour Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Terrain/Terrain Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)Terrain/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
-
+    <Copy SourceFiles="$(ProjectDir)/../README.md" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="$(ProjectDir)/../CHANGELOG.md" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="$(ProjectDir)/../LICENSE" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Flows Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Flows Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.3dm" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
   </Target>
   <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Import Project="packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
