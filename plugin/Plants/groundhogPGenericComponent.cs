@@ -27,8 +27,6 @@ namespace groundhog
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-
-
         }
 
         /// <summary>
@@ -42,9 +40,6 @@ namespace groundhog
             pManager.AddGenericParameter("GrassP", "GrassP", gHelp, GH_ParamAccess.item);
             var tHelp = "Placeholder description 3";
             pManager.AddGenericParameter("TreeP", "TreeP", tHelp, GH_ParamAccess.item);
-            #if DEBUG
-            pManager.AddTextParameter("Debug", "Debug", "Debug", GH_ParamAccess.item);
-            #endif
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
             //pManager.HideParameter(0);
@@ -57,8 +52,6 @@ namespace groundhog
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string debugOut = "Component init";
-
             List<PlantSpecies> csvPlantSpecies = new List<PlantSpecies>();
 
             string[] csvStrings = Properties.Resources.generic_plants.Split('\n');
@@ -66,10 +59,7 @@ namespace groundhog
 
             string csvHeaders = csvContents[0];
             csvContents.Remove(csvHeaders);
-
-            debugOut += "csvHeaders " + csvHeaders + "\n";
-            debugOut += "csvContents " + csvContents + "\n";
-
+            
             foreach (string csvValue in csvContents)
             {
                 Dictionary<string, string> instanceDictionary = PlantFactory.parseToDictionary(csvHeaders, csvValue);
@@ -85,17 +75,16 @@ namespace groundhog
                 csvPlantSpecies.Add(instanceSpecies);
             }
 
-            debugOut += "csvPlantSpecies " + csvPlantSpecies + "\n";
-
             // Assign variables to output parameters
             DA.SetData(0, csvPlantSpecies.Find(i => i.speciesName == "Generic Shrub"));
             DA.SetData(1, csvPlantSpecies.Find(i => i.speciesName == "Generic Grass"));
             DA.SetData(2, csvPlantSpecies.Find(i => i.speciesName == "Generic Tree"));
+
         }
 
 
 
-           /// <summary>
+        /// <summary>
         /// The Exposure property controls where in the panel a component icon
         /// will appear. There are seven possible locations (primary to septenary),
         /// each of which can be combined with the GH_Exposure.obscure flag, which

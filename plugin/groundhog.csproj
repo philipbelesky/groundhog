@@ -89,6 +89,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hydro\Floods Examples.3dm" />
+    <None Include="Hydro\Floods Examples.gh" />
+    <None Include="Hydro\Flows Examples.3dm" />
+    <None Include="Hydro\Flows Examples.gh" />
+    <None Include="Hydro\Flows Tests.3dm" />
+    <None Include="Hydro\Flows Tests.gh" />
     <None Include="Resources\generic_plants.csv" />
     <None Include="Resources\icon_catchments.png" />
     <None Include="Resources\icon_contour_clip.png" />
@@ -103,19 +109,6 @@
     <None Include="Resources\icon_pimport.png" />
     <None Include="Resources\icon_pplacer.png" />
     <None Include="Resources\icon_pshower.png" />
-    <None Include="Resources\images\icon_catchments.png" />
-    <None Include="Resources\images\icon_contour_clip.png" />
-    <None Include="Resources\images\icon_contour_gap.png" />
-    <None Include="Resources\images\icon_contour_planarity.png" />
-    <None Include="Resources\images\icon_field.png" />
-    <None Include="Resources\images\icon_floods_river.png" />
-    <None Include="Resources\images\icon_floods_sea.png" />
-    <None Include="Resources\images\icon_flows.png" />
-    <None Include="Resources\images\icon_mesh_slope.png" />
-    <None Include="Resources\images\icon_pgeneric.png" />
-    <None Include="Resources\images\icon_pimport.png" />
-    <None Include="Resources\images\icon_pplacer.png" />
-    <None Include="Resources\images\icon_pshower.png" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -160,7 +153,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
     <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
-      C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe
+      C:\Program Files\Rhinoceros 5 (64-bit)\Rhino.exe
     </StartProgram>
     <StartArguments>
     </StartArguments>
