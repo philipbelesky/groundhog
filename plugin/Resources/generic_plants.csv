@@ -1,0 +1,4 @@
+Species Name, Common Name,Indigenous Name,Time to Maturity,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Display R,Display G,Display B
+Generic Shrub,Generic Shrub,Generic Shrub,25,1,500,3000,10,15,750,10,200,500,15,150,12500,15,16,148,59
+Generic Grass,Generic Grass,Generic Grass,50,1,500,1500,10,25,750,10,250,1000,25,200,16000,25,26,171,23
+Generic Tree,Generic Tree,Generic Tree,20,1,300,2000,10,20,450,10,175,300,20,100,3000,20,110,171,23
