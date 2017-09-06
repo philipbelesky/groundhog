@@ -1,10 +1,10 @@
 ## Setup
 
-`bundler install`
+    bundler install
 
 ## Serving
 
-`bundle exec jekyll serve`
+    bundle exec jekyll serve
 
 ## Deploying
 

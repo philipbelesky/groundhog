@@ -1,0 +1,39 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1>Groundhog</h1>
+
+  <p>{{ page.content }}</p>
+
+  <h2>Components</h2>
+
+  {% for component in site.components %}
+    <h4><a href="{{ component.url }}">{{ component.title }}</a></h4>
+  {% endfor %}
+
+  <a href="{{ site.baseurl }}{% link plugin.md %}">Component Documentation</a>
+
+  <hr>
+
+  <h2>Techniques</h2>
+
+  {% for technique in site.techniques %}
+    <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
+  {% endfor %}
+
+  <a href="{{ site.baseurl }}{% link techniques.md %}">All Techniques</a>
+
+  <hr>
+
+  <h2>Projects</h2>
+
+  {% for project in site.projects %}
+    <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
+  {% endfor %}
+
+  <a href="{{ site.baseurl }}{% link projects.md %}">All Projects</a>
+
+</div>

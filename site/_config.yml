@@ -23,12 +23,55 @@ url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. ht
 #github_username:  jekyll
 
 # Build settings
+livereload: true
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
 
 google_analytics: UA-314178-30
+
+# Configuration
+permalink: pretty # Ditch the .html
+
+
+# Custom types
+collections:
+  components:
+    output: true
+    permalink: /plugin/:title
+    # scope:
+    #   path: ""
+    #   type: my_collection
+  projects:
+    output: true
+    permalink: /projects/:title
+    # scope:
+    #   path: ""
+    #   type: my_collection
+  techniques:
+    output: true
+    permalink: /techniques/:title
+    # scope:
+    #   path: ""
+    #   type: my_collection
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: single_project
+  - scope:
+      path: ""
+      type: techniques
+    values:
+      layout: single_technique
+  - scope:
+      path: ""
+      type: components
+    values:
+      layout: single_component
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
