@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<h1>Groundhog Projects</h1>
+
+<main class="">
+
+{{ content }}
+
+</main>
+
+<h4>Projects</h4>
+
+{% for component in site.projects %}
+  <h4><a href="{{ component.url }}">{{ component.title }}</a></h4>
+{% endfor %}
