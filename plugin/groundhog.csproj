@@ -81,6 +81,7 @@
     <Compile Include="Terrain\groundhogContourCheckPlanarityComponent.cs" />
     <Compile Include="Terrain\groundhogContourClipComponent.cs" />
     <Compile Include="Terrain\groundhogMeshGradeComponent.cs" />
+    <Compile Include="groundhog_component.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
