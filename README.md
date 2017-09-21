@@ -1,18 +1,32 @@
 # Groundhog
 
-Groundhog is a plugin for the Grasshopper parametric design platform.
+Groundhog is a plugin for the Grasshopper parametric design platform. It is currently in an alpha/unfinished state.
 
 ## Installation
 
-## Use
+Drop the .gha file into the User Components file as per normal. Check the file is unblocked.
 
-## Building
+### Requirements
+- Rhinoceros 5.0 (Windows)
+- Rhinoceros WIP (Mac)
 
-Building requires [Visual Studio Community](https://www.visualstudio.com/vs/) for Mac or Windows. Upon first build it should fetch the required RhinoCommon and Grasshopper references from NuGet (an internet connection is required).
+Tested on Grasshopper 0.9.0076.
 
-## Contributions & Feedback
+## Usage
 
-Both are welcome.
+See the provided demo/examples/projects files.
+
+## Development
+
+Building the solution requires [Visual Studio Community](https://www.visualstudio.com/vs/) for Mac or Windows. Upon first build it should fetch the required RhinoCommon and Grasshopper references from NuGet (an internet connection is required).
+
+## Support
+
+See the email address provided inside the definitions.
+
+## Contributing
+
+Feedback and pull requests welcome.
 
 ## License
 
