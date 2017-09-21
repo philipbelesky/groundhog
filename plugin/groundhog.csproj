@@ -68,6 +68,7 @@
     <Compile Include="Hydro\groundhogFloodRiverComponent.cs" />
     <Compile Include="Hydro\groundhogFloodSeaComponent.cs" />
     <Compile Include="Mapping\groundhogFieldComponent.cs" />
+    <Compile Include="Mapping\groundhogFieldVisualisationGridComponent.cs" />
     <Compile Include="Plants\groundhogPGenericComponent.cs" />
     <Compile Include="Plants\groundhogPImportComponent.cs" />
     <Compile Include="Plants\groundhogPlanterComponent.cs" />
