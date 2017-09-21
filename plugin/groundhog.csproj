@@ -180,6 +180,10 @@
     <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.3dm" DestinationFolder="$(OutDir)demos" />
     <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.gh" DestinationFolder="$(OutDir)demos" />
+    <ItemGroup>
+      <Precedents Include="$(ProjectDir)/../projects/**/*.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(Precedents)" DestinationFolder="$(OutDir)\projects" />
   </Target>
   <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Import Project="packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
