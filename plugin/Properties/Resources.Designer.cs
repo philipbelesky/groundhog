@@ -19,7 +19,7 @@ namespace groundhog.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,9 +61,9 @@ namespace groundhog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Species Name,Common Name,Indigenous Name,Time to Maturity,Death Rate,Relative Distribution,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Cost,Display R,Display G,Display B
-        ///Generic Shrub,Generic Shrub,Generic Shrub,25,1,1,750,500,3000,15,75,200,15,500,12500,15,150,2500,15,55,16,148,59
-        ///Generic Grass,Generic Grass,Generic Grass,50 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Species Name, Common Name,Indigenous Name,Time to Maturity,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Display R,Display G,Display B
+        ///Generic Shrub,Generic Shrub,Generic Shrub,25,1,100,1500,10,10,75,10,100,1500,15,150,1000,15,62,189,125
+        ///Generic Grass,Generic Grass,Generic Grass,50,1,75,500,10,5,20,10,50,400,25,100,500,25,26, [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string generic_plants {
             get {
