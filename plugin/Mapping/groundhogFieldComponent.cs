@@ -97,6 +97,8 @@ namespace groundhog
             var ALL_DATA_REGIONS = areas;
             var INTERPOLATE = true;
 
+            if (gridDivisions < 4)
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Numver of grid divisions must be greater than 4 in order to create a surface");
 
             // Validate input curves are planar
             if (!BOUNDARY.IsPlanar())
@@ -106,14 +108,13 @@ namespace groundhog
 
             for (var i = 0; i < areas.Count; i = i + 1)
             {
-                if (!areas[i].IsPlanar())
-                {
-                    //AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve #{0}, is not planar", i);
-                }
-                if (!areas[i].IsClosed)
-                {
-                    //AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve #{0}, is not closed", i);
-                }
+                if (areas[i] == null)
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "An area curve is not defined (null)");
+                else
+                    if (!areas[i].IsPlanar())
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "A boundary curve is not planar");
+                    if (!areas[i].IsClosed)
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "A boundary curve is not closed");
             }
 
 
