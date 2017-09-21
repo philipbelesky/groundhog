@@ -120,7 +120,7 @@ namespace groundhog
 
             // Construct the bounding box for the search limits boundary; identify its extents and if its square
             var boundaryBox = BOUNDARY.GetBoundingBox(false); // False = uses estimate method
-            var BOUNDARY_IS_RECT = isBoundaryRect(BOUNDARY, TOLERANCE);
+            var BOUNDARY_IS_RECT = IsBoundaryRect(BOUNDARY, TOLERANCE);
 
             // Construct the boundary boxes for the search targets
             var regionBoxes = new List<BoundingBox>();
@@ -128,7 +128,7 @@ namespace groundhog
                 regionBoxes.Add(ALL_DATA_REGIONS[i].GetBoundingBox(false));
 
             // Construct the grid points
-            var gridInfo = createGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, zRange);
+            var gridInfo = CreateGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, zRange);
             // Unpack the returned values
             var gridPts = gridInfo.Item1;
             zRange = gridInfo.Item2;
@@ -152,7 +152,7 @@ namespace groundhog
             {
                 // Construct a tuple to stuff state into the callback
                 var data = Tuple.Create(i, gridPts, ALL_DATA_REGIONS, xGridExtents, yGridExtents, TOLERANCE);
-                rTree.Search(regionBoxes[i], regionOverlapCallback, data);
+                rTree.Search(regionBoxes[i], RegionOverlapCallback, data);
             }
 
             // Set all the point's z values based on count; maybe set it to like 10% of extents?
@@ -162,7 +162,7 @@ namespace groundhog
                 {
                     var pt = gridPts[x, y];
                     if (pt.BaseOverlaps == 0)
-                        pt.InterpolatedOverlaps = interpolateOverlaps(x, y, pt, gridPts);
+                        pt.InterpolatedOverlaps = InterpolateOverlaps(x, y, pt, gridPts);
                 }
 
             double overlapsMax = 0;
@@ -200,7 +200,7 @@ namespace groundhog
         }
 
 
-        private void regionOverlapCallback(object sender, RTreeEventArgs e)
+        private void RegionOverlapCallback(object sender, RTreeEventArgs e)
         {
             var dataIndex = e.Id; // The full-grid index of the point found
 
@@ -231,7 +231,7 @@ namespace groundhog
             //Print("\n");
         }
 
-        private bool isBoundaryRect(Curve BOUNDARY, double TOLERANCE)
+        private bool IsBoundaryRect(Curve BOUNDARY, double TOLERANCE)
         {
             var isRect = false;
             if (BOUNDARY.IsPolyline())
@@ -256,7 +256,7 @@ namespace groundhog
             return isRect;
         }
 
-        private int[] range(int start, int times, int step)
+        private int[] Range(int start, int times, int step)
         {
             // Oh for python
             var sequence = new int[times];
@@ -265,7 +265,7 @@ namespace groundhog
             return sequence;
         }
 
-        private double interpolateOverlaps(int x, int y, GridPt fromPt, GridPt[,] searchPts)
+        private double InterpolateOverlaps(int x, int y, GridPt fromPt, GridPt[,] searchPts)
         {
             var xExtents = searchPts.GetLength(0);
             var yExtents = searchPts.GetLength(1);
@@ -322,7 +322,7 @@ namespace groundhog
             return interpolatedOverlaps;
         }
 
-        private Tuple<GridPt[,], double, int, int> createGridPts(Curve BOUNDARY, BoundingBox boundaryBox,
+        private Tuple<GridPt[,], double, int, int> CreateGridPts(Curve BOUNDARY, BoundingBox boundaryBox,
             bool BOUNDARY_IS_RECT, int FIDELITY,
             double zRange)
         {

@@ -124,6 +124,16 @@ namespace groundhog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_field_grid_vis {
+            get {
+                object obj = ResourceManager.GetObject("icon_field_grid_vis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_floods_river {
             get {
                 object obj = ResourceManager.GetObject("icon_floods_river", resourceCulture);
