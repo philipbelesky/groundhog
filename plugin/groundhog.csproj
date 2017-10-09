@@ -122,15 +122,12 @@
   <!--
     COMPILATION
   -->
-  <!--   <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
-
-      OSX copy to compiled file to ExplicitHistory path as DeveloperSettings is currently crashing.
-      Note quotes start after the ~ (otherwise it wont expand)
-
+  <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
     <PostBuildEvent>
-      cp "$(TargetDir)groundhog.dll" ~/"Library/Application Support/McNeel/Rhinoceros/MacPlugIns/Grasshopper/Libraries/groundhog.gha"
+      cp "$(TargetDir)groundhog.dll" "$(TargetDir)$(ProjectName).gha"
+      rm "$(TargetDir)groundhog.dll"
     </PostBuildEvent>
-  </PropertyGroup> -->
+  </PropertyGroup>
   <PropertyGroup Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
     <PostBuildEvent>
       Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
