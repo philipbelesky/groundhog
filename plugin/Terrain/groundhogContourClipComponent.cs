@@ -136,8 +136,8 @@ namespace groundhog
                 Curve curveWithEndClipped;
                 if (curve.IsClosed == false)
                 {
-                    var curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
-                    curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY,
+                    var curveWithStartClipped = ClipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
+                    curveWithEndClipped = ClipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY,
                         boundarySrf);
                 }
                 else
@@ -145,14 +145,14 @@ namespace groundhog
                     curveWithEndClipped = curve;
                 }
 
-                var curveWithMiddlesClipped = clipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
+                var curveWithMiddlesClipped = ClipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
                 foreach (var curveClip in curveWithMiddlesClipped)
                 {
                     if (curveClip == null) 
                         continue; // Null if the curve is totally outside the boundary
 
                     fixedContours.Add(curveClip);
-                    var edgedContour = getBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
+                    var edgedContour = GetBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
                     edgedContours.Add(edgedContour);
                 }
             }
@@ -176,7 +176,7 @@ namespace groundhog
         }
 
 
-        private Curve clipCurveTerminus(Curve initialCurve, Point3d point, Curve BOUNDARY, Surface boundarySrf)
+        private Curve ClipCurveTerminus(Curve initialCurve, Point3d point, Curve BOUNDARY, Surface boundarySrf)
         {
             // Test, for a particular point where it is in relation to boundary and clip curve accordingly
 
@@ -187,13 +187,13 @@ namespace groundhog
             if (pointContainment.ToString() == "Inside")
             {
                 // Extend
-                var extendedCurve = extendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
+                var extendedCurve = ExtendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
                 return extendedCurve;
             }
             return initialCurve;
         }
 
-        private Curve clipCurveEndsToBoundary(Curve initialCurve, Point3d targetPoint, Surface boundarySrf)
+        private Curve ClipCurveEndsToBoundary(Curve initialCurve, Point3d targetPoint, Surface boundarySrf)
         {
             var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             Curve trimmedCurveEnds;
@@ -240,7 +240,7 @@ namespace groundhog
             return trimmedCurveEnds;
         }
 
-        private Curve extendCurveTerminusToBoundary(Curve initialCurve, Point3d startPoint, Surface boundarySrf)
+        private Curve ExtendCurveTerminusToBoundary(Curve initialCurve, Point3d startPoint, Surface boundarySrf)
         {
             Brep[] boundaryCollision = {boundarySrf.ToBrep()};
 
@@ -253,7 +253,7 @@ namespace groundhog
             return extendedCurve;
         }
 
-        private List<Curve> clipMeanderingCurvesToBoundary(Curve initialCurve, Curve BOUNDARY, Surface boundarySrf)
+        private List<Curve> ClipMeanderingCurvesToBoundary(Curve initialCurve, Curve BOUNDARY, Surface boundarySrf)
         {
             var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             var returnCurves = new List<Curve>();
@@ -288,7 +288,7 @@ namespace groundhog
             return returnCurves;
         }
 
-        private Curve getBoundedContour(Curve initialCurve, Curve BOUNDARY)
+        private Curve GetBoundedContour(Curve initialCurve, Curve BOUNDARY)
         {
             var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
 
