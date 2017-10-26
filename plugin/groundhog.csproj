@@ -171,6 +171,7 @@
     <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />
+    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.csv" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.3dm" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.gh" DestinationFolder="$(OutDir)examples" />
     <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.3dm" DestinationFolder="$(OutDir)examples" />
