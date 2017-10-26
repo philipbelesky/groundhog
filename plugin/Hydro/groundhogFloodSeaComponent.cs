@@ -8,13 +8,6 @@ namespace groundhog
 {
     public class groundhogSeaFloodComponent : GH_Component
     {
-        /// <summary>
-        ///     Each implementation of GH_Component must provide a public
-        ///     constructor without any arguments.
-        ///     Category represents the Tab in which the component will appear,
-        ///     Subcategory the panel. If you use non-existing tab or panel names,
-        ///     new tabs/panels will automatically be created.
-        /// </summary>
         public groundhogSeaFloodComponent()
             : base("Sea Flood Simulator", "Sea Floods",
                 "Examine flooding levels along a surface from a tidal source",
@@ -22,30 +15,12 @@ namespace groundhog
         {
         }
 
-        /// <summary>
-        ///     The Exposure property controls where in the panel a component icon
-        ///     will appear. There are seven possible locations (primary to septenary),
-        ///     each of which can be combined with the GH_Exposure.obscure flag, which
-        ///     ensures the component will only be visible on panel dropdowns.
-        /// </summary>
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        /// <summary>
-        ///     Provides an Icon for every component that will be visible in the User Interface.
-        ///     Icons need to be 24x24 pixels.
-        /// </summary>
         protected override Bitmap Icon => Resources.icon_floods_sea;
 
-        /// <summary>
-        ///     Each component must have a unique Guid to identify it.
-        ///     It is vital this Guid doesn't change otherwise old ghx files
-        ///     that use the old ID will partially fail during loading.
-        /// </summary>
         public override Guid ComponentGuid => new Guid("{2d234bdc-ecaa-4cf7-815a-c8111d1798d0}");
 
-        /// <summary>
-        ///     Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Datum", "d", "The local mean sea level", GH_ParamAccess.item, 0d);
@@ -74,9 +49,6 @@ namespace groundhog
             pManager[7].Optional = true;
         }
 
-        /// <summary>
-        ///     Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Sea Level", "SL", "The simulated mean sea level", GH_ParamAccess.item);
@@ -91,18 +63,8 @@ namespace groundhog
             pManager.AddSurfaceParameter("Low Spring", "LS", "The simulated mean low water spring level",
                 GH_ParamAccess.item);
 
-            // Sometimes you want to hide a specific parameter from the Rhino preview.
-            // You can use the HideParameter() method as a quick way:
-            //pManager.HideParameter(0);
         }
 
-        /// <summary>
-        ///     This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">
-        ///     The DA object can be used to retrieve data from input parameters and
-        ///     to store data in output parameters.
-        /// </param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for output parameters

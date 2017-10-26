@@ -9,9 +9,6 @@ namespace groundhog
 {
     public class groundhogMeshGradeComponent : GH_Component
     {
-        /// <summary>
-        ///     Initializes a new instance of the MyComponent1 class.
-        /// </summary>
         public groundhogMeshGradeComponent()
             : base("Mesh Slope", "Mesh",
                 "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade",
@@ -19,28 +16,16 @@ namespace groundhog
         {
         }
 
-        /// <summary>
-        ///     Provides an Icon for the component.
-        /// </summary>
         protected override Bitmap Icon => Resources.icon_mesh_slope;
 
-        /// <summary>
-        ///     Gets the unique ID for this component. Do not change this ID after release.
-        /// </summary>
         public override Guid ComponentGuid => new Guid("{c3b67aca-0e15-4279-9d6c-96cce97fcb47}");
 
-        /// <summary>
-        ///     Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh", "M", "The terrain mesh", GH_ParamAccess.item);
             pManager[0].Optional = false;
         }
 
-        /// <summary>
-        ///     Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
@@ -51,10 +36,6 @@ namespace groundhog
             pManager.AddNumberParameter("Face Slope Angles", "A", "The angle of the slope", GH_ParamAccess.list);
         }
 
-        /// <summary>
-        ///     This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             var M = default(Mesh);
@@ -86,7 +67,6 @@ namespace groundhog
             return subAngles;
         }
 
-
         private List<Point3d> GetCenters(Mesh mesh)
         {
             var centers = new List<Point3d>();
@@ -94,7 +74,6 @@ namespace groundhog
                 centers.Add(mesh.Faces.GetFaceCenter(f));
             return centers;
         }
-
 
         private List<Vector3d> GetDirections(List<Mesh> meshes, List<Point3d> subCentres)
         {
@@ -126,7 +105,6 @@ namespace groundhog
 
             return directions;
         }
-
 
         private List<Mesh> Explode(Mesh m)
         {
