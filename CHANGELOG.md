@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Switched references to use NuGet
 
 ### Fixed
-- Fixed generic plant attrbiutes
+- Fixed generic plant attributes
+- Fixed contour clipped so it excludes contours completely outside the boundary
 
 ## [0.5a]
 ### Changed

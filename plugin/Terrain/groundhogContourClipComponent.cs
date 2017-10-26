@@ -125,35 +125,37 @@ namespace groundhog
 
             // End Point Clipping
             foreach (var curve in ALL_CONTOURS)
+            {
                 if (curve.IsValid == false)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                         "A contour curve was not valid and has been skipped. You probably want to find and fix that curve.");
+                    continue;
+                }
+
+                Curve curveWithEndClipped;
+                if (curve.IsClosed == false)
+                {
+                    var curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
+                    curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY,
+                        boundarySrf);
                 }
                 else
                 {
-                    Curve curveWithEndClipped;
-                    if (curve.IsClosed == false)
-                    {
-                        var curveWithStartClipped = clipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
-                        curveWithEndClipped = clipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY,
-                            boundarySrf);
-                    }
-                    else
-                    {
-                        curveWithEndClipped = curve;
-                    }
-
-                    var curveWithMiddlesClipped =
-                        clipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
-                    foreach (var curveClip in curveWithMiddlesClipped)
-                    {
-                        fixedContours.Add(curveClip);
-                        var edgedContour =
-                            getBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
-                        edgedContours.Add(edgedContour);
-                    }
+                    curveWithEndClipped = curve;
                 }
+
+                var curveWithMiddlesClipped = clipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
+                foreach (var curveClip in curveWithMiddlesClipped)
+                {
+                    if (curveClip == null) 
+                        continue; // Null if the curve is totally outside the boundary
+
+                    fixedContours.Add(curveClip);
+                    var edgedContour = getBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
+                    edgedContours.Add(edgedContour);
+                }
+            }
 
             if (CREATE_SRFS)
             {
@@ -178,8 +180,7 @@ namespace groundhog
         {
             // Test, for a particular point where it is in relation to boundary and clip curve accordingly
 
-            var testPoint =
-                new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
+            var testPoint = new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
 
             var pointContainment = BOUNDARY.Contains(testPoint);
 
@@ -200,8 +201,7 @@ namespace groundhog
             // Find where the boundary and curve intersect
             Curve[] intersectCurves;
             Point3d[] intersectPoints;
-            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, out intersectCurves,
-                out intersectPoints);
+            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, out intersectCurves, out intersectPoints);
 
             // Get closest point from intersections and its parameters
             double? minimumDistance = null;
@@ -261,6 +261,7 @@ namespace groundhog
             var splitCurves = initialCurve.Split(boundarySrf, tolerance);
 
             if (splitCurves.Length > 0)
+            {
                 for (var i = 0; i < splitCurves.Length; i = i + 1)
                 {
                     var testPoint = splitCurves[i].PointAt(splitCurves[i].Domain.Mid);
@@ -271,8 +272,19 @@ namespace groundhog
                     if (pointContainment.ToString() == "Inside")
                         returnCurves.Add(splitCurves[i]);
                 }
+            }
             else
-                returnCurves.Add(initialCurve);
+            {
+                // There are no intersections with the boundary. This could be because it is entirely outside the boundary though
+                // Check this and return None if that is the case
+                var evaluationPoint = initialCurve.PointAt(initialCurve.Domain.T0);
+                var containmentCheck = BOUNDARY.Contains(evaluationPoint);
+                if (containmentCheck.ToString() == "Outside")
+                    returnCurves.Add(null); // Is completely outside the clipped area
+                else
+                    returnCurves.Add(initialCurve); // Isn't completely outiside
+
+            }
             return returnCurves;
         }
 
@@ -281,8 +293,7 @@ namespace groundhog
             var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
 
             // Move the boundary down to the same plane so we can do a curve curve intersection
-            BOUNDARY.Transform(
-                Transform.Translation(new Vector3d(0, 0, initialCurve.PointAtEnd.Z - BOUNDARY.PointAtEnd.Z)));
+            BOUNDARY.Transform(Transform.Translation(new Vector3d(0, 0, initialCurve.PointAtEnd.Z - BOUNDARY.PointAtEnd.Z)));
 
             var ccx = Intersection.CurveCurve(initialCurve, BOUNDARY, tolerance, tolerance);
 
