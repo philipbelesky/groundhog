@@ -111,7 +111,7 @@ namespace groundhog
                 flowStructures.Add(new FlowStructure(FLOW_PATHS[i], i, MIN_PROXIMITY));
 
             // Create voronoi cells and associate with each flow object
-            createVoronoi(flowStructures);
+            CreateVoronoi(flowStructures);
 
             // Search through each point, check distance apart and assign to groups based on this
             foreach (var originFlowStructure in flowStructures)
@@ -158,7 +158,7 @@ namespace groundhog
                     for (var i = 0; i < holdingListBounds[v].Count; i++)
                         groupEdges.AddRange(holdingListBounds[v][i].GetSegments()); //REENABLE: THIS EXPLODES IT
 
-                    var culledEdges = deduplicateLines(groupEdges, TOLERANCE);
+                    var culledEdges = DeduplicateLines(groupEdges, TOLERANCE);
 
                     var sortedCurves = new List<Curve>();
                     foreach (var line in culledEdges)
@@ -187,7 +187,7 @@ namespace groundhog
                     groupedCurves.AddRange(holdingListCurves[i], groupedCurves.Path(nextPath));
                     groupedBounds.AddRange(holdingListBoundsCurves[i], groupedBounds.Path(nextPath));
                     groupedColors.AddRange(
-                        generateGroupColors(shuffledIndices.ElementAt(i), holdingListCurves[i].Count,
+                        GenerateGroupColors(shuffledIndices.ElementAt(i), holdingListCurves[i].Count,
                             holdingListCurves.Length), groupedColors.Path(nextPath)
                     );
                 }
@@ -198,7 +198,7 @@ namespace groundhog
             DA.SetDataTree(2, groupedColors);
         }
 
-        private List<Color> generateGroupColors(int groupIndex, int groupSize, int groupsCount)
+        private List<Color> GenerateGroupColors(int groupIndex, int groupSize, int groupsCount)
         {
             // Here are want to create a rectangularly shaped matrix to try and maximise contrast
             // Given an area of X, we want to find x/y lengths given an 2:1 ratio
@@ -227,10 +227,10 @@ namespace groundhog
             //Print("{2}: {0} {1} maxes: {3} {4}", x.ToString(), y.ToString(), groupIndex.ToString(), xMax.ToString(), yMax.ToString());
 
             // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)
-            var hue = colorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
+            var hue = ColorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
             var saturation = 1.0; // Maximise contrast
             var luminance =
-                colorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
+                ColorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
             var groupColorHSL = new ColorHSL(hue, saturation, luminance);
 
             // Convert to RGB and make a list with a color for each item in the branch
@@ -240,14 +240,14 @@ namespace groundhog
             return groupColors;
         }
 
-        private double colorDistributionInRange(double lower, double upper, int index, int count)
+        private double ColorDistributionInRange(double lower, double upper, int index, int count)
         {
             var step = (upper - lower) / count;
             var value = lower + step * index;
             return value;
         }
 
-        private List<Line> deduplicateLines(List<Line> inputLines, double tolerance)
+        private List<Line> DeduplicateLines(List<Line> inputLines, double tolerance)
         {
             var lines = inputLines.OrderBy(o => o.Length).ToList(); // Sort so we can break after a no match
             var duplicateIndices = new List<int>();
@@ -278,7 +278,7 @@ namespace groundhog
         }
 
 
-        private void createVoronoi(List<FlowStructure> flowStructures)
+        private void CreateVoronoi(List<FlowStructure> flowStructures)
         {
             // Get the starts from everything
             var allStartPoints = flowStructures.Select(x => x.start).ToList();

@@ -124,12 +124,12 @@ namespace groundhog
             // TODO: determine if I need to do input validation here
 
             // Create holder variables for output parameters
-            var seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
-            var stormSurgeLevel = createLevel(calculateValue(YEAR, DATUM, RISE, SURGE));
-            var highNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
-            var lowNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_NEAP));
-            var highSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
-            var lowSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_SPRING));
+            var seaLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, 0));
+            var stormSurgeLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, SURGE));
+            var highNeapLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
+            var lowNeapLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_NEAP));
+            var highSpringLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
+            var lowSpringLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_SPRING));
 
             // Assign variables to output parameters
             DA.SetData(0, seaLevel);
@@ -140,7 +140,7 @@ namespace groundhog
             DA.SetData(5, lowSpringLevel);
         }
 
-        private double calculateValue(double SIMULATED_YEAR, double DATUM, double RISE, double EVENT_HEIGHT)
+        private double CalculateValue(double SIMULATED_YEAR, double DATUM, double RISE, double EVENT_HEIGHT)
         {
             // TODO: test with negative years; fractional years...
             var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
@@ -148,7 +148,7 @@ namespace groundhog
             return simulatedLevel;
         }
 
-        private PlaneSurface createLevel(double eventHeight)
+        private PlaneSurface CreateLevel(double eventHeight)
         {
             // TODO: fix this
             var origin = new Point3d(0, 0, eventHeight);
@@ -156,12 +156,12 @@ namespace groundhog
             var yExtent = new Point3d(0, 100, eventHeight);
             var plane = new Plane(origin, xExtent, yExtent);
 
-            var plane_surface = new PlaneSurface(plane,
+            var planedSurface = new PlaneSurface(plane,
                 new Interval(0, origin.DistanceTo(xExtent)),
                 new Interval(0, origin.DistanceTo(yExtent))
             );
 
-            return plane_surface;
+            return planedSurface;
         }
     }
 }

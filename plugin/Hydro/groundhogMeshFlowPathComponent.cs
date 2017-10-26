@@ -89,7 +89,7 @@ namespace groundhog
             // Create holder variables for input parameters
             var FLOW_MESH = default(Mesh);
             var FLOW_ORIGINS = new List<Point3d>();
-            var FLOW_FIDELITY = 1000.0;
+            var FLOW_FIDELITY = 1000.0; // Default Value
             var THREAD = false;
 
             // Access and extract data from the input parameters individually
@@ -111,12 +111,12 @@ namespace groundhog
             if (THREAD)
                 Parallel.For(0, startPoints.Length, i => // Shitty multithreading
                     {
-                        allFlowPathPoints[i] = dispatchFlowPoints(FLOW_MESH, startPoints[i], FLOW_FIDELITY);
+                        allFlowPathPoints[i] = DispatchFlowPoints(FLOW_MESH, startPoints[i], FLOW_FIDELITY);
                     }
                 );
             else
                 for (var i = 0; i < startPoints.Length; i = i + 1)
-                    allFlowPathPoints[i] = dispatchFlowPoints(FLOW_MESH, startPoints[i], FLOW_FIDELITY);
+                    allFlowPathPoints[i] = DispatchFlowPoints(FLOW_MESH, startPoints[i], FLOW_FIDELITY);
 
             var allFlowPathPointsTree = new DataTree<object>();
             var allFlowPathCurvesList = new List<Polyline>();
@@ -144,7 +144,7 @@ namespace groundhog
         }
 
 
-        private List<Point3d> dispatchFlowPoints(Mesh FLOW_MESH, Point3d initialStartPoint,
+        private List<Point3d> DispatchFlowPoints(Mesh FLOW_MESH, Point3d initialStartPoint,
             double MOVE_DISTANCE)
         {
             var flowPoints = new List<Point3d>(); // Holds each step
@@ -155,7 +155,7 @@ namespace groundhog
             while (true)
             {
                 Point3d nextPoint;
-                nextPoint = getNextFlowStepOnMesh(FLOW_MESH, startPoint, MOVE_DISTANCE);
+                nextPoint = GetNextFlowStepOnMesh(FLOW_MESH, startPoint, MOVE_DISTANCE);
    
                 if (nextPoint.DistanceTo(startPoint) <= RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
                     break; // Test the point has actully moved
@@ -168,7 +168,7 @@ namespace groundhog
             return flowPoints;
         }
 
-        private Point3d getNextFlowStepOnMesh(Mesh FLOW_MESH, Point3d startPoint, double MOVE_DISTANCE)
+        private Point3d GetNextFlowStepOnMesh(Mesh FLOW_MESH, Point3d startPoint, double MOVE_DISTANCE)
         {
             double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
             Vector3d closestNormal;

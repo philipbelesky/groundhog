@@ -62,10 +62,10 @@ namespace groundhog
             if (!DA.GetData(0, ref M)) return;
 
             var subMeshes = Explode(M);
-            var subAngles = getAngles(M);
-            var subCentres = getCenters(M);
+            var subAngles = GetAngles(M);
+            var subCentres = GetCenters(M);
 
-            var subDirections = getDirections(subMeshes, subCentres);
+            var subDirections = GetDirections(subMeshes, subCentres);
 
             // Assign variables to output parameters
             DA.SetDataList(0, subMeshes);
@@ -74,7 +74,7 @@ namespace groundhog
             DA.SetDataList(3, subAngles);
         }
 
-        private List<double> getAngles(Mesh mesh)
+        private List<double> GetAngles(Mesh mesh)
         {
             var subAngles = new List<double>();
             var normals = mesh.FaceNormals;
@@ -87,7 +87,7 @@ namespace groundhog
         }
 
 
-        private List<Point3d> getCenters(Mesh mesh)
+        private List<Point3d> GetCenters(Mesh mesh)
         {
             var centers = new List<Point3d>();
             for (var f = 0; f < mesh.Faces.Count; f++)
@@ -96,7 +96,7 @@ namespace groundhog
         }
 
 
-        private List<Vector3d> getDirections(List<Mesh> meshes, List<Point3d> subCentres)
+        private List<Vector3d> GetDirections(List<Mesh> meshes, List<Point3d> subCentres)
         {
             var directions = new List<Vector3d>();
             for (var m = 0; m < meshes.Count; m++)
