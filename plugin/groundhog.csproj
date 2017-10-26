@@ -64,7 +64,8 @@
   <ItemGroup>
     <Compile Include="groundhogInfo.cs" />
     <Compile Include="Hydro\groundhogFlowCatchmentComponent.cs" />
-    <Compile Include="Hydro\groundhogFlowPathComponent.cs" />
+    <Compile Include="Hydro\groundhogSurfaceFlowPathComponent.cs" />
+    <Compile Include="Hydro\groundhogMeshFlowPathComponent.cs" />
     <Compile Include="Hydro\groundhogFloodRiverComponent.cs" />
     <Compile Include="Hydro\groundhogFloodSeaComponent.cs" />
     <Compile Include="Mapping\groundhogFieldComponent.cs" />
@@ -151,7 +152,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
     <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
-      C:\Program Files\Rhinoceros 5 (64-bit)\Rhino.exe
+      C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe
     </StartProgram>
     <StartArguments>
     </StartArguments>
@@ -179,7 +180,7 @@
     <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.3dm" DestinationFolder="$(OutDir)demos" />
     <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.gh" DestinationFolder="$(OutDir)demos" />
     <ItemGroup>
-      <Precedents Include="$(ProjectDir)/../projects/**/*.*"/>
+      <Precedents Include="$(ProjectDir)/../projects/**/*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(Precedents)" DestinationFolder="$(OutDir)\projects" />
   </Target>

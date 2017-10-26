@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.6.0a]
 ### Changed
 - Flow Path component outputs paths as a flat list; not a tree
+- Flow Path component now split into seperate versions for Surfaces and Meshes
 - Switched references to use NuGet
 
 ### Fixed
