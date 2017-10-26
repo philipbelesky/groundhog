@@ -99,6 +99,12 @@ namespace groundhog
             // TODO: add a warning/note that these should be a flat list
             //AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Make a flat list");
 
+            if (FLOW_PATHS.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "No Flow Paths provided");
+                return;
+            }
+
             // Create the flowStructure objects
             var flowStructures = new List<FlowStructure>();
             for (var i = 0; i < FLOW_PATHS.Count; i++)
@@ -167,7 +173,7 @@ namespace groundhog
             var groupedBounds = new DataTree<Curve>();
             var groupedColors = new DataTree<Color>();
 
-            // We want the colors to randomly pick from an available index as their seed; otherwise adjancet cells have similar valuesList<int> iList = new List<int>();
+            // We want the colors to randomly pick from an available index as their seed; otherwise adjacent cells have similar valuesList<int> iList = new List<int>();
             var colorIndices = Enumerable.Range(0, holdingListCurves.Length).ToList();
             var shuffledIndices = colorIndices.OrderBy(a => Guid.NewGuid());
 
