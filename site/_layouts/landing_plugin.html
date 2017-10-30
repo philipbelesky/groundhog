@@ -4,11 +4,7 @@ layout: default
 
 <h1>Groundhog Plugin</h1>
 
-<main class="">
-
 {{ content }}
-
-</main>
 
 <h4>Links</h4>
 
@@ -28,6 +24,6 @@ layout: default
 
 <h4>Documentation</h4>
 
-{% for component in site.components %}
-  <h4><a href="{{ component.url }}">{{ component.title }}</a></h4>
+{% for document in site.documentation %}
+  <h4><a href="{{ document.url }}">{{ document.title }}</a></h4>
 {% endfor %}

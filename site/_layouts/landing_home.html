@@ -5,7 +5,7 @@ layout: default
 <section class="hero">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">
+      <h1 class="title is-1">
         Groundhog
       </h1>
       <h2 class="subtitle">
@@ -17,36 +17,56 @@ layout: default
 
 <section class="section">
   <div class="container">
+    <article class="message is-warning">
+      <div class="message-body">
+        Groundhog is currently in beta...
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
     <div class="columns">
 
       <div class="column">
-        <h2>Components</h2>
-        {% for component in site.components %}
-          <h4><a href="{{ component.url }}">{{ component.title }}</a></h4>
-        {% endfor %}
-
-        <a href="{{ site.baseurl }}{% link plugin.md %}">Component Documentation</a>
+        <h2 class="title is-3">Documentation</h2>
+        <p>Documentation are...</p>
+        <a class="button is-outline gh-documentation-bg" href="{{ site.baseurl }}{% link plugin.md %}">
+          View Documentation
+        </a>
       </div>
 
       <div class="column">
-        <h2>Techniques</h2>
-        {% for technique in site.techniques %}
-          <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
-        {% endfor %}
-        <a href="{{ site.baseurl }}{% link techniques.md %}">All Techniques</a>
+        <h2 class="title">Techniques</h2>
+        <p>Techniques are...</p>
+        <a class="button is-outline gh-techniques-bg" href="{{ site.baseurl }}{% link techniques.md %}">
+          View Techniques
+        </a>
       </div>
 
       <div class="column">
-        <h2>Projects</h2>
-        {% for project in site.projects %}
-          <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
-        {% endfor %}
-        <a href="{{ site.baseurl }}{% link projects.md %}">All Projects</a>
+        <h2 class="title">Projects</h2>
+        <p>Projects are...</p>
+        <a class="button is-outline gh-projects-bg" href="{{ site.baseurl }}{% link projects.md %}">
+          View Projects
+        </a>
       </div>
 
     </div>
   </div>
 </section>
+
+
+{% for document in site.documentation %}
+  <h4><a href="{{ document.url }}">{{ document.title }}</a></h4>
+{% endfor %}
+{% for technique in site.techniques %}
+  <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
+{% endfor %}
+{% for project in site.projects %}
+  <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
+{% endfor %}
 
 <section class="section">
 

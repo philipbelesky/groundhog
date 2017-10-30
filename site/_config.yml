@@ -38,9 +38,9 @@ sass:
 
 # Custom types
 collections:
-  components:
+  documentation:
     output: true
-    permalink: /plugin/:title
+    permalink: /documentation/:title
     # scope:
     #   path: ""
     #   type: my_collection
@@ -70,18 +70,18 @@ defaults:
       layout: single_technique
   - scope:
       path: ""
-      type: components
+      type: documentation
     values:
       layout: single_component
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - .ruby-version
+  - package.json
+  - package-lock.json
+  - s3_website.yml
