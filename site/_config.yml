@@ -25,7 +25,6 @@ url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. ht
 # Build settings
 livereload: true
 markdown: kramdown
-theme: minima
 plugins:
   - jekyll-feed
 
@@ -33,7 +32,9 @@ google_analytics: UA-314178-30
 
 # Configuration
 permalink: pretty # Ditch the .html
-
+sass:
+  sass_dir: assets
+  style: compressed
 
 # Custom types
 collections:
