@@ -4,9 +4,48 @@
 // Import Bulma Defaults
 @import "../node_modules/bulma/sass/utilities/initial-variables";
 
-// Customise
-// $primary: $pink;
+// Customise Groundhog Brand Colors
+$plugin: $green;
+$documentation: $purple;
+$techniques: $cyan;
+$projects: $turquoise;
+
+// Customise Layout
+$notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5
 
 // Import Bulma Base
 @import "../node_modules/bulma/bulma.sass";
 
+// Nav Menu Overrides
+.navbar-item {
+
+  &.gh-plugin-text {
+    color: $plugin;
+  }
+  &.gh-documentation-text {
+    color: $documentation;
+  }
+  &.gh-techniques-text {
+    color: $techniques;
+  }
+  &.gh-projects-text {
+    color: $projects;
+  }
+}
+
+.gh-plugin-bg {
+  background-color: $plugin;
+  color: #fff;
+}
+.gh-documentation-bg {
+  background-color: $documentation;
+  color: #fff;
+}
+.gh-techniques-bg {
+  background-color: $techniques;
+  color: #fff;
+}
+.gh-projects-bg {
+  background-color: $projects;
+  color: #fff;
+}

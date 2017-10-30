@@ -34,7 +34,7 @@ google_analytics: UA-314178-30
 permalink: pretty # Ditch the .html
 sass:
   sass_dir: assets
-  style: compressed
+  # style: compressed
 
 # Custom types
 collections:
