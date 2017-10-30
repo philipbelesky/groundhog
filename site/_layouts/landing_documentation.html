@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<h1>Groundhog Documentation</h1>
+
+<main class="">
+
+{{ content }}
+
+</main>
+
+<h4>Documentation</h4>
+
+{% for document in site.documentation %}
+  <h4><a href="{{ document.url }}">{{ document.title }}</a></h4>
+{% endfor %}

@@ -49,3 +49,14 @@ $notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5
   background-color: $projects;
   color: #fff;
 }
+
+// Sticky Footer
+.footer-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.footer-pushdown {
+  flex: 1;
+}

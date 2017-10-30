@@ -27,9 +27,9 @@ Related projects:
 Related components:
 
 <ul>
-  {% for component in site.components %}
-    {% if component.categories contains cat %}
-      <li><a href="{{ component.url }}">{{ component.title }}</a>HERE</li>
+  {% for document in site.documentation %}
+    {% if document.categories contains cat %}
+      <li><a href="{{ document.url }}">{{ document.title }}</a>HERE</li>
       <hr>
     {% endif %}
   {% endfor %}
