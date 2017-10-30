@@ -2,38 +2,48 @@
 layout: default
 ---
 
-<div class="home">
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Groundhog
+      </h1>
+      <h2 class="subtitle">
+        Groundhog explores the use of computational design in landscape architecture. It is a Grasshopper plugin, a set of reference models, and wiki documenting techniques and their applications.
+      </h2>
+    </div>
+  </div>
+</section>
 
-  <h1>Groundhog</h1>
+<section class="section">
+  <div class="container">
+    <div class="columns">
 
-  <p>{{ page.content }}</p>
+      <div class="column">
+        <h2>Components</h2>
+        {% for component in site.components %}
+          <h4><a href="{{ component.url }}">{{ component.title }}</a></h4>
+        {% endfor %}
 
-  <h2>Components</h2>
+        <a href="{{ site.baseurl }}{% link plugin.md %}">Component Documentation</a>
+      </div>
 
-  {% for component in site.components %}
-    <h4><a href="{{ component.url }}">{{ component.title }}</a></h4>
-  {% endfor %}
+      <div class="column">
+        <h2>Techniques</h2>
+        {% for technique in site.techniques %}
+          <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
+        {% endfor %}
+        <a href="{{ site.baseurl }}{% link techniques.md %}">All Techniques</a>
+      </div>
 
-  <a href="{{ site.baseurl }}{% link plugin.md %}">Component Documentation</a>
+      <div class="column">
+        <h2>Projects</h2>
+        {% for project in site.projects %}
+          <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
+        {% endfor %}
+        <a href="{{ site.baseurl }}{% link projects.md %}">All Projects</a>
+      </div>
 
-  <hr>
-
-  <h2>Techniques</h2>
-
-  {% for technique in site.techniques %}
-    <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
-  {% endfor %}
-
-  <a href="{{ site.baseurl }}{% link techniques.md %}">All Techniques</a>
-
-  <hr>
-
-  <h2>Projects</h2>
-
-  {% for project in site.projects %}
-    <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
-  {% endfor %}
-
-  <a href="{{ site.baseurl }}{% link projects.md %}">All Projects</a>
-
-</div>
+    </div>
+  </div>
+</section>

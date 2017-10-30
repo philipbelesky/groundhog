@@ -1,11 +1,12 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+// Import Bulma Defaults
+@import "../node_modules/bulma/sass/utilities/initial-variables";
 
-// Temporary homepage styles
+// Customise
+// $primary: $pink;
 
-h1 {
-  margin-top: 50px;
-  text-align: center;
-}
+// Import Bulma Base
+@import "../node_modules/bulma/bulma.sass";
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {% include head.html %}
+
+  <body>
+
+    {% include menu.html %}
+
+    <main class="container is-fluid" aria-label="Content">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+
+  </body>
+  <script src="/assets/main.js"></script>
+
+</html>
