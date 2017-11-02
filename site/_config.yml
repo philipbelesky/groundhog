@@ -62,17 +62,17 @@ defaults:
       path: ""
       type: projects
     values:
-      layout: single_project
+      layout: post
   - scope:
       path: ""
       type: techniques
     values:
-      layout: single_technique
+      layout: post
   - scope:
       path: ""
       type: documentation
     values:
-      layout: single_component
+      layout: post
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
