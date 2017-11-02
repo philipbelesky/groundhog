@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<section class="hero gh-{{ page.title|downcase }}-bg">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">
+        {{ page.title }}
+      </h1>
+      {% if page.category == 'top' %}
+        <h2 class="subtitle">
+          {{ page.content }}
+        </h2>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    {{ content }}
+
+  </div>
+</section>

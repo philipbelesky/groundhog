@@ -1,5 +1,7 @@
 ---
-layout:     landing_techniques
+layout: landing_techniques
+title: Techniques
+category: top
 ---
 
-Information about the techniques
+Discussions of design techniques and concepts along with example models and resources.

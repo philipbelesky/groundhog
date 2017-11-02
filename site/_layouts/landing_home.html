@@ -15,48 +15,35 @@ layout: default
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <article class="message is-warning">
-      <div class="message-body">
-        Groundhog is currently in beta...
-      </div>
-    </article>
-  </div>
-</section>
+<div class="container">
+  <article class="message is-warning">
+    <div class="message-body">
+      Groundhog is currently in beta...
+    </div>
+  </article>
+</div>
 
 <section class="section">
   <div class="container">
     <div class="columns">
 
-      <div class="column">
-        <h2 class="title is-3">Documentation</h2>
-        <p>Documentation are...</p>
-        <a class="button is-outline gh-documentation-bg" href="{{ site.baseurl }}{% link plugin.md %}">
-          View Documentation
-        </a>
-      </div>
-
-      <div class="column">
-        <h2 class="title">Techniques</h2>
-        <p>Techniques are...</p>
-        <a class="button is-outline gh-techniques-bg" href="{{ site.baseurl }}{% link techniques.md %}">
-          View Techniques
-        </a>
-      </div>
-
-      <div class="column">
-        <h2 class="title">Projects</h2>
-        <p>Projects are...</p>
-        <a class="button is-outline gh-projects-bg" href="{{ site.baseurl }}{% link projects.md %}">
-          View Projects
-        </a>
-      </div>
+      {% for page in site.pages %}
+        {% if page.category == 'top' %}
+          <div class="column">
+            <h2 class="title is-3">{{ page.title }}</h2>
+            <p>{{ page.content }}</p>
+            <a class="button is-medium is-outline is-block gh-{{ page.title|downcase }}-bg" href="{{ page.url }}">
+              View {{ page.title }}
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
 
     </div>
   </div>
 </section>
 
+<!--
 
 {% for document in site.documentation %}
   <h4><a href="{{ document.url }}">{{ document.title }}</a></h4>
@@ -67,68 +54,71 @@ layout: default
 {% for project in site.projects %}
   <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
 {% endfor %}
+ -->
 
 <section class="section">
+  <div class="container">
 
-  <div class="tile is-ancestor">
+    <div class="tile is-ancestor">
 
-    <div class="tile is-vertical is-8">
+      <div class="tile is-vertical is-8">
 
-      <div class="tile">
+        <div class="tile">
 
-        <div class="tile is-parent is-vertical">
-          <a class="tile is-child notification gh-plugin-bg">
-            <span class="tag is-light is-medium is-pulled-right">Plugin</span>
-            <p class="title">Version 0.6</p>
-            <p class="subtitle">Top tile</p>
-          </a>
-          <a class="tile is-child notification gh-documentation-bg">
-            <span class="tag is-light is-medium is-pulled-right">Component</span>
-            <p class="title">Component</p>
-            <p class="subtitle">Bottom tile</p>
-          </a>
+          <div class="tile is-parent is-vertical">
+            <a class="tile is-child notification gh-plugin-bg">
+              <span class="tag is-light is-medium is-pulled-right">Plugin</span>
+              <p class="title">Version 0.6</p>
+              <p class="subtitle">Top tile</p>
+            </a>
+            <a class="tile is-child notification gh-documentation-bg">
+              <span class="tag is-light is-medium is-pulled-right">Component</span>
+              <p class="title">Component</p>
+              <p class="subtitle">Bottom tile</p>
+            </a>
+          </div>
+
+          <div class="tile is-parent">
+            <a class="tile is-child notification gh-projects-bg">
+              <span class="tag is-light is-medium is-pulled-right">Project</span>
+              <p class="title">Project tile</p>
+              <p class="subtitle">With an image</p>
+              <figure class="image is-4by3">
+                <img src="https://bulma.io/images/placeholders/640x480.png">
+              </figure>
+            </a>
+          </div>
+
         </div>
 
         <div class="tile is-parent">
-          <a class="tile is-child notification gh-projects-bg">
-            <span class="tag is-light is-medium is-pulled-right">Project</span>
-            <p class="title">Project tile</p>
-            <p class="subtitle">With an image</p>
-            <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/640x480.png">
-            </figure>
+          <a class="tile is-child notification gh-techniques-bg">
+              <span class="tag is-light is-medium is-pulled-right">Technique</span>
+            <p class="title">Technique tile</p>
+            <p class="subtitle">Aligned with the right tile</p>
+            <div class="content">
+              <!-- Content -->
+            </div>
           </a>
         </div>
 
       </div>
 
       <div class="tile is-parent">
-        <a class="tile is-child notification gh-techniques-bg">
-            <span class="tag is-light is-medium is-pulled-right">Technique</span>
-          <p class="title">Technique tile</p>
-          <p class="subtitle">Aligned with the right tile</p>
+
+        <a class="tile is-child notification gh-projects-bg" href="">
+          <span class="tag is-light is-medium is-pulled-right">Project</span>
           <div class="content">
-            <!-- Content -->
+            <p class="title">Project</p>
+            <p class="subtitle">With even more content</p>
+            <div class="content">
+              <!-- Content -->
+            </div>
           </div>
         </a>
+
       </div>
-
     </div>
 
-    <div class="tile is-parent">
-
-      <a class="tile is-child notification gh-projects-bg" href="">
-        <span class="tag is-light is-medium is-pulled-right">Project</span>
-        <div class="content">
-          <p class="title">Project</p>
-          <p class="subtitle">With even more content</p>
-          <div class="content">
-            <!-- Content -->
-          </div>
-        </div>
-      </a>
-
-    </div>
   </div>
-
 </section>

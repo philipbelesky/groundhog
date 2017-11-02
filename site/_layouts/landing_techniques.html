@@ -1,17 +1,7 @@
 ---
-layout: default
+layout: page
 ---
 
-<h1>Groundhog Techniques</h1>
-
-<main class="">
-
-{{ content }}
-
-</main>
-
-<h4>Techniques</h4>
-
-{% for technique in site.techniques %}
-  <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
+{% for item in site.techniques %}
+  {% include list-page.html %}
 {% endfor %}
