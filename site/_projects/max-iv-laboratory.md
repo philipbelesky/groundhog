@@ -3,6 +3,7 @@ title:      MAX IV Laboratory Landscape
 year:       2017 (constructed)
 location:   ??
 designers:  Snohetta
+excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
 categories:
 - parametric geometry
 - simulation

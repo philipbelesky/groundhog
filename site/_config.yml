@@ -48,37 +48,29 @@ collections:
   documentation:
     output: true
     permalink: /documentation/:title
-    # scope:
-    #   path: ""
-    #   type: my_collection
-  projects:
-    output: true
-    permalink: /projects/:title
-    # scope:
-    #   path: ""
-    #   type: my_collection
-  techniques:
-    output: true
-    permalink: /techniques/:title
-    # scope:
-    #   path: ""
-    #   type: my_collection
-
-defaults:
-  - scope:
-      path: ""
-      type: projects
-    values:
-      layout: post
-  - scope:
-      path: ""
-      type: techniques
-    values:
-      layout: post
-  - scope:
+    scope:
       path: ""
       type: documentation
     values:
+      collection: documentation
+      layout: post
+  projects:
+    output: true
+    permalink: /projects/:title
+    scope:
+      path: ""
+      type: projects
+    values:
+      collection: projects
+      layout: post
+  techniques:
+    output: true
+    permalink: /techniques/:title
+    scope:
+      path: ""
+      type: techniques
+    values:
+      collection: techniques
       layout: post
 
 # Exclude from processing.
@@ -87,7 +79,6 @@ defaults:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - node_modules
   - .ruby-version
   - package.json
   - package-lock.json

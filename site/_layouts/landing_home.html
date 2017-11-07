@@ -30,8 +30,8 @@ layout: default
       {% for page in site.pages %}
         {% if page.category == 'top' %}
           <div class="column">
-            <h2 class="title is-3">{{ page.title }}</h2>
-            <p>{{ page.content }}</p>
+            <h2 class="title is-3 has-text-centered">{{ page.title }}</h2>
+            <p class="has-text-centered">{{ page.content }}</p>
             <a class="button is-medium is-outline is-block gh-{{ page.title|downcase }}-bg" href="{{ page.url }}">
               View {{ page.title }}
             </a>
@@ -55,6 +55,42 @@ layout: default
   <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
 {% endfor %}
  -->
+
+
+<section class="section">
+  <div class="container">
+
+    <div class="tile is-ancestor masonry-grid" data-masonry='{ "itemSelector": ".tile", "columnWidth": 300 }'>
+
+        {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
+        {% for item in everything %}
+
+          {% if forloop.index0 == 0 %}
+            <div class="tile is-parent is-vertical is-8">
+              <a class="tile is-vertical is-child" href="{{ site.baseurl }}{% link plugin.md %}">
+                <span class="tag is-light is-medium is-pulled-right">Plugin</span>
+                <p class="title">Version 0.6</p>
+                <p class="subtitle">Top tile</p>
+              </a>
+          {% endif %}
+
+          <a class="tile is-vertical is-child gh-{{ item.collection }}-bg" href="{{ item.url }}">
+            <span class="tag is-light is-medium is-pulled-right">{{ item.collection }}</span>
+            <p class="title">{{ item.title }}</p>
+            <p class="subtitle"></p>
+          </a>
+
+          {% if forloop.index0 == 4 %}
+            </div><div class="tile is-parent is-8">
+          {% endif %}
+
+        {% endfor %}
+        </div><!-- extra close -->
+
+    </div>
+
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
