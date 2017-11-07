@@ -3,6 +3,7 @@ title:      Keio University Roof Garden
 year:       2012 (constructed)
 location:   todo
 designers:  Michel Desvigne Paysagiste
+excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
 tags:
 - image map
 - hardscape

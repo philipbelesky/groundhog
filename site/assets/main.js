@@ -1,6 +1,9 @@
 ---
 ---
 
+// Icons
+feather.replace()
+
 // Menu Toggle; via https://bulma.io/documentation/components/navbar/
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -26,4 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+});
+
+// Masonry Grid
+var grid = document.querySelector('.masonry-grid');
+var msnry = new Masonry( grid, {
+  // options...
+  itemSelector: '.grid-item',
+  columnWidth: 200
 });
