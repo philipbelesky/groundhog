@@ -8,6 +8,10 @@
 
     bundle exec jekyll serve
 
+## Serving With Browsersync
+
+    npm run serve
+
 ## Deploying
 
 - Requires Java 8
