@@ -1,0 +1,11 @@
+{% capture imagePath %}/assets/{{ page.path | remove_first: "_" | remove_first: ".md" }}/{{ include.name }}{% endcapture %}
+{% if include.caption %}
+<figure>
+<img src="{{ imagePath }}" {% if include.alt %} alt="{{ include.alt }}" {% endif %} {% if include.width %} width="{{ include.width }}" {% endif %}/>
+<figcaption>
+{{ include.caption }} {% if include.credit %}<em>{{ include.credit }}</em>{% endif %}
+</figcaption>
+</figure>
+{% else %}
+<img src="{{ imagePath }}" {% if include.alt %} alt="{{ include.alt }}" {% endif %} {% if include.width %} width="{{ include.width }}" {% endif %}/>
+{% endif %}

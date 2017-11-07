@@ -24,9 +24,16 @@ url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. ht
 
 # Build settings
 livereload: true
-markdown: kramdown
+markdown: Pandoc
 plugins:
   - jekyll-feed
+  - jekyll-pandoc
+pandoc:
+  extensions:
+    - normalize
+    - smart
+    - csl: "./assets/style.csl"
+    - bibliography: "./assets/cites.bib"
 
 google_analytics: UA-314178-30
 

@@ -9,7 +9,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "bundle exec jekyll serve | browser-sync start --proxy 'localhost:4000' --port '3000' --browser 'google chrome' --files '_site/assets/main.css' 'assets/main.js' '_site/**/*.html'"
+    "serve": "bundle exec jekyll serve | browser-sync start --proxy 'localhost:4000' --port '3000' --no-open --files '_site/assets/main.css' 'assets/main.js' '_site/**/*.html'"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",
