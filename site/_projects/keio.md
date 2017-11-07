@@ -3,8 +3,6 @@ title:      Keio Gardens
 year:       2012 (constructed)
 location:   todo
 designers:  Michel Desvigne Paysagiste
-categories:
-- field
 tags:
 - image map
 - hardscape
