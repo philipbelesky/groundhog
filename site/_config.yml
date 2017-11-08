@@ -19,8 +19,6 @@ description: > # this means to ignore newlines until "baseurl:"
   Groundhog explores the use of computational design in landscape architecture. It is a Grasshopper plugin, a set of reference models, and wiki documenting techniques and their applications. Currently the project is in alpha testing; you can signup to our mailing list to be notified of future releases.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
-#github_username:  jekyll
 
 # Build settings
 livereload: true
@@ -51,26 +49,35 @@ collections:
     scope:
       path: ""
       type: documentation
-    values:
-      collection: documentation
-      layout: post
   projects:
     output: true
     permalink: /projects/:title
     scope:
       path: ""
       type: projects
-    values:
-      collection: projects
-      layout: post
   techniques:
     output: true
     permalink: /techniques/:title
     scope:
       path: ""
       type: techniques
+
+defaults:
+  - scope:
+      path: ""
+      type: documentation
     values:
-      collection: techniques
+      layout: post
+  - scope:
+      path: ""
+      type: projects
+    values:
+      path: ""
+      layout: post
+  - scope:
+      path: ""
+      type: techniques
+    values:
       layout: post
 
 # Exclude from processing.

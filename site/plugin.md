@@ -6,9 +6,9 @@ title: Groundhog Plugin
 ## Download and Install
 
 <article class="message is-success">
-  <div class="message-body">
-    Download Latest Version (0.6) on Food4Rhino.
-  </div>
+<div class="message-body">
+Download Latest Version (0.6) on Food4Rhino.
+</div>
 </article>
 
 Install by dragging to folder...ensure unblocked...etc
@@ -31,4 +31,4 @@ The preferred method of bug reporting is through [Github Issues](https://github.
 
 See CONTRIBUTING.md for information on how to help contribute to the project. Further details are provided there, but note that pull requests are welcome, along with improvements to the example files and documentation that go beyond just the plugin.
 
-{% include_relative CHANGELOG.md %}
+{% include_absolute ../CHANGELOG.md %}
