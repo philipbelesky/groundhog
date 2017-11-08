@@ -4,24 +4,33 @@ layout: default
 
 <section class="hero gh-{{ page.collection|downcase }}-bg">
   <div class="hero-body">
-    <div class="container">
+    <div class="container has-text-centered">
       <h1 class="title is-1">
         {{ page.title }}
       </h1>
-      <h4>
-        {{ page.year }} / {{ page.location }} / {{ page.designers }}
-      </h4>
+      <div class="level">
+        <h4 class="subtitle level-item">
+          <i data-feather="edit-3"></i>{{ page.designers }}
+        </h4>
+        <h4 class="subtitle level-item">
+          <i data-feather="clock"></i>{{ page.year }}
+        </h4>
+        <h4 class="subtitle level-item">
+          <i data-feather="map-pin"></i>{{ page.location }}
+        </h4>
+      </div>
+      <p class="subtitle">
+        {{ page.excerpt }}
+      </p>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
+{% include beta.html %}
 
-    File details go here
-
-  </div>
-</section>
+{% if page.files %}
+  {% include files.html %}
+{% endif %}
 
 <section class="section">
   <div class="container">
@@ -31,6 +40,7 @@ layout: default
   </div>
 </section>
 
+<!--
 <section class="section">
   <div class="container">
 
@@ -63,3 +73,4 @@ layout: default
 
   </div>
 </section>
+ -->

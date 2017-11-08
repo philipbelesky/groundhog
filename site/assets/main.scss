@@ -10,11 +10,21 @@ $documentation: $purple;
 $techniques: $cyan;
 $projects: $turquoise;
 
+$link: black;
+
+// Customise Typography
+$body-size: 18px;
+
 // Customise Layout
 $notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5
 
 // Import Bulma Base
 @import "../node_modules/bulma/bulma.sass";
+
+// Footer Overrides
+.footer {
+  padding-bottom: 3rem;
+}
 
 // Nav Menu Overrides
 .navbar-item {
@@ -35,19 +45,43 @@ $notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5
 
 .gh-plugin-bg {
   background-color: $plugin;
-  color: #fff;
+  .title, .subtitle {
+    color: #fff;
+  }
 }
 .gh-documentation-bg {
   background-color: $documentation;
-  color: #fff;
+  .title, .subtitle {
+    color: #fff;
+  }
 }
 .gh-techniques-bg {
   background-color: $techniques;
-  color: #fff;
+  .title, .subtitle {
+    color: #fff;
+  }
 }
 .gh-projects-bg {
   background-color: $projects;
-  color: #fff;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+
+// Icons
+.feather {
+  margin-right: 5px;
+}
+
+// Homepage
+.gh-info-boxes {
+  min-height: 100px; // Equalise paragraph heights; should fix with flexbox
+}
+
+// Layout
+.is-small { // Add additional layout class to extend bulma's .is-medium etc
+  padding-top: 1.5rem;
+  padding-bottom: 0;
 }
 
 // Sticky Footer

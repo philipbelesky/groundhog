@@ -12,16 +12,9 @@ layout: default
         Groundhog explores the use of computational design in landscape architecture. It is a Grasshopper plugin, a set of reference models, and wiki documenting techniques and their applications.
       </h2>
     </div>
+      {% include beta.html %}
   </div>
 </section>
-
-<div class="container">
-  <article class="message is-warning">
-    <div class="message-body">
-      Groundhog is currently in beta...
-    </div>
-  </article>
-</div>
 
 <section class="section">
   <div class="container">
@@ -29,9 +22,9 @@ layout: default
 
       {% for page in site.pages %}
         {% if page.category == 'top' %}
-          <div class="column">
-            <h2 class="title is-3 has-text-centered">{{ page.title }}</h2>
-            <p class="has-text-centered">{{ page.content }}</p>
+          <div class="column has-text-centered">
+            <h2 class="title is-3">{{ page.title }}</h2>
+            <p class="gh-info-boxes">{{ page.content }}</p>
             <a class="button is-medium is-outline is-block gh-{{ page.title|downcase }}-bg" href="{{ page.url }}">
               View {{ page.title }}
             </a>
