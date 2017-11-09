@@ -29,13 +29,18 @@ gzip: true
 
 # ignore_on_server: that_folder_of_stuff_i_dont_keep_locally
 
-# exclude_from_upload:
-#   - those_folders_of_stuff
-#   - i_wouldnt_want_to_upload
+exclude_from_upload:
+  - npm-debug.log
+  - node_modules/bulma
+  - node_modules/desandro-matches-selector
+  - node_modules/ev-emitter
+  - node_modules/fizzy-ui-utils
+  - node_modules/get-size
+  - node_modules/outlayer
 
 s3_reduced_redundancy: true
 
-cloudfront_distribution_id: E1CANQYSLE3OM8
+cloudfront_distribution_id: <%= ENV['CLOUDFRONT_DISTRIBUTION_ID'] %>
 
 cloudfront_distribution_config:
   default_cache_behavior:

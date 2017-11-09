@@ -1,0 +1,26 @@
+// Homepage
+.gh-info-boxes {
+  min-height: 100px; // Equalise paragraph heights; should fix with flexbox
+}
+
+// Layout
+.is-small { // Add additional layout class to extend bulma's .is-medium etc
+  padding-top: 1.5rem;
+  padding-bottom: 0;
+}
+
+// Footer Overrides
+.footer {
+  padding-bottom: 3rem;
+}
+
+// Sticky Footer
+.footer-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.footer-pushdown {
+  flex: 1;
+}

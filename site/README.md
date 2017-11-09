@@ -6,9 +6,9 @@
 
 ## Serving
 
-    bundle exec jekyll serve
+    npm run build
 
-## Serving With Browsersync
+## Watching With Browsersync
 
     npm run serve
 

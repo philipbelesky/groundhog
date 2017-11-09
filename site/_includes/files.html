@@ -1,14 +1,23 @@
 <div class="section">
   <div class="container content">
+
     <article class="message is-info">
-      <div class="message-body columns">
-        <div class="column is-narrow">
-          <i data-feather="info"></i>
+      <div class="message-body">
+
+        <div class="columns">
+
+          <div class="column is-narrow gh-message-icon">
+            <i data-feather="download"></i>
+          </div>
+
+          <div class="column">
+            {{ page.files }} :: {{ page.files_text }}
+          </div>
+
         </div>
-        <div class="column">
-          {{ page.files }} :: {{ page.files_text }}
-        </div>
+
       </div>
     </article>
+
   </div>
 </div>
