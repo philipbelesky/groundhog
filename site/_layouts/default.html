@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {% include head.html %}
+
+  <body class="footer-container">
+
+    {% include menu.html %}
+
+    <main class="content is-fluid footer-pushdown" aria-label="Content">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+
+  </body>
+
+  <script src="{{ site.url }}/node_modules/feather-icons/dist/feather.min.js"></script>
+  <script src="{{ site.url }}/node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
+  <script src="{{ site.url }}/assets/main.js"></script>
+
+</html>

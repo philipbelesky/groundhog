@@ -1,0 +1,41 @@
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-brand">
+
+      <a class="navbar-item" href="/">
+        <img src="http://static.food4rhino.com/s3fs-public/styles/thumbnail/public/users-files/daniel-piker/app/klogosquare.png?itok=pmlw67gV" alt="Groundhog" width="28" height="28">
+        Groundhog
+      </a>
+
+      <button class="button navbar-burger" data-target="navMenuDocumentation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+    <div class="navbar-menu" id="navMenuDocumentation" role="navigation" aria-label="main navigation">
+
+      <div class="navbar-start">
+        <a class="navbar-item gh-plugin-text" href="{{ site.baseurl }}{% link plugin.md %}">
+          <i data-feather="package"></i> Plugin
+        </a>
+        <a class="navbar-item gh-documentation-text" href="{{ site.baseurl }}{% link documentation.md %}">
+          <i data-feather="book"></i> Documentation
+        </a>
+        <a class="navbar-item gh-techniques-text" href="{{ site.baseurl }}{% link techniques.md %}">
+          <i data-feather="briefcase"></i> Techniques
+        </a>
+        <a class="navbar-item gh-projects-text" href="{{ site.baseurl }}{% link projects.md %}">
+          <i data-feather="aperture"></i> Projects
+        </a>
+        <a class="navbar-item" href="/about/">
+          <i data-feather="help-circle"></i> About
+        </a>
+      </div>
+
+    </div>
+
+  </nav>

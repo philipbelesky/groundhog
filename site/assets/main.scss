@@ -1,11 +1,96 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+// Import Bulma Defaults
+@import "../node_modules/bulma/sass/utilities/initial-variables";
 
-// Temporary homepage styles
+// Customise Groundhog Brand Colors
+$plugin: $green;
+$documentation: $purple;
+$techniques: $cyan;
+$projects: $turquoise;
 
-h1 {
-  margin-top: 50px;
-  text-align: center;
+$link: black;
+
+// Customise Typography
+$body-size: 18px;
+
+// Customise Layout
+$notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5
+
+// Import Bulma Base
+@import "../node_modules/bulma/bulma.sass";
+
+// Footer Overrides
+.footer {
+  padding-bottom: 3rem;
+}
+
+// Nav Menu Overrides
+.navbar-item {
+
+  &.gh-plugin-text {
+    color: $plugin;
+  }
+  &.gh-documentation-text {
+    color: $documentation;
+  }
+  &.gh-techniques-text {
+    color: $techniques;
+  }
+  &.gh-projects-text {
+    color: $projects;
+  }
+}
+
+.gh-plugin-bg {
+  background-color: $plugin;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+.gh-documentation-bg {
+  background-color: $documentation;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+.gh-techniques-bg {
+  background-color: $techniques;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+.gh-projects-bg {
+  background-color: $projects;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+
+// Icons
+.feather {
+  margin-right: 5px;
+}
+
+// Homepage
+.gh-info-boxes {
+  min-height: 100px; // Equalise paragraph heights; should fix with flexbox
+}
+
+// Layout
+.is-small { // Add additional layout class to extend bulma's .is-medium etc
+  padding-top: 1.5rem;
+  padding-bottom: 0;
+}
+
+// Sticky Footer
+.footer-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.footer-pushdown {
+  flex: 1;
 }
