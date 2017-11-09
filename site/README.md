@@ -1,12 +1,18 @@
 ## Setup
 
-`bundler install`
+    gem install bundler
+    bundler install
+    npm install
 
 ## Serving
 
-`bundle exec jekyll serve`
+    bundle exec jekyll serve
+
+## Serving With Browsersync
+
+    npm run serve
 
 ## Deploying
 
 - Requires Java 8
-- AWS credentials shoudl be in a .env in this directory
+- AWS credentials should be in a `.env` file in this directory

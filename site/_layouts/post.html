@@ -1,0 +1,76 @@
+---
+layout: default
+---
+
+<section class="hero gh-{{ page.collection|downcase }}-bg">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1">
+        {{ page.title }}
+      </h1>
+      <div class="level">
+        <h4 class="subtitle level-item">
+          <i data-feather="edit-3"></i>{{ page.designers }}
+        </h4>
+        <h4 class="subtitle level-item">
+          <i data-feather="clock"></i>{{ page.year }}
+        </h4>
+        <h4 class="subtitle level-item">
+          <i data-feather="map-pin"></i>{{ page.location }}
+        </h4>
+      </div>
+      <p class="subtitle">
+        {{ page.excerpt }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include beta.html %}
+
+{% if page.files %}
+  {% include files.html %}
+{% endif %}
+
+<section class="section">
+  <div class="container">
+
+    {{ content }}
+
+  </div>
+</section>
+
+<!--
+<section class="section">
+  <div class="container">
+
+    {% if page.collection != 'techniques' %}
+      <h4>Related Techniques</h4>
+      {% for item in site.techniques %}
+        {% if item.categories contains cat %}
+          {% include list-page.html %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if page.collection != 'documentation' %}
+      <h4>Related Documentation</h4>
+      {% for item in site.documentation %}
+        {% if item.categories contains cat %}
+          {% include list-page.html %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if page.collection != 'projects' %}
+      <h4>Related Projects</h4>
+      {% for item in site.projects %}
+        {% if item.categories contains cat %}
+          {% include list-page.html %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+  </div>
+</section>
+ -->

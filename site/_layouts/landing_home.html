@@ -1,0 +1,153 @@
+---
+layout: default
+---
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">
+        Groundhog
+      </h1>
+      <h2 class="subtitle">
+        Groundhog explores the use of computational design in landscape architecture. It is a Grasshopper plugin, a set of reference models, and wiki documenting techniques and their applications.
+      </h2>
+    </div>
+      {% include beta.html %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+
+      {% for page in site.pages %}
+        {% if page.category == 'top' %}
+          <div class="column has-text-centered">
+            <h2 class="title is-3">{{ page.title }}</h2>
+            <p class="gh-info-boxes">{{ page.content }}</p>
+            <a class="button is-medium is-outline is-block gh-{{ page.title|downcase }}-bg" href="{{ page.url }}">
+              View {{ page.title }}
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!--
+
+{% for document in site.documentation %}
+  <h4><a href="{{ document.url }}">{{ document.title }}</a></h4>
+{% endfor %}
+{% for technique in site.techniques %}
+  <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
+{% endfor %}
+{% for project in site.projects %}
+  <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
+{% endfor %}
+ -->
+
+
+<section class="section">
+  <div class="container">
+
+    <div class="tile is-ancestor masonry-grid" data-masonry='{ "itemSelector": ".tile", "columnWidth": 300 }'>
+
+        {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
+        {% for item in everything %}
+
+          {% if forloop.index0 == 0 %}
+            <div class="tile is-parent is-vertical is-8">
+              <a class="tile is-vertical is-child" href="{{ site.baseurl }}{% link plugin.md %}">
+                <span class="tag is-light is-medium is-pulled-right">Plugin</span>
+                <p class="title">Version 0.6</p>
+                <p class="subtitle">Top tile</p>
+              </a>
+          {% endif %}
+
+          <a class="tile is-vertical is-child gh-{{ item.collection }}-bg" href="{{ item.url }}">
+            <span class="tag is-light is-medium is-pulled-right">{{ item.collection }}</span>
+            <p class="title">{{ item.title }}</p>
+            <p class="subtitle"></p>
+          </a>
+
+          {% if forloop.index0 == 4 %}
+            </div><div class="tile is-parent is-8">
+          {% endif %}
+
+        {% endfor %}
+        </div><!-- extra close -->
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="tile is-ancestor">
+
+      <div class="tile is-vertical is-8">
+
+        <div class="tile">
+
+          <div class="tile is-parent is-vertical">
+            <a class="tile is-child notification gh-plugin-bg">
+              <span class="tag is-light is-medium is-pulled-right">Plugin</span>
+              <p class="title">Version 0.6</p>
+              <p class="subtitle">Top tile</p>
+            </a>
+            <a class="tile is-child notification gh-documentation-bg">
+              <span class="tag is-light is-medium is-pulled-right">Component</span>
+              <p class="title">Component</p>
+              <p class="subtitle">Bottom tile</p>
+            </a>
+          </div>
+
+          <div class="tile is-parent">
+            <a class="tile is-child notification gh-projects-bg">
+              <span class="tag is-light is-medium is-pulled-right">Project</span>
+              <p class="title">Project tile</p>
+              <p class="subtitle">With an image</p>
+              <figure class="image is-4by3">
+                <img src="https://bulma.io/images/placeholders/640x480.png">
+              </figure>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="tile is-parent">
+          <a class="tile is-child notification gh-techniques-bg">
+              <span class="tag is-light is-medium is-pulled-right">Technique</span>
+            <p class="title">Technique tile</p>
+            <p class="subtitle">Aligned with the right tile</p>
+            <div class="content">
+              <!-- Content -->
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="tile is-parent">
+
+        <a class="tile is-child notification gh-projects-bg" href="">
+          <span class="tag is-light is-medium is-pulled-right">Project</span>
+          <div class="content">
+            <p class="title">Project</p>
+            <p class="subtitle">With even more content</p>
+            <div class="content">
+              <!-- Content -->
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
