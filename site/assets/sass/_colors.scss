@@ -1,0 +1,41 @@
+// Nav Menu Overrides
+.navbar-item {
+
+  &.gh-plugin-text {
+    color: $plugin;
+  }
+  &.gh-documentation-text {
+    color: $documentation;
+  }
+  &.gh-techniques-text {
+    color: $techniques;
+  }
+  &.gh-projects-text {
+    color: $projects;
+  }
+}
+
+.gh-plugin-bg {
+  background-color: $plugin;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+.gh-documentation-bg {
+  background-color: $documentation;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+.gh-techniques-bg {
+  background-color: $techniques;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
+.gh-projects-bg {
+  background-color: $projects;
+  .title, .subtitle {
+    color: #fff;
+  }
+}
