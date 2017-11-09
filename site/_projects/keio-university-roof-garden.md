@@ -4,8 +4,8 @@ year:       2012
 location:   Tokyo, Japan
 designers:  Michel Desvigne Paysagiste
 excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
-files:      file-name
-files_text: File name goes here
+files:      true
+files_text: model and definition for this project
 tags:
 - image map
 - hardscape
