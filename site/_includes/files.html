@@ -1,3 +1,4 @@
+{% capture filePath %}/assets/{{ page.path | remove_first: "_" | remove_first: ".md" | replace:"/","/downloads/" }}.zip{% endcapture %}
 <div class="section">
   <div class="container content">
 
@@ -11,7 +12,7 @@
           </div>
 
           <div class="column">
-            {{ page.files }} :: {{ page.files_text }}
+            The associated {{ page.files_text }} <a href="{{ filePath | absolute_url }}">can be downloaded here</a>.
           </div>
 
         </div>
