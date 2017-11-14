@@ -17,7 +17,15 @@
   color: #666;
 }
 
-
+// Tiles
+.gh-tile-bg {
+  z-index: 1;
+  position: absolute;
+  top: 1;
+  left: 1;
+  width: 100%;
+  height: 100%;
+}
 
 // Layout
 .is-small { // Add additional layout class to extend bulma's .is-medium etc
