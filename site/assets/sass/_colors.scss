@@ -3,39 +3,76 @@
 
   &.gh-plugin-text {
     color: $plugin;
+
+    &:hover, &.active {
+      background: $plugin;
+      color: $white;
+    }
   }
   &.gh-documentation-text {
     color: $documentation;
+
+    &:hover, &.active {
+      background: $documentation;
+      color: $white;
+    }
   }
   &.gh-techniques-text {
     color: $techniques;
+
+    &:hover, &.active {
+      background: $techniques;
+      color: $white;
+    }
   }
   &.gh-projects-text {
     color: $projects;
+
+    &:hover, &.active {
+      background: $projects;
+      color: $white;
+    }
   }
+  &.gh-about-text {
+    color: $about;
+
+    &:hover, &.active {
+      background: $about;
+      color: $white;
+    }
+  }
+
 }
 
-.gh-plugin-bg {
-  background-color: $plugin;
-  .title, .subtitle {
-    color: #fff;
-  }
+.gh-plugin {
+  @extend .is-dark;
+  color: #fff;
 }
-.gh-documentation-bg {
-  background-color: $documentation;
-  .title, .subtitle {
-    color: #fff;
-  }
+.gh-documentation {
+  @extend .is-danger;
 }
-.gh-techniques-bg {
-  background-color: $techniques;
-  .title, .subtitle {
-    color: #fff;
-  }
+.gh-techniques {
+  @extend .is-info;
 }
-.gh-projects-bg {
-  background-color: $projects;
-  .title, .subtitle {
-    color: #fff;
-  }
+.gh-projects {
+  @extend .is-primary;
 }
+.gh-about {
+  @extend .is-link;
+}
+
+.gh-plugin-content a {
+  color: $plugin;
+}
+.gh-documentation-content a {
+  color: $documentation;
+}
+.gh-techniques-content a {
+  color: $techniques;
+}
+.gh-projects-content a {
+  color: $projects;
+}
+.gh-about-content a {
+  color: $about;
+  }

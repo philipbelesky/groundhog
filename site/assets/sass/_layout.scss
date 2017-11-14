@@ -1,7 +1,23 @@
 // Homepage
 .gh-info-boxes {
-  min-height: 100px; // Equalise paragraph heights; should fix with flexbox
+  min-height: 120px; // Equalise paragraph heights; should fix with flexbox
 }
+
+// Header Overrides
+#logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
+  margin-bottom: -2px;
+}
+
+.navbar-end .navbar-item {
+  padding-left: 9px; // Tighten spacing for social icons
+  padding-right: 9px;
+  color: #666;
+}
+
+
 
 // Layout
 .is-small { // Add additional layout class to extend bulma's .is-medium etc

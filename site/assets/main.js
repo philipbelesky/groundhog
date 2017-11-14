@@ -1,11 +1,11 @@
 ---
 ---
 
-// Feather Include
-{% include_absolute node_modules/feather-icons/dist/feather.min.js %}
-
 // Masonry Include
-{% include_absolute node_modules/masonry-layout/dist/masonry.pkgd.min.js %}
+{% include_absolute /node_modules/masonry-layout/dist/masonry.pkgd.min.js %}
+
+// Feather Include
+{% include_absolute /node_modules/feather-icons/dist/feather.min.js %}
 
 // Icons
 feather.replace()

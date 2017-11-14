@@ -1,10 +1,24 @@
 // Customise Groundhog Brand Colors
-$plugin: $green;
-$documentation: $purple;
-$techniques: $cyan;
-$projects: $turquoise;
 
-$link: black;
+// Main Branding Color; replaces $cyan
+$about: rgb(255, 142, 100);
+$link: $about;
+
+// is-success = Plugin Section (greenish)
+$plugin: rgb(114, 227, 210);
+$dark: $plugin;
+
+// is-danger = Documentation Section (purple; overrides the red)
+$documentation: rgb(142, 215, 89);
+$danger: $documentation;
+
+// is-info = Techniques Section (light blue)
+$techniques: rgb(233, 185, 56);
+$info: $techniques;
+
+// is-primary = Projects Section (turquoise)
+$projects: rgb(246, 112, 140);
+$primary: $projects;
 
 // Customise Typography
 $body-size: 18px;
@@ -12,3 +26,18 @@ $body-line-height: 1.66;
 
 // Customise Layout
 $notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5
+
+// is-warning keep (beta label)
+// is-
+
+
+// is-white
+// is-black
+// is-light
+// is-dark      USED for plugin
+// is-primary   USED for projects
+// is-link      USED for about
+// is-info      USED for techniques
+// is-success   available for download alerts (downloads)
+// is-warning   available for warning alerts (beta label)
+// is-danger    USED for documentation

@@ -2,17 +2,17 @@
 layout: default
 ---
 
-<section class="hero">
-  <div class="hero-body">
+<section class="section hero">
+  <div class="hero-body is-small">
     <div class="container">
       <h1 class="title is-1">
         Groundhog
       </h1>
       <h2 class="subtitle">
-        Groundhog explores the use of computational design in landscape architecture. It is a Grasshopper plugin, a set of reference models, and wiki documenting techniques and their applications.
+        ... is a Grasshopper plugin, a set of reference models, and wiki exploring the applications of
+        computational design techniques in landscape architecture.
       </h2>
     </div>
-      {% include beta.html %}
   </div>
 </section>
 
@@ -22,11 +22,15 @@ layout: default
 
       {% for page in site.pages %}
         {% if page.category == 'top' %}
-          <div class="column has-text-centered">
-            <h2 class="title is-3">{{ page.title }}</h2>
-            <p class="gh-info-boxes">{{ page.content }}</p>
-          <a class="button is-medium is-outline is-block gh-{{ page.title|downcase }}-bg" href="{{ page.url }}">
-              View {{ page.title }}
+          <div class="column is-one-third has-text-centered">
+            <h2 class="title is-3 gh-{{ page.title|downcase }}-content">
+              <a href="">{{ page.title }}</a>
+            </h2>
+            <p class="gh-info-boxes">
+              {{ page.subtitle }}
+            </p>
+            <a class="button is-outline is-block" href="{{ page.url }}">
+              View {{ page.title }} <i data-feather="chevrons-right"></i>
             </a>
           </div>
         {% endif %}
@@ -49,42 +53,54 @@ layout: default
 {% endfor %}
  -->
 
-
-<section class="section">
+<section class="section is-small">
   <div class="container">
 
-    <div class="tile is-ancestor masonry-grid" data-masonry='{ "itemSelector": ".tile", "columnWidth": 300 }'>
+    <div class="columns masonry-grid" data-masonry='{ "itemSelector": ".masonry-item" }'>
 
-        {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
-        {% for item in everything %}
+      {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
+      {% for item in everything %}
 
-          {% if forloop.index0 == 0 %}
-            <div class="tile is-parent is-vertical is-8">
-              <a class="tile is-vertical is-child" href="{{ site.baseurl }}{% link plugin.md %}">
-                <span class="tag is-light is-medium is-pulled-right">Plugin</span>
-                <p class="title">Version 0.6</p>
-                <p class="subtitle">Top tile</p>
-              </a>
-          {% endif %}
+        {% if forloop.index0 == 0 %}
+          <div class="column is-one-third masonry-item">
+            <a class="tile notification gh-plugin is-vertical is-child"
+               href="{{ site.baseurl }}{% link plugin.md %}">
+              <span class="is-white is-pulled-right">
+                <i data-feather="package" title="plugin"></i>
+              </span>
+              <p class="title is-size-5">Version 0.6</p>
+              <p class="subtitle"><br></p>
+            </a>
+          </div>
+        {% endif %}
 
-          <a class="tile is-vertical is-child gh-{{ item.collection }}-bg" href="{{ item.url }}">
-            <span class="tag is-light is-medium is-pulled-right">{{ item.collection }}</span>
-            <p class="title">{{ item.title }}</p>
-            <p class="subtitle"></p>
+        <div class="column is-one-third masonry-item">
+          <a class="tile notification is-vertical is-child gh-{{ item.collection }}" href="{{ item.url }}">
+
+            <span class="is-white is-pulled-right">
+              {% if item.collection == 'documentation' %}
+                <i data-feather="book" title="documentation"></i>
+              {% endif %}
+              {% if item.collection == 'techniques' %}
+                <i data-feather="briefcase" title="techniques"></i>
+              {% endif %}
+              {% if item.collection == 'projects' %}
+                <i data-feather="aperture" title="projects"></i>
+              {% endif %}
+            </span>
+            <p class="title is-size-5">{{ item.title }}</p>
+            <p class="subtitle"><br><br></p>
           </a>
+        </div>
 
-          {% if forloop.index0 == 4 %}
-            </div><div class="tile is-parent is-8">
-          {% endif %}
-
-        {% endfor %}
-        </div><!-- extra close -->
+      {% endfor %}
 
     </div>
 
   </div>
 </section>
 
+<!--
 <section class="section">
   <div class="container">
 
@@ -95,12 +111,12 @@ layout: default
         <div class="tile">
 
           <div class="tile is-parent is-vertical">
-            <a class="tile is-child notification gh-plugin-bg">
+            <a class="tile is-child notification gh-plugin">
               <span class="tag is-light is-medium is-pulled-right">Plugin</span>
               <p class="title">Version 0.6</p>
               <p class="subtitle">Top tile</p>
             </a>
-            <a class="tile is-child notification gh-documentation-bg">
+            <a class="tile is-child notification gh-documentation">
               <span class="tag is-light is-medium is-pulled-right">Component</span>
               <p class="title">Component</p>
               <p class="subtitle">Bottom tile</p>
@@ -108,7 +124,7 @@ layout: default
           </div>
 
           <div class="tile is-parent">
-            <a class="tile is-child notification gh-projects-bg">
+            <a class="tile is-child notification gh-projects">
               <span class="tag is-light is-medium is-pulled-right">Project</span>
               <p class="title">Project tile</p>
               <p class="subtitle">With an image</p>
@@ -121,12 +137,11 @@ layout: default
         </div>
 
         <div class="tile is-parent">
-          <a class="tile is-child notification gh-techniques-bg">
+          <a class="tile is-child notification gh-techniques">
               <span class="tag is-light is-medium is-pulled-right">Technique</span>
             <p class="title">Technique tile</p>
             <p class="subtitle">Aligned with the right tile</p>
             <div class="content">
-              <!-- Content -->
             </div>
           </a>
         </div>
@@ -135,13 +150,12 @@ layout: default
 
       <div class="tile is-parent">
 
-        <a class="tile is-child notification gh-projects-bg" href="">
+        <a class="tile is-child notification gh-projects" href="">
           <span class="tag is-light is-medium is-pulled-right">Project</span>
           <div class="content">
             <p class="title">Project</p>
             <p class="subtitle">With even more content</p>
             <div class="content">
-              <!-- Content -->
             </div>
           </div>
         </a>
@@ -151,3 +165,4 @@ layout: default
 
   </div>
 </section>
+-->
