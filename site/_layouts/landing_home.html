@@ -27,7 +27,7 @@ layout: default
               <a href="">{{ page.title }}</a>
             </h2>
             <p class="gh-info-boxes">
-              {{ page.subtitle }}
+              {{ page.excerpt }}
             </p>
             <a class="button is-outline is-block" href="{{ page.url }}">
               View {{ page.title }} <i data-feather="chevrons-right"></i>
@@ -40,129 +40,55 @@ layout: default
   </div>
 </section>
 
-<!--
-
-{% for document in site.documentation %}
-  <h4><a href="{{ document.url }}">{{ document.title }}</a></h4>
-{% endfor %}
-{% for technique in site.techniques %}
-  <h4><a href="{{ technique.url }}">{{ technique.title }}</a></h4>
-{% endfor %}
-{% for project in site.projects %}
-  <h4><a href="{{ project.url }}">{{ project.title }}</a></h4>
-{% endfor %}
- -->
-
 <section class="section is-small">
   <div class="container">
-
     <div class="columns masonry-grid" data-masonry='{ "itemSelector": ".masonry-item" }'>
 
+      <div class="column is-one-third masonry-item">
+        <a class="tile notification gh-plugin is-vertical is-child"
+           href="{{ site.baseurl }}{% link plugin.md %}">
+          <div class="is-white is-pulled-right">
+            <i data-feather="package" title="plugin"></i>
+          </div>
+          <h4 class="title is-size-5">Version 0.6</h4>
+          <p class="subtitle"><br></p>
+        </a>
+      </div>
+
       {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
+      {% assign sorted = everything | sort: 'date' | reverse | limit:10 %}
       {% for item in everything %}
 
-        {% if forloop.index0 == 0 %}
-          <div class="column is-one-third masonry-item">
-            <a class="tile notification gh-plugin is-vertical is-child"
-               href="{{ site.baseurl }}{% link plugin.md %}">
-              <span class="is-white is-pulled-right">
-                <i data-feather="package" title="plugin"></i>
-              </span>
-              <p class="title is-size-5">Version 0.6</p>
-              <p class="subtitle"><br></p>
-            </a>
-          </div>
+        {% if item.thumbnail %}
+          {% capture imagePath %}/assets/{{ item.path | remove_first: "_" | remove_first: ".md" }}/{{ item.name }}{{ item.thumbnail }}{% endcapture %}
+        {% endif %}
+        {% if item.collection == 'documentation' %}
+          {% assign icon = 'book' %}
+          {% assign color = 'rgba(142, 215, 89, 0.85)' %}
+        {% endif %}
+        {% if item.collection == 'techniques' %}
+          {% assign icon = 'briefcase' %}
+          {% assign color = 'rgba(233, 185, 56, 0.85)' %}
+        {% endif %}
+        {% if item.collection == 'projects' %}
+          {% assign icon = 'aperture' %}
+          {% assign color = 'rgba(246, 112, 140, 0.85)' %}
         {% endif %}
 
         <div class="column is-one-third masonry-item">
-          <a class="tile notification is-vertical is-child gh-{{ item.collection }}" href="{{ item.url }}">
-
-            <span class="is-white is-pulled-right">
-              {% if item.collection == 'documentation' %}
-                <i data-feather="book" title="documentation"></i>
-              {% endif %}
-              {% if item.collection == 'techniques' %}
-                <i data-feather="briefcase" title="techniques"></i>
-              {% endif %}
-              {% if item.collection == 'projects' %}
-                <i data-feather="aperture" title="projects"></i>
-              {% endif %}
-            </span>
-            <p class="title is-size-5">{{ item.title }}</p>
-            <p class="subtitle"><br><br></p>
+          <a class="tile notification is-vertical is-child gh-{{ item.collection }}" href="{{ item.url }}"
+             style="background: linear-gradient({{ color }}, {{ color }}),
+                                50% 50% url('{{ imagePath | absolute_url }}');">
+            <div class="is-white is-pulled-right">
+              <i data-feather="{{ icon }}"></i>
+            </div>
+            <h4 class="title is-size-5">{{ item.title }}</h4>
+            <p>{{ item.excerpt }}</p>
           </a>
         </div>
 
       {% endfor %}
 
     </div>
-
   </div>
 </section>
-
-<!--
-<section class="section">
-  <div class="container">
-
-    <div class="tile is-ancestor">
-
-      <div class="tile is-vertical is-8">
-
-        <div class="tile">
-
-          <div class="tile is-parent is-vertical">
-            <a class="tile is-child notification gh-plugin">
-              <span class="tag is-light is-medium is-pulled-right">Plugin</span>
-              <p class="title">Version 0.6</p>
-              <p class="subtitle">Top tile</p>
-            </a>
-            <a class="tile is-child notification gh-documentation">
-              <span class="tag is-light is-medium is-pulled-right">Component</span>
-              <p class="title">Component</p>
-              <p class="subtitle">Bottom tile</p>
-            </a>
-          </div>
-
-          <div class="tile is-parent">
-            <a class="tile is-child notification gh-projects">
-              <span class="tag is-light is-medium is-pulled-right">Project</span>
-              <p class="title">Project tile</p>
-              <p class="subtitle">With an image</p>
-              <figure class="image is-4by3">
-                <img src="https://bulma.io/images/placeholders/640x480.png">
-              </figure>
-            </a>
-          </div>
-
-        </div>
-
-        <div class="tile is-parent">
-          <a class="tile is-child notification gh-techniques">
-              <span class="tag is-light is-medium is-pulled-right">Technique</span>
-            <p class="title">Technique tile</p>
-            <p class="subtitle">Aligned with the right tile</p>
-            <div class="content">
-            </div>
-          </a>
-        </div>
-
-      </div>
-
-      <div class="tile is-parent">
-
-        <a class="tile is-child notification gh-projects" href="">
-          <span class="tag is-light is-medium is-pulled-right">Project</span>
-          <div class="content">
-            <p class="title">Project</p>
-            <p class="subtitle">With even more content</p>
-            <div class="content">
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-  </div>
-</section>
--->

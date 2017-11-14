@@ -1,9 +1,11 @@
 ---
 title:      MAX IV Laboratory Landscape
+excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
+date:       17-11-14
+thumbnail:  4.jpg
 year:       2017 (constructed)
 location:   ??
 designers:  Snohetta
-excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
 categories:
 - parametric geometry
 - simulation

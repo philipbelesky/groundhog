@@ -1,9 +1,11 @@
 ---
 title:      Keio University Roof Garden
+excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+date:       17-11-08
+thumbnail:  3.jpg
 year:       2012
 location:   Tokyo, Japan
-designers:  Michel Desvigne Paysagiste
-excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
+designers:  Michel Desvigne Paysagistedoloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
 files:      true
 files_text: model and definition for this project
 tags:
