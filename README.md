@@ -1,24 +1,34 @@
+<div align="center">
+
+<img width=200 src="https://cdn.rawgit.com/philipbelesky/groundhog/develop/site/assets/logo.svg">
+
 # Groundhog
 
-Groundhog is a plugin for the Grasshopper parametric design platform. It is currently in an alpha/unfinished state.
+Groundhog is a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design techniques in landscape architecture. Groundhog is currently in beta. The plugin and associated site will be updated with more features and information in early 2018.
 
-## Installation
+</div>
 
-Drop the .gha file into the User Components file as per normal. Check the file is unblocked.
+## Plugin Download and Installation
 
-### Requirements
+The plugin can be download at [groundhog.la](http://groundhog.la). To install, drop the .gha file into the User Components folder as per normal install procedure.
+
+#### Requirements
+
 - Rhinoceros 5.0 (Windows)
 - Rhinoceros WIP (Mac)
+- Tested on Grasshopper 0.9.0076, but should work on prior and later versions
 
-Tested on Grasshopper 0.9.0076.
+## Plugin Usage
 
-## Usage
+See the provided documentation and demo, example, and reference files at [groundhog.la](http://groundhog.la).
 
-See the provided demo/examples/projects files.
+## Plugin Development
 
-## Development
+See the `README.md` file located in the `plugin` folder.
 
-Building the solution requires [Visual Studio Community](https://www.visualstudio.com/vs/) for Mac or Windows. Upon first build it should fetch the required RhinoCommon and Grasshopper references from NuGet (an internet connection is required).
+## Wiki Development
+
+See the `README.md` file located in the `site` folder.
 
 ## Support
 
@@ -26,14 +36,8 @@ See the email address provided inside the definitions.
 
 ## Contributing
 
-Feedback and pull requests welcome.
+Feedback and pull requests welcome; see `CONTRIBUTING.md`
 
 ## License
 
-Copyright 2017 Philip Belesky.
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>
+This project is licensed under the GPL v3 License - see the `LICENSE.md` file for details.
