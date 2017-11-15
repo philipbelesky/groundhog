@@ -20,9 +20,16 @@ $info: $techniques;
 $projects: rgb(246, 112, 140);
 $primary: $projects;
 
+// Import IBM Plex Styles Defaults
+@import "../node_modules/@ibm/type/css/ibm-type.css";
+$family-primary: 'ibm-plex-sans'; // The main body font
+
+$family-heading: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+
 // Customise Typography
 $body-size: 18px;
 $body-line-height: 1.66;
+$body-weight: 400; // For Plex 400=regular; 300=normal; 600=semi bold
 
 // Customise Layout
 $notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default pr is 2.5

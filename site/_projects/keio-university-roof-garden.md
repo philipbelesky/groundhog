@@ -5,7 +5,7 @@ date:       17-11-08
 thumbnail:  3.jpg
 year:       2012
 location:   Tokyo, Japan
-designers:  Michel Desvigne Paysagistedoloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
+designers:  Michel Desvigne Paysagiste
 files:      true
 files_text: model and definition for this project
 tags:

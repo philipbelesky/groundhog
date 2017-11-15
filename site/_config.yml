@@ -80,6 +80,11 @@ defaults:
     values:
       layout: post
 
+# Needed to allow local serving of the webfont from node_modules
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
