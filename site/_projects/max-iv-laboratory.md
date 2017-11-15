@@ -1,5 +1,8 @@
 ---
 title:      MAX IV Laboratory Landscape
+year:       2016 (constructed)
+location:   ??
+designers:  Snøhetta
 excerpt:    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
 date:       17-11-14
 thumbnail:  4.jpg
