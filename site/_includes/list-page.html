@@ -1,4 +1,8 @@
+<div class="columns masonry-grid">
 
-<h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+  {% assign span = 'is-half' %}
+  {% for item in items %}
+    {% include tile.html %}
+  {% endfor %}
 
-<p>{{ item.excerpt }}</p>
+</div>

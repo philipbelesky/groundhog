@@ -1,9 +1,15 @@
-// Homepage
-.gh-info-boxes {
-  min-height: 120px; // Equalise paragraph heights; should fix with flexbox
+//------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+
+.gh-no-top-padding {
+  padding-top: 0;
 }
 
-// Header Overrides
+//------------------------------------------------------------------------------
+// Menu
+//------------------------------------------------------------------------------
+
 #logo {
   width: 30px;
   height: 30px;
@@ -17,22 +23,41 @@
   color: #666;
 }
 
-// Layout
-.is-small { // Add additional layout class to extend bulma's .is-medium etc
-  padding-top: 1.5rem;
-  padding-bottom: 0;
+.navbar-menu.is-active .navbar-item {
+  padding: 0.5rem 1rem; // Restore default padding for mobile menus
+}
+
+//------------------------------------------------------------------------------
+// Homepage
+//------------------------------------------------------------------------------
+
+// Callouts
+.gh-callouts {
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  .column {
+    padding-bottom: 3rem;
+
+    p {
+      min-height: 120px; // Equalise paragraph heights; should fix with flexbox
+    }
+  }
 }
 
 .masonry-grid {
+  margin-top: -20px;
   margin-bottom: 50px;
 }
 
-.button, .message {
-  font-family: $family-heading;
-  font-weight: 600;
+.masonry-item p {
+  font-family: $family-heading; // else FOUT loading messes up height calculations
 }
 
-// Footer Overrides
+//------------------------------------------------------------------------------
+// Footer
+//------------------------------------------------------------------------------
+
 .footer {
   padding-bottom: 3rem;
 }
@@ -46,16 +71,4 @@
 
 .footer-pushdown {
   flex: 1;
-}
-
-
-.content {
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: $family-heading;
-    font-weight: 800;
-  }
-  .subtitle {
-    font-weight: 400;
-  }
 }

@@ -1,7 +1,7 @@
 ---
 layout:     landing_documentation
-title:      Documentation
+title:      Docs
 category:   top
-excerpt:   Reference material outlining how to use each component provided by the plugin along with examples of their application
+excerpt:   Explanatory material and example definitions that outline how to use the plugin's components in different contexts.
 ---
 

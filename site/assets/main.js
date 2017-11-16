@@ -42,7 +42,9 @@ var grid = document.querySelector('.masonry-grid');
 if (grid !== null) {
   var msnry = new Masonry( grid, {
     // options...
-    itemSelector: '.grid-item',
-    columnWidth: 200
+    itemSelector: '.masonry-item',
+    horizontalOrder: true,
+    // percentPosition: true,
+    // columnWidth: '.test',
   });
 }

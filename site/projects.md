@@ -2,6 +2,6 @@
 layout:     landing_projects
 title:      Projects
 category:   top
-excerpt:    Recreations of landscape architectural projects that use computational methods.
+excerpt:    Descriptions and reference models detailing the use of computational methods in landscape architectural projects.
 ---
 

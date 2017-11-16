@@ -29,3 +29,8 @@
 .subtitle .feather {
   margin-bottom: -4px;
 }
+
+// Spacing tweaks in mobile menu
+.navbar-menu.is-active .feather {
+  margin-bottom: -5px;
+}
