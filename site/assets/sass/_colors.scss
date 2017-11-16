@@ -1,4 +1,43 @@
-// Nav Menu Overrides
+//------------------------------------------------------------------------------
+// General Colors
+//------------------------------------------------------------------------------
+
+.gh-plugin {
+  @extend .is-dark;
+}
+.gh-documentation {
+  @extend .is-danger;
+}
+.gh-techniques {
+  @extend .is-info;
+}
+.gh-projects {
+  @extend .is-primary;
+}
+.gh-about {
+  @extend .is-link;
+}
+
+.gh-plugin-content a {
+  color: $plugin;
+}
+.gh-documentation-content a {
+  color: $documentation;
+}
+.gh-techniques-content a {
+  color: $techniques;
+}
+.gh-projects-content a {
+  color: $projects;
+}
+.gh-about-content a {
+  color: $about;
+}
+
+//------------------------------------------------------------------------------
+// Menu Colors
+//------------------------------------------------------------------------------
+
 .navbar-item {
 
   &.gh-plugin-text {
@@ -41,38 +80,4 @@
       color: $white;
     }
   }
-
 }
-
-.gh-plugin {
-  @extend .is-dark;
-  color: #fff;
-}
-.gh-documentation {
-  @extend .is-danger;
-}
-.gh-techniques {
-  @extend .is-info;
-}
-.gh-projects {
-  @extend .is-primary;
-}
-.gh-about {
-  @extend .is-link;
-}
-
-.gh-plugin-content a {
-  color: $plugin;
-}
-.gh-documentation-content a {
-  color: $documentation;
-}
-.gh-techniques-content a {
-  color: $techniques;
-}
-.gh-projects-content a {
-  color: $projects;
-}
-.gh-about-content a {
-  color: $about;
-  }

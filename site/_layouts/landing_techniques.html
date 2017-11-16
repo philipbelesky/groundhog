@@ -2,6 +2,5 @@
 layout: page
 ---
 
-{% for item in site.techniques %}
-  {% include list-page.html %}
-{% endfor %}
+{% assign items = site.techniques | sort: 'date' | reverse %}
+{% include list-page.html %}

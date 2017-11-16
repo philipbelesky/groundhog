@@ -1,10 +1,10 @@
 ---
 layout:     page
 title:      Plugin
-excerpt:    A plugin for Grasshopper — a visual programming tool for the Rhinoceros modeler.
+excerpt:    A plugin for Grasshopper — the visual programming tool for the Rhinoceros modeler.
 ---
 
-## Download and Install
+# Download and Install
 
 {% include download.html %}
 
