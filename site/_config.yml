@@ -96,7 +96,3 @@ exclude:
   - package.json
   - package-lock.json
   - s3_website.yml
-
-# Don't delete on rebuilding
-keep_files:
-  - "assets/projects/downloads"

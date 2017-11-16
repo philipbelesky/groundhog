@@ -3,27 +3,22 @@ layout: page
 title: About Groundhog
 ---
 
-## Lead Developer
+## Developer
 
 Philip Belesky is an Associate Lecturer and PhD candidate in the Landscape Architecture program at RMIT University in Melbourne, Australia, and has previously worked as a programmer and computational designer. His current research explores the use of computational methods and tooling to design landscape systems — more information available at [philipbelesky.com](http://www.philipbelesky.com).
 
-<!-- ### Workshops -->
+Support requests, bug reports, feature suggestions and other plugin-related communications can be made as outlined on the [plugins page]. For other matters please email me using at [contact@philipbelesky.com](mailto:contact@philipbelesky.com).
+
+## Contributing
+
+See the [CONTRIBUTING.md](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md) file on Github for information on how to help contribute to the project. Further details are provided there, but note that pull requests are welcome, along with improvements to the example files and documentation that define this website.
 
 ## Acknowledgments
 
-Thanks to the support of the [Spatial Information Architecture Laboratory](http://www.sial.rmit.edu.au/) and the [RMIT landscape architecture discipline](http://www.landscapearchitecture.rmit.edu.au).
-
-<!--
-## Publications
-- Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
-- Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
-- Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab LIPSUM
- -->
+Thanks to the support of the [Spatial Information Architecture Laboratory](http://www.sial.rmit.edu.au/) and the [RMIT Landscape Architecture program](http://www.landscapearchitecture.rmit.edu.au).
 
 ## License and Use
 
-The [source code](https://github.com/philipbelesky/groundhog) for this website, its content, the plugin, and associated models/definitions are licsensed under the terms of the GPL v3 License. If you're using Groundhog for commercial projects or academic research I'd love to [hear about it](https://www.google.com/recaptcha/mailhide/d?k=01aItEbHtwnn1PzIPGGM9W8A==&c=XWljk2iGokfhziV2Rt4OiKA5uab1vCrnxwXcPUsWgnM=)
+The [source code](https://github.com/philipbelesky/groundhog) for this website, its content, the plugin, and associated models/definitions are licensed under the terms of the GPL v3 License.
 
-{% include_absolute ../CONTRIBUTING.md %}
-
-
+If you're using Groundhog for commercial projects or academic research I'd love to [hear about it](mailto:groundhog@philipbelesky.com).
