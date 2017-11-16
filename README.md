@@ -1,43 +1,51 @@
 <div align="center">
-
 <img width=200 src="https://cdn.rawgit.com/philipbelesky/groundhog/develop/site/assets/logo.svg">
 
 # Groundhog
-
-Groundhog is a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design techniques in landscape architecture. Groundhog is currently in beta. The plugin and associated site will be updated with more features and information in early 2018.
-
 </div>
 
-## Plugin Download and Installation
+Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of reference models, and wiki exploring the applications of computational design techniques in landscape architecture. Groundhog is currently in beta. The plugin and associated site will be updated with more features and information in early 2018.
 
-The plugin can be download at [groundhog.la](http://groundhog.la). To install, drop the .gha file into the User Components folder as per normal install procedure.
+Please visit [www.groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
+
+## Plugin Setup
 
 #### Requirements
 
-- Rhinoceros 5.0 (Windows)
+- Rhinoceros 5.0 or 6.0 (Windows)
 - Rhinoceros WIP (Mac)
-- Tested on Grasshopper 0.9.0076, but should work on prior and later versions
+- Grasshopper 0.9.0076, although it should work on newer and slightly older versions
 
-## Plugin Usage
+#### Installation
+
+1. The plugin can be download at [groundhog.la](http://groundhog.la/plugin/). Once you have unzipped the associated file, the "plugin" file is `groundhog.gha`.
+2. If you are on Windows you will right-click on the plugin file, open the properties tab, then in the properties window click the unblock option in the bottom right corner. For more details, refer to [this guide](https://blogs.msdn.microsoft.com/delay/p/unblockingdownloadedfile/).
+3. Open up Grasshopper, then in the "File" menu go to "Special Folders" and then "Components Folder"
+4. Copy the plugin file to this folder, then quit Rhinoceros/Grasshopper.
+5. When you reopen Rhinoceros/Grasshopper there should be a "Groundhog" tab present.
+
+Refer to [this video](https://www.youtube.com/watch?v=TB5wkh79Pv4) for further help installing a Grasshopper plugin on Windows.
+
+## Plugin Use
 
 See the provided documentation and demo, example, and reference files at [groundhog.la](http://groundhog.la).
 
-## Plugin Development
+## Support, Bug Reports, and Feature Requests
 
-See the `README.md` file located in the `plugin` folder.
-
-## Wiki Development
-
-See the `README.md` file located in the `site` folder.
-
-## Support
-
-See the email address provided inside the definitions.
+Refer to [groundhog.la/plugin/](http://groundhog.la/plugin/).
 
 ## Contributing
 
-Feedback and pull requests welcome; see `CONTRIBUTING.md`
+Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md).
+
+## Plugin Development
+
+See the [`README.md` file](https://github.com/philipbelesky/groundhog/blob/develop/plugin/README.md) located in the `plugin` folder.
+
+## Wiki Development
+
+See the [`README.md` file](https://github.com/philipbelesky/groundhog/blob/develop/site/README.md) located in the `site` folder.
 
 ## License
 
-This project is licensed under the GPL v3 License - see the `LICENSE.md` file for details.
+This project is licensed under the GPL v3 License - see the [`LICENSE` file](https://github.com/philipbelesky/groundhog/blob/develop/LICENSE) for details.
