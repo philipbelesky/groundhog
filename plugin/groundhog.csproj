@@ -167,19 +167,6 @@
     <Copy SourceFiles="$(ProjectDir)/../README.md" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="$(ProjectDir)/../CHANGELOG.md" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="$(ProjectDir)/../LICENSE" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Flows Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Flows Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.csv" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.3dm" DestinationFolder="$(OutDir)demos" />
-    <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.gh" DestinationFolder="$(OutDir)demos" />
     <ItemGroup>
       <Precedents Include="$(ProjectDir)/../projects/**/*.*" />
     </ItemGroup>

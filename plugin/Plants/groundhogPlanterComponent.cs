@@ -8,12 +8,13 @@ namespace groundhog
     public class groundhogPlanterComponent : GH_Component
     {
 
-        public groundhogPlanterComponent()
-            : base("Plant Placement Solver", "Placer",
-                "Place particular plant objects at a spatial point given particular inputs and constraints",
-                "Groundhog", "Flora")
-        {
-        }
+        // To fix/restore
+        //public groundhogPlanterComponent()
+        //    : base("Plant Placement Solver", "Placer",
+        //        "Place particular plant objects at a spatial point given particular inputs and constraints",
+        //        "Groundhog", "Flora")
+        //{
+        //}
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
