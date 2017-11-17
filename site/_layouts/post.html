@@ -8,28 +8,30 @@ layout: default
       <h1 class="title is-1">
         {{ page.title }}
       </h1>
-      <div class="columns">
-        {% if page.designers %}
-          <div class="column is-4">
-            <h4 class="subtitle">
-              <i data-feather="users"></i>{{ page.designers }}
-            </h4>
-          </div>
-        {% endif %}
-        {% if page.year %}
-          <div class="column is-2">
-            <h4 class="subtitle">
-              <i data-feather="clock"></i>{{ page.year }}
-            </h4>
-          </div>
-        {% endif %}
-        {% if page.location %}
-          <div class="column is-3">
-            <h4 class="subtitle">
-              <i data-feather="map"></i>{{ page.location }}
-            </h4>
-          </div>
-        {% endif %}
+      <div class="level">
+        <div class="level-left">
+          {% if page.designers %}
+            <div class="level-item gh-left-padding">
+              <h4 class="subtitle">
+                <i data-feather="users"></i>{{ page.designers }}
+              </h4>
+            </div>
+          {% endif %}
+          {% if page.year %}
+            <div class="level-item gh-left-padding">
+              <h4 class="subtitle">
+                <i data-feather="clock"></i>{{ page.year }}
+              </h4>
+            </div>
+          {% endif %}
+          {% if page.location %}
+            <div class="level-item gh-left-padding">
+              <h4 class="subtitle">
+                <i data-feather="map"></i>{{ page.location }}
+              </h4>
+            </div>
+          {% endif %}
+        </div>
       </div>
       <h2 class="subtitle">
         {{ page.excerpt }}
@@ -38,12 +40,13 @@ layout: default
   </div>
 </section>
 
-{% if page.files %}
-  {% include files.html %}
-{% endif %}
-
 <section class="section">
+
   <div class="container">
+
+    {% if page.files %}
+      {% include files.html %}
+    {% endif %}
 
     {{ content }}
 

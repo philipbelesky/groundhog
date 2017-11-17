@@ -22,7 +22,7 @@
   color: $plugin;
 }
 .gh-documentation-content a {
-  color: $documentation;
+  color: $docs;
 }
 .gh-techniques-content a {
   color: $techniques;
@@ -49,10 +49,10 @@
     }
   }
   &.gh-documentation-text {
-    color: $documentation;
+    color: $docs;
 
     &:hover, &.active {
-      background: $documentation;
+      background: $docs;
       color: $white;
     }
   }
