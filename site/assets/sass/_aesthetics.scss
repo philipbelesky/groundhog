@@ -17,3 +17,20 @@
 .button, .message {
   font-weight: 600;
 }
+
+//------------------------------------------------------------------------------
+// Elements
+//------------------------------------------------------------------------------
+
+.content figure {
+  margin-left: 0;
+  margin-right: 0;
+
+  figcaption {
+    font-family: $family-heading;
+    padding-top: 1rem;
+  }
+  p.attribution {
+    @extend .is-size-7;
+  }
+}
