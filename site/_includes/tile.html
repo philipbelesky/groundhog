@@ -4,25 +4,29 @@
 
 {% if item.collection == 'documentation' %}
   {% assign icon = 'book' %}
-  {% assign color = 'rgba(142, 215, 89, 0.90)' %}
+  {% assign color = 'rgba(142, 215, 89, 0.80)' %}
 {% endif %}
 {% if item.collection == 'techniques' %}
   {% assign icon = 'briefcase' %}
-  {% assign color = 'rgba(233, 185, 56, 0.90)' %}
+  {% assign color = 'rgba(233, 185, 56, 0.80)' %}
 {% endif %}
 {% if item.collection == 'projects' %}
   {% assign icon = 'aperture' %}
-  {% assign color = 'rgba(246, 112, 140, 0.90)' %}
+  {% assign color = 'rgba(246, 112, 140, 0.80)' %}
 {% endif %}
 
 <div class="column {{ span }} masonry-item">
   <a class="tile notification is-vertical is-child gh-{{ item.collection }}" href="{{ item.url }}"
      style="background: linear-gradient({{ color }}, {{ color }}),
                         50% 50% url('{{ imagePath | absolute_url }}');">
+
     <div class="is-white is-pulled-right">
       <i data-feather="{{ icon }}"></i>
     </div>
-    <h4 class="title is-size-5">{{ item.title }}</h4>
+
+    <h4 class="title">{{ item.title }}</h4>
+
     <p>{{ item.excerpt }}</p>
+
   </a>
 </div>
