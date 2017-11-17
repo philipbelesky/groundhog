@@ -35,3 +35,7 @@
     @extend .is-size-7;
   }
 }
+
+.content .gh-figure + .gh-figure {
+  margin-top: -1.5em; // Subsequent images have tight spacing
+}
