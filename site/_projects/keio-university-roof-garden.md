@@ -19,7 +19,7 @@ tags:
 
 The most visible impact of computational design techniques on the design of landscapes is often in the formal treatment of 'hard' surfaces — street furniture, paving elements, pavilions, and other items that can be manufactured specifically for a particular project. As manufactured and constructed artefacts, these elements can draw from the design and fabrication techniques popularised for creating architectural forms.
 
-{% include figure.html name="2.png" caption="The different types of granite slab in detail and the resulting design." credit="Image via 'Intermediate Natures, The Landscapes of Michel Desvigne' (2009) p172." %}
+{% include figure.html name="2.jpg" caption="The different types of granite slab in detail and the resulting design." credit="Image via 'Intermediate Natures, The Landscapes of Michel Desvigne' (2009) p172." %}
 
 For example, Michel Desvigne's *Keio University Roof* project employs a 'field' technique whereby a parametric grid of circles has their radii grown in response to an image map. These apertures then become voids within the paving grid and filled with plants or stone cylinders that function as seats.[@Corner:2009jg 173] The resulting aesthetic is one of a smoothly differentiated surface with semi-enclosed areas that reflects the that form a braided river in plan; an image used to drive the geometric layout:
 
