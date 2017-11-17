@@ -1,24 +1,19 @@
 {% capture filePath %}/downloads/{{ page.path | remove_first: "_" | remove_first: ".md" | replace:"/","/downloads/" }}.zip{% endcapture %}
-<div class="section">
-  <div class="container content">
 
-    <article class="message is-success">
-      <div class="message-body">
+<article class="message is-success">
+  <div class="message-body">
 
-        <div class="columns">
+    <div class="columns">
 
-          <div class="column is-narrow gh-message-icon">
-            <i data-feather="download"></i>
-          </div>
-
-          <div class="column">
-            The associated {{ page.files_text }} <a href="{{ filePath | absolute_url }}">can be downloaded here</a>.
-          </div>
-
-        </div>
-
+      <div class="column is-narrow gh-message-icon">
+        <i data-feather="download"></i>
       </div>
-    </article>
+
+      <div class="column">
+        The associated {{ page.files_text }} <a href="{{ filePath | absolute_url }}">can be downloaded here</a>.
+      </div>
+
+    </div>
 
   </div>
-</div>
+</article>
