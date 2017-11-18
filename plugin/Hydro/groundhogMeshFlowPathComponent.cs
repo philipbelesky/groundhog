@@ -22,7 +22,7 @@ namespace groundhog
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        protected override Bitmap Icon => Resources.icon_flows;
+        protected override Bitmap Icon => Resources.icon_flows_mesh;
 
         public override Guid ComponentGuid => new Guid("{2d218bdc-ecaa-2cf7-815a-c8111d1798d3}");
 
