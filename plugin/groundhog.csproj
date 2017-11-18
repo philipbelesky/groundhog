@@ -102,13 +102,14 @@
     <None Include="Resources\icon_field.png" />
     <None Include="Resources\icon_floods_river.png" />
     <None Include="Resources\icon_floods_sea.png" />
-    <None Include="Resources\icon_flows.png" />
     <None Include="Resources\icon_mesh_slope.png" />
     <None Include="Resources\icon_pgeneric.png" />
     <None Include="Resources\icon_pimport.png" />
     <None Include="Resources\icon_pplacer.png" />
     <None Include="Resources\icon_pshower.png" />
     <None Include="packages.config" />
+    <None Include="Resources\icon_flows_mesh.png" />
+    <None Include="Resources\icon_flows_srf.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_field_grid_vis.png" />
