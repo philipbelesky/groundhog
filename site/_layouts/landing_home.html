@@ -44,9 +44,13 @@ layout: default
   <div class="container">
     <div class="columns masonry-grid gh-home-grid">
 
+      {% assign imagePath = '/assets/plugin/thumbnail.png' %}
+      {% assign color = 'rgba(114, 227, 210, 0.90)' %}
       <div class="column is-one-third masonry-item">
-        <a class="tile notification is-vertical is-child gh-plugin "
-           href="{{ site.baseurl }}{% link plugin.md %}">
+        <a class="tile notification is-vertical is-child gh-plugin"
+           href="{{ site.baseurl }}{% link plugin.md %}"
+           style="background: linear-gradient({{ color }}, {{ color }}),
+                  50% 50% url('{{ imagePath | absolute_url }}');">
           <div class="is-white is-pulled-right">
             <i data-feather="package" title="plugin"></i>
           </div>
