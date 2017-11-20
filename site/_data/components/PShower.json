@@ -1,6 +1,7 @@
 {
   "name": "Plant Appearance Simulator",
   "nickname": "Shower",
+  "icon": "icon_pshower.png",
   "description": "Simulate the appearance of a particular plant instance",
   "category": "Groundhog",
   "subcategory": "Flora",

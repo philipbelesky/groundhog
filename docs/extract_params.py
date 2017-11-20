@@ -15,6 +15,13 @@ COMPONENT_DIRECTORIES = [
 OUTPUT_DIRECTORY = "../site/_data/components/"
 
 
+def parse_icon(name, lines):
+    icon_line = [s for s in lines if " Icon " in s][0]
+    icon_param = icon_line.split("Resources.")[1]
+    icon_string = icon_param[:-1] + ".png" # Remove trailing semicolon
+    return icon_string
+
+
 def parse_name(contents):
     lines = contents.splitlines()
     base_line = [s.strip() for s in lines if "base(" in s][0]
@@ -22,6 +29,7 @@ def parse_name(contents):
     return {
         "name": args[0],
         "nickname": args[1],
+        "icon": parse_icon(args[0], lines),
         "description": args[2],
         "category": args[3],
         "subcategory": args[4]

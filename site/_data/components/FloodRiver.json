@@ -1,6 +1,7 @@
 {
   "name": "River Flood Simulator",
   "nickname": "River Floods",
+  "icon": "icon_floods_river.png",
   "description": "Examine flooding levels along a surface from a river source",
   "category": "Groundhog",
   "subcategory": "Hydro",

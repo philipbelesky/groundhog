@@ -1,6 +1,7 @@
 {
   "name": "Flow Simulation (Mesh)",
   "nickname": "Mesh Flows",
+  "icon": "icon_flows_mesh.png",
   "description": "Construct flow paths along a mesh",
   "category": "Groundhog",
   "subcategory": "Hydro",

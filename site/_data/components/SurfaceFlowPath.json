@@ -1,6 +1,7 @@
 {
   "name": "Flow Simulation (Surface)",
   "nickname": "Srf Flows",
+  "icon": "icon_flows_srf.png",
   "description": "Construct flow paths along a surface",
   "category": "Groundhog",
   "subcategory": "Hydro",

@@ -1,6 +1,7 @@
 {
   "name": "Contour Clip",
   "nickname": "Contour Clip",
+  "icon": "icon_contour_clip.png",
   "description": "Checks contours meet a specific boundary, otherwise extend/trim them",
   "category": "Groundhog",
   "subcategory": "Terrain",

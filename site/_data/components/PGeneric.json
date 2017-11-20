@@ -1,6 +1,7 @@
 {
   "name": "Generic Species Attributes",
   "nickname": "Generic Species",
+  "icon": "icon_pgeneric.png",
   "description": "Output plant objects from pre-define generic types ",
   "category": "Groundhog",
   "subcategory": "Flora",

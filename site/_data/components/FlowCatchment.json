@@ -1,6 +1,7 @@
 {
   "name": "Flow Catchments",
   "nickname": "Catchments",
+  "icon": "icon_catchments.png",
   "description": "Identify the catchments within a set of flow paths",
   "category": "Groundhog",
   "subcategory": "Hydro",
