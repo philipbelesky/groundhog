@@ -23,7 +23,7 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("CSV File", "C", "The output of a CSV set to a Read File component", GH_ParamAccess.list);
+            pManager.AddGenericParameter("CSV File", "C", "The contents of a CSV file (use the output of a Read File component", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

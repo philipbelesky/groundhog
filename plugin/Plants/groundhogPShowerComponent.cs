@@ -31,9 +31,9 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plants", "P", "The plant objects to simulate", GH_ParamAccess.list);
-            pManager.AddPointParameter("Locations", "L", "The plant locations to simulate", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Times", "T", "The time (in years) since planting to display", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Plants", "P", "The plant attributes to simulate", GH_ParamAccess.list);
+            pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display", GH_ParamAccess.item);
             pManager[2].Optional = true;
             //pManager.AddBooleanParameter("Visualisations", "V", "Whether to show a full L-system visualisation (true) or just the base geoemtries (false)", GH_ParamAccess.item, false);
             //pManager[3].Optional = true;
@@ -45,8 +45,8 @@ namespace groundhog
             pManager.AddCircleParameter("Root", "R", "Root radius", GH_ParamAccess.list);
             pManager.AddCircleParameter("Crown", "C", "Crown radius", GH_ParamAccess.list);
             pManager.AddCircleParameter("Spacing", "S", "Spacing radius", GH_ParamAccess.list);
-            pManager.AddColourParameter("Color", "C", "The color value of each plant", GH_ParamAccess.list);
-            pManager.AddTextParameter("Label", "T", "The label of each plant", GH_ParamAccess.list);
+            pManager.AddColourParameter("Color", "C", "The species color of each plant", GH_ParamAccess.list);
+            pManager.AddTextParameter("Label", "T", "The species label of each plant", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

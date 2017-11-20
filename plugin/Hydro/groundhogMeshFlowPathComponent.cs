@@ -14,7 +14,7 @@ namespace groundhog
     public class groundhogMeshFlowComponent : GH_Component
     {
         public groundhogMeshFlowComponent()
-            : base("Flow Simulation (Mesh)", "Mesh Flows", "Construct flow paths along a mesh", "Groundhog", "Hydro")
+            : base("Flow Simulation (Mesh)", "Mesh Flows", "Construct flow paths over a mesh", "Groundhog", "Hydro")
         {
         }
 
@@ -26,18 +26,17 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as mesh) for the flows", GH_ParamAccess.item);
-            pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as a mesh) for the flow calculation", GH_ParamAccess.item);
+            pManager.AddPointParameter("Points", "P", "Start points for the flow paths (will be projected on to the mesh)", GH_ParamAccess.list);
             pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
-            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the calculation", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the solution (this can speed up long calculations)", GH_ParamAccess.item, false);
             pManager[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Flow Points", "F", "The points of each simulated point of movement", GH_ParamAccess.tree);
-            pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each point", GH_ParamAccess.list);
-
+           pManager.AddPointParameter("Flow Points", "F", "The points of each simulated flow path 'jump'", GH_ParamAccess.tree);
+           pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each of the flow points into a path", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
