@@ -45,19 +45,19 @@ sass:
 collections:
   documentation:
     output: true
-    permalink: /documentation/:title
+    permalink: /documentation/:title/
     scope:
       path: ""
       type: documentation
   projects:
     output: true
-    permalink: /projects/:title
+    permalink: /projects/:title/
     scope:
       path: ""
       type: projects
   techniques:
     output: true
-    permalink: /techniques/:title
+    permalink: /techniques/:title/
     scope:
       path: ""
       type: techniques
@@ -96,3 +96,6 @@ exclude:
   - package.json
   - package-lock.json
   - s3_website.yml
+  - compile.sh
+  - style.csl
+  - npm-debug.log
