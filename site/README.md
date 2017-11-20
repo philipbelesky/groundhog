@@ -26,6 +26,10 @@ In addition, if you'd like to use BrowserSync to automatically refresh the brows
 
 ## Deploying
 
+Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing. Run with:
+
+    bash compile.sh
+
 Deployment is done using [s3_website](https://github.com/laurilehmijoki/s3_website). This requires Java 8 and a set of valid Amazon Web Service credentials in a `.env` file in this directory. Changes can be published with:
 
     s3_website push
