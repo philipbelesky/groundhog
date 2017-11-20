@@ -1,0 +1,54 @@
+{
+  "name": "Flow Simulation (Mesh)",
+  "nickname": "Mesh Flows",
+  "description": "Construct flow paths along a mesh",
+  "category": "Groundhog",
+  "subcategory": "Hydro",
+  "inputs": [
+    {
+      "name": "Mesh",
+      "id": "M",
+      "description": "Base landscape form (as mesh) for the flows",
+      "optional": false,
+      "type": "Mesh"
+    },
+    {
+      "name": "Points",
+      "id": "P",
+      "description": "Start points for the flow paths",
+      "optional": false,
+      "type": "Point"
+    },
+    {
+      "name": "Fidelity",
+      "id": "F",
+      "description": "Amount to move for each flow iteration. Small numbers may take a long time to compute",
+      "optional": false,
+      "type": "Number"
+    },
+    {
+      "name": "Thread",
+      "id": "T",
+      "description": "Whether to multithread the calculation",
+      "optional": false,
+      "type": "Boolean",
+      "Optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Flow Points",
+      "id": "F",
+      "description": "The points of each simulated point of movement",
+      "optional": false,
+      "type": "Point"
+    },
+    {
+      "name": "Flow Paths",
+      "id": "C",
+      "description": "A polyline linking each point",
+      "optional": false,
+      "type": "Curve"
+    }
+  ]
+}

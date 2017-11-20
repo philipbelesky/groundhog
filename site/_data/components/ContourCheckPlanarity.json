@@ -1,0 +1,32 @@
+{
+  "name": "Contour Planarity Fix",
+  "nickname": "Contour Planarity Fix",
+  "description": "Checks contours are planar and corrects them if not",
+  "category": "Groundhog",
+  "subcategory": "Terrain",
+  "inputs": [
+    {
+      "name": "Contour Curves",
+      "id": "C",
+      "description": "The contours to check",
+      "optional": false,
+      "type": "Curve"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "All Contours",
+      "id": "AC",
+      "description": "All contours whether or not they were fixed",
+      "optional": false,
+      "type": "Curve"
+    },
+    {
+      "name": "Fixed Contours",
+      "id": "FC",
+      "description": "Just the non-planar contours that were fixed",
+      "optional": false,
+      "type": "Curve"
+    }
+  ]
+}

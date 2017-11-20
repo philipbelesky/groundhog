@@ -1,0 +1,47 @@
+{
+  "name": "Contour Gap Fix",
+  "nickname": "Contour Gap Fix",
+  "description": "Checks if contours have gaps, and bridges them if so",
+  "category": "Groundhog",
+  "subcategory": "Terrain",
+  "inputs": [
+    {
+      "name": "Contour Curves",
+      "id": "C",
+      "description": "The contours to check",
+      "optional": false,
+      "type": "Curve"
+    },
+    {
+      "name": "Boundary",
+      "id": "B",
+      "description": "The boundary rectangle to clip to",
+      "optional": false,
+      "type": "Curve"
+    },
+    {
+      "name": "Maximum Distance",
+      "id": "D",
+      "description": "The maximum distance allowed as a gap between two contours",
+      "optional": false,
+      "type": "Number",
+      "Optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Contours",
+      "id": "C",
+      "description": "The contours with gaps filled in",
+      "optional": false,
+      "type": "Curve"
+    },
+    {
+      "name": "Joins",
+      "id": "J",
+      "description": "The joins used to fill in the gaps (for reference)",
+      "optional": false,
+      "type": "Curve"
+    }
+  ]
+}
