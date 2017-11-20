@@ -63,7 +63,9 @@ layout: default
       {% assign sorted = everything | sort: 'date' | reverse | limit:10 %}
       {% assign span = 'is-one-third' %}
       {% for item in sorted %}
-        {% include tile.html %}
+        {% if item.published != false %}
+          {% include tile.html %}
+        {% endif %}
       {% endfor %}
 
     </div>

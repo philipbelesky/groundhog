@@ -1,6 +1,7 @@
 {
   "name": "Field Visualisation (Grid)",
   "nickname": "Field Grid",
+  "icon": "icon_field_grid_vis.png",
   "description": "Translate a field into a grid based visualisation. Outputs a number constrained by a range which can be used to then make a color or shape.",
   "category": "Groundhog",
   "subcategory": "Mapping",

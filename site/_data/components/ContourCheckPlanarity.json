@@ -1,6 +1,7 @@
 {
   "name": "Contour Planarity Fix",
   "nickname": "Contour Planarity Fix",
+  "icon": "icon_contour_planarity.png",
   "description": "Checks contours are planar and corrects them if not",
   "category": "Groundhog",
   "subcategory": "Terrain",

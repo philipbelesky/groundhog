@@ -2,7 +2,9 @@
 
   {% assign span = 'is-half' %}
   {% for item in items %}
-    {% include tile.html %}
+    {% if item.published != false %}
+      {% include tile.html %}
+    {% endif %}
   {% endfor %}
 
 </div>

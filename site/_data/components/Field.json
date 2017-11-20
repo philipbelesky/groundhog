@@ -1,6 +1,7 @@
 {
   "name": "Field Mapper",
   "nickname": "Field",
+  "icon": "icon_field.png",
   "description": "Create ",
   "category": "Groundhog",
   "subcategory": "Mapping",

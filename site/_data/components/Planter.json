@@ -1,6 +1,7 @@
 {
   "name": "Plant Placement Solver",
   "nickname": "Placer",
+  "icon": "icon_pplacer.png",
   "description": "Place particular plant objects at a spatial point given particular inputs and constraints",
   "category": "Groundhog",
   "subcategory": "Flora",

@@ -1,6 +1,7 @@
 {
   "name": "Sea Flood Simulator",
   "nickname": "Sea Floods",
+  "icon": "icon_floods_sea.png",
   "description": "Examine flooding levels along a surface from a tidal source",
   "category": "Groundhog",
   "subcategory": "Hydro",

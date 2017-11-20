@@ -1,6 +1,7 @@
 {
   "name": "Mesh Slope",
   "nickname": "Mesh",
+  "icon": "icon_mesh_slope.png",
   "description": "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade",
   "category": "Groundhog",
   "subcategory": "Terrain",

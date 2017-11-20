@@ -5,7 +5,7 @@
 
 # Build
 # =====
-MSBuild ../plugin/groundhog.csproj /property:Configuration=Release
+MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
 
 # Extract Input/Output Parameters
 # ===============================

@@ -1,6 +1,7 @@
 {
   "name": "Species Attribute Importer",
   "nickname": "PImport",
+  "icon": "icon_pimport.png",
   "description": "Create plant attributes from an imported spreadsheet",
   "category": "Groundhog",
   "subcategory": "Flora",

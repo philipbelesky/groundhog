@@ -1,6 +1,7 @@
 {
   "name": "Contour Gap Fix",
   "nickname": "Contour Gap Fix",
+  "icon": "icon_contour_gap.png",
   "description": "Checks if contours have gaps, and bridges them if so",
   "category": "Groundhog",
   "subcategory": "Terrain",
