@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">{{ page.title }}</h1>
+      <h2 class="subtitle">{{ page.excerpt }}</h2>
+    </div>
+  </div>
+</section>
+
+<section class="section gh-callouts gh-no-top-padding">
+  <div class="container">
+    <div class="columns">
+
+      {% for page in site.pages %}
+        {% if page.category == 'top' %}
+          <div class="column is-one-third has-text-centered">
+            <h3 class="title is-3 gh-{{ page.title|downcase }}-content">
+              <a href="{{ page.url }}">
+                {% if page.path == 'documentation.md' %}<i data-feather="book"></i>{% endif %}
+                {% if page.path == 'techniques.md' %}<i data-feather="briefcase"></i>{% endif %}
+                {% if page.path == 'projects.md' %}<i data-feather="aperture"></i>{% endif %}
+                {{ page.title }}
+              </a>
+            </h3>
+            <p class="gh-info-boxes">
+              {{ page.excerpt }}
+            </p>
+            <a class="button gh-{{ page.title|downcase }} is-outlined is-block" href="{{ page.url }}">
+              View {{ page.title }}
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<section class="section gh-no-top-padding">
+  <div class="container">
+    <div class="columns masonry-grid gh-home-grid">
+
+      {% assign imagePath = '/assets/plugin/thumbnail.png' %}
+      {% assign color = 'rgba(114, 227, 210, 0.90)' %}
+      <div class="column is-one-third masonry-item">
+        <a class="tile notification is-vertical is-child gh-plugin"
+           href="{{ site.baseurl }}{% link plugin.md %}"
+           style="background: linear-gradient({{ color }}, {{ color }}),
+                  50% 50% url('{{ imagePath | absolute_url }}');">
+          <div class="is-white is-pulled-right">
+            <i data-feather="package" title="plugin"></i>
+          </div>
+          <h4 class="title is-size-5">Version 0.6</h4>
+          <p>Download the latest version of the Groundhog plugin.</p>
+        </a>
+      </div>
+
+      {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
+      {% assign sorted = everything | sort: 'date' | reverse | limit:10 %}
+      {% assign span = 'is-one-third' %}
+      {% for item in sorted %}
+        {% if item.published != false %}
+          {% include tile.html %}
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>

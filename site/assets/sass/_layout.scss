@@ -1,0 +1,107 @@
+//------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+
+.gh-no-top-padding {
+  padding-top: 0;
+}
+
+.gh-left-padding {
+  padding-right: 1.5rem;
+}
+
+//------------------------------------------------------------------------------
+// Menu
+//------------------------------------------------------------------------------
+
+#logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
+  margin-bottom: -2px;
+}
+
+.navbar-end .navbar-item {
+  padding-left: 9px; // Tighten spacing for social icons
+  padding-right: 9px;
+  color: #666;
+}
+
+.navbar-menu.is-active .navbar-item {
+  padding: 0.5rem 1rem; // Restore default padding for mobile menus
+}
+
+//------------------------------------------------------------------------------
+// Homepage
+//------------------------------------------------------------------------------
+
+// Callouts
+.gh-callouts {
+
+  .column {
+    padding-bottom: 3rem;
+
+    p {
+      min-height: 90px; // Equalise paragraph heights; should fix with flexbox
+    }
+  }
+}
+
+.masonry-grid {
+  margin-top: -20px;
+  margin-bottom: 50px;
+}
+
+.masonry-item p {
+  font-family: $family-heading; // else FOUT loading messes up height calculations
+}
+
+.gh-home-grid {
+
+  .title {
+    @extend .is-size-5;
+  }
+  p {
+    margin-top: 4.5rem;
+    @extend .is-size-6;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Pages
+//------------------------------------------------------------------------------
+
+.gh-page-grid {
+
+  .title {
+    @extend .is-size-3;
+  }
+
+  .feather {
+    display: none;
+  }
+
+  p {
+    margin-top: 9rem;
+    @extend .is-size-5;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Footer
+//------------------------------------------------------------------------------
+
+.footer {
+  padding-bottom: 3rem;
+}
+
+// Sticky Footer
+.footer-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.footer-pushdown {
+  flex: 1;
+}

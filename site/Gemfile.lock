@@ -33,6 +33,9 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-feed (0.9.2)
       jekyll (~> 3.3)
+    jekyll-pandoc (2.0.1)
+      jekyll (>= 3.0)
+      pandoc-ruby (~> 2.0, >= 2.0.0)
     jekyll-sass-converter (1.5.0)
       sass (~> 3.4)
     jekyll-watch (1.5.0)
@@ -44,8 +47,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
     mercenary (0.3.6)
-    minima (2.1.1)
-      jekyll (~> 3.3)
+    pandoc-ruby (2.0.2)
     pathutil (0.14.0)
       forwardable-extended (~> 2.6)
     public_suffix (3.0.0)
@@ -72,9 +74,9 @@ PLATFORMS
 DEPENDENCIES
   jekyll (= 3.5.2)
   jekyll-feed (~> 0.6)
-  minima (~> 2.0)
+  jekyll-pandoc
   s3_website
   tzinfo-data
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

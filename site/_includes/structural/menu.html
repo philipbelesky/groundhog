@@ -1,0 +1,62 @@
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-brand">
+
+      <a class="navbar-item" href="/">
+        <img src="{{ '/assets/logo.svg' | absolute_url }}" alt="Groundhog" id="logo">
+        Groundhog
+      </a>
+
+      <button class="button navbar-burger" data-target="navMenuDocumentation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+  </div>
+
+    <div class="navbar-menu" id="navMenuDocumentation" role="navigation" aria-label="main navigation">
+
+      <div class="navbar-start">
+
+        <a class="navbar-item gh-about-text {% if current[1] == 'about' %}active{% endif %}"
+           href="{{ site.baseurl }}{% link about.md %}">
+          <i data-feather="help-circle"></i> About
+        </a>
+        <a class="navbar-item gh-plugin-text {% if current[1] == 'plugin' %}active{% endif %}"
+           href="{{ site.baseurl }}{% link plugin.md %}">
+          <i data-feather="package"></i> Plugin
+        </a>
+        <a class="navbar-item gh-documentation-text {% if current[1] == 'documentation' %}active{% endif %}"
+           href="{{ site.baseurl }}{% link documentation.md %}">
+          <i data-feather="book"></i> Docs
+        </a>
+        <a class="navbar-item gh-techniques-text {% if current[1] == 'techniques' %}active{% endif %}"
+           href="{{ site.baseurl }}{% link techniques.md %}">
+          <i data-feather="briefcase"></i> Techniques
+        </a>
+        <a class="navbar-item gh-projects-text {% if current[1] == 'projects' %}active{% endif %}"
+           href="{{ site.baseurl }}{% link projects.md %}">
+          <i data-feather="aperture"></i> Projects
+        </a>
+
+      </div>
+
+      <div class="navbar-end">
+
+        <a class="navbar-item" href="https://github.com/philipbelesky/groundhog" target="_blank">
+          <i class="is-light" data-feather="github"></i> <span class="is-hidden-desktop">Github</span>
+        </a>
+        <a class="navbar-item" href="https://www.facebook.com/groundhog.la/" target="_blank">
+          <i class="is-light" data-feather="facebook"></i> <span class="is-hidden-desktop">Facebook</span>
+        </a>
+        <a class="navbar-item" href="https://twitter.com/groundhog_la" target="_blank">
+          <i class="is-light" data-feather="twitter"></i> <span class="is-hidden-desktop">Twitter</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
