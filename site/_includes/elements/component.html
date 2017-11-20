@@ -53,22 +53,22 @@
 <tbody>
 {% for param in component.inputs %}
 <tr>
-<td><strong>Input</strong></td>
-<td>{{ param.name }}</td>
+<td class="no-wrap"><strong>Input</strong></td>
+<td class="no-wrap">{{ param.name }}</td>
 <td><code>{{ param.id }}</code></td>
 <td>{{ param.description }}</td>
-<td>{% if param.optional %}✅{% else %}❌{% endif %}</td>
-<td><code>{{ param.type }}</code></td>
+<td>{% if param.optional == true %}️✔️{% else %}❌{% endif %}</td>
+<td class="no-wrap"><code>{{ param.type }}</code></td>
 </tr>
 {% endfor %}
 {% for param in component.outputs %}
 <tr>
-<td><strong>Output</strong></td>
-<td>{{ param.name }}</td>
+<td class="no-wrap"><strong>Output</strong></td>
+<td class="no-wrap">{{ param.name }}</td>
 <td><code>{{ param.id }}</code></td>
 <td>{{ param.description }}</td>
-<td>{% if param.optional %}✅{% else %}❌{% endif %}</td>
-<td><code>{{ param.type }}</code></td>
+<td></td>
+<td class="no-wrap"><code>{{ param.type }}</code></td>
 </tr>
 {% endfor %}
 </tbody>
