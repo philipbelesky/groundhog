@@ -12,6 +12,16 @@ zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/
 # Project Files
 # =============
 
+for i in ../docs/*;
+    # Only do stuff i fthey are a directory
+    do if [ -d $i ]; then zip -r -j "${i%/}.zip" "$i" -x "*.DS_Store"; fi
+done
+
+mv ../docs/**.zip ./downloads/documentation/
+
+# Documentation Files
+# =============
+
 for i in ../projects/*;
     # Only do stuff i fthey are a directory
     do if [ -d $i ]; then zip -r -j "${i%/}.zip" "$i" -x "*.DS_Store"; fi
