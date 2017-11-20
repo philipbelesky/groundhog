@@ -20,27 +20,27 @@
 
 .gh-plugin-content {
   a, code {
-    color: $plugin;
+    color: darken($plugin, 15%);
   }
 }
 .gh-documentation-content {
   a, code {
-    color: $docs;
+    color: darken($docs, 15%);
   }
 }
 .gh-techniques-content {
   a, code {
-    color: $techniques;
+    color: darken($techniques, 15%);
   }
 }
 .gh-projects-content {
   a, code {
-    color: $projects;
+    color: darken($projects, 15%);
   }
 }
 .gh-about-content {
   a, code {
-    color: $about;
+    color: darken($about, 15%);
   }
 }
 

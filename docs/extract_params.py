@@ -67,7 +67,7 @@ def parse_params(contents, type):
             elif "Add" in line:
                 parameters.append(parse_args(line))
             elif ".Optional" in line and "true" in line:
-                parameters[-1]["Optional"] = True # Set last added param optional
+                parameters[-1]["optional"] = True # Set last added param optional
 
     return parameters
 
