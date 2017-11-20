@@ -1,0 +1,31 @@
+{
+  "name": "Generic Species Attributes",
+  "nickname": "Generic Species",
+  "description": "Output plant objects from pre-define generic types ",
+  "category": "Groundhog",
+  "subcategory": "Flora",
+  "inputs": [],
+  "outputs": [
+    {
+      "name": "Shrub",
+      "id": "S",
+      "description": "Generic Shrub (placeholder data)",
+      "optional": false,
+      "type": "Generic"
+    },
+    {
+      "name": "Grass",
+      "id": "G",
+      "description": "Generic Grass (placeholder data)",
+      "optional": false,
+      "type": "Generic"
+    },
+    {
+      "name": "Tree",
+      "id": "T",
+      "description": "Generic Tree (placeholder data)",
+      "optional": false,
+      "type": "Generic"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "Field Mapper",
+  "nickname": "Field",
+  "description": "Create ",
+  "category": "Groundhog",
+  "subcategory": "Mapping",
+  "inputs": [
+    {
+      "name": "Bounds",
+      "id": "B",
+      "description": "Boundary box for the resulting field",
+      "optional": false,
+      "type": "Curve"
+    },
+    {
+      "name": "Divisions",
+      "id": "D",
+      "description": "Sample points spacings for the resulting field (greatest extent in one direction)",
+      "optional": false,
+      "type": "Number"
+    },
+    {
+      "name": "Areas",
+      "id": "A",
+      "description": "Boundary box for the resulting field",
+      "optional": false,
+      "type": "Curve"
+    },
+    {
+      "name": "Z Range",
+      "id": "Z",
+      "description": "Maximum height of the surface field (defaults to 5% of boundary width/height)",
+      "optional": false,
+      "type": "Number"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Field",
+      "id": "F",
+      "description": "Resulting field",
+      "optional": false,
+      "type": "Surface"
+    }
+  ]
+}

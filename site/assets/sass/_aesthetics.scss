@@ -19,6 +19,11 @@
   font-family: $family-heading;
 }
 
+// Don't load an extra web font just for italics
+em {
+  font-family: $family-heading;
+}
+
 //------------------------------------------------------------------------------
 // Elements
 //------------------------------------------------------------------------------
@@ -38,4 +43,17 @@
 
 .content .gh-figure + .gh-figure {
   margin-top: -1.5em; // Subsequent images have tight spacing
+}
+
+.gh-component {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  p {
+    margin-top: 1rem;
+  }
+
+  .level, .table {
+    margin-bottom: 0;
+  }
 }

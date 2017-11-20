@@ -18,20 +18,30 @@
   @extend .is-link;
 }
 
-.gh-plugin-content a {
-  color: $plugin;
+.gh-plugin-content {
+  a, code {
+    color: $plugin;
+  }
 }
-.gh-documentation-content a {
-  color: $docs;
+.gh-documentation-content {
+  a, code {
+    color: $docs;
+  }
 }
-.gh-techniques-content a {
-  color: $techniques;
+.gh-techniques-content {
+  a, code {
+    color: $techniques;
+  }
 }
-.gh-projects-content a {
-  color: $projects;
+.gh-projects-content {
+  a, code {
+    color: $projects;
+  }
 }
-.gh-about-content a {
-  color: $about;
+.gh-about-content {
+  a, code {
+    color: $about;
+  }
 }
 
 //------------------------------------------------------------------------------
