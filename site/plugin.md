@@ -8,9 +8,9 @@ excerpt:    A plugin for Grasshopper — the visual programming tool for the Rhi
 
 ---
 
-{% include download.html %}
+{% include elements/download.html %}
 
-{% include newsletter.html %}
+{% include elements/newsletter.html %}
 
 ---
 
