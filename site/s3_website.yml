@@ -17,12 +17,13 @@ s3_bucket: <%= ENV['S3_BUCKET_NAME'] %>
 #   "assets/*": 6000
 #   "*": 300
 
-gzip: true
-# gzip:
-#   - .html
-#   - .css
-#   - .md
-# gzip_zopfli: true
+# Don't gzip images; already compressed
+gzip:
+  - .html
+  - .css
+  - .js
+  - .svg
+gzip_zopfli: true
 
 # See http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region for valid endpoints
 # s3_endpoint: ap-northeast-1

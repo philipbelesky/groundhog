@@ -26,14 +26,18 @@ In addition, if you'd like to use BrowserSync to automatically refresh the brows
 
 ## Deploying
 
-Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing. Run with:
+Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing.
 
     bash compile.sh
+
+Then build Jekyll for deployment:
+
+    JEKYLL_ENV=production bundle exec jekyll build
 
 Deployment is done using [s3_website](https://github.com/laurilehmijoki/s3_website). This requires Java 8 and a set of valid Amazon Web Service credentials in a `.env` file in this directory. Changes can be published with:
 
     s3_website push
 
-Changes to the plugin file and reference folders can be copied to the `_site` directory to be pushed by running (from this directory):
+This is packaged together in
 
-    bash compile.sh
+    npm run publish
