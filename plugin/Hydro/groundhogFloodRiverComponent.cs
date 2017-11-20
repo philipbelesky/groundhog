@@ -9,9 +9,7 @@ namespace groundhog
     public class groundhogRiverFloodComponent : GH_Component
     {
         public groundhogRiverFloodComponent()
-            : base("River Flood Simulator", "River Floods",
-                "Examine flooding levels along a surface from a river source",
-                "Groundhog", "Hydro")
+            : base("River Flood Simulator", "River Floods", "Examine flooding levels along a surface from a river source", "Groundhog", "Hydro")
         {
         }
 
@@ -19,7 +17,7 @@ namespace groundhog
         {
             pManager.AddNumberParameter("Datum", "d", "The local mean sea level", GH_ParamAccess.item, 0d);
             pManager[0].Optional = true;
-            pManager.AddNumberParameter("Year", "Y", "The year in which to simulate the flooding. Defaults to current.", GH_ParamAccess.item, DateTime.Now.Year);
+            pManager.AddNumberParameter("Year", "Y", "The year in which to simulate the flooding. Defaults to current." GH_ParamAccess.item, DateTime.Now.Year);
             pManager[1].Optional = true;
             pManager.AddNumberParameter("Rise", "R", "The assumed local mean sea level rise per year to evalute in future scenarios. Defaults to 3", GH_ParamAccess.item, 3d);
             pManager[2].Optional = true;

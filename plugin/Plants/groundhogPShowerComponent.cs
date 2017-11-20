@@ -19,9 +19,7 @@ namespace groundhog
         public List<Circle> allTrunks;
 
         public groundhogShowerComponent()
-            : base("Plant Appearance Simulator", "Shower",
-                "Simulate the appearance of a particular plant instance",
-                "Groundhog", "Flora")
+            : base("Plant Appearance Simulator", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
         {
         }
 
@@ -35,8 +33,7 @@ namespace groundhog
         {
             pManager.AddGenericParameter("Plants", "P", "The plant objects to simulate", GH_ParamAccess.list);
             pManager.AddPointParameter("Locations", "L", "The plant locations to simulate", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Times", "T", "The time (in years) since planting to display",
-                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Times", "T", "The time (in years) since planting to display", GH_ParamAccess.item);
             pManager[2].Optional = true;
             //pManager.AddBooleanParameter("Visualisations", "V", "Whether to show a full L-system visualisation (true) or just the base geoemtries (false)", GH_ParamAccess.item, false);
             //pManager[3].Optional = true;

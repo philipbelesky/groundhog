@@ -14,35 +14,28 @@ namespace groundhog
     public class groundhogSurfaceFlowComponent : GH_Component
     {
         public groundhogSurfaceFlowComponent()
-            : base("Flow Simulation (Surface)", "Srf Flows",
-                "Construct flow paths along a surface",
-                "Groundhog", "Hydro")
+            : base("Flow Simulation (Surface)", "Srf Flows", "Construct flow paths along a surface", "Groundhog", "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        protected override Bitmap Icon => Resources.icon_flows_srf; 
+        protected override Bitmap Icon => Resources.icon_flows_srf;
 
         public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d1}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as surface) for the flows",
-                GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as surface) for the flows", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Fidelity", "F",
-                "Amount to move for each flow iteration. Small numbers may take a long time to compute",
-                GH_ParamAccess.item, 100.0);
-            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the calculation", GH_ParamAccess.item,
-                false);
+            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
+            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the calculation", GH_ParamAccess.item, false);
             pManager[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Flow Points", "F", "The points of each simulated point of movement",
-                GH_ParamAccess.tree);
+            pManager.AddPointParameter("Flow Points", "F", "The points of each simulated point of movement", GH_ParamAccess.tree);
             pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each point", GH_ParamAccess.list);
 
         }

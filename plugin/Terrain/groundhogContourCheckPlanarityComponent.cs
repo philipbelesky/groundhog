@@ -11,9 +11,7 @@ namespace groundhog
     {
 
         public groundhogContourCheckPlanarityComponent()
-            : base("Contour Planarity Fix", "Contour Planarity Fix",
-                "Checks contours are planar and corrects them if not",
-                "Groundhog", "Terrain")
+            : base("Contour Planarity Fix", "Contour Planarity Fix", "Checks contours are planar and corrects them if not", "Groundhog", "Terrain")
         {
         }
 
@@ -31,10 +29,8 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("All Contours", "AC", "All contours whether or not they were fixed",
-                GH_ParamAccess.list);
-            pManager.AddCurveParameter("Fixed Contours", "FC", "Just the non-planar contours that were fixed",
-                GH_ParamAccess.list);
+            pManager.AddCurveParameter("All Contours", "AC", "All contours whether or not they were fixed", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Fixed Contours", "FC", "Just the non-planar contours that were fixed", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
