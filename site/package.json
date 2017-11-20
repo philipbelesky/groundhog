@@ -1,0 +1,23 @@
+{
+  "name": "groundhog",
+  "version": "0.6.1a",
+  "description": "groundhog.la site source",
+  "main": "index.html",
+  "dependencies": {
+    "@ibm/type": "^0.4.3",
+    "browser-sync": "^2.18.13",
+    "bulma": "^0.6.0",
+    "feather-icons": "^3.3.0",
+    "masonry-layout": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "bundle exec jekyll serve --incremental",
+    "watch": "browser-sync start --proxy 'localhost:4000' --port '3000' --no-open --files '_site/assets/main.css' 'assets/main.js' '_site/**/*.html'",
+    "publish": "bash ./compile.sh && JEKYLL_ENV=production bundle exec jekyll build && s3_website push"
+  },
+  "author": "Philip Belesky",
+  "license": "GPL-3.0",
+  "repository": "http://github.com/philipbelesky/groundhog"
+}

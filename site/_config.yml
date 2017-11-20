@@ -19,25 +19,83 @@ description: > # this means to ignore newlines until "baseurl:"
   Groundhog explores the use of computational design in landscape architecture. It is a Grasshopper plugin, a set of reference models, and wiki documenting techniques and their applications. Currently the project is in alpha testing; you can signup to our mailing list to be notified of future releases.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
-#github_username:  jekyll
 
 # Build settings
-markdown: kramdown
-theme: minima
+livereload: true
+markdown: Pandoc
 plugins:
   - jekyll-feed
+  - jekyll-pandoc
+pandoc:
+  extensions:
+    - normalize
+    - smart
+    - csl: "./assets/style.csl"
+    - bibliography: "./assets/cites.bib"
 
 google_analytics: UA-314178-30
+
+# Configuration
+permalink: pretty # Ditch the .html
+sass:
+  sass_dir: assets
+  style: compressed
+
+# Custom types
+collections:
+  documentation:
+    output: true
+    permalink: /documentation/:title/
+    scope:
+      path: ""
+      type: documentation
+  projects:
+    output: true
+    permalink: /projects/:title/
+    scope:
+      path: ""
+      type: projects
+  techniques:
+    output: true
+    permalink: /techniques/:title/
+    scope:
+      path: ""
+      type: techniques
+
+defaults:
+  - scope:
+      path: ""
+      type: documentation
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: projects
+    values:
+      path: ""
+      layout: post
+  - scope:
+      path: ""
+      type: techniques
+    values:
+      layout: post
+
+# Needed to allow local serving of the webfont from node_modules
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .ruby-version
+  - package.json
+  - package-lock.json
+  - s3_website.yml
+  - compile.sh
+  - style.csl
+  - npm-debug.log

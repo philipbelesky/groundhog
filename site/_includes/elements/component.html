@@ -1,0 +1,78 @@
+<div class="card gh-component">
+<div class="card-content">
+
+
+<div class="level">
+
+<div class="level-left">
+
+<div class="level-item">
+<div class="tags has-addons">
+<div class="tag is-medium"><h3 class="title is-4">{{ component.name }}</h3></div>
+<div class="tag is-medium gh-documentation">Component</div>
+</div>
+</div>
+
+</div>
+
+<div class="level-right">
+
+<div class="level-item"><div class="tags has-addons">
+<div class="tag is-medium"><img src="{{ '/assets/plugin/icons/' | append: component.icon | absolute_url }}"></div>
+<div class="tag is-medium gh-documentation">Icon</div>
+</div></div>
+
+<div class="level-item"><div class="tags has-addons">
+<div class="tag is-medium has-text-weight-bold">{{ component.nickname }}</div>
+<div class="tag is-medium gh-documentation">Nickname</div>
+</div></div>
+
+<div class="level-item"><div class="tags has-addons">
+<div class="tag is-medium has-text-weight-bold">{{ component.subcategory }}</div>
+<div class="tag is-medium gh-documentation">Panel</div>
+</div></div>
+
+</div>
+
+</div>
+
+
+<p><em>{{ component.description }}</em></p>
+
+<table class="table">
+<thead>
+<tr>
+<th>IO</th>
+<th>Name</th>
+<th>ID</th>
+<th>Description</th>
+<th>Optional</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+{% for param in component.inputs %}
+<tr>
+<td class="no-wrap"><strong>Input</strong></td>
+<td class="no-wrap">{{ param.name }}</td>
+<td><code>{{ param.id }}</code></td>
+<td>{{ param.description }}</td>
+<td>{% if param.optional == true %}️✔️{% else %}❌{% endif %}</td>
+<td class="no-wrap"><code>{{ param.type }}</code></td>
+</tr>
+{% endfor %}
+{% for param in component.outputs %}
+<tr>
+<td class="no-wrap"><strong>Output</strong></td>
+<td class="no-wrap">{{ param.name }}</td>
+<td><code>{{ param.id }}</code></td>
+<td>{{ param.description }}</td>
+<td></td>
+<td class="no-wrap"><code>{{ param.type }}</code></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+</div>
+</div>

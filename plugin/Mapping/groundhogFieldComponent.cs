@@ -11,72 +11,32 @@ namespace groundhog
 {
     public class groundhogFieldComponent : GH_Component
     {
-        /// <summary>
-        ///     Each implementation of GH_Component must provide a public
-        ///     constructor without any arguments.
-        ///     Category represents the Tab in which the component will appear,
-        ///     Subcategory the panel. If you use non-existing tab or panel names,
-        ///     new tabs/panels will automatically be created.
-        /// </summary>
+
         public groundhogFieldComponent()
-            : base("Field Mapper", "Field",
-                "Create ",
-                "Groundhog", "Mapping")
+            : base("Field Mapper", "Field", "Create ", "Groundhog", "Mapping")
         {
         }
 
-        /// <summary>
-        ///     The Exposure property controls where in the panel a component icon
-        ///     will appear. There are seven possible locations (primary to septenary),
-        ///     each of which can be combined with the GH_Exposure.obscure flag, which
-        ///     ensures the component will only be visible on panel dropdowns.
-        /// </summary>
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        /// <summary>
-        ///     Provides an Icon for every component that will be visible in the User Interface.
-        ///     Icons need to be 24x24 pixels.
-        /// </summary>
         protected override Bitmap Icon => Resources.icon_field;
 
-        /// <summary>
-        ///     Each component must have a unique Guid to identify it.
-        ///     It is vital this Guid doesn't change otherwise old ghx files
-        ///     that use the old ID will partially fail during loading.
-        /// </summary>
         public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-811a-c8111d1798d4}");
 
-        /// <summary>
-        ///     Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            var bHelp = "Boundary box for the resulting field";
-            pManager.AddCurveParameter("Bounds", "B", bHelp, GH_ParamAccess.item);
-            var dHelp = "Sample points spacings for the resulting field (greatest extent in one direction)";
-            pManager.AddNumberParameter("Divisions", "D", dHelp, GH_ParamAccess.item);
-            var aHelp = "Boundary box for the resulting field";
-            pManager.AddCurveParameter("Areas", "A", aHelp, GH_ParamAccess.list);
-            var zHelp = "Maximum height of the surface field (defaults to 5% of boundary width/height)";
-            pManager.AddNumberParameter("Z Range", "Z", zHelp, GH_ParamAccess.item, 0.0);
+            pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Divisions", "D", "Sample points spacings for the resulting field (greatest extent in one direction)", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Areas", "A", "Boundary box for the resulting field", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Z Range", "Z", "Maximum height of the surface field (defaults to 5% of boundary width/height)", GH_ParamAccess.item, 0.0);
         }
 
-        /// <summary>
-        ///     Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             // Generic is its a GH_ObjectWrapper wrapper for our custom class
             pManager.AddSurfaceParameter("Field", "F", "Resulting field", GH_ParamAccess.item);
         }
 
-        /// <summary>
-        ///     This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">
-        ///     The DA object can be used to retrieve data from input parameters and
-        ///     to store data in output parameters.
-        /// </param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
@@ -97,6 +57,8 @@ namespace groundhog
             var ALL_DATA_REGIONS = areas;
             var INTERPOLATE = true;
 
+            if (gridDivisions < 4)
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Numver of grid divisions must be greater than 4 in order to create a surface");
 
             // Validate input curves are planar
             if (!BOUNDARY.IsPlanar())
@@ -106,20 +68,19 @@ namespace groundhog
 
             for (var i = 0; i < areas.Count; i = i + 1)
             {
-                if (!areas[i].IsPlanar())
-                {
-                    //AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve #{0}, is not planar", i);
-                }
-                if (!areas[i].IsClosed)
-                {
-                    //AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve #{0}, is not closed", i);
-                }
+                if (areas[i] == null)
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "An area curve is not defined (null)");
+                else
+                    if (!areas[i].IsPlanar())
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "A boundary curve is not planar");
+                    if (!areas[i].IsClosed)
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "A boundary curve is not closed");
             }
 
 
             // Construct the bounding box for the search limits boundary; identify its extents and if its square
             var boundaryBox = BOUNDARY.GetBoundingBox(false); // False = uses estimate method
-            var BOUNDARY_IS_RECT = isBoundaryRect(BOUNDARY, TOLERANCE);
+            var BOUNDARY_IS_RECT = IsBoundaryRect(BOUNDARY, TOLERANCE);
 
             // Construct the boundary boxes for the search targets
             var regionBoxes = new List<BoundingBox>();
@@ -127,7 +88,7 @@ namespace groundhog
                 regionBoxes.Add(ALL_DATA_REGIONS[i].GetBoundingBox(false));
 
             // Construct the grid points
-            var gridInfo = createGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, zRange);
+            var gridInfo = CreateGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, zRange);
             // Unpack the returned values
             var gridPts = gridInfo.Item1;
             zRange = gridInfo.Item2;
@@ -151,7 +112,7 @@ namespace groundhog
             {
                 // Construct a tuple to stuff state into the callback
                 var data = Tuple.Create(i, gridPts, ALL_DATA_REGIONS, xGridExtents, yGridExtents, TOLERANCE);
-                rTree.Search(regionBoxes[i], regionOverlapCallback, data);
+                rTree.Search(regionBoxes[i], RegionOverlapCallback, data);
             }
 
             // Set all the point's z values based on count; maybe set it to like 10% of extents?
@@ -161,7 +122,7 @@ namespace groundhog
                 {
                     var pt = gridPts[x, y];
                     if (pt.BaseOverlaps == 0)
-                        pt.InterpolatedOverlaps = interpolateOverlaps(x, y, pt, gridPts);
+                        pt.InterpolatedOverlaps = InterpolateOverlaps(x, y, pt, gridPts);
                 }
 
             double overlapsMax = 0;
@@ -198,8 +159,7 @@ namespace groundhog
             DA.SetData(0, fieldSrf);
         }
 
-
-        private void regionOverlapCallback(object sender, RTreeEventArgs e)
+        private void RegionOverlapCallback(object sender, RTreeEventArgs e)
         {
             var dataIndex = e.Id; // The full-grid index of the point found
 
@@ -230,7 +190,7 @@ namespace groundhog
             //Print("\n");
         }
 
-        private bool isBoundaryRect(Curve BOUNDARY, double TOLERANCE)
+        private bool IsBoundaryRect(Curve BOUNDARY, double TOLERANCE)
         {
             var isRect = false;
             if (BOUNDARY.IsPolyline())
@@ -255,7 +215,7 @@ namespace groundhog
             return isRect;
         }
 
-        private int[] range(int start, int times, int step)
+        private int[] Range(int start, int times, int step)
         {
             // Oh for python
             var sequence = new int[times];
@@ -264,7 +224,7 @@ namespace groundhog
             return sequence;
         }
 
-        private double interpolateOverlaps(int x, int y, GridPt fromPt, GridPt[,] searchPts)
+        private double InterpolateOverlaps(int x, int y, GridPt fromPt, GridPt[,] searchPts)
         {
             var xExtents = searchPts.GetLength(0);
             var yExtents = searchPts.GetLength(1);
@@ -321,7 +281,7 @@ namespace groundhog
             return interpolatedOverlaps;
         }
 
-        private Tuple<GridPt[,], double, int, int> createGridPts(Curve BOUNDARY, BoundingBox boundaryBox,
+        private Tuple<GridPt[,], double, int, int> CreateGridPts(Curve BOUNDARY, BoundingBox boundaryBox,
             bool BOUNDARY_IS_RECT, int FIDELITY,
             double zRange)
         {
