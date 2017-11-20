@@ -1,6 +1,6 @@
 ---
 title:      Plants
-excerpt:    Components for constructing parametric representations of plant attributes, planting design, and the projection/analysis of vegetation over time.
+excerpt:    Components for parametric representations of planting design, analysis, and visualisation.
 date:       17-11-08
 files:      true
 files_text: model and definition that demonstrating the use of these components
