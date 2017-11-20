@@ -10,9 +10,7 @@ namespace groundhog
     {
 
         public groundhogPGenericComponent()
-            : base("Generic Species Attributes", "Generic Species",
-                "Output plant objects from pre-define generic types",
-                "Groundhog", "Flora")
+            : base("Generic Species Attributes", "Generic Species", "Output plant objects from pre-define generic types ", "Groundhog", "Flora")
         {
         }
 
@@ -28,12 +26,9 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            var sHelp = "Generic Shrub (placeholder data)";
-            pManager.AddGenericParameter("Shrub", "S", sHelp, GH_ParamAccess.item);
-            var gHelp = "Generic Grass (placeholder data)";
-            pManager.AddGenericParameter("Grass", "G", gHelp, GH_ParamAccess.item);
-            var tHelp = "Generic Tree (placeholder data)";
-            pManager.AddGenericParameter("Tree", "T", tHelp, GH_ParamAccess.item);
+            pManager.AddGenericParameter("Shrub", "S", "Generic Shrub (placeholder data)", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Grass", "G", "Generic Grass (placeholder data)", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Tree", "T", "Generic Tree (placeholder data)", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

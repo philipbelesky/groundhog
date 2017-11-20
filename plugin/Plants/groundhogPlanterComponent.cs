@@ -10,9 +10,7 @@ namespace groundhog
 
         // To fix/restore
         //public groundhogPlanterComponent()
-        //    : base("Plant Placement Solver", "Placer",
-        //        "Place particular plant objects at a spatial point given particular inputs and constraints",
-        //        "Groundhog", "Flora")
+        //    : base("Plant Placement Solver", "Placer", "Place particular plant objects at a spatial point given particular inputs and constraints", "Groundhog", "Flora")
         //{
         //}
 
@@ -24,16 +22,14 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plants", "P", "The planting pallete from which to select from",
-                GH_ParamAccess.list);
+            pManager.AddGenericParameter("Plants", "P", "The planting pallete from which to select from", GH_ParamAccess.list);
             pManager.AddSurfaceParameter("Area", "A", "The area in which to place the plants", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Plants", "P", "The resulting plant objects", GH_ParamAccess.list);
-            pManager.AddPointParameter("Locations", "L", "The locations of the resulting plant objects",
-                GH_ParamAccess.list);
+            pManager.AddPointParameter("Locations", "L", "The locations of the resulting plant objects", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

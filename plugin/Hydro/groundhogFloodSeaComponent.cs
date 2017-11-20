@@ -9,9 +9,7 @@ namespace groundhog
     public class groundhogSeaFloodComponent : GH_Component
     {
         public groundhogSeaFloodComponent()
-            : base("Sea Flood Simulator", "Sea Floods",
-                "Examine flooding levels along a surface from a tidal source",
-                "Groundhog", "Hydro")
+            : base("Sea Flood Simulator", "Sea Floods", "Examine flooding levels along a surface from a tidal source", "Groundhog", "Hydro")
         {
         }
 
@@ -25,43 +23,30 @@ namespace groundhog
         {
             pManager.AddNumberParameter("Datum", "d", "The local mean sea level", GH_ParamAccess.item, 0d);
             pManager[0].Optional = true;
-            pManager.AddNumberParameter("Year", "Y", "The year in which to simulate the flooding. Defaults to current.",
-                GH_ParamAccess.item, DateTime.Now.Year);
+            pManager.AddNumberParameter("Year", "Y", "The year in which to simulate the flooding. Defaults to current.", GH_ParamAccess.item, DateTime.Now.Year);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Rise", "R",
-                "The assumed local mean sea level rise per year to evalute in future scenarios. Defaults to 3",
-                GH_ParamAccess.item, 3d);
+            pManager.AddNumberParameter("Rise", "R", "The assumed local mean sea level rise per year to evalute in future scenarios. Defaults to 3", GH_ParamAccess.item, 3d);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Surge", "S", "The local mean height of a typical storm surge. Defaults to 500",
-                GH_ParamAccess.item, 500d);
+            pManager.AddNumberParameter("Surge", "S", "The local mean height of a typical storm surge. Defaults to 500", GH_ParamAccess.item, 500d);
             pManager[3].Optional = true;
-            pManager.AddNumberParameter("High Neap", "HN", "The local mean high water neap tide", GH_ParamAccess.item,
-                1400d);
+            pManager.AddNumberParameter("High Neap", "HN", "The local mean high water neap tide", GH_ParamAccess.item, 1400d);
             pManager[4].Optional = true;
-            pManager.AddNumberParameter("Low Neap", "LN", "The local mean low water neap tide", GH_ParamAccess.item,
-                700d);
+            pManager.AddNumberParameter("Low Neap", "LN", "The local mean low water neap tide", GH_ParamAccess.item, 700d);
             pManager[5].Optional = true;
-            pManager.AddNumberParameter("High Spring", "HS", "The local mean high water spring tide",
-                GH_ParamAccess.item, 1000d);
+            pManager.AddNumberParameter("High Spring", "HS", "The local mean high water spring tide", GH_ParamAccess.item, 1000d);
             pManager[6].Optional = true;
-            pManager.AddNumberParameter("Low Spring", "LS", "The local mean low water neap tide", GH_ParamAccess.item,
-                400d);
+            pManager.AddNumberParameter("Low Spring", "LS", "The local mean low water neap tide", GH_ParamAccess.item, 400d);
             pManager[7].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Sea Level", "SL", "The simulated mean sea level", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Storm Surge Level", "SS", "The simulated mean storm surge level",
-                GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("High Neap", "HN", "The simulated mean high water neap level",
-                GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Low Neap", "LN", "The simulated mean low water neap level",
-                GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("High Spring", "HS", "The simulated mean high water spring level",
-                GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Low Spring", "LS", "The simulated mean low water spring level",
-                GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Storm Surge Level", "SS", "The simulated mean storm surge level", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("High Neap", "HN", "The simulated mean high water neap level", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Low Neap", "LN", "The simulated mean low water neap level", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("High Spring", "HS", "The simulated mean high water spring level", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Low Spring", "LS", "The simulated mean low water spring level", GH_ParamAccess.item);
 
         }
 

@@ -11,9 +11,7 @@ namespace groundhog
     {
 
         public groundhogPImportComponent()
-            : base("Species Attribute Importer", "PImport",
-                "Create plant attributes from an imported spreadsheet",
-                "Groundhog", "Flora")
+            : base("Species Attribute Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
         {
         }
 
@@ -25,8 +23,7 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("CSV File", "C", "The output of a CSV set to a Read File component",
-                GH_ParamAccess.list);
+            pManager.AddGenericParameter("CSV File", "C", "The output of a CSV set to a Read File component", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

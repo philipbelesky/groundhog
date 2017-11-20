@@ -13,9 +13,7 @@ namespace groundhog
     public class groundhogContourClipComponent : GH_Component
     {
         public groundhogContourClipComponent()
-            : base("Contour Clip", "Contour Clip",
-                "Checks contours meet a specific boundary, otherwise extend/trim them",
-                "Groundhog", "Terrain")
+            : base("Contour Clip", "Contour Clip", "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
         {
         }
 
@@ -31,19 +29,15 @@ namespace groundhog
             pManager[0].Optional = false;
             pManager.AddCurveParameter("Boundary", "B", "The boundary rectangle to clip to", GH_ParamAccess.item);
             pManager[1].Optional = false;
-            pManager.AddBooleanParameter("Create PlanarSrfs", "P",
-                "Whether to create planar surfaces; may be slow with large quantities of contours!",
-                GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Create PlanarSrfs", "P", "Whether to create planar surfaces; may be slow with large quantities of contours!", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddCurveParameter("Contours", "C", "The clipped contours", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Edged Contours", "E", "All contours with edges following the boundary",
-                GH_ParamAccess.list);
-            pManager.AddBrepParameter("Planar Surfaces", "P", "Edge contours as planar surfaces (must be toggled on)",
-                GH_ParamAccess.list);
+            pManager.AddCurveParameter("Edged Contours", "E", "All contours with edges following the boundary", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Planar Surfaces", "P", "Edge contours as planar surfaces (must be toggled on)", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

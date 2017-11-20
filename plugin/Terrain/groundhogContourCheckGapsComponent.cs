@@ -12,9 +12,7 @@ namespace groundhog
     {
 
         public groundhogContourCheckGapsComponent()
-            : base("Contour Gap Fix", "Contour Gap Fix",
-                "Checks if contours have gaps, and bridges them if so",
-                "Groundhog", "Terrain")
+            : base("Contour Gap Fix", "Contour Gap Fix", "Checks if contours have gaps, and bridges them if so", "Groundhog", "Terrain")
         {
         }
 
@@ -30,16 +28,14 @@ namespace groundhog
             pManager[0].Optional = false;
             pManager.AddCurveParameter("Boundary", "B", "The boundary rectangle to clip to", GH_ParamAccess.item);
             pManager[1].Optional = false;
-            pManager.AddNumberParameter("Maximum Distance", "D",
-                "The maximum distance allowed as a gap between two contours", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Maximum Distance", "D", "The maximum distance allowed as a gap between two contours", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddCurveParameter("Contours", "C", "The contours with gaps filled in", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Joins", "J", "The joins used to fill in the gaps (for reference)",
-                GH_ParamAccess.list);
+            pManager.AddCurveParameter("Joins", "J", "The joins used to fill in the gaps (for reference)", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)

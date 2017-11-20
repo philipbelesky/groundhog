@@ -10,9 +10,7 @@ namespace groundhog
     public class groundhogMeshGradeComponent : GH_Component
     {
         public groundhogMeshGradeComponent()
-            : base("Mesh Slope", "Mesh",
-                "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade",
-                "Groundhog", "Terrain")
+            : base("Mesh Slope", "Mesh", "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade", "Groundhog", "Terrain")
         {
         }
 
@@ -29,10 +27,8 @@ namespace groundhog
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
-            pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)",
-                GH_ParamAccess.list);
-            pManager.AddVectorParameter("Face Slope Vectors", "V", "The direction to the lowest points of each face",
-                GH_ParamAccess.list);
+            pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Face Slope Vectors", "V", "The direction to the lowest points of each face", GH_ParamAccess.list);
             pManager.AddNumberParameter("Face Slope Angles", "A", "The angle of the slope", GH_ParamAccess.list);
         }
 

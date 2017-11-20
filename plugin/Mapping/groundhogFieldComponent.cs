@@ -13,9 +13,7 @@ namespace groundhog
     {
 
         public groundhogFieldComponent()
-            : base("Field Mapper", "Field",
-                "Create ",
-                "Groundhog", "Mapping")
+            : base("Field Mapper", "Field", "Create ", "Groundhog", "Mapping")
         {
         }
 
@@ -27,14 +25,10 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            var bHelp = "Boundary box for the resulting field";
-            pManager.AddCurveParameter("Bounds", "B", bHelp, GH_ParamAccess.item);
-            var dHelp = "Sample points spacings for the resulting field (greatest extent in one direction)";
-            pManager.AddNumberParameter("Divisions", "D", dHelp, GH_ParamAccess.item);
-            var aHelp = "Boundary box for the resulting field";
-            pManager.AddCurveParameter("Areas", "A", aHelp, GH_ParamAccess.list);
-            var zHelp = "Maximum height of the surface field (defaults to 5% of boundary width/height)";
-            pManager.AddNumberParameter("Z Range", "Z", zHelp, GH_ParamAccess.item, 0.0);
+            pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Divisions", "D", "Sample points spacings for the resulting field (greatest extent in one direction)", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Areas", "A", "Boundary box for the resulting field", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Z Range", "Z", "Maximum height of the surface field (defaults to 5% of boundary width/height)", GH_ParamAccess.item, 0.0);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
