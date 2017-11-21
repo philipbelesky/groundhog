@@ -10,6 +10,7 @@ _site
 
 # Redundant Assets
 site/assets/plugin/icons
+site/assets/fonts
 site/_data/components/
 
 ################################################################################

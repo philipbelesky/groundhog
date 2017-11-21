@@ -20,6 +20,8 @@ GEM
     dotenv (1.0.2)
     ffi (1.9.18)
     forwardable-extended (2.6.0)
+    htmlbeautifier (1.3.1)
+    htmlcompressor (0.3.1)
     jekyll (3.5.2)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -40,6 +42,10 @@ GEM
       sass (~> 3.4)
     jekyll-sitemap (1.1.1)
       jekyll (~> 3.3)
+    jekyll-tidy (0.2.2)
+      htmlbeautifier
+      htmlcompressor
+      jekyll
     jekyll-watch (1.5.0)
       listen (~> 3.0, < 3.1)
     jmespath (1.3.1)
@@ -78,6 +84,7 @@ DEPENDENCIES
   jekyll-feed (~> 0.6)
   jekyll-pandoc
   jekyll-sitemap
+  jekyll-tidy
   s3_website
   tzinfo-data
 
