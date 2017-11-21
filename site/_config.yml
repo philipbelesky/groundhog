@@ -26,6 +26,7 @@ plugins:
   - jekyll-feed
   - jekyll-pandoc
   - jekyll-sitemap
+  - jekyll-tidy
 pandoc:
   extensions:
     - normalize
@@ -84,6 +85,11 @@ defaults:
 webrick:
   headers:
     Access-Control-Allow-Origin: "*"
+
+jekyll_tidy:
+  # exclude: ["index.html"]
+  compress_html: false
+  ignore_env: false
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

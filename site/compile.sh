@@ -7,20 +7,24 @@
 # =====
 MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
 
+
 # Extract Input/Output Parameters
 # ===============================
 rm -rf ../site/_data/components/*.json # Delete old files
 python ../docs/extract_params.py
 
+
 # Plugin Files
 # ============
 zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/
+
 
 # Plugin Icons
 # ============
 
 rm -rf ./assets/plugin/icons/*.png
 cp ../plugin/Resources/**.png ./assets/plugin/icons/
+
 
 # Project Files
 # =============
@@ -33,6 +37,7 @@ done
 rm -rf ./downloads/documentation/*.zip
 mv ../docs/**.zip ./downloads/documentation/
 
+
 # Documentation Files
 # ===================
 
@@ -44,5 +49,9 @@ done
 rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./downloads/projects/
 
+
 # NPM Dependencies
 # ================
+
+cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 ./assets/fonts/
+cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./assets/fonts/
