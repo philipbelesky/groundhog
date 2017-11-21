@@ -20,10 +20,9 @@ layout: default
           <div class="column is-one-third has-text-centered">
             <h3 class="title is-3 gh-{{ page.title|downcase }}-content">
               <a href="{{ page.url }}">
-                {% if page.path == 'documentation.md' %}<i data-feather="book"></i>{% endif %}
-                {% if page.path == 'techniques.md' %}<i data-feather="briefcase"></i>{% endif %}
-                {% if page.path == 'projects.md' %}<i data-feather="aperture"></i>{% endif %}
-                {{ page.title }}
+                {% if page.path == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
+                {% if page.path == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
+                {% if page.path == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
               </a>
             </h3>
             <p class="gh-info-boxes">
