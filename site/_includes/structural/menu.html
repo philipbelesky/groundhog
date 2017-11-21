@@ -9,9 +9,7 @@
       </a>
 
       <button class="button navbar-burger" data-target="navMenuDocumentation">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
   </div>
@@ -20,24 +18,19 @@
 
       <div class="navbar-start">
 
-        <a class="navbar-item gh-about-text {% if current[1] == 'about' %}active{% endif %}"
-           href="{{ site.baseurl }}{% link about.md %}">
+        <a class="navbar-item gh-about-text {% if current[1] == 'about' %}active{% endif %}" href="{{ site.baseurl }}{% link about.md %}">
           <i data-feather="help-circle"></i> About
         </a>
-        <a class="navbar-item gh-plugin-text {% if current[1] == 'plugin' %}active{% endif %}"
-           href="{{ site.baseurl }}{% link plugin.md %}">
+        <a class="navbar-item gh-plugin-text {% if current[1] == 'plugin' %}active{% endif %}" href="{{ site.baseurl }}{% link plugin.md %}">
           <i data-feather="package"></i> Plugin
         </a>
-        <a class="navbar-item gh-documentation-text {% if current[1] == 'documentation' %}active{% endif %}"
-           href="{{ site.baseurl }}{% link documentation.md %}">
+        <a class="navbar-item gh-documentation-text {% if current[1] == 'documentation' %}active{% endif %}" href="{{ site.baseurl }}{% link documentation.md %}">
           <i data-feather="book"></i> Docs
         </a>
-        <a class="navbar-item gh-techniques-text {% if current[1] == 'techniques' %}active{% endif %}"
-           href="{{ site.baseurl }}{% link techniques.md %}">
+        <a class="navbar-item gh-techniques-text {% if current[1] == 'techniques' %}active{% endif %}" href="{{ site.baseurl }}{% link techniques.md %}">
           <i data-feather="briefcase"></i> Techniques
         </a>
-        <a class="navbar-item gh-projects-text {% if current[1] == 'projects' %}active{% endif %}"
-           href="{{ site.baseurl }}{% link projects.md %}">
+        <a class="navbar-item gh-projects-text {% if current[1] == 'projects' %}active{% endif %}" href="{{ site.baseurl }}{% link projects.md %}">
           <i data-feather="aperture"></i> Projects
         </a>
 
