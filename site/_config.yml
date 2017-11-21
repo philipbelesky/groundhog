@@ -25,6 +25,7 @@ markdown: Pandoc
 plugins:
   - jekyll-feed
   - jekyll-pandoc
+  - jekyll-sitemap
 pandoc:
   extensions:
     - normalize
@@ -92,6 +93,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - .ruby-version
+  - node_modules
   - package.json
   - package-lock.json
   - s3_website.yml

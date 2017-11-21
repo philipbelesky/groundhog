@@ -34,7 +34,7 @@ rm -rf ./downloads/documentation/*.zip
 mv ../docs/**.zip ./downloads/documentation/
 
 # Documentation Files
-# =============
+# ===================
 
 for i in ../projects/*;
     # Only do stuff i fthey are a directory
@@ -43,3 +43,6 @@ done
 
 rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./downloads/projects/
+
+# NPM Dependencies
+# ================
