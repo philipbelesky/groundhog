@@ -1,0 +1,33 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2017
+
+init:
+  - ps: $env:APPVEYOR_CACHE_SKIP_RESTORE = "true"
+
+# Scripts that run after cloning repository
+install:
+  - cd plugin
+  - mkdir packages
+  - cd packages
+  - nuget config -set repositoryPath=C:\projects\groundhog\plugin\packages
+  - nuget install
+  # Trying to identify where the packages are located to to fix missing refs
+  - dir C:\projects\groundhog\
+  - dir C:\projects\groundhog\plugin\
+  - dir C:\projects\groundhog\plugin\packages
+
+cache:
+#   - don't cache until assembly thing fixed
+
+# before_build:
+#   - cd something
+
+# before_test:
+#   - cd something
+
+# test_script:
+#   - cd something
