@@ -3,10 +3,6 @@
 # Zip up all the files and move them to the Jekyll assets folder for publishing
 # Designed to be run from the site/Jekyll directory
 
-# Build
-# =====
-MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
-
 
 # Extract Input/Output Parameters
 # ===============================
@@ -55,3 +51,8 @@ mv ../projects/**.zip ./downloads/projects/
 
 cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 ./assets/fonts/
 cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./assets/fonts/
+
+
+# Build
+# =====
+MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
