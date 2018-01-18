@@ -20,9 +20,7 @@ To start a local copy of the website, use:
 
     npm run build
 
-In addition, if you'd like to use BrowserSync to automatically refresh the browser upon file changes, you can use:
-
-    npm run serve
+Then open `http://localhost:4000/`. If using a [Livereload plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) changes to files (layout; markdown; css; etc) should trigger browser updates live.
 
 ## Deploying
 
