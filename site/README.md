@@ -18,7 +18,7 @@ Install dependencies using:
 
 To start a local copy of the website, use:
 
-    npm run build
+    npm run serve
 
 Then open `http://localhost:4000/`. If using a [Livereload plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) changes to files (layout; markdown; css; etc) should trigger browser updates live.
 
@@ -30,7 +30,7 @@ Note the `compile.sh` script handles compiling JSON representations of component
 
 Then build Jekyll for deployment:
 
-    JEKYLL_ENV=production bundle exec jekyll build
+     npm run build
 
 Deployment is done using [s3_website](https://github.com/laurilehmijoki/s3_website). This requires Java 8 and a set of valid Amazon Web Service credentials in a `.env` file in this directory. Changes can be published with:
 
