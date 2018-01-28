@@ -29,8 +29,6 @@ plugins:
   - jekyll-tidy
 pandoc:
   extensions:
-    - normalize
-    - smart
     - csl: "./assets/style.csl"
     - bibliography: "./assets/cites.bib"
 
