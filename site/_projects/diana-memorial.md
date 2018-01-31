@@ -13,7 +13,7 @@ tags:
 
 ---
 
-{% include elements/figure.html name="1.jpg" caption="CNC machined granite was used to create surface forms and control the movement of water." credit="Image via TODO (url)" %}
+![CNC machined granite was used to create surface forms and control the movement of water. *(TODO)*](/assets/projects/diana-memorial/1.jpg)
 
 The need for such precision at such scale in Max Lab IV in part stemmed from the demands of its unique brief. Similar stipulations are more often found in smaller scales with harder materials where fabrication challenges drive the adoption of digital modeling.
 

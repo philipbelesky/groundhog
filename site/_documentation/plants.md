@@ -12,7 +12,7 @@ If considered just in terms of their CAD representation, planting design appears
 It is regrettable that in both digital and analogue mediums the typical representations used poorly reflect their subject matter. Depictions of vegetation are rarely spatially explicit, and often rely on fixed and idealised averages that do not reflect the general nature, or the actual reality, of specific species.[@Elkin:2017ee 60-61][@Raxworthy:2013wa 113] A plan, once planted, will reach the 'mature' state it depicts after years if not decades. This mature state itself is itself an abstraction, as each plant's dimensions vary according to the localised condition that propel or constrain individual growth.
 
 {% include elements/figure.html name="1.jpg" %}
-{% include elements/figure.html name="2.jpg" caption="Parametric methods of planting design can manage vast quantities of individual species distributed across a site and evaluate how they change over time." credit="Philip Belesky, for http://groundhog.la" %}
+{% include elements/figure.html name="2.jpg" caption="Parametric methods of planting design can manage vast quantities of individual species distributed across a site and evaluate how they change over time." credit="Philip Belesky, for groundhog.la" %}
 
 While many options exist for visualising planting plans with a high degree of fidelity (presuming the correct metadata is available) these are typically deployed after the concept design stage, given that they are difficult to implement and modify. As a result they are often ill-suited to design exploration, but useful for evaluating aesthetics and sight lines in detail.
 
@@ -41,6 +41,6 @@ Once a location (in the form of a `Pt`) has been generated for each instance of 
 
 While the components are relatively simple here in their calculations (especially given the currently-released set of components available) their value is in enabling quantitative criteria to be more easily used in designing and assessing vegetation distributions. The tripartite attribute/placement/ simulation stages have emerged from extensive iteration in testing how to best support planting design workflows by best allowing each task to easily interface with the existing methods of generation and analysis available in Grasshopper.
 
-{% include elements/figure.html name="definition.jpg" caption="Grasshopper definition demonstrating how to select particular species, place them, and simulate basic growth characteristics." credit="Philip Belesky, for http://groundhog.la" %}
+{% include elements/figure.html name="definition.jpg" caption="Grasshopper definition demonstrating how to select particular species, place them, and simulate basic growth characteristics." credit="Philip Belesky, for groundhog.la" %}
 
 > ***Coming Soon**: further components that allow for more naturalistic or performance-based planting distribution and 3D visualisation methods.*
