@@ -35,13 +35,16 @@ em {
   figcaption {
     font-family: $family-heading;
     padding-top: 1rem;
-  }
-  p.attribution {
-    @extend .is-size-7;
+    font-style: normal;
+    // Use the emphasis part as a proxy for the attribution
+    em {
+      @extend .is-size-7;
+      display: block;
+    }
   }
 }
 
-.content .gh-figure + .gh-figure {
+.content figure + figure {
   margin-top: -1.5em; // Subsequent images have tight spacing
 }
 

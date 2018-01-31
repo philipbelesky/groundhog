@@ -13,7 +13,7 @@ tags:
 
 ---
 
-{% include elements/figure.html name="1.jpg" caption="" credit="Image via TODO (url)" %}
+![TODO. *(TODO)*](/assets/projects/flowing-gardens/1.jpg)
 
 A number of projects use similar parametric geometries at greater scales to explore, if not answer, these questions. Often these parametric techniques take shape as tiling strategies or path configurations that feature branching, flowing, twisting, folding, or fracturing geometries. Such forms echo architectural applications of surface panelling and manipulation techniques, but apply them to the ground plane — façades turned into fields.
 
