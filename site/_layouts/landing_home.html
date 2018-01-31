@@ -62,7 +62,7 @@ layout: default
       {% assign sorted = everything | sort: 'date' | reverse | limit:10 %}
       {% assign span = 'is-one-third' %}
       {% for item in sorted %}
-        {% if item.published != false %}
+        {% if item.published != false or site.unpublished == true %}
           {% include tile.html %}
         {% endif %}
       {% endfor %}
