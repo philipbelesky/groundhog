@@ -31,4 +31,4 @@ The project's goals are a productive contradiction: a desire for a roof garden â
 
 ![](/assets/projects/keio-university-roof-garden/model.png)
 
-![Grasshopper definition recreating the basic pattern effect and planting distribution. *Philip Belesky, for groundhog.la*](/assets/projects/keio-university-roof-garden/definition.png)
+![Grasshopper definition recreating the basic pattern effect and planting distribution. *Philip Belesky, for http://groundhog.la*](/assets/projects/keio-university-roof-garden/definition.png)

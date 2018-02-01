@@ -30,4 +30,4 @@ As compared to other projects discussed, the design process for the MAX Lab IV l
 
 ![](/assets/projects/max-iv-laboratory/model.png)
 
-![Grasshopper definition recreating the basic pattern effect that defines the topographic forms. *Philip Belesky, for groundhog.la*](/assets/projects/max-iv-laboratory/definition.png) d
+![Grasshopper definition recreating the basic pattern effect that defines the topographic forms. *Philip Belesky, for http://groundhog.la*](/assets/projects/max-iv-laboratory/definition.png) d
