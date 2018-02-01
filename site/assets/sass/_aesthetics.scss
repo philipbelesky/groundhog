@@ -40,6 +40,8 @@ em {
     em {
       @extend .is-size-7;
       display: block;
+      margin: 0 auto;
+      max-width: 66%;
     }
   }
 }
