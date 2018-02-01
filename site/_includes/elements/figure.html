@@ -1,6 +1,0 @@
-{% capture imagePath %}/assets/{{ page.path | remove_first: "_" | remove_first: ".md" }}/{{ include.name }}{% endcapture %}
-<figure class="gh-figure">
-  <img src="{{ imagePath | absolute_url }}" {% if include.alt %} alt="{{ include.alt }}" {% endif %} {% if include.width %} width="{{ include.width }}" {% endif %}/>
-  {% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
-  {% if include.credit %}<p class="attribution">{{ include.credit }}</p>{% endif %}
-</figure>
