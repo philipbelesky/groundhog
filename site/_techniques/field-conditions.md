@@ -1,5 +1,5 @@
 ---
-title:      Field Conditions
+title:      "Mapping: Field Conditions"
 excerpt:    "'The complexity of the given' as a compositional strategy in mapping and design."
 thumbnail:  thumbnail.png
 date:       17-11-13
