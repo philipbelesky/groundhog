@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Groundhog
 email: groundhog@philipbelesky.com
-description: is a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design techniques in landscape architecture.
+description: is a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design in landscape architecture.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -78,11 +78,6 @@ defaults:
       type: techniques
     values:
       layout: post
-
-# Needed to allow local serving of the webfont from node_modules
-webrick:
-  headers:
-    Access-Control-Allow-Origin: "*"
 
 jekyll_tidy:
   # exclude: ["index.html"]
