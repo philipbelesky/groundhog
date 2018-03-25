@@ -7,10 +7,10 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogMeshGradeComponent : GH_Component
+    public class groundhogMeshSlopeComponent : GH_Component
     {
-        public groundhogMeshGradeComponent()
-            : base("Mesh Slope", "Mesh", "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade", "Groundhog", "Terrain")
+        public groundhogMeshSlopeComponent()
+            : base("Mesh Slope", "Slope", "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")
         {
         }
 
@@ -34,14 +34,13 @@ namespace groundhog
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var M = default(Mesh);
+            var MESH = default(Mesh);
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref M)) return;
+            if (!DA.GetData(0, ref MESH)) return;
 
-            var subMeshes = Explode(M);
-            var subAngles = GetAngles(M);
-            var subCentres = GetCenters(M);
-
+            var subMeshes = Explode(MESH);
+            var subAngles = GetAngles(MESH);
+            var subCentres = GetCenters(MESH);
             var subDirections = GetDirections(subMeshes, subCentres);
 
             // Assign variables to output parameters
@@ -56,7 +55,7 @@ namespace groundhog
             var subAngles = new List<double>();
             var normals = mesh.FaceNormals;
             foreach (var normal in normals)
-            {
+            {          
                 var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
                 subAngles.Add(angle);
             }
@@ -94,8 +93,7 @@ namespace groundhog
 
                 // Get vector to lowest vertex
                 var direction = new Vector3d(min.X - subCentres[m].X, min.Y - subCentres[m].Y, min.Z - subCentres[m].Z);
-
-                direction.Unitize();
+                
                 directions.Add(direction);
             }
 

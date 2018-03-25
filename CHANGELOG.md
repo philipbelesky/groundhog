@@ -2,14 +2,16 @@
 
 #### [0.7.0a] - 2018-03-25
 ###### Added
+- New MeshAspect component
 - Full website added along with basic examples and documentation for some components
 - Both FlowPath components now have an optional 'Limit' parameter
 
 ###### Changed
 - Improved Flows and Terrain example files with more visualisation options
+- MeshSlope component will no longer unitise the vector outputs
 
 ###### Fixed
-- Parsing of components' generic parameters for tables in documentation
+- Improved parsing of each component's generic parameters for tables in documentation
 
 #### [0.6.1a] - 2017-11-20
 ###### Changed
