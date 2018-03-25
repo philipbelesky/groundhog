@@ -21,15 +21,16 @@ namespace groundhog
 
             if (Globals.Logged == false)
             {
+                var hogVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+
                 // Setup RavenClient
                 var ravenClient = new RavenClient(SentryKey);
+                ravenClient.Release = hogVersion.ToString();
                 ravenClient.Tags["Language"] = CultureInfo.InstalledUICulture.EnglishName;
                 ravenClient.Tags["System"] = System.Environment.OSVersion.ToString();
                 ravenClient.Tags["Time"] = TimeZoneInfo.Local.StandardName;
-
-                // Groundhog
-                var hogVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
                 ravenClient.Tags["Groundhog"] = hogVersion.Major.ToString() + '.' + hogVersion.Minor.ToString() + '.' + hogVersion.Build.ToString();
+                ravenClient.Tags["Grasshopper"] = Grasshopper.Versioning.Version.ToString();
 
                 // Rhinoceros (seems to fail on rhino for Mac?)
                 try
@@ -40,9 +41,6 @@ namespace groundhog
                 catch
                 {
                 }
-
-                // Grasshopper
-                ravenClient.Tags["Grasshopper"] = Grasshopper.Versioning.Version.ToString();
 
                 // Basic logging of component type
                 var logMessage = "USED: " + base.Name;
