@@ -25,6 +25,7 @@ namespace groundhog
                 var ravenClient = new RavenClient(SentryKey);
                 ravenClient.Tags["Language"] = CultureInfo.InstalledUICulture.EnglishName;
                 ravenClient.Tags["System"] = System.Environment.OSVersion.ToString();
+                ravenClient.Tags["Time"] = TimeZoneInfo.Local.StandardName;
 
                 // Groundhog
                 var hogVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
