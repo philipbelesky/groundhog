@@ -1,7 +1,7 @@
 ---
 title:      MAX IV Laboratory Landscape
 date:       17-11-14
-excerpt:    A defensive topography emerges at a tangent to a new particle accelerator as an intricate series of rolling mounds seek to dampen vibrations from a nearby highway.
+excerpt:    A defensive topography that that creates an intricate series of rolling mounds to dampen vibrations from a nearby highway.
 thumbnail:  4.jpg
 year:       2016 (constructed)
 location:   Lund, Sweden

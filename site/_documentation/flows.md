@@ -1,6 +1,6 @@
 ---
 title:      Flows
-excerpt:    Components for projecting and analysis surface water flows.
+excerpt:    Components for simple projections and analysis of surface water flows.
 date:       17-10-14
 files:      true
 files_text: model and definition that demonstrating the use of these components
