@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogMeshSlopeComponent : GH_Component
+    public class groundhogMeshSlopeComponent : GroundHog_Component
     {
         public groundhogMeshSlopeComponent()
             : base("Mesh Slope", "Slope", "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")

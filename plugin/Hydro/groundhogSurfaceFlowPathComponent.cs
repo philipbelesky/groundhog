@@ -11,7 +11,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogSurfaceFlowComponent : GH_Component
+    public class groundhogSurfaceFlowComponent : GroundHog_Component
     {
         public groundhogSurfaceFlowComponent()
             : base("Flow Simulation (Surface)", "Srf Flows", "Construct flow paths over a surface", "Groundhog", "Hydro")
