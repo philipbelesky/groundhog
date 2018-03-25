@@ -1,6 +1,6 @@
 ---
 title:      Plants
-excerpt:    Components for parametric representations of planting design, analysis, and visualisation.
+excerpt:    Components for parametric control of planting design, performance, and visualisation.
 date:       17-11-08
 files:      true
 files_text: model and definition that demonstrating the use of these components

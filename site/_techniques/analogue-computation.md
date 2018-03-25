@@ -1,6 +1,6 @@
 ---
 title:      Analogue Computation
-excerpt:    A different approach to biomimicry.
+excerpt:    A different approach to biomimicry — using digital and analogue methods to better understand natural phenomena.
 thumbnail:  thumbnail.jpg
 date:       17-11-07
 ---
