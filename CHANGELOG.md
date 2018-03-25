@@ -3,6 +3,7 @@
 #### [0.7.0a] - 2018-03-25
 ###### Added
 - Full website added along with basic examples and documentation for some components
+- Both FlowPath components now have an optional 'Limit' parameter
 
 ###### Changed
 - Improved Flows and Terrain example files with more visualisation options
