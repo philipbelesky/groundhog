@@ -7,7 +7,7 @@ using Grasshopper.Kernel.Types;
 
 namespace groundhog
 {
-    public class groundhogPImportComponent : GH_Component
+    public class groundhogPImportComponent : GroundHog_Component
     {
 
         public groundhogPImportComponent()

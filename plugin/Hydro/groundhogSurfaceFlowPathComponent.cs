@@ -11,7 +11,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogSurfaceFlowComponent : GH_Component
+    public class groundhogSurfaceFlowComponent : GroundHog_Component
     {
         public groundhogSurfaceFlowComponent()
             : base("Flow Simulation (Surface)", "Srf Flows", "Construct flow paths over a surface", "Groundhog", "Hydro")
@@ -28,9 +28,11 @@ namespace groundhog
         {
             pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as a surface) for the flow calculation", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths (will be projected on to the surface)", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 100.0);
-            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the solution (this can speed up long calculations)", GH_ParamAccess.item, false);
+            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 1000.0);
+            pManager.AddIntegerParameter("Steps", "L", "A limit to the number of flow iterations. Leave unset or to 0 for an unlimited set of iterations", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
+            pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the solution (this can speed up long calculations)", GH_ParamAccess.item, false);
+            pManager[4].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -45,13 +47,15 @@ namespace groundhog
             var FLOW_SURFACE = default(Surface);
             var FLOW_ORIGINS = new List<Point3d>();
             var FLOW_FIDELITY = 1000.0; // Default Value
+            var FLOW_LIMIT = 0; // Default Value
             var THREAD = false;
 
             // Access and extract data from the input parameters individually
             DA.GetData(0, ref FLOW_SURFACE);
             if (!DA.GetDataList(1, FLOW_ORIGINS)) return;
             if (!DA.GetData(2, ref FLOW_FIDELITY)) return;
-            if (!DA.GetData(3, ref THREAD)) return;
+            if (!DA.GetData(3, ref FLOW_LIMIT)) return;
+            if (!DA.GetData(4, ref THREAD)) return;
 
             if (FLOW_FIDELITY == 0)
             {
@@ -69,12 +73,12 @@ namespace groundhog
             if (THREAD)
                 Parallel.For(0, startPoints.Length, i => // Shitty multithreading
                     {
-                        allFlowPathPoints[i] = DispatchFlowPoints(FLOW_BREP, startPoints[i], FLOW_FIDELITY);
+                        allFlowPathPoints[i] = DispatchFlowPoints(FLOW_BREP, startPoints[i], FLOW_FIDELITY, FLOW_LIMIT);
                     }
                 );
             else
                 for (var i = 0; i < startPoints.Length; i = i + 1)
-                    allFlowPathPoints[i] = DispatchFlowPoints(FLOW_BREP, startPoints[i], FLOW_FIDELITY);
+                    allFlowPathPoints[i] = DispatchFlowPoints(FLOW_BREP, startPoints[i], FLOW_FIDELITY, FLOW_LIMIT);
 
             var allFlowPathPointsTree = new DataTree<object>();
             var allFlowPathCurvesList = new List<Polyline>();
@@ -101,7 +105,7 @@ namespace groundhog
         }
 
         private List<Point3d> DispatchFlowPoints(Brep FLOW_SURFACE, Point3d initialStartPoint,
-            double MOVE_DISTANCE)
+            double MOVE_DISTANCE, int FLOW_LIMIT)
         {
             var flowPoints = new List<Point3d>(); // Holds each step
 
@@ -118,6 +122,8 @@ namespace groundhog
                 if (nextPoint.Z >= startPoint.Z)
                     break; // Test this point is actually lower
                 flowPoints.Add(nextPoint);
+                if (FLOW_LIMIT != 0 && FLOW_LIMIT <= flowPoints.Count)
+                    break; // Stop if iteration limit reached
                 startPoint = nextPoint; // Checks out; iterate on
             }
 

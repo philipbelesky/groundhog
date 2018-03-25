@@ -8,7 +8,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogContourCheckGapsComponent : GH_Component
+    public class groundhogContourCheckGapsComponent : GroundHog_Component
     {
 
         public groundhogContourCheckGapsComponent()
@@ -54,6 +54,13 @@ namespace groundhog
             var fixedContours = new List<Curve>();
             var connections = new List<Curve>();
 
+            // Ensure the maximum gap is a positive number (won't crash if not; but just does nothing)
+            if (MAXIMUM_GAP <= 0.0) {
+                DA.SetDataList(0, ALL_CONTOURS);
+                DA.SetDataList(1, null);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Maximum Distance was set at or below 0 so no changes were made to the contours.");
+                return;
+            }
 
             // For each contour, get start and end points that arent outside or on the boundaries
             var possibleSplitPoints = new List<Point3d>();

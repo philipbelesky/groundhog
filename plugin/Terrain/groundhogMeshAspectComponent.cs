@@ -7,48 +7,67 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogMeshGradeComponent : GH_Component
+    public class groundhogMeshAspectComponent : GroundHog_Component
     {
-        public groundhogMeshGradeComponent()
-            : base("Mesh Slope", "Mesh", "Analyses the slope of a Mesh, outputting sseparated faces for coloring and the slope/grade", "Groundhog", "Terrain")
+        public groundhogMeshAspectComponent()
+            : base("Mesh Aspect", "Aspect", "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")
         {
         }
 
-        protected override Bitmap Icon => Resources.icon_mesh_slope;
+        protected override Bitmap Icon => Resources.icon_mesh_aspect;
 
-        public override Guid ComponentGuid => new Guid("{c3b67aca-0e15-4279-9d6c-96cce97fcb47}");
+        public override Guid ComponentGuid => new Guid("{c3b67aca-0c15-2552-9d6c-96cce97fcb47}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh", "M", "The terrain mesh", GH_ParamAccess.item);
             pManager[0].Optional = false;
+            pManager.AddVectorParameter("Aspect", "A", "Vector representing the direction to measure aspect against", GH_ParamAccess.item, new Vector3d(0, 1, 0));
+            pManager[1].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
             pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Face Slope Vectors", "V", "The direction to the lowest points of each face", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Slope Angles", "A", "The angle of the slope", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Aspect Angles", "A", "The angle of the slope", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var M = default(Mesh);
+            var MESH = default(Mesh);
+            var ASPECT = default(Vector3d);
+
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref M)) return;
+            if (!DA.GetData(0, ref MESH)) return;
+            if (!DA.GetData(1, ref ASPECT)) return;
 
-            var subMeshes = Explode(M);
-            var subAngles = GetAngles(M);
-            var subCentres = GetCenters(M);
-
+            var subMeshes = Explode(MESH);
+            var subAngles = GetAngles(MESH);
+            var subCentres = GetCenters(MESH);
             var subDirections = GetDirections(subMeshes, subCentres);
+
+            // This is the only step different to Slope; i.e. measure angle difference between slope and given vector
+            var subAspects = new List<double>();
+            // Need to measure with a specified plane so it doesn't return the smallest angle but rather the rotational/radial angle
+            var leftPlane = new Plane(new Point3d(0, 0, 0), new Vector3d(0, 0, -1));
+            foreach (var direction in subDirections)
+            {
+                if (direction.IsZero)
+                {
+                    subAspects.Add(0); // On perfectly flat surfaces measured angles will produce an infinite Angle
+                }
+                else
+                {
+                    var angle = Vector3d.VectorAngle(ASPECT, direction, leftPlane);
+                    subAspects.Add(angle * (180 / Math.PI)); // Convert to radians
+                }
+            }
 
             // Assign variables to output parameters
             DA.SetDataList(0, subMeshes);
             DA.SetDataList(1, subCentres);
-            DA.SetDataList(2, subDirections);
-            DA.SetDataList(3, subAngles);
+            DA.SetDataList(2, subAspects);
         }
 
         private List<double> GetAngles(Mesh mesh)
@@ -95,7 +114,6 @@ namespace groundhog
                 // Get vector to lowest vertex
                 var direction = new Vector3d(min.X - subCentres[m].X, min.Y - subCentres[m].Y, min.Z - subCentres[m].Z);
 
-                direction.Unitize();
                 directions.Add(direction);
             }
 

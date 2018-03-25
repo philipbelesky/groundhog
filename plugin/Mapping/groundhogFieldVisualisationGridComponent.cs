@@ -8,7 +8,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogFieldVisualisationGridComponent : GH_Component
+    public class groundhogFieldVisualisationGridComponent : GroundHog_Component
     {
         public groundhogFieldVisualisationGridComponent()
           : base("Field Visualisation (Grid)", "Field Grid", "Translate a field into a grid based visualisation. Outputs a number constrained by a range which can be used to then make a color or shape.",               "Groundhog", "Mapping")
