@@ -1,0 +1,74 @@
+//------------------------------------------------------------------------------
+// Type
+//------------------------------------------------------------------------------
+
+.content {
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $family-heading;
+    font-weight: 800;
+  }
+
+  .subtitle {
+    font-weight: 400;
+  }
+}
+
+.button, .message {
+  font-weight: 600;
+  font-family: $family-heading;
+}
+
+// Don't load an extra web font just for italics
+em {
+  font-family: $family-heading;
+}
+
+//------------------------------------------------------------------------------
+// Elements
+//------------------------------------------------------------------------------
+
+.content figure {
+  margin-left: 0;
+  margin-right: 0;
+
+  figcaption {
+    font-family: $family-heading;
+    padding-top: 1rem;
+    font-style: normal;
+    // Use the emphasis part as a proxy for the attribution
+    em {
+      @extend .is-size-7;
+      display: block;
+      margin: 0 auto;
+      max-width: 66%;
+    }
+  }
+}
+
+.content figure + figure {
+  margin-top: -1.5em; // Subsequent images have tight spacing
+}
+
+.gh-component {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  overflow: scroll; // Blown out wrappings can mess up entire page
+
+  p {
+    margin-top: 1rem;
+  }
+
+  .level, .table {
+    margin-bottom: 0;
+  }
+
+  .level-item:last-child {
+    margin-right: 0;
+  }
+
+}
+
+.no-wrap {
+  white-space: nowrap; // For table cells
+}

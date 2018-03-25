@@ -1,0 +1,44 @@
+
+// Icons
+.feather {
+  margin-right: 5px;
+}
+
+// Icons in alerts
+.gh-message-icon {
+  padding-right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .feather {
+    margin-right: 0px;
+  }
+}
+
+.button .feather {
+  margin-bottom: -6px;
+}
+
+// Spacing tweaks in messages
+.message-body p .feather {
+  margin-bottom: -6px;
+}
+
+// Sizing tweaks for homepage titles
+h3 .feather {
+  width: 36px;
+  height: 36px;
+  margin-bottom: -4px;
+}
+
+
+// Spacing tweaks in project tags
+.subtitle .feather {
+  margin-bottom: -4px;
+}
+
+// Spacing tweaks in mobile menu
+.navbar-menu.is-active .feather {
+  margin-bottom: -5px;
+}

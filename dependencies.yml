@@ -1,0 +1,15 @@
+collectors:
+
+- type: js-npm
+  path: site
+  actors:
+  # pull requests for all major, minor, and patch updates
+  - type: js-npm
+    versions: "Y.Y.Y"
+
+- type: ruby-bundler
+  path: site
+  actors:
+  # pull requests for all major, minor, and patch updates
+  - type: ruby-bundler
+    versions: "Y.Y.Y"
