@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.7.0a] - 2018-03-25
+#### [0.7.0b] - 2018-03-25
 ###### Added
 - New MeshAspect component
 - Full website added along with basic examples and documentation for some components

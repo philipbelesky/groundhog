@@ -10,11 +10,6 @@ rm -rf ../site/_data/components/*.json # Delete old files
 python ../docs/extract_params.py
 
 
-# Plugin Files
-# ============
-zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/
-
-
 # Plugin Icons
 # ============
 
@@ -56,3 +51,12 @@ cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./asse
 # Build
 # =====
 MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
+
+
+# Plugin Files
+# ============
+rm -f ../plugin/release/groundhog.gha.mdb
+rm -f ../plugin/release/groundhog.pdb
+rm -f ../plugin/release/groundhog.dll
+rm -f ./downloads/plugin/groundhog.zip
+zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/
