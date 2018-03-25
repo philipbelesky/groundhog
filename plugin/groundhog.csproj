@@ -85,7 +85,8 @@
     <Compile Include="Terrain\groundhogContourCheckGapsComponent.cs" />
     <Compile Include="Terrain\groundhogContourCheckPlanarityComponent.cs" />
     <Compile Include="Terrain\groundhogContourClipComponent.cs" />
-    <Compile Include="Terrain\groundhogMeshGradeComponent.cs" />
+    <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
+    <Compile Include="Terrain\groundhogMeshSlopeComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -113,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_field_grid_vis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_mesh_aspect.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
