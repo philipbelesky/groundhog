@@ -12,7 +12,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "bundle exec jekyll serve --incremental --livereload --unpublished",
+    "serve": "rm -rf _site && bundle exec jekyll serve --incremental --livereload --unpublished",
+    "preview": "rm -rf _site && bundle exec jekyll serve --incremental --livereload",
     "watch": "npm run serve",
     "build": "bash ./compile.sh && bundle exec jekyll build",
     "publish": "bash ./compile.sh && JEKYLL_ENV=production bundle exec jekyll build && s3_website push"
