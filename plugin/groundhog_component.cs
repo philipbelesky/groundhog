@@ -49,7 +49,7 @@ namespace groundhog
                 {
                     Level = SharpRaven.Data.ErrorLevel.Info
                 };
-                if !DEBUG
+                #if !DEBUG
                     ravenClient.Capture(sentryEvent);
                 #endif
 
