@@ -8,7 +8,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogContourCheckGapsComponent : GH_Component
+    public class groundhogContourCheckGapsComponent : GroundHog_Component
     {
 
         public groundhogContourCheckGapsComponent()

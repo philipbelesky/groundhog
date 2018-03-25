@@ -9,7 +9,7 @@ using Point = System.Drawing.Point;
 
 namespace groundhog
 {
-    public class groundhogFieldComponent : GH_Component
+    public class groundhogFieldComponent : GroundHog_Component
     {
 
         public groundhogFieldComponent()

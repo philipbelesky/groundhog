@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogMeshAspectComponent : GH_Component
+    public class groundhogMeshAspectComponent : GroundHog_Component
     {
         public groundhogMeshAspectComponent()
             : base("Mesh Aspect", "Aspect", "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")
@@ -50,7 +50,7 @@ namespace groundhog
             // This is the only step different to Slope; i.e. measure angle difference between slope and given vector
             var subAspects = new List<double>();
             // Need to measure with a specified plane so it doesn't return the smallest angle but rather the rotational/radial angle
-            var leftPlane = new Plane(new Point3d(0, 0, 0), new Vector3d(0, 0, -1)); 
+            var leftPlane = new Plane(new Point3d(0, 0, 0), new Vector3d(0, 0, -1));
             foreach (var direction in subDirections)
             {
                 if (direction.IsZero)
@@ -113,7 +113,7 @@ namespace groundhog
 
                 // Get vector to lowest vertex
                 var direction = new Vector3d(min.X - subCentres[m].X, min.Y - subCentres[m].Y, min.Z - subCentres[m].Z);
-                
+
                 directions.Add(direction);
             }
 

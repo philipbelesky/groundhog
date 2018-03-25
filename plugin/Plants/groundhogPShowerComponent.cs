@@ -8,7 +8,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogShowerComponent : GH_Component
+    public class groundhogShowerComponent : GroundHog_Component
     {
         public List<Color> allColours;
         public List<Circle> allCrowns;
