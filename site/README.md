@@ -24,11 +24,7 @@ Then open `http://localhost:4000/`. If using a [Livereload plugin](https://chrom
 
 ## Deploying
 
-Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing.
-
-    bash compile.sh
-
-Then build Jekyll for deployment:
+Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing. This is run when building Jekyll for deployment:
 
      npm run build
 

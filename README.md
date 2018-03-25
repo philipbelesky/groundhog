@@ -14,25 +14,7 @@ Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of referenc
 
 Please visit [www.groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
 
-## Plugin Setup
-
-#### Requirements
-
-- Rhinoceros 5.0 or 6.0 (Windows)
-- Rhinoceros WIP (Mac)
-- Grasshopper 0.9.0076, although it should work on newer and slightly older versions
-
-#### Installation
-
-1. The plugin can be download at [groundhog.la](http://groundhog.la/plugin/). Once you have unzipped the associated file, the "plugin" file is `groundhog.gha`.
-2. If you are on Windows you will right-click on the plugin file, open the properties tab, then in the properties window click the unblock option in the bottom right corner. For more details, refer to [this guide](https://blogs.msdn.microsoft.com/delay/p/unblockingdownloadedfile/).
-3. Open up Grasshopper, then in the "File" menu go to "Special Folders" and then "Components Folder"
-4. Copy the plugin file to this folder, then quit Rhinoceros/Grasshopper.
-5. When you reopen Rhinoceros/Grasshopper there should be a "Groundhog" tab present.
-
-Refer to [this video](https://www.youtube.com/watch?v=TB5wkh79Pv4) for further help installing a Grasshopper plugin on Windows.
-
-## Plugin Use
+## Documentation, Demos, and Reference Definitions
 
 See the provided documentation and demo, example, and reference files at [groundhog.la](http://groundhog.la).
 
@@ -44,9 +26,17 @@ Refer to [groundhog.la/plugin/](http://groundhog.la/plugin/).
 
 Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md).
 
-## Plugin Development
+## Plugin Installation
 
 See the [`README.md` file](https://github.com/philipbelesky/groundhog/blob/develop/plugin/README.md) located in the `plugin` folder.
+
+## Plugin Development
+
+To develop the plugin you will need a copy of Rhinoceros installed, and some knowledge working with [C# code](https://docs.microsoft.com/en-us/dotnet/csharp/) and the [Rhinoceros/Grasshopper APIs](http://developer.rhino3d.com).
+
+Editing and compiling that code is best done in Visual Studio 2017. The [community editions](https://www.visualstudio.com) for Windows or macOS should both work. Upon first build it should fetch the required RhinoCommon, Grasshopper, and third-party references from NuGet (an internet connection is required).
+
+You will need to add the `build` folder to your Grasshopper Folders once you have compiled the project. To do so use the `GrasshopperDeveloperSettings` command in Rhinoceros.
 
 ## Wiki Development
 
