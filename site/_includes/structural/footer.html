@@ -2,6 +2,21 @@
   <div class="container content gh-{{ current[1] }}-content has-text-centered">
 
     <nav class="level">
+      <a class="level-item" href="{{ site.baseurl }}{% link about.md %}">
+        <i data-feather="help-circle"></i> About
+      </a>
+      <a class="level-item" href="{{ site.baseurl }}{% link plugin.md %}">
+        <i data-feather="package"></i> Plugin
+      </a>
+      <a class="level-item" href="{{ site.baseurl }}{% link documentation.md %}">
+        <i data-feather="book"></i> Docs
+      </a>
+      <a class="level-item" href="{{ site.baseurl }}{% link techniques.md %}">
+        <i data-feather="briefcase"></i> Techniques
+      </a>
+      <a class="level-item" href="{{ site.baseurl }}{% link projects.md %}">
+        <i data-feather="aperture"></i> Projects
+      </a>
       <a class="level-item" href="https://github.com/philipbelesky/groundhog" target="_blank">
         <i data-feather="github"></i> Github
       </a>
@@ -13,16 +28,18 @@
       <a class="level-item" href="http://eepurl.com/c-0nNL" target="_blank">
         <i data-feather="mail"></i> Newsletter
       </a>
+      <!--
       <a class="level-item" href="https://www.facebook.com/groundhog.la/" target="_blank">
         <i data-feather="facebook"></i> Facebook
       </a>
       <a class="level-item" href="https://twitter.com/groundhog_la" target="_blank">
         <i data-feather="twitter"></i> Twitter
       </a>
+      -->
     </nav>
 
     <p class="">
-      <em>Website content, source code, and models are © {{ 'now' | date: "%Y" }} under the terms of the <a href="https://opensource.org/licenses/GPL-3.0">GPL v3 License</a>.</em>
+      <em>Website content, source code, and models are ©{{ 'now' | date: "%Y" }} under the terms of the <a href="https://opensource.org/licenses/GPL-3.0">GPL v3 License</a>.</em>
     </p>
 
   </div>

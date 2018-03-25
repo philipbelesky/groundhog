@@ -3,20 +3,11 @@
 # Zip up all the files and move them to the Jekyll assets folder for publishing
 # Designed to be run from the site/Jekyll directory
 
-# Build
-# =====
-MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
-
 
 # Extract Input/Output Parameters
 # ===============================
 rm -rf ../site/_data/components/*.json # Delete old files
 python ../docs/extract_params.py
-
-
-# Plugin Files
-# ============
-zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/
 
 
 # Plugin Icons
@@ -55,3 +46,17 @@ mv ../projects/**.zip ./downloads/projects/
 
 cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 ./assets/fonts/
 cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./assets/fonts/
+
+
+# Build
+# =====
+MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
+
+
+# Plugin Files
+# ============
+rm -f ../plugin/release/groundhog.gha.mdb
+rm -f ../plugin/release/groundhog.pdb
+rm -f ../plugin/release/groundhog.dll
+rm -f ./downloads/plugin/groundhog.zip
+zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/

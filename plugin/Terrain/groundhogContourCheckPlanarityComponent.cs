@@ -7,7 +7,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogContourCheckPlanarityComponent : GH_Component
+    public class groundhogContourCheckPlanarityComponent : GroundHog_Component
     {
 
         public groundhogContourCheckPlanarityComponent()

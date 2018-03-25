@@ -18,21 +18,15 @@ Install dependencies using:
 
 To start a local copy of the website, use:
 
-    npm run build
-
-In addition, if you'd like to use BrowserSync to automatically refresh the browser upon file changes, you can use:
-
     npm run serve
+
+Then open `http://localhost:4000/`. If using a [Livereload plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) changes to files (layout; markdown; css; etc) should trigger browser updates live.
 
 ## Deploying
 
-Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing.
+Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing. This is run when building Jekyll for deployment:
 
-    bash compile.sh
-
-Then build Jekyll for deployment:
-
-    JEKYLL_ENV=production bundle exec jekyll build
+     npm run build
 
 Deployment is done using [s3_website](https://github.com/laurilehmijoki/s3_website). This requires Java 8 and a set of valid Amazon Web Service credentials in a `.env` file in this directory. Changes can be published with:
 

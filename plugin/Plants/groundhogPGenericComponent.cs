@@ -6,7 +6,7 @@ using Grasshopper.Kernel;
 
 namespace groundhog
 {
-    public class groundhogPGenericComponent : GH_Component
+    public class groundhogPGenericComponent : GroundHog_Component
     {
 
         public groundhogPGenericComponent()
