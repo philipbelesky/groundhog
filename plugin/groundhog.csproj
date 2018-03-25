@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug32</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>groundhog</RootNamespace>
     <AssemblyName>groundhog</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <ReleaseVersion>0.6.1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -62,10 +65,12 @@
   <ItemGroup>
     <Compile Include="groundhogInfo.cs" />
     <Compile Include="Hydro\groundhogFlowCatchmentComponent.cs" />
-    <Compile Include="Hydro\groundhogFlowPathComponent.cs" />
+    <Compile Include="Hydro\groundhogSurfaceFlowPathComponent.cs" />
+    <Compile Include="Hydro\groundhogMeshFlowPathComponent.cs" />
     <Compile Include="Hydro\groundhogFloodRiverComponent.cs" />
     <Compile Include="Hydro\groundhogFloodSeaComponent.cs" />
     <Compile Include="Mapping\groundhogFieldComponent.cs" />
+    <Compile Include="Mapping\groundhogFieldVisualisationGridComponent.cs" />
     <Compile Include="Plants\groundhogPGenericComponent.cs" />
     <Compile Include="Plants\groundhogPImportComponent.cs" />
     <Compile Include="Plants\groundhogPlanterComponent.cs" />
@@ -82,6 +87,8 @@
     <Compile Include="Terrain\groundhogContourClipComponent.cs" />
     <Compile Include="Terrain\groundhogMeshGradeComponent.cs" />
     <Compile Include="groundhog_component.cs" />
+    <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
+    <Compile Include="Terrain\groundhogMeshSlopeComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -98,13 +105,20 @@
     <None Include="Resources\icon_field.png" />
     <None Include="Resources\icon_floods_river.png" />
     <None Include="Resources\icon_floods_sea.png" />
-    <None Include="Resources\icon_flows.png" />
     <None Include="Resources\icon_mesh_slope.png" />
     <None Include="Resources\icon_pgeneric.png" />
     <None Include="Resources\icon_pimport.png" />
     <None Include="Resources\icon_pplacer.png" />
     <None Include="Resources\icon_pshower.png" />
     <None Include="packages.config" />
+    <None Include="Resources\icon_flows_mesh.png" />
+    <None Include="Resources\icon_flows_srf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_field_grid_vis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_mesh_aspect.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -117,15 +131,12 @@
   <!--
     COMPILATION
   -->
-  <!--   <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
-
-      OSX copy to compiled file to ExplicitHistory path as DeveloperSettings is currently crashing.
-      Note quotes start after the ~ (otherwise it wont expand)
-
+  <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
     <PostBuildEvent>
-      cp "$(TargetDir)groundhog.dll" ~/"Library/Application Support/McNeel/Rhinoceros/MacPlugIns/Grasshopper/Libraries/groundhog.gha"
+      cp "$(TargetDir)groundhog.dll" "$(TargetDir)$(ProjectName).gha"
+      rm "$(TargetDir)groundhog.dll"
     </PostBuildEvent>
-  </PropertyGroup> -->
+  </PropertyGroup>
   <PropertyGroup Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
     <PostBuildEvent>
       Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
@@ -142,17 +153,19 @@
     <StartProgram Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">
       C:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe
     </StartProgram>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
     <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
-      C:\Program Files\Rhinoceros 5 (64-bit)\Rhino.exe
+      C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe
     </StartProgram>
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <!--
     POST BUILD COMPILATION
@@ -161,18 +174,10 @@
     <Copy SourceFiles="$(ProjectDir)/../README.md" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="$(ProjectDir)/../CHANGELOG.md" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="$(ProjectDir)/../LICENSE" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Flows Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Flows Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Fields Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Plants Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Contour Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.3dm" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../examples/Terrain Examples.gh" DestinationFolder="$(OutDir)examples" />
-    <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.3dm" DestinationFolder="$(OutDir)demos" />
-    <Copy SourceFiles="$(ProjectDir)/../demos/Planting Plan Demo.gh" DestinationFolder="$(OutDir)demos" />
+    <ItemGroup>
+      <Precedents Include="$(ProjectDir)/../projects/**/*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Precedents)" DestinationFolder="$(OutDir)\projects" />
   </Target>
   <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Import Project="packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />

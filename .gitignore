@@ -3,18 +3,21 @@
 ################################################################################
 
 # Jekyll Related
-################
-
 .sass-cache
+.jekyll-metadata
 _site
 .env
+
+# Redundant Assets
+site/assets/plugin/icons
+site/assets/fonts
+site/_data/components/
 
 ################################################################################
 # Groundhog Plugin
 ################################################################################
 
 # Build files/dirs
-##################
 plugin/bin/
 plugin/release/
 
@@ -23,16 +26,15 @@ plugin/release/
 ################################################################################
 
 # Rhino files
-#############
 *.3dm.rhl
 *.3dmbak
+*.exr
 
 ################################################################################
 # Generic OS
 ################################################################################
 
 # OS generated files
-####################
 .DS_Store
 .DS_Store?
 ._*
@@ -46,7 +48,6 @@ Thumbs.db
 ################################################################################
 
 # Compiled source
-#################
 *.com
 *.class
 *.dll
@@ -54,8 +55,7 @@ Thumbs.db
 *.o
 *.so
 
-# Packages #
-############
+# Packages
 *.7z
 *.dmg
 *.gz
@@ -65,8 +65,7 @@ Thumbs.db
 *.tar
 *.zip
 
-# Logs and databases #
-######################
+# Logs and databases
 *.log
 *.sql
 *.sqlite
@@ -76,7 +75,6 @@ Thumbs.db
 ################################################################################
 
 # User-specific files
-#####################
 *.suo
 *.user
 *.userosscache
@@ -84,7 +82,6 @@ Thumbs.db
 *.userprefs
 
 # Build results
-###############
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -97,7 +94,6 @@ bld/
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
-############################################
 .vs/
 
 # MSTest test Results

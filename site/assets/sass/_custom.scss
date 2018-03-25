@@ -1,0 +1,47 @@
+// Customise Groundhog Brand Colors
+
+// Main Branding Color; replaces $cyan
+$about: rgb(255, 142, 100);
+$link: $about;
+
+// is-success = Plugin Section (greenish)
+$plugin: rgb(114, 227, 210);
+$dark: $plugin;
+
+// is-danger = Documentation Section (purple; overrides the red)
+$docs: rgb(142, 215, 89);
+$danger: $docs;
+
+// is-info = Techniques Section (light blue)
+$techniques: rgb(233, 185, 56);
+$info: $techniques;
+
+// is-primary = Projects Section (turquoise)
+$projects: rgb(246, 112, 140);
+$primary: $projects;
+
+// Import IBM Plex Styles Defaults
+$family-primary: 'ibm-plex-sans'; // The main body font
+$family-heading: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+$text-strong: rgb(90, 90, 90); // Heading text color
+
+// Customise Typography
+$text: rgb(110, 110, 110); // Body text color
+$body-size: 18px;
+$body-line-height: 1.66;
+$body-weight: 400; // For Plex 400=regular; 300=normal; 600=semi bold
+
+// Customise Layout
+$notification-padding: 1.25rem 1.25rem 1.25rem 1.5rem; // By default is 2.5
+// $section-padding: 1.5rem 1.5rem; // By default is 3rem 1.5rem
+
+// is-white
+// is-black
+// is-light
+// is-dark      USED for plugin
+// is-primary   USED for projects
+// is-link      USED for about
+// is-info      USED for techniques
+// is-success   available for download alerts (downloads)
+// is-warning   available for warning alerts (beta label)
+// is-danger    USED for documentation

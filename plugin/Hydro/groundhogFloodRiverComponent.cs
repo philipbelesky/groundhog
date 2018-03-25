@@ -8,23 +8,11 @@ namespace groundhog
 {
     public class groundhogRiverFloodComponent : GH_Component
     {
-        /// <summary>
-        /// Each implementation of GH_Component must provide a public
-        /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear,
-        /// Subcategory the panel. If you use non-existing tab or panel names,
-        /// new tabs/panels will automatically be created.
-        /// </summary>
         public groundhogRiverFloodComponent()
-            : base("River Flood Simulator", "River Floods",
-                "Examine flooding levels along a surface from a river source",
-                "Groundhog", "Hydro")
+            : base("River Flood Simulator", "River Floods", "Examine flooding levels along a surface from a river source", "Groundhog", "Hydro")
         {
         }
 
-        /// <summary>
-        /// Registers all the input parameters for this component.
-        /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Datum", "d", "The local mean sea level", GH_ParamAccess.item, 0d);
@@ -45,9 +33,6 @@ namespace groundhog
             pManager[7].Optional = true;
         }
 
-        /// <summary>
-        /// Registers all the output parameters for this component.
-        /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Sea Level", "SL", "The simulated mean sea level", GH_ParamAccess.item);
@@ -57,16 +42,8 @@ namespace groundhog
             pManager.AddSurfaceParameter("High Spring", "HS", "The simulated mean high water spring level", GH_ParamAccess.item);
             pManager.AddSurfaceParameter("Low Spring", "LS", "The simulated mean low water spring level", GH_ParamAccess.item);
 
-            // Sometimes you want to hide a specific parameter from the Rhino preview.
-            // You can use the HideParameter() method as a quick way:
-            //pManager.HideParameter(0);
         }
 
-        /// <summary>
-        /// This is the method that actually does the work.
-        /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and
-        /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for output parameters
@@ -88,12 +65,12 @@ namespace groundhog
             // TODO: determine if I need to do input validation here
 
             // Create holder variables for output parameters
-            var seaLevel = createLevel(calculateValue(YEAR, DATUM, RISE, 0));
-            var stormSurgeLevel = createLevel(calculateValue(YEAR, DATUM, RISE, SURGE));
-            var highNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
-            var lowNeapLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_NEAP));
-            var highSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
-            var lowSpringLevel = createLevel(calculateValue(YEAR, DATUM, RISE, LOW_SPRING));
+            var seaLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, 0));
+            var stormSurgeLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, SURGE));
+            var highNeapLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
+            var lowNeapLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_NEAP));
+            var highSpringLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
+            var lowSpringLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_SPRING));
 
             // Assign variables to output parameters
             DA.SetData(0, seaLevel);
@@ -104,7 +81,7 @@ namespace groundhog
             DA.SetData(5, lowSpringLevel);
         }
 
-        private double calculateValue(double SIMULATED_YEAR, double DATUM, double RISE, double EVENT_HEIGHT)
+        private double CalculateValue(double SIMULATED_YEAR, double DATUM, double RISE, double EVENT_HEIGHT)
         {
             // TODO: test with negative years; fractional years...
             var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
@@ -112,7 +89,7 @@ namespace groundhog
             return simulatedLevel;
         }
 
-        private PlaneSurface createLevel(double eventHeight)
+        private PlaneSurface CreateLevel(double eventHeight)
         {
             // TODO: fix this
             var origin = new Point3d(0, 0, eventHeight);
@@ -120,33 +97,18 @@ namespace groundhog
             var yExtent = new Point3d(0, 100, eventHeight);
             var plane = new Plane(origin, xExtent, yExtent);
 
-            var plane_surface = new PlaneSurface(plane,
+            var planedSurface = new PlaneSurface(plane,
               new Interval(0, origin.DistanceTo(xExtent)),
               new Interval(0, origin.DistanceTo(yExtent))
             );
 
-            return plane_surface;
+            return planedSurface;
         }
 
-           /// <summary>
-        /// The Exposure property controls where in the panel a component icon
-        /// will appear. There are seven possible locations (primary to septenary),
-        /// each of which can be combined with the GH_Exposure.obscure flag, which
-        /// ensures the component will only be visible on panel dropdowns.
-        /// </summary>
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        /// <summary>
-        /// Provides an Icon for every component that will be visible in the User Interface.
-        /// Icons need to be 24x24 pixels.
-        /// </summary>
         protected override System.Drawing.Bitmap Icon => Properties.Resources.icon_floods_river;
 
-        /// <summary>
-        /// Each component must have a unique Guid to identify it.
-        /// It is vital this Guid doesn't change otherwise old ghx files
-        /// that use the old ID will partially fail during loading.
-        /// </summary>
         public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d0}");
     }
 }

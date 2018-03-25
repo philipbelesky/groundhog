@@ -1,25 +1,57 @@
+<div align="center">
+<img width=200 src="https://cdn.rawgit.com/philipbelesky/groundhog/develop/site/assets/logo.svg">
+
 # Groundhog
 
-Groundhog is a plugin for the Grasshopper parametric design platform.
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub release](https://img.shields.io/github/release/philipbelesky/groundhog.svg)](https://github.com/philipbelesky/groundhog/releases)
+[![Build status](https://ci.appveyor.com/api/projects/status/v54xuu2rea3q4r3p/branch/develop?svg=true)](https://ci.appveyor.com/project/philipbelesky/groundhog/branch/develop)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/86683403554e426baad9225687d5ca00)](https://www.codacy.com/app/philipbelesky/groundhog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=philipbelesky/groundhog&amp;utm_campaign=Badge_Grade)
 
-## Installation
+</div>
 
-## Use
+Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of reference models, and wiki exploring the applications of computational design in landscape architecture. Groundhog is currently in beta. The plugin and associated site will be updated with more features and information in early 2018.
 
-## Building
+Please visit [www.groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
 
-Building requires [Visual Studio Community](https://www.visualstudio.com/vs/) for Mac or Windows. Upon first build it should fetch the required RhinoCommon and Grasshopper references from NuGet (an internet connection is required).
+## Plugin Setup
 
-## Contributions & Feedback
+#### Requirements
 
-Both are welcome.
+- Rhinoceros 5.0 or 6.0 (Windows)
+- Rhinoceros WIP (Mac)
+- Grasshopper 0.9.0076, although it should work on newer and slightly older versions
+
+#### Installation
+
+1. The plugin can be download at [groundhog.la](http://groundhog.la/plugin/). Once you have unzipped the associated file, the "plugin" file is `groundhog.gha`.
+2. If you are on Windows you will right-click on the plugin file, open the properties tab, then in the properties window click the unblock option in the bottom right corner. For more details, refer to [this guide](https://blogs.msdn.microsoft.com/delay/p/unblockingdownloadedfile/).
+3. Open up Grasshopper, then in the "File" menu go to "Special Folders" and then "Components Folder"
+4. Copy the plugin file to this folder, then quit Rhinoceros/Grasshopper.
+5. When you reopen Rhinoceros/Grasshopper there should be a "Groundhog" tab present.
+
+Refer to [this video](https://www.youtube.com/watch?v=TB5wkh79Pv4) for further help installing a Grasshopper plugin on Windows.
+
+## Plugin Use
+
+See the provided documentation and demo, example, and reference files at [groundhog.la](http://groundhog.la).
+
+## Support, Bug Reports, and Feature Requests
+
+Refer to [groundhog.la/plugin/](http://groundhog.la/plugin/).
+
+## Contributing
+
+Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md).
+
+## Plugin Development
+
+See the [`README.md` file](https://github.com/philipbelesky/groundhog/blob/develop/plugin/README.md) located in the `plugin` folder.
+
+## Wiki Development
+
+See the [`README.md` file](https://github.com/philipbelesky/groundhog/blob/develop/site/README.md) located in the `site` folder.
 
 ## License
 
-Copyright 2017 Philip Belesky.
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>
+This project is licensed under the GPL v3 License - see the [`LICENSE` file](https://github.com/philipbelesky/groundhog/blob/develop/LICENSE) for details.

@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<section class="hero gh-{{ page.path | downcase | remove_first: ".md" }}">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">
+        {{ page.title }}
+      </h1>
+      <h2 class="subtitle">
+        {{ page.excerpt }}
+      </h2>
+    </div>
+  </div>
+</section>
+
+{% include elements/beta.html %}
+
+<section class="section gh-no-top-padding">
+  <div class="container">
+
+    {{ content }}
+
+  </div>
+</section>
