@@ -7,7 +7,7 @@ title: About Groundhog
 
 Philip Belesky is an Associate Lecturer and PhD candidate in the Landscape Architecture program at RMIT University in Melbourne, Australia, and has previously worked as a programmer and computational designer. His current research explores the use of computational methods and tooling to design landscape systems — more information available at [philipbelesky.com](http://www.philipbelesky.com).
 
-Support requests, bug reports, feature suggestions and other plugin-related communications can be made as outlined on the [plugins page]. For other matters please email me using at [contact@philipbelesky.com](mailto:contact@philipbelesky.com).
+Support requests, bug reports, feature suggestions and other plugin-related communications can be made as outlined on the [plugin page](/plugin). For other matters please email me using at [contact@philipbelesky.com](mailto:contact@philipbelesky.com).
 
 ### Contributing
 

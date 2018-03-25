@@ -8,8 +8,7 @@
 
 #### Requirements
 
-- Rhinoceros 5.0 / 6.0 (Windows) or Rhinoceros WIP (Mac)
-- Grasshopper 0.9.0076, or above
+- Rhinoceros 5.0 / 6.0 (Windows) or Rhinoceros 5.4+ (Mac) and Grasshopper 0.9.0076+
 
 #### Installation
 
@@ -32,11 +31,9 @@ The preferred method of submitting bug reports and feature requests is through [
 
 This is an open source project and the code for the plugin and groundhog.la are [hosted on Github](https://github.com/philipbelesky/groundhog). Contributions to the plugin, and to the articles and reference definitions on the wiki are welcome.
 
-#### Developer
+#### Developer and License
 
 Groundhog's lead developer is [Philip Belesky](http://philipbelesky.com). If you're using Groundhog for commercial projects or academic research I'd love to hear about it.
-
-#### License
 
 This project is licensed under the GPL v3 License - see the [LICENSE file for details](https://github.com/philipbelesky/groundhog/blob/develop/LICENSE).
 
