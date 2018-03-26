@@ -1,15 +1,6 @@
-collectors:
-
-- type: js-npm
+# For www.dependencies.io
+version: 2
+dependencies:
+- type: js
   path: site
-  actors:
-  # pull requests for all major, minor, and patch updates
-  - type: js-npm
-    versions: "Y.Y.Y"
-
-- type: ruby-bundler
-  path: site
-  actors:
-  # pull requests for all major, minor, and patch updates
-  - type: ruby-bundler
-    versions: "Y.Y.Y"
+# Ruby support to be re-enabled?
