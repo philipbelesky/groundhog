@@ -1,5 +1,10 @@
 ## Changelog
 
+#### [0.7.1b] - 2018-??-??
+
+###### Fixed
+- MeshSlope and MeshAspect components should now properly compute the face normals for quad meshes
+
 #### [0.7.0b] - 2018-03-25
 ###### Added
 - New MeshAspect component
