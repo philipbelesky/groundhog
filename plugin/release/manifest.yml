@@ -1,0 +1,11 @@
+---
+name: groundhog
+version: 0.7.1
+authors:
+  - Philip Belesky
+description: >
+  Groundhog is a Grasshopper plugin, a set of reference models, and wiki
+  exploring the applications of computational design in landscape architecture.
+url: "http://groundhog.la/"
+secret:
+  id: 7dc547b5-ca43-457d-a3e2-8286f0784ad0
