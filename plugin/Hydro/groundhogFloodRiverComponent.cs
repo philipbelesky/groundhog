@@ -85,7 +85,7 @@ namespace groundhog
         {
             // TODO: test with negative years; fractional years...
             var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
-            var simulatedLevel = DATUM + EVENT_HEIGHT + Math.Pow(RISE, yearsElapased);
+            var simulatedLevel = DATUM + EVENT_HEIGHT + (RISE * yearsElapased);
             return simulatedLevel;
         }
 

@@ -5,6 +5,7 @@
 ###### Fixed
 - MeshSlope and MeshAspect components should now properly compute the face normals for quad meshes
 - Better handle null items in FlowCatchment component
+- Flood components should produce more sensible results
 
 #### [0.7.0b] - 2018-03-25
 ###### Added
