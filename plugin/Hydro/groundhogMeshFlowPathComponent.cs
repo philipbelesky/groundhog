@@ -77,29 +77,10 @@ namespace groundhog
                 for (var i = 0; i < startPoints.Length; i = i + 1)
                     allFlowPathPoints[i] = DispatchFlowPoints(FLOW_MESH, startPoints[i], FLOW_FIDELITY, FLOW_LIMIT);
 
-            var allFlowPathPointsTree = new DataTree<object>();
-            var allFlowPathCurvesList = new List<Polyline>();
-
-
-            for (var i = 0; i < allFlowPathPoints.Length; i++)
-            {
-                var path = new GH_Path(i);
-                // For each flow path make the polyline
-                if (allFlowPathPoints[i].Count > 1)
-                {
-                    var flowPath = new Polyline(allFlowPathPoints[i]);
-                    allFlowPathCurvesList.Add(flowPath);
-                }
-
-                // And make a branch for the list of points
-                for (var j = 0; j < allFlowPathPoints[i].Count; j++)
-                    // For each flow path point
-                    allFlowPathPointsTree.Add(allFlowPathPoints[i][j], path);
-            }
-
+            var outputs = FlowCalculations.MakeOutputs(allFlowPathPoints);
             // Assign variables to output parameters
-            DA.SetDataTree(0, allFlowPathPointsTree);
-            DA.SetDataList(1, allFlowPathCurvesList);
+            DA.SetDataTree(0, outputs.Item1);
+            DA.SetDataList(1, outputs.Item2);
         }
 
         private List<Point3d> DispatchFlowPoints(Mesh FLOW_MESH, Point3d initialStartPoint,
@@ -136,17 +117,8 @@ namespace groundhog
 
             // Get closest point
             FLOW_MESH.ClosestPoint(startPoint, out closestPoint, out closestNormal, maximumDistance);
-
-            // Get the vector to flow down
-            var flowVector = Vector3d.CrossProduct(Vector3d.ZAxis, closestNormal);
-            flowVector.Unitize();
-            flowVector.Reverse();
-            flowVector.Transform(Transform.Rotation(Math.PI / 2, closestNormal, closestPoint));
-
-            // Flow to the new point
-            //Point3d nextFlowPoint = Point3d.Add(closestPoint, V * MOVE_DISTANCE);
-            var nextFlowPoint = Point3d.Add(closestPoint, flowVector * MOVE_DISTANCE);
-
+            // Get the next point following the vector
+            var nextFlowPoint = FlowCalculations.MoveFlowPoint(closestNormal, closestPoint, MOVE_DISTANCE);
             // Need to snap back to the surface (the vector may be pointing off the edge)
             return FLOW_MESH.ClosestPoint(nextFlowPoint);
         }

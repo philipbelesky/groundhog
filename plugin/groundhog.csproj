@@ -101,7 +101,8 @@
     <Compile Include="groundhog_component.cs" />
     <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
     <Compile Include="Terrain\groundhogMeshSlopeComponent.cs" />
-    <Compile Include="Terrain\ghTerrainCalculations.cs" />
+    <Compile Include="Terrain\TerrainCalculations.cs" />
+    <Compile Include="Hydro\FlowCalculations.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
