@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <ReleaseVersion>0.7.0</ReleaseVersion>
+    <ReleaseVersion>0.7.1</ReleaseVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -171,8 +171,8 @@
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <StartProgram Condition="Exists('C:\Program Files\Rhinoceros 5 (64-bit)\System\')">
-      C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe
+    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">
+      C:\Program Files\Rhino 6\System\Rhino.exe
     </StartProgram>
     <StartArguments>
     </StartArguments>

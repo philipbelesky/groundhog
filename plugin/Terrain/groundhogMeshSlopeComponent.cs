@@ -39,9 +39,9 @@ namespace groundhog
             if (!DA.GetData(0, ref MESH)) return;
 
             var subMeshes = Explode(MESH);
-            var subAngles = GetAngles(MESH);
             var subCentres = GetCenters(MESH);
             var subDirections = GetDirections(subMeshes, subCentres);
+            var subAngles = GetAngles(MESH);
 
             // Assign variables to output parameters
             DA.SetDataList(0, subMeshes);
@@ -50,14 +50,27 @@ namespace groundhog
             DA.SetDataList(3, subAngles);
         }
 
-        private List<double> GetAngles(Mesh mesh)
+        private List<double> GetAngles(Mesh MESH)
         {
             var subAngles = new List<double>();
-            var normals = mesh.FaceNormals;
+            var normals = MESH.FaceNormals;
+            if (normals.Count == 0) // Quad Meshes and others don't have precomputed normals?
+            {
+                MESH.FaceNormals.ComputeFaceNormals();
+                normals = MESH.FaceNormals;
+            }
+
             foreach (var normal in normals)
-            {          
-                var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
-                subAngles.Add(angle);
+            {
+                if (normal.X == 0 && normal.Y == 0)
+                {
+                    subAngles.Add(0); // On perfectly flat surfaces measured angles will produce an infinite number
+                } 
+                else
+                {
+                    var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
+                    subAngles.Add(angle);
+                } 
             }
             return subAngles;
         }

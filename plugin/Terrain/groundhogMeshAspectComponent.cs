@@ -43,17 +43,25 @@ namespace groundhog
             if (!DA.GetData(1, ref ASPECT)) return;
 
             var subMeshes = Explode(MESH);
-            var subAngles = GetAngles(MESH);
             var subCentres = GetCenters(MESH);
             var subDirections = GetDirections(subMeshes, subCentres);
-
             // This is the only step different to Slope; i.e. measure angle difference between slope and given vector
+            var subAspects = GetAspects(subDirections, ASPECT);
+            
+            // Assign variables to output parameters
+            DA.SetDataList(0, subMeshes);
+            DA.SetDataList(1, subCentres);
+            DA.SetDataList(2, subAspects);
+        }
+
+        private List<double> GetAspects(List<Vector3d> subDirections, Vector3d ASPECT)
+        {
             var subAspects = new List<double>();
             // Need to measure with a specified plane so it doesn't return the smallest angle but rather the rotational/radial angle
             var leftPlane = new Plane(new Point3d(0, 0, 0), new Vector3d(0, 0, -1));
             foreach (var direction in subDirections)
             {
-                if (direction.IsZero)
+                if ((direction.X == 0 && direction.Y == 0) || direction.IsZero)
                 {
                     subAspects.Add(0); // On perfectly flat surfaces measured angles will produce an infinite Angle
                 }
@@ -63,17 +71,19 @@ namespace groundhog
                     subAspects.Add(angle * (180 / Math.PI)); // Convert to radians
                 }
             }
-
-            // Assign variables to output parameters
-            DA.SetDataList(0, subMeshes);
-            DA.SetDataList(1, subCentres);
-            DA.SetDataList(2, subAspects);
+            return subAspects;
         }
 
-        private List<double> GetAngles(Mesh mesh)
+        private List<double> GetAngles(Mesh MESH)
         {
             var subAngles = new List<double>();
-            var normals = mesh.FaceNormals;
+            var normals = MESH.FaceNormals;
+            if (normals.Count == 0) // Quad Meshes and others don't have precomputed normals?
+            {
+                MESH.FaceNormals.ComputeFaceNormals();
+                normals = MESH.FaceNormals;
+            }
+
             foreach (var normal in normals)
             {
                 var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
