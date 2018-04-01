@@ -58,5 +58,7 @@ MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:m
 rm -f ../plugin/release/groundhog.gha.mdb
 rm -f ../plugin/release/groundhog.pdb
 rm -f ../plugin/release/groundhog.dll
+rm -f ../plugin/release/.DS_Store
 rm -f ./downloads/plugin/groundhog.zip
+
 zip -r -j ./downloads/plugin/groundhog.zip ../plugin/release/

@@ -22,3 +22,9 @@
 
 - Rebuild `groundhog readme.pdf` from the Markdown source
 - Follow `compile.sh` and `s3_website` steps in `site/README.md`
+
+#### Yak
+
+    > "C:\Program Files\Rhino WIP\System\Yak.exe" build
+    > "C:\Program Files\Rhino WIP\System\Yak.exe" push groundhog-X.Y.Z.yak
+    > "C:\Program Files\Rhino WIP\System\Yak.exe" search groundhog
