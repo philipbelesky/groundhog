@@ -9,7 +9,7 @@ namespace groundhog
     public class groundhogRiverFloodComponent : GroundHog_Component
     {
         public groundhogRiverFloodComponent()
-            : base("River Flood Simulator", "River Floods", "Examine flooding levels along a surface from a river source", "Groundhog", "Hydro")
+            : base("River Flood Levels", "River Floods", "Examine flooding levels along a surface from a river source", "Groundhog", "Hydro")
         {
         }
 
@@ -85,7 +85,7 @@ namespace groundhog
         {
             // TODO: test with negative years; fractional years...
             var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
-            var simulatedLevel = DATUM + EVENT_HEIGHT + Math.Pow(RISE, yearsElapased);
+            var simulatedLevel = DATUM + EVENT_HEIGHT + (RISE * yearsElapased);
             return simulatedLevel;
         }
 

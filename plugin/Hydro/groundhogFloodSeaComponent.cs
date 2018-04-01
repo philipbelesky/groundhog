@@ -9,7 +9,7 @@ namespace groundhog
     public class groundhogSeaFloodComponent : GroundHog_Component
     {
         public groundhogSeaFloodComponent()
-            : base("Sea Flood Simulator", "Sea Floods", "Examine flooding levels along a surface from a tidal source", "Groundhog", "Hydro")
+            : base("Sea Flood Levels", "Sea Floods", "Examine flooding levels along a surface from a tidal source", "Groundhog", "Hydro")
         {
         }
 
@@ -41,13 +41,12 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Sea Level", "SL", "The simulated mean sea level", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Storm Surge Level", "SS", "The simulated mean storm surge level", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("High Neap", "HN", "The simulated mean high water neap level", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Low Neap", "LN", "The simulated mean low water neap level", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("High Spring", "HS", "The simulated mean high water spring level", GH_ParamAccess.item);
-            pManager.AddSurfaceParameter("Low Spring", "LS", "The simulated mean low water spring level", GH_ParamAccess.item);
-
+            pManager.AddPlaneParameter("Sea Level", "SL", "The simulated mean sea level", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Storm Surge Level", "SS", "The simulated mean storm surge level", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("High Neap", "HN", "The simulated mean high water neap level", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Low Neap", "LN", "The simulated mean low water neap level", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("High Spring", "HS", "The simulated mean high water spring level", GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Low Spring", "LS", "The simulated mean low water spring level", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -91,24 +90,18 @@ namespace groundhog
         {
             // TODO: test with negative years; fractional years...
             var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
-            var simulatedLevel = DATUM + EVENT_HEIGHT + Math.Pow(RISE, yearsElapased);
+            var simulatedLevel = DATUM + EVENT_HEIGHT + (RISE * yearsElapased);
             return simulatedLevel;
         }
 
-        private PlaneSurface CreateLevel(double eventHeight)
+        private Plane CreateLevel(double eventHeight)
         {
             // TODO: fix this
             var origin = new Point3d(0, 0, eventHeight);
             var xExtent = new Point3d(100, 0, eventHeight);
             var yExtent = new Point3d(0, 100, eventHeight);
             var plane = new Plane(origin, xExtent, yExtent);
-
-            var planedSurface = new PlaneSurface(plane,
-                new Interval(0, origin.DistanceTo(xExtent)),
-                new Interval(0, origin.DistanceTo(yExtent))
-            );
-
-            return planedSurface;
+            return plane;
         }
     }
 }
