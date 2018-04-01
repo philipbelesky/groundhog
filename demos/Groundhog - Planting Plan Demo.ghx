@@ -3771,7 +3771,7 @@
                     <item name="Optional" type_name="gh_bool" type_code="1">false</item>
                     <item name="ScrollRatio" type_name="gh_double" type_code="6">0</item>
                     <item name="SourceCount" type_name="gh_int32" type_code="3">0</item>
-                    <item name="UserText" type_name="gh_string" type_code="10">Definition prepared for Groundhog v0.7.0b and depends on components from that plugin. It is available for download at http://groundhog.la/
+                    <item name="UserText" type_name="gh_string" type_code="10">Definition prepared for Groundhog v0.7.1b and depends on components from that plugin. It is available for download at http://groundhog.la/
 
 Contact groundhog@philipbelesky.com for support or feedback
 

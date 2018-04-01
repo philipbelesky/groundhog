@@ -7,7 +7,7 @@
 - Version number to be iterated in `AssemblyInfo.cs`
 - Version number to be iterated in `groundhog.csproj`
 - Version number to be iterated in `groundhog readme.md`
-- Version number to be iterated in the `gh_string` of each definition; search string for *Definition prepared for Groundhog v0.7.0b and depends on*
+- Version number to be iterated in the `gh_string` of each definition; search string for *Definition prepared for Groundhog v0.7.1b and depends on*
 - Version number to be iterated in `package.json`
 - Release date/notes in `CHANGELOG.md`
 
