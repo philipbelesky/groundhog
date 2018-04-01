@@ -112,7 +112,15 @@ namespace groundhog
                     // Explode all polylines into their segments
                     var groupEdges = new List<Line>();
                     for (var i = 0; i < holdingListBounds[v].Count; i++)
-                        groupEdges.AddRange(holdingListBounds[v][i].GetSegments()); //REENABLE: THIS EXPLODES IT
+                    {
+                        if (holdingListBounds[v][i] != null) // Null when just a point? Or provided a blank data tree item?
+                        {
+                            var test = holdingListBounds[v][i];
+                            var segmentLengths = holdingListBounds[v][i].GetSegments();
+                            var segmentCounts = segmentLengths.Length;
+                            groupEdges.AddRange(holdingListBounds[v][i].GetSegments()); //REENABLE: THIS EXPLODES IT
+                        }
+                    }
 
                     var culledEdges = DeduplicateLines(groupEdges, TOLERANCE);
 
