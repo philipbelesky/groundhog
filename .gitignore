@@ -19,7 +19,9 @@ site/_data/components/
 
 # Build files/dirs
 plugin/bin/
-plugin/release/
+plugin/release/*.gha
+plugin/release/*.pdb
+plugin/release/*.pdf
 
 ################################################################################
 # Groundhog Reference Files
