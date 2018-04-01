@@ -29,6 +29,14 @@
   padding: 0.5rem 1rem; // Restore default padding for mobile menus
 }
 
+@media print
+{
+  .no-print, .no-print *
+  {
+    display: none !important;
+  }
+}
+
 //------------------------------------------------------------------------------
 // Homepage
 //------------------------------------------------------------------------------
