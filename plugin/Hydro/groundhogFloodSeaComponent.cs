@@ -9,7 +9,7 @@ namespace groundhog
     public class groundhogSeaFloodComponent : GroundHog_Component
     {
         public groundhogSeaFloodComponent()
-            : base("Sea Flood Simulator", "Sea Floods", "Examine flooding levels along a surface from a tidal source", "Groundhog", "Hydro")
+            : base("Sea Flood Levels", "Sea Floods", "Examine flooding levels along a surface from a tidal source", "Groundhog", "Hydro")
         {
         }
 
