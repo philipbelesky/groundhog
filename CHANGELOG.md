@@ -7,7 +7,7 @@
 - Better handle null items in FlowCatchment component
 - Flood components should produce more sensible results
 
-#### [0.7.1b] - 2018-03-25
+#### [0.7.0b] - 2018-03-25
 ###### Added
 - New MeshAspect component
 - Full website added along with basic examples and documentation for some components
