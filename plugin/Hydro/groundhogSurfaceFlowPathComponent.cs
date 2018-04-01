@@ -14,7 +14,7 @@ namespace groundhog
     public class groundhogSurfaceFlowComponent : GroundHog_Component
     {
         public groundhogSurfaceFlowComponent()
-            : base("Flow Simulation (Surface)", "Srf Flows", "Construct flow paths over a surface", "Groundhog", "Hydro")
+            : base("Flow Projection (Surface)", "Srf Flows", "Construct flow paths over a surface", "Groundhog", "Hydro")
         {
         }
 
