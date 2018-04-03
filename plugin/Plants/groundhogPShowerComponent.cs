@@ -19,7 +19,7 @@ namespace groundhog
         public List<Circle> allTrunks;
 
         public groundhogShowerComponent()
-            : base("Plant Appearance Simulator", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
+            : base("Plant Appearance", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
         {
         }
 
