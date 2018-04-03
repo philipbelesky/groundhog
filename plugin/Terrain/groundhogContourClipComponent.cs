@@ -13,7 +13,7 @@ namespace groundhog
     public class groundhogContourClipComponent : GroundHog_Component
     {
         public groundhogContourClipComponent()
-            : base("Contour Clip", "Contour Clip", "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
+            : base("Contour Clipper", "Contour Clip", "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
         {
         }
 

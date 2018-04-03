@@ -11,7 +11,7 @@ namespace groundhog
     {
 
         public groundhogPImportComponent()
-            : base("Species Attribute Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
+            : base("Species Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
         {
         }
 

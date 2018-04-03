@@ -12,7 +12,7 @@ namespace groundhog
     {
 
         public groundhogContourCheckGapsComponent()
-            : base("Contour Gap Fix", "Contour Gap Fix", "Checks if contours have gaps, and bridges them if so", "Groundhog", "Terrain")
+            : base("Contour Gap Fix", "Contour Gaps", "Checks if contours have gaps, and bridges them if so", "Groundhog", "Terrain")
         {
         }
 

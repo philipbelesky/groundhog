@@ -11,7 +11,7 @@ namespace groundhog
     {
 
         public groundhogContourCheckPlanarityComponent()
-            : base("Contour Planarity Fix", "Contour Planarity Fix", "Checks contours are planar and corrects them if not", "Groundhog", "Terrain")
+            : base("Contour Planarity Fix", "Contour Planarity", "Checks contours are planar and corrects them if not", "Groundhog", "Terrain")
         {
         }
 
