@@ -28,3 +28,7 @@
     > "C:\Program Files\Rhino WIP\System\Yak.exe" build
     > "C:\Program Files\Rhino WIP\System\Yak.exe" push groundhog-X.Y.Z.yak
     > "C:\Program Files\Rhino WIP\System\Yak.exe" search groundhog
+
+#### Github
+
+- Upload plugin zip
