@@ -35,3 +35,27 @@
        url("fonts/IBMPlexSans-Regular-Latin3.woff") format("woff");
   unicode-range: 'U+0102-0103, U+1EA0-1EF9, U+20AB';
 }
+
+code {
+  border-radius: 0.5em;
+}
+
+// Footnote styling
+.citation sup, .footnote-back {
+  background: $background;
+  border-radius: 0.5em;
+  padding: 0.1rem 0.30rem;
+  margin-right: 2px;
+  font-size: 66%;
+  font-weight: bold;
+}
+
+// Override the styling from colors to ensure footnotes' text matches body
+.footnotes {
+  font-weight: bold;
+
+  li p {
+    color: $text;
+    font-weight: normal;
+  }
+}
