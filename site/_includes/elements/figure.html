@@ -1,0 +1,5 @@
+<figure class="gh-figure"><a href="{% asset '{{ include.image }}' @path %}" target="_blank">{% asset '{{ include.image }}' @pic srcset:max-width='2688' srcset:max-width='1344' srcset:max-width='768' srcset:max-width='640' %}{% assign paths=include.image|split: '/' %}</a>
+{% if include.caption or include.credit %}<figcaption>
+{% if include.caption %}<p>{{ include.caption }}</p>{% endif %}
+{% if include.credit %}<em>{{ include.credit }}</em>{% endif %}
+</figcaption>{% endif %}</figure>
