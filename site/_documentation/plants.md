@@ -11,9 +11,7 @@ If considered just in terms of their CAD representation, planting design appears
 
 It is regrettable that in both digital and analogue mediums the typical representations used poorly reflect their subject matter. Depictions of vegetation are rarely spatially explicit, and often rely on fixed and idealised averages that do not reflect the general nature, or the actual reality, of specific species.[@Elkin:2017ee 60-61][@Raxworthy:2013wa 113] A plan, once planted, will reach the 'mature' state it depicts after years if not decades. This mature state itself is itself an abstraction, as each plant's dimensions vary according to the localised condition that propel or constrain individual growth.
 
-![](/assets/documentation/plants/1.jpg)
-
-![Parametric methods of planting design can manage vast quantities of individual species distributed across a site and evaluate how they change over time. *Philip Belesky, for http://groundhog.la*](/assets/documentation/plants/2.jpg)
+![Parametric methods of planting design can manage vast quantities of individual species distributed across a site and evaluate how they change over time. *Philip Belesky, for http://groundhog.la*](/assets/documentation/plants/1.jpg)
 
 While many options exist for visualising planting plans with a high degree of fidelity (presuming the correct models for a given species are available) these are typically deployed after the concept design stage, given that they are difficult to implement and modify. As a result they are often ill-suited to design exploration, but useful for evaluating aesthetics.
 
