@@ -14,6 +14,8 @@ Install dependencies using:
     bundler install
     npm install
 
+`imagemagick` will also need to be installed (i.e. with homebrew)
+
 ## Serving
 
 To start a local copy of the website, use:
