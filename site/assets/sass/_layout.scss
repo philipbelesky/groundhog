@@ -22,17 +22,17 @@
 }
 
 .navbar-end .navbar-item {
-  color: #666;
+  color: $dull;
 }
 
 .navbar-menu.is-active .navbar-item {
-  padding: 0.5rem 1rem; // Restore default padding for mobile menus
+  padding: .5rem 1rem; // Restore default padding for mobile menus
 }
 
 @media print
 {
-  .no-print, .no-print *
-  {
+  .no-print,
+  .no-print * {
     display: none !important;
   }
 }
@@ -54,8 +54,8 @@
 }
 
 .masonry-grid {
-  margin-top: -20px;
   margin-bottom: 50px;
+  margin-top: -20px;
 }
 
 .masonry-item p {
@@ -67,9 +67,10 @@
   .title {
     @extend .is-size-5;
   }
+
   p {
-    margin-top: 4.5rem;
     @extend .is-size-6;
+    margin-top: 4.5rem;
   }
 }
 
@@ -88,8 +89,8 @@
   }
 
   p {
-    margin-top: 9rem;
     @extend .is-size-5;
+    margin-top: 9rem;
   }
 }
 
@@ -104,8 +105,8 @@
 // Sticky Footer
 .footer-container {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .footer-pushdown {
