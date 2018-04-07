@@ -28,8 +28,9 @@ namespace groundhog
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
             pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Face Slope Vectors", "V", "The direction to the lowest points of each face", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Slope Angles", "A", "The angle of the slope", GH_ParamAccess.list);
+            pManager.AddVectorParameter("Face Vectors", "V", "The direction to the lowest points of each face", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Slopes °", "A", "The slope of each face, as an angle", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Slopes %", "P", "The slope of each face, as a percentile", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -43,11 +44,20 @@ namespace groundhog
             var subDirections = TerrainCalculations.GetDirections(subMeshes, subCentres);
             var subAngles = GetAngles(MESH);
 
+            // Calculate ratios from angles
+            var subPercentiles= new List<double>();
+            foreach (var angle in subAngles)
+            {
+                var radians = Math.PI * angle / 180.0;
+                subPercentiles.Add(Math.Tan(radians) * 100);
+            }
+
             // Assign variables to output parameters
             DA.SetDataList(0, subMeshes);
             DA.SetDataList(1, subCentres);
             DA.SetDataList(2, subDirections);
             DA.SetDataList(3, subAngles);
+            DA.SetDataList(4, subPercentiles);
         }
 
         private List<double> GetAngles(Mesh MESH)
