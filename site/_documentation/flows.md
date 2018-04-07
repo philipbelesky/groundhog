@@ -17,17 +17,14 @@ The process provides degrees of flexibility. By accepting any given set of `Poin
 
 The `FlowPath` component takes two forms a `SurfaceFlowPath` and a `MeshFlowPath` depending on the geometric type of the 'landscape' you want to test.
 
-{% assign component = site.data.components["SurfaceFlowPath"] %}
-{% include elements/component.html %}
-{% assign component = site.data.components["MeshFlowPath"] %}
-{% include elements/component.html %}
+{% include elements/component.html title='SurfaceFlowPath' %}
+{% include elements/component.html title='MeshFlowPath' %}
 
 Once calculated, these flow paths can then be used to support further analysis of the landscape's hydrological features.
 
 The first component for this is `FlowCatchment`. It uses the collection of flow paths (knowing their end points) to identify different catchment areas. That is to say, it classifies each flow paths into groups depending upon which paths finish or 'drain' into the same approximate location. This grouping is visually represented using a Voronoi diagram with each cell centred on the original `Pts` used as the 'start' of each path (adjacent cells of the same group will be merged). Additionally, the different catchment groups are provided with a distinct colour code and its cells/paths are output as groups so they can be visualised or analysed further.
 
-{% assign component = site.data.components["FlowCatchment"] %}
-{% include elements/component.html %}
+{% include elements/component.html title='FlowCatchment' %}
 
 ![](/assets/documentation/flows/model.jpg)
 
