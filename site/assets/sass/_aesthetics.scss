@@ -34,25 +34,27 @@ em {
 // Elements
 //------------------------------------------------------------------------------
 
-.content figure {
+.content figure.gh-figure {
   margin-left: 0;
   margin-right: 0;
 
   figcaption {
     font-style: normal;
     line-height: 1.33;
-    padding: 1rem 3rem 0;
+    padding: 0.5rem 3rem 0;
     // Use the emphasis part as a proxy for the attribution
     em {
       @extend .is-size-7;
       display: block;
-      margin: 5px auto 0;
-      max-width: 66%;
+      margin: 0 auto;
+    }
+    p + em {
+      margin-top: -.5rem;
     }
   }
 }
 
-.content figure + figure {
+.content figure.gh-figure + figure.gh-figure {
   margin-top: -1.5em; // Subsequent images have tight spacing
 }
 
