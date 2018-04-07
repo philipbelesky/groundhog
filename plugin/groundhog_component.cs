@@ -24,9 +24,9 @@ namespace groundhog
             // Make it really obvious when running from develop
             #if DEBUG
             this.Message = hogNiceVersion.ToString() + " dev";
-            #endif
+#endif
 
-            #if !DEBUG
+#if !DEBUG
             if (Globals.Logged == false)
             {
 
@@ -36,7 +36,7 @@ namespace groundhog
                 ravenClient.Tags["Language"] = CultureInfo.InstalledUICulture.EnglishName;
                 ravenClient.Tags["System"] = System.Environment.OSVersion.ToString();
                 ravenClient.Tags["Time"] = TimeZoneInfo.Local.StandardName;
-                ravenClient.Tags["Groundhog"] = hogNiceVersion
+            ravenClient.Tags["Groundhog"] = hogNiceVersion;
                 ravenClient.Tags["Grasshopper"] = Grasshopper.Versioning.Version.ToString();
 
                 // Rhinoceros (seems to fail on rhino for Mac?)
@@ -60,7 +60,7 @@ namespace groundhog
                 // Set logging global
                 Globals.Logged = true;
             }
-            #endif
+#endif
 
             return base.Read(reader);
         }
