@@ -2,7 +2,7 @@
 
 #### Version Numbers
 
-- Version number to be iterated in `landing_home`
+- Version number to be iterated in `plugin.md`
 - Version number to be iterated in `download.html`
 - Version number to be iterated in `AssemblyInfo.cs`
 - Version number to be iterated in `groundhog.csproj`
@@ -28,3 +28,7 @@
     > "C:\Program Files\Rhino WIP\System\Yak.exe" build
     > "C:\Program Files\Rhino WIP\System\Yak.exe" push groundhog-X.Y.Z.yak
     > "C:\Program Files\Rhino WIP\System\Yak.exe" search groundhog
+
+#### Github
+
+- Upload plugin zip

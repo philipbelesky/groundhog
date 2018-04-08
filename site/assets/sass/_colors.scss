@@ -5,41 +5,59 @@
 .gh-plugin {
   @extend .is-dark;
 }
+
 .gh-documentation {
   @extend .is-danger;
 }
+
 .gh-techniques {
   @extend .is-info;
 }
+
 .gh-projects {
   @extend .is-primary;
 }
+
 .gh-about {
   @extend .is-link;
 }
 
 .gh-plugin-content {
-  a, code {
+  a,
+  code,
+  .footnotes {
     color: darken($plugin, 15%);
   }
 }
+
 .gh-documentation-content {
-  a, code {
+  a,
+  code,
+  .footnotes {
     color: darken($docs, 15%);
   }
 }
+
 .gh-techniques-content {
-  a, code {
+  a,
+  code,
+  .footnotes {
     color: darken($techniques, 15%);
   }
 }
+
 .gh-projects-content {
-  a, code {
+  a,
+  code,
+  .footnotes {
     color: darken($projects, 15%);
   }
 }
+
 .gh-about-content {
-  a, code {
+  a,
+  code,
+  .footnotes {
     color: darken($about, 15%);
   }
 }
@@ -53,39 +71,48 @@
   &.gh-plugin-text {
     color: $plugin;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background: $plugin;
       color: $white;
     }
   }
+
   &.gh-documentation-text {
     color: $docs;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background: $docs;
       color: $white;
     }
   }
+
   &.gh-techniques-text {
     color: $techniques;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background: $techniques;
       color: $white;
     }
   }
+
   &.gh-projects-text {
     color: $projects;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background: $projects;
       color: $white;
     }
   }
+
   &.gh-about-text {
     color: $about;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background: $about;
       color: $white;
     }

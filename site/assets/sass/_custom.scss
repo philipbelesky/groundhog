@@ -20,9 +20,13 @@ $info: $techniques;
 $projects: rgb(246, 112, 140);
 $primary: $projects;
 
+// Dull; used by the items in the top-right menu
+$dull: rgb(155, 155, 155);
+
 // Import IBM Plex Styles Defaults
 $family-primary: 'ibm-plex-sans'; // The main body font
 $family-heading: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+$family-monospace: "Menlo", monospace;
 $text-strong: rgb(90, 90, 90); // Heading text color
 
 // Customise Typography

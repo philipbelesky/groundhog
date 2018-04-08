@@ -15,7 +15,8 @@ tags:
 - vegetation
 ---
 
-![*Image via MBP website's project page (http://micheldesvignepaysagiste.com/en/keio-university-慶應義塾)*](/assets/projects/keio-university-roof-garden/1.jpg)
+{% include elements/figure.html image='keio-university-roof-garden/1.jpg' credit="Image via MBP website's project
+ page (http://micheldesvignepaysagiste.com/en/keio-university-慶應義塾)" %}
 
 The most visible impact of computational design techniques on the design of landscapes is often in the formal treatment of 'hard' surfaces — street furniture, paving elements, pavilions, and other items that can be manufactured specifically for a particular project. As manufactured and constructed artefacts, these elements can draw from the design and fabrication techniques typically developed in other disciplines.
 
@@ -25,10 +26,9 @@ The resulting aesthetic is one of a smoothly differentiated surface with semi-en
 
 > "One slips into this space, drifting along on the feelings aroused by the water and the light, playing on the same logic. There is no clear separation here (nor was there in Noguchi's garden) between voids and solids. This composition plays with successive planes and textures of variable densities. The even punctuation of the ground gives cadence to these variations. This is a small structure that organizes textures, porosities, densities, and transparencies—the material and the complex spaces, just as in a natural landscape." [@Corner:2009jg 175]
 
-![The different types of granite slab in terms of their dimensions and appearance in the resulting design. *Image via 'Intermediate Natures, The Landscapes of Michel Desvigne' (2009) p172*](/assets/projects/keio-university-roof-garden/2.jpg)
+{% include elements/figure.html image='keio-university-roof-garden/2.jpg' title='The different types of granite slab in terms of their dimensions and appearance in the resulting design.' credit='Image via "Intermediate Natures, The Landscapes of Michel Desvigne" (2009) p172' %}
 
 The project's goals are a productive contradiction: a desire for a roof garden — a tightly bounded and highly sculpted landscape — that at the same time displays some of the rich variety and dynamism that characterise a traditional Japanese garden. The definition and model provided also demonstrate some of the capacity for variation inherent to the parametric model itself, as basic variables (such as tile depth,  dimensions, planting palette, etc) are easily modified. At the same time the use of the interpolated image map allows for a more expressive mode whereby the tile pattern can be altered by manipulating the source image by applying either filter effects (i.e. tweaking the overall brightness or contrast) or through specific edits (i.e. using brush tools in Photoshop).
 
-![](/assets/projects/keio-university-roof-garden/model.png)
-
-![Grasshopper definition recreating the basic pattern effect and planting distribution. *Philip Belesky, for http://groundhog.la*](/assets/projects/keio-university-roof-garden/definition.png)
+{% include elements/figure.html image='keio-university-roof-garden/model.png' %}
+{% include elements/figure.html image='keio-university-roof-garden/definition.png' caption='Grasshopper definition recreating the basic pattern effect and planting distribution.' credit='Philip Belesky, for http://groundhog.la' %}

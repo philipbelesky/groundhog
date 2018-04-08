@@ -30,7 +30,7 @@ namespace groundhog
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
             pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Aspect Angles", "A", "The angle of the slope", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Aspects", "A", "The aspect of the slope (measured in degrees)", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
