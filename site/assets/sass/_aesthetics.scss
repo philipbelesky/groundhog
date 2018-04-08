@@ -4,7 +4,12 @@
 
 .content {
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: $family-heading;
     font-weight: 800;
   }
@@ -14,9 +19,10 @@
   }
 }
 
-.button, .message {
-  font-weight: 600;
+.button,
+.message {
   font-family: $family-heading;
+  font-weight: 600;
 }
 
 // Don't load an extra web font just for italics
@@ -28,38 +34,41 @@ em {
 // Elements
 //------------------------------------------------------------------------------
 
-.content figure {
+.content figure.gh-figure {
   margin-left: 0;
   margin-right: 0;
 
   figcaption {
-    font-family: $family-heading;
-    padding-top: 1rem;
     font-style: normal;
+    line-height: 1.33;
+    padding: 0.5rem 3rem 0;
     // Use the emphasis part as a proxy for the attribution
     em {
       @extend .is-size-7;
       display: block;
       margin: 0 auto;
-      max-width: 66%;
+    }
+    p + em {
+      margin-top: -.5rem;
     }
   }
 }
 
-.content figure + figure {
+.content figure.gh-figure + figure.gh-figure {
   margin-top: -1.5em; // Subsequent images have tight spacing
 }
 
 .gh-component {
-  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   overflow: scroll; // Blown out wrappings can mess up entire page
 
   p {
     margin-top: 1rem;
   }
 
-  .level, .table {
+  .level,
+  .table {
     margin-bottom: 0;
   }
 

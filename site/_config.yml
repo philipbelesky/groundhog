@@ -84,6 +84,14 @@ jekyll_tidy:
   compress_html: false
   ignore_env: false
 
+# Jekyll-Assets management
+assets:
+  sources:
+    - assets/documentation
+    - assets/plugin
+    - assets/projects
+    - assets/techniques
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

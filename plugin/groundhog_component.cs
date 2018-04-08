@@ -18,10 +18,17 @@ namespace groundhog
 
         public override bool Read(GH_IO.Serialization.GH_IReader reader)
         {
+            var hogVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            var hogNiceVersion = hogVersion.Major.ToString() + '.' + hogVersion.Minor.ToString() + '.' + hogVersion.Build.ToString();
 
+            // Make it really obvious when running from develop
+            #if DEBUG
+            this.Message = hogNiceVersion.ToString() + " dev";
+#endif
+
+#if !DEBUG
             if (Globals.Logged == false)
             {
-                var hogVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
                 // Setup RavenClient
                 var ravenClient = new RavenClient(SentryKey);
@@ -29,7 +36,7 @@ namespace groundhog
                 ravenClient.Tags["Language"] = CultureInfo.InstalledUICulture.EnglishName;
                 ravenClient.Tags["System"] = System.Environment.OSVersion.ToString();
                 ravenClient.Tags["Time"] = TimeZoneInfo.Local.StandardName;
-                ravenClient.Tags["Groundhog"] = hogVersion.Major.ToString() + '.' + hogVersion.Minor.ToString() + '.' + hogVersion.Build.ToString();
+            ravenClient.Tags["Groundhog"] = hogNiceVersion;
                 ravenClient.Tags["Grasshopper"] = Grasshopper.Versioning.Version.ToString();
 
                 // Rhinoceros (seems to fail on rhino for Mac?)
@@ -48,18 +55,12 @@ namespace groundhog
                 {
                     Level = SharpRaven.Data.ErrorLevel.Info
                 };
-                #if !DEBUG
                     ravenClient.Capture(sentryEvent);
-                #endif
 
                 // Set logging global
-                Console.Write("Logged " + logMessage);
                 Globals.Logged = true;
             }
-            else
-            {
-                Console.Write("Already logged");
-            }
+#endif
 
             return base.Read(reader);
         }
