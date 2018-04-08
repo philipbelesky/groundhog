@@ -1,0 +1,39 @@
+---
+title:      Botanic Gardens of Barcelona
+date:       18-01-31
+published:  true
+excerpt:    Facets form a mosaic that stretches across a steep slope and structures a tailored planting plan.
+thumbnail:  thumbnail.png
+year:       1999 (constructed)
+location:   Barcelona, Spain
+designers:  Carlos Ferrater, Josep Lluís Canosa, Bet Figueras, Artur Bossy, Joan Pedrola
+files:      true
+files_text: model and definition that demonstrating a partial recreation of this project
+tags:
+---
+
+The *Botanic Gardens of Barcelona* evidence an early example a sophisticated model of  natural systems can help generate, test, and provide feedback upon the complex design criteria, such as grading and planting, that define the key features of a landscape  design.
+
+{% include elements/figure.html image='botanical-gardens-of-barcelona/2.jpg' %}
+{% include elements/figure.html image='botanical-gardens-of-barcelona/3.jpg' caption='An irregular triangular grid spreads across the garden, organising the planting typologies and path network.' credit='Image from Ferrater, Carlos, and Borja Ferrater. "Synchronizing Geometry". Actar, 2016.' %}
+
+Designed in 1989, the gardens were the product of a collaboration between Bet Figueras (landscape architect), Carles Ferrater and Josep Lluís Canosa (architects), Joan Pedrola (biologist) and Artur Bossy (horticulturist). Located on a steep site in Barcelona the design proposed an irregular triangular grid that spread across most of the site. The grid structure was in part developed to avoid the need for major earthworks, as the triangular geometry could closely follow the existing topography by keeping two of each triangle's vertices at the same elevation but allowing the third to shift vertically to match the pre-existing slope.[@Preziosi:2004vf 116] The resulting topography, paths, and retaining walls create a highly expressive and architectonic landscape that render the circulation experience as that of a faceted network[@Ferrater:2016ta 19] as paths split and converge across the planar surfaces.
+
+{% include elements/figure.html image='botanical-gardens-of-barcelona/5.jpg' caption="The configuration of each of the facet's vertices creates a number of distinct planting conditions correspond to the conditions of various geographic areas represented in the garden's vegetation." credit='Image from Ferrater, Carlos, and Borja Ferrater. "Synchronizing Geometry". Actar, 2016.' %}
+
+While the formalism of the triangular grid is striking, its design intent is directly tied to the project's key program: to showcase botanical collections drawn from a range of regions whose Mediterranean climates match that of Catalonia. To aid this goal the structure of the grid provides a further function as each facet creates a unique (but internally uniform) set of characteristics according to their differences in slope, solar orientation, and irrigation integration.[@Ferrater:2016ta 19] The diversity of conditions present across then grid then informs the planting design by allowing for the pairing of species from each geographic region to the corresponding conditions on each facet that best mimic the "ideal growing conditions in the plants' native setting."[@Hansen:2011tka] The mosaics of the grid allow for a locally-coherent but globally-diverse distribution of vegetation clusters across the landscape that would develop specific adjacencies that 'allow visitors to compare the various species and note the remarkable phenomena of convergence'[@Preziosi:2004vf 116] while presenting a diversity of planted form and texture that "mitigate the excessive virtuality"[@Preziosi:2004vf 117] of the facets.
+
+{% include elements/figure.html image='botanical-gardens-of-barcelona/4.jpg' caption="Images produced by the computer program developed to assign species typologies across each of the grid's facets." credit='Image from Ferrater, Carlos, and Borja Ferrater. "Synchronizing Geometry". Actar, 2016.' %}
+
+Software developed for a small personal computer guided the process of matching the vegetation of each particular region to each particular facet by calculating the environmental characteristics of each triangular plane and automatically selecting the region whose species best fit within the identified profile.[@Ferrater:2016ta 19] Outsourcing this otherwise-tedious task of topographic analysis and species allocation to an automated process allowed the designers to "obtain what we believed to be the most important factor: control of the forms of the future landscape";[@Preziosi:2004vf 117] presumably because such a tool allowed for faster and more precise feedback loops between different configurations of the topography and facets that then defined the distributions of plant species. At the same time the software helped enable inter-disciplinary dialogue by making the relationship between the landscape features and the biological or horticultural implications of those changes explicit — something that had been "impossible in the early days of the project."[@Ferrater:2016ta 19]
+
+{% include elements/figure.html image='botanical-gardens-of-barcelona/7.jpg' caption='The conscious clustering of facets with similar characteristics creates adjacencies within the plan that juxtapose the different geographic regions and vegetation types within each of those regions.' credit='Image from Ferrater, Carlos, and Borja Ferrater. "Synchronizing Geometry". Actar, 2016.' %}
+
+While the power of computer hardware has increased exponentially since 1989 the digital model developed for the Gardens illustrates that "the complex questions regarding the design of the garden"[@Ferrater:2016ta 117] don't necessitate large amounts of complexity in terms of computational rules or power. The natural systems that define the 'micro-ecology' of each of the planted facets are innumerably complex in their exactitude, but for the purposes of designing viable distributions of vegetation the model only needed to include a (relatively) small number of salient parameters, metrics, and rules. The model was able to provide clear feedback on how each design iteration performed because it had such a clear set of parameters (the spatial grid and planting palette) with clearly-defined relationships between the formal and ecological systems that define the landscape.
+
+Recreating the digital model used to design the *Barcelona Botanic Gardens* is relatively easy to do using modern computer-aided design platforms. Yet, the project is still a seemingly-rare example of how computational methods can directly generate distinctly landscape architectural design features. As the similarly-faceted forms of the *Flowing Gardens* project illustrate, the formal epiphenomenon of digital modelling are easily identified and are often stated as having been shaped (indirectly) by landscape conditions and logics. Yet direct computationally-enabled ties between landscape forms and landscape logics — that is to say a generative processes that mediates between the two — remain novel. Many techniques exist for analysing the different aspects of a landscape in isolation[^iso] but part of the ongoing novelty of the *Barcelona Botanic Gardens* is that it developed a more holistic model that could incorporate the otherwise-isolated aspects of landscape form, landscape analysis, and planting design into a cohesive set of procedures that could help to generate (rather than just validate) a design.
+
+{% include elements/figure.html image='botanical-gardens-of-barcelona/model.jpg' %}
+{% include elements/figure.html image='botanical-gardens-of-barcelona/definition.png' caption='Grasshopper definition recreating the basic analysis of the triangular grid and allocates plants accordingly.' credit='Philip Belesky, for http://groundhog.la' %}
+
+[^iso]: For instance determining surface water flows or solar gain over a given topographic surface.
