@@ -43,27 +43,14 @@ layout: default
   <div class="container">
     <div class="columns masonry-grid gh-home-grid">
 
-      {% assign imagePath = '/assets/plugin/thumbnail.png' %}
-      {% assign color = 'rgba(114, 227, 210, 0.90)' %}
-      <div class="column is-one-third masonry-item">
-        <a class="tile notification is-vertical is-child gh-plugin"
-           href="{{ site.baseurl }}{% link plugin.md %}"
-           style="background: linear-gradient({{ color }}, {{ color }}),
-                  50% 50% url('{{ imagePath | absolute_url }}');">
-          <div class="is-white is-pulled-right">
-            <i data-feather="package" title="plugin"></i>
-          </div>
-          <h4 class="title is-size-5">Version 0.7.1b</h4>
-          <p>Download the latest version of the Groundhog plugin.</p>
-        </a>
-      </div>
+      {% assign item = site.pages[8] %}
+      {% include tile.html span='is-one-third' collection='plugin' %}
 
       {% assign everything = site.documentation | concat: site.techniques | concat: site.projects %}
       {% assign sorted = everything | sort: 'date' | reverse | limit:10 %}
-      {% assign span = 'is-one-third' %}
       {% for item in sorted %}
         {% if item.published != false or site.unpublished == true %}
-          {% include tile.html %}
+          {% include tile.html span='is-one-third' %}
         {% endif %}
       {% endfor %}
 

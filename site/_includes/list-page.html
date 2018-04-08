@@ -1,9 +1,8 @@
 <div class="columns masonry-grid gh-page-grid">
 
-  {% assign span = 'is-half' %}
   {% for item in items %}
     {% if item.published != false or site.unpublished == true %}
-      {% include tile.html %}
+      {% include tile.html span = 'is-half' %}
     {% endif %}
   {% endfor %}
 
