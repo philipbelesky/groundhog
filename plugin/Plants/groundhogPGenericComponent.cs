@@ -31,7 +31,7 @@ namespace groundhog
             pManager.AddGenericParameter("Tree", "T", "Generic Tree (placeholder data)", GH_ParamAccess.item);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             var csvPlantSpecies = new List<PlantSpecies>();
 

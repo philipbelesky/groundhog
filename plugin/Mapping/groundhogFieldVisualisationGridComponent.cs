@@ -34,7 +34,7 @@ namespace groundhog
             pManager.AddNumberParameter("Parameters", "P", "Grid Parameters", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             Surface gridRawField = null;

@@ -38,7 +38,7 @@ namespace groundhog
             pManager.AddCurveParameter("Joins", "J", "The joins used to fill in the gaps (for reference)", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             var ALL_CONTOURS = new List<Curve>();

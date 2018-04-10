@@ -33,7 +33,7 @@ namespace groundhog
             pManager.AddNumberParameter("Face Slopes %", "P", "The slope of each face, as a percentile", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             var MESH = default(Mesh);
             // Access and extract data from the input parameters individually

@@ -41,7 +41,7 @@ namespace groundhog
             pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each of the flow points into a path", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             var FLOW_SURFACE = default(Surface);

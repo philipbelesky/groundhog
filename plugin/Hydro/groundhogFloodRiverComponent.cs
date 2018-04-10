@@ -44,7 +44,7 @@ namespace groundhog
 
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for output parameters
             double DATUM, YEAR, RISE, SURGE;
