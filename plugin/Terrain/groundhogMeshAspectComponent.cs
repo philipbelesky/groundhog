@@ -33,7 +33,7 @@ namespace groundhog
             pManager.AddNumberParameter("Face Aspects", "A", "The aspect of the slope (measured in degrees)", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             var MESH = default(Mesh);
             var ASPECT = default(Vector3d);

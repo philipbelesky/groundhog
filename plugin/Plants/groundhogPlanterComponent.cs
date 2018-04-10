@@ -32,7 +32,7 @@ namespace groundhog
     //        pManager.AddPointParameter("Locations", "L", "The locations of the resulting plant objects", GH_ParamAccess.list);
     //    }
 
-    //    protected override void SolveInstance(IGH_DataAccess DA)
+    //    protected override void GroundHogSolveInstance(IGH_DataAccess DA)
     //    {
 
     //    }

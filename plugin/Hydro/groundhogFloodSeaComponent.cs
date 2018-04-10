@@ -49,7 +49,7 @@ namespace groundhog
             pManager.AddPlaneParameter("Low Spring", "LS", "The simulated mean low water spring level", GH_ParamAccess.item);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for output parameters
             double DATUM, YEAR, RISE, SURGE;
