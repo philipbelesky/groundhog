@@ -69,11 +69,15 @@ em {
 
   .level,
   .table {
-    margin-bottom: 0;
+    margin-bottom: -10px;
   }
 
   .level-item:last-child {
     margin-right: 0;
+  }
+
+  .feather {
+    margin: 0 0 -6px 0;
   }
 
 }
