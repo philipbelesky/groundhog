@@ -1,5 +1,13 @@
 ## Changelog
 
+#### [0.7.3b] -
+###### Added
+- Exception reporting
+- Yak package
+
+###### Changed
+- MeshSlope component will now output slopes as a percentage as well as an angle
+
 #### [0.7.1b] - 2018-04-01
 
 ###### Fixed
