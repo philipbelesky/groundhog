@@ -7,6 +7,7 @@
 
 ###### Changed
 - MeshSlope component will now output slopes as a percentage as well as an angle
+- Flow components will now compute a sensible fidelity step if not given an exact distance
 
 #### [0.7.1b] - 2018-04-01
 
