@@ -28,7 +28,8 @@ namespace groundhog
         {
             pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as a mesh) for the flow calculation", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths (will be projected on to the mesh)", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 1000.0);
+            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 0);
+            pManager[2].Optional = true;
             pManager.AddIntegerParameter("Steps", "L", "A limit to the number of flow iterations. Leave unset or to 0 for an unlimited set of iterations", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
             pManager.AddBooleanParameter("Thread", "T", "Whether to multithread the solution (this can speed up long calculations)", GH_ParamAccess.item, false);
@@ -59,8 +60,7 @@ namespace groundhog
 
             if (FLOW_FIDELITY == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Flow fidelity cannot be 0");
-                return;
+                FLOW_FIDELITY = FlowCalculations.getSensibleFidelity(FLOW_ORIGINS);
             }
 
             var startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading
