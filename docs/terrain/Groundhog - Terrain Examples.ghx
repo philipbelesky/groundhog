@@ -26,10 +26,10 @@
             <item name="Preview" type_name="gh_string" type_code="10">Shaded</item>
             <item name="PreviewMeshType" type_name="gh_int32" type_code="3">1</item>
             <item name="PreviewNormal" type_name="gh_drawing_color" type_code="36">
-              <ARGB>255;255;141;101</ARGB>
+              <ARGB>200;255;141;101</ARGB>
             </item>
             <item name="PreviewSelected" type_name="gh_drawing_color" type_code="36">
-              <ARGB>255;255;141;101</ARGB>
+              <ARGB>200;255;141;101</ARGB>
             </item>
           </items>
         </chunk>
@@ -96,7 +96,7 @@
                   <items count="8">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">6a318b33-85cd-446e-b160-f04a59647734</item>
@@ -121,7 +121,7 @@
                   <items count="8">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">702224ee-d504-4bad-9a92-cd52d71ce551</item>
@@ -146,7 +146,7 @@
                   <items count="9">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">6225d96c-ae96-4591-9eb6-99b605f5e65c</item>
@@ -172,7 +172,7 @@
                   <items count="8">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">559441dc-5ce4-43a4-be6c-c872389ba0d7</item>
@@ -197,7 +197,7 @@
                   <items count="9">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">3fb29611-59cf-4ccf-b6b3-cef38ca6e8f7</item>
@@ -223,7 +223,7 @@
                   <items count="14">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">2b989c71-e0c5-48b3-b426-af21d94d74f3</item>
@@ -254,7 +254,7 @@
                   <items count="19">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">0875b895-22cd-456e-a796-86e1652da2d3</item>
@@ -290,7 +290,7 @@
                   <items count="8">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">9d6f88fc-2e96-4d20-a399-152de59eb1e1</item>
@@ -315,7 +315,7 @@
                   <items count="12">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">e41a9e58-9527-4c6a-adf2-7532d76a06c7</item>
@@ -344,7 +344,7 @@
                   <items count="8">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">e905b779-deb1-4aa6-bdc7-675d335f3e17</item>
@@ -369,7 +369,7 @@
                   <items count="10">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">5794eb89-9276-4083-9abd-7c0d1100684a</item>
@@ -7612,7 +7612,7 @@
                   <items count="9">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">e3b6ee75-b38c-4a7d-8c2c-6ad3d2362282</item>
@@ -7739,8 +7739,8 @@ This definition is licensed under the terms of the GPL v3 https://opensource.org
                       <chunks count="1">
                         <chunk name="Font">
                           <items count="2">
-                            <item name="Family" type_name="gh_string" type_code="10">Courier New</item>
-                            <item name="Size" type_name="gh_single" type_code="5">4</item>
+                            <item name="Family" type_name="gh_string" type_code="10">Microsoft Sans Serif</item>
+                            <item name="Size" type_name="gh_single" type_code="5">8</item>
                           </items>
                         </chunk>
                       </chunks>
@@ -8811,7 +8811,7 @@ This definition is licensed under the terms of the GPL v3 https://opensource.org
                   <items count="16">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">f6f24375-95b8-47ff-8490-a080fbd4c85b</item>
