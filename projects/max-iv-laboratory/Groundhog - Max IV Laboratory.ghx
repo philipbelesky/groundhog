@@ -26,10 +26,10 @@
             <item name="Preview" type_name="gh_string" type_code="10">Shaded</item>
             <item name="PreviewMeshType" type_name="gh_int32" type_code="3">1</item>
             <item name="PreviewNormal" type_name="gh_drawing_color" type_code="36">
-              <ARGB>255;255;141;101</ARGB>
+              <ARGB>200;255;141;101</ARGB>
             </item>
             <item name="PreviewSelected" type_name="gh_drawing_color" type_code="36">
-              <ARGB>255;255;141;101</ARGB>
+              <ARGB>200;255;141;101</ARGB>
             </item>
           </items>
         </chunk>
@@ -86,7 +86,7 @@
                   <items count="9">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">df6853c7-22af-465d-af02-3a11d83f3a82</item>
@@ -112,7 +112,7 @@
                   <items count="15">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">ecada218-1bbf-4449-b4c3-aa007d859ef1</item>
@@ -144,7 +144,7 @@
                   <items count="15">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">cb4bd6f9-9572-4805-9c0e-aebe0f138e63</item>
@@ -176,7 +176,7 @@
                   <items count="16">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">12d7b48e-1fea-4fc7-82b9-f1af532cd752</item>
@@ -209,7 +209,7 @@
                   <items count="27">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">aebf672a-ad74-4a3f-85d6-e0e774b44ab0</item>
@@ -253,7 +253,7 @@
                   <items count="17">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">d7295e5f-8c92-458e-a2a8-e63131417c62</item>
@@ -6986,7 +6986,7 @@ Bezier curve evaluator</item>
                   <items count="9">
                     <item name="Border" type_name="gh_int32" type_code="3">1</item>
                     <item name="Colour" type_name="gh_drawing_color" type_code="36">
-                      <ARGB>255;255;141;101</ARGB>
+                      <ARGB>200;255;141;101</ARGB>
                     </item>
                     <item name="Description" type_name="gh_string" type_code="10">A group of Grasshopper objects</item>
                     <item name="ID" index="0" type_name="gh_guid" type_code="9">30207b9e-1f99-4b26-8f79-4fc90c693cfb</item>
