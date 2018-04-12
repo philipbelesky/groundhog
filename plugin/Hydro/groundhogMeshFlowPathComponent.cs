@@ -28,7 +28,7 @@ namespace groundhog
         {
             pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as a mesh) for the flow calculation", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths (will be projected on to the mesh)", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute. If not specified or set to 0 a (hopefully) sensible step size will be calculated.", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
             pManager.AddIntegerParameter("Steps", "L", "A limit to the number of flow iterations. Leave unset or to 0 for an unlimited set of iterations", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;

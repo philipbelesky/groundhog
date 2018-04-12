@@ -15,15 +15,19 @@ public static class FlowCalculations
     public static double getSensibleFidelity(List<Point3d> flowPathPoints)
     {
         // Measure distances between each of the points
-        double[] distances = new double[flowPathPoints.Count];
+        List<double> distances = new List<double>();
         for (var i = 1; i < flowPathPoints.Count; i++)
         {
-            distances[i - 1] = flowPathPoints[0].DistanceTo(flowPathPoints[i]);
+            var distance = flowPathPoints[0].DistanceTo(flowPathPoints[i]);
+            if (distance > 0)
+            {
+                distances.Add(distance);
+            }
         }
         // Sort and find the average of the first three results; then divide to find a decent result
-        Array.Sort(distances);
+        distances.Sort();
         var averageDistance = (distances[0] + distances[1] + distances[2]) / 3;
-        var sensibleDistance = averageDistance / 10;
+        var sensibleDistance = averageDistance / 5;
         return sensibleDistance;
     }
 
