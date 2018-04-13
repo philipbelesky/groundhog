@@ -26,10 +26,10 @@
             <item name="Preview" type_name="gh_string" type_code="10">Shaded</item>
             <item name="PreviewMeshType" type_name="gh_int32" type_code="3">1</item>
             <item name="PreviewNormal" type_name="gh_drawing_color" type_code="36">
-              <ARGB>29;150;0;0</ARGB>
+              <ARGB>100;150;0;0</ARGB>
             </item>
             <item name="PreviewSelected" type_name="gh_drawing_color" type_code="36">
-              <ARGB>200;255;141;101</ARGB>
+              <ARGB>100;0;150;0</ARGB>
             </item>
           </items>
         </chunk>
