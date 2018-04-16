@@ -11,7 +11,7 @@ namespace groundhog
     {
 
         public groundhogPImportComponent()
-            : base("Species Attribute Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
+            : base("Species Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
         {
         }
 
@@ -32,7 +32,7 @@ namespace groundhog
             pManager.Register_GenericParam("Plants", "P", "The resulting plant objects");
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             var csvContents = new List<string>();

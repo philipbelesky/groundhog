@@ -1,13 +1,14 @@
 {
   "name": "groundhog",
-  "version": "0.7.1b",
+  "version": "0.7.2b",
   "description": "groundhog.la site source",
   "main": "index.html",
   "dependencies": {
     "@ibm/type": "^0.5.4",
     "bulma": "^0.6.2",
     "feather-icons": "^4.7.0",
-    "masonry-layout": "^4.2.1"
+    "masonry-layout": "^4.2.1",
+    "picturefill": "^3.0.2"
   },
   "devDependencies": {},
   "scripts": {

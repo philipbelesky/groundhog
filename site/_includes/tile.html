@@ -1,31 +1,43 @@
-{% if item.thumbnail %}
-  {% capture imagePath %}/assets/{{ item.path | remove_first: "_" | remove_first: ".md" }}/{{ item.name }}{{ item.thumbnail }}{% endcapture %}
+{% if include.collection %}
+  {% assign collection = include.collection %}
+{% else %}
+  {% assign collection = item.collection %}
 {% endif %}
+{% if item.thumbnail %}
+  {% capture thumbnailFullPath %}{{ item.url }}{{ item.thumbnail }}{% endcapture %}
+  {% assign thumbnailAssetPath = thumbnailFullPath | remove: collection | remove: '/plugin/' | remove_first: "//" %}
+{% endif %}
+{% capture thumbnailAsset %}
+  {% asset '{{ thumbnailAssetPath }}' magick:resize=450x450^ magick:crop=450x450+0+0 magick:quality=33 @path %}
+{% endcapture %}
 
-{% if item.collection == 'documentation' %}
+{% if collection == 'documentation' %}
   {% assign icon = 'book' %}
   {% assign color = 'rgba(142, 215, 89, 0.90)' %}
 {% endif %}
-{% if item.collection == 'techniques' %}
+{% if collection == 'techniques' %}
   {% assign icon = 'briefcase' %}
   {% assign color = 'rgba(233, 185, 56, 0.90)' %}
 {% endif %}
-{% if item.collection == 'projects' %}
+{% if collection == 'projects' %}
   {% assign icon = 'aperture' %}
   {% assign color = 'rgba(246, 112, 140, 0.90)' %}
 {% endif %}
+{% if collection == 'plugin' %}
+  {% assign icon = 'package' %}
+  {% assign color = 'rgba(114, 227, 210, 0.90)' %}
+{% endif %}
 
-<div class="column {{ span }} masonry-item">
-  <a class="tile notification is-vertical is-child gh-{{ item.collection }}" href="{{ item.url }}"
+<div class="column {{ include.span }} masonry-item">
+  <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ item.url }}"
      style="background: linear-gradient({{ color }}, {{ color }}),
-                        50% 50% url('{{ imagePath | absolute_url }}');">
+                        50% 50% url('{{ thumbnailAsset | strip }}');">
 
     <div class="is-white is-pulled-right">
       <i data-feather="{{ icon }}"></i>
     </div>
 
     <h4 class="title">{{ item.title }}</h4>
-
     <p>{{ item.excerpt }}</p>
 
   </a>

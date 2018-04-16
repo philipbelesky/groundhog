@@ -23,8 +23,8 @@ install:
 cache:
 #   - don't cache until assembly thing fixed
 
-# before_build:
-#   - cd something
+before_build:
+  - nuget restore C:\projects\groundhog\plugin\groundhog.sln
 
 # before_test:
 #   - cd something

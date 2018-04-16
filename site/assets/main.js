@@ -1,16 +1,23 @@
 ---
 ---
 
-// Masonry Include
+// INCLUDES
+
+// Masonry
 {% include_absolute /node_modules/masonry-layout/dist/masonry.pkgd.min.js %}
 
-// Feather Include
+// Feather
 {% include_absolute /node_modules/feather-icons/dist/feather.min.js %}
 
-// Icons
+// Picture Element Polyfill
+{% include_absolute /node_modules/picturefill/dist/picturefill.min.js %}
+
+// ACTIONS
+
+// Instantiate Icons
 feather.replace();
 
-// Menu Toggle; via https://bulma.io/documentation/components/navbar/
+// Add Menu Toggle; via https://bulma.io/documentation/components/navbar/
 document.addEventListener('DOMContentLoaded', function () {
   // Get all "navbar-burger" elements
   var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -30,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Masonry Grid
+// Setup Masonry Grid
 var grid = document.querySelector('.masonry-grid');
 if (grid !== null) {
   var msnry = new Masonry( grid, {

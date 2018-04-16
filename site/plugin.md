@@ -1,7 +1,8 @@
 ---
 layout:     page
 title:      Plugin
-excerpt:    A plugin for Grasshopper — the visual programming tool for the Rhinoceros modeler.
+excerpt:    Download the latest version (0.7.2b) of the Groundhog plugin for Grasshopper.
+thumbnail:  thumbnail.png
 ---
 
 # Download and Install

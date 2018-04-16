@@ -19,7 +19,7 @@ namespace groundhog
         public List<Circle> allTrunks;
 
         public groundhogShowerComponent()
-            : base("Plant Appearance Simulator", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
+            : base("Plant Appearance", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
         {
         }
 
@@ -49,7 +49,7 @@ namespace groundhog
             pManager.AddTextParameter("Label", "T", "The species label of each plant", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             var plantSpecies = new List<PlantSpecies>();
@@ -70,25 +70,25 @@ namespace groundhog
             // We should now validate the data and warn the user if invalid data is supplied.
             if (plantLocations.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 1");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "There were no locations provided for the specified species");
                 return;
             }
             if (plantLocations.Count > plantSpecies.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
-                    "There were more locations than plants, so locations have been truncated");
+                    "There were more locations provided than species, so some locations have not been allocated plants");
                 plantLocations.RemoveRange(plantSpecies.Count, plantLocations.Count - plantSpecies.Count);
             }
 
             if (plantSpecies.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "tdtdtdtd: make this a useful check 3");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "There were no species provided for the specified locations");
                 return;
             }
             if (plantSpecies.Count > plantLocations.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
-                    "There were more plants than locations, so plants have been truncated");
+                    "There were more species provided than locations, so some species have not been allocated locations");
                 plantSpecies.RemoveRange(plantLocations.Count, plantSpecies.Count - plantLocations.Count);
             }
 

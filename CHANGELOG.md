@@ -1,5 +1,14 @@
 ## Changelog
 
+#### [0.7.2b] - 2018-04-15
+###### Added
+- Exception reporting
+- Yak package
+
+###### Changed
+- MeshSlope component will now output slopes as a percentage as well as an angle
+- Flow components will now compute a sensible fidelity step if not given an exact distance
+
 #### [0.7.1b] - 2018-04-01
 
 ###### Fixed
@@ -7,7 +16,7 @@
 - Better handle null items in FlowCatchment component
 - Flood components should produce more sensible results
 
-#### [0.7.1b] - 2018-03-25
+#### [0.7.0b] - 2018-03-25
 ###### Added
 - New MeshAspect component
 - Full website added along with basic examples and documentation for some components

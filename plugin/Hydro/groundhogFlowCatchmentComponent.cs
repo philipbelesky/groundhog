@@ -41,7 +41,7 @@ namespace groundhog
             pManager.AddColourParameter("Color Codes", "C", "Colour codes the uniquely identify each path and boundary", GH_ParamAccess.tree);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             var FLOW_PATHS = new List<Curve>();

@@ -13,7 +13,7 @@ namespace groundhog
     public class groundhogContourClipComponent : GroundHog_Component
     {
         public groundhogContourClipComponent()
-            : base("Contour Clip", "Contour Clip", "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
+            : base("Contour Clipper", "Contour Clip", "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
         {
         }
 
@@ -40,7 +40,7 @@ namespace groundhog
             pManager.AddBrepParameter("Planar Surfaces", "P", "Edge contours as planar surfaces (must be toggled on)", GH_ParamAccess.list);
         }
 
-        protected override void SolveInstance(IGH_DataAccess DA)
+        protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
             var ALL_CONTOURS = new List<Curve>();

@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <ReleaseVersion>0.7.1</ReleaseVersion>
+    <ReleaseVersion>0.7.2</ReleaseVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -101,6 +101,8 @@
     <Compile Include="groundhog_component.cs" />
     <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
     <Compile Include="Terrain\groundhogMeshSlopeComponent.cs" />
+    <Compile Include="Terrain\TerrainCalculations.cs" />
+    <Compile Include="Hydro\FlowCalculations.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -162,18 +164,14 @@
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>
-    <StartProgram Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">
-      C:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe
-    </StartProgram>
+    <StartProgram Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe</StartProgram>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">
-      C:\Program Files\Rhino 6\System\Rhino.exe
-    </StartProgram>
+    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
     <StartArguments>
     </StartArguments>
     <StartAction>Program</StartAction>

@@ -6,13 +6,13 @@
 
 // Icons in alerts
 .gh-message-icon {
-  padding-right: 4px;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
+  padding-right: 4px;
 
   .feather {
-    margin-right: 0px;
+    margin-right: 0;
   }
 }
 
@@ -27,9 +27,9 @@
 
 // Sizing tweaks for homepage titles
 h3 .feather {
-  width: 36px;
   height: 36px;
   margin-bottom: -4px;
+  width: 36px;
 }
 
 

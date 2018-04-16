@@ -1,3 +1,4 @@
+{% assign component = site.data.components[include.title] %}
 <div class="card gh-component">
 <div class="card-content">
 
@@ -41,7 +42,7 @@
 <table class="table">
 <thead>
 <tr>
-<th>IO</th>
+<th>Mode</th>
 <th>Name</th>
 <th>ID</th>
 <th>Description</th>
@@ -52,21 +53,21 @@
 <tbody>
 {% for param in component.inputs %}
 <tr>
-<td class="no-wrap"><strong>Input</strong></td>
+<td class="no-wrap"><i data-feather="log-in"></i><strong></strong></td>
 <td class="no-wrap">{{ param.name }}</td>
 <td><code>{{ param.id }}</code></td>
 <td>{{ param.description }}</td>
-<td>{% if param.optional == true %}️✔️{% else %}❌{% endif %}</td>
+<td>{% if param.optional == true %}<i data-feather="check"></i>{% else %}<i data-feather="x"></i>{% endif %}</td>
 <td class="no-wrap"><code>{{ param.type }}</code></td>
 </tr>
 {% endfor %}
 {% for param in component.outputs %}
 <tr>
-<td class="no-wrap"><strong>Output</strong></td>
+<td class="no-wrap"><i data-feather="log-out"></i><strong></strong></td>
 <td class="no-wrap">{{ param.name }}</td>
 <td><code>{{ param.id }}</code></td>
 <td>{{ param.description }}</td>
-<td></td>
+<td><i data-feather="minus"></i></td>
 <td class="no-wrap"><code>{{ param.type }}</code></td>
 </tr>
 {% endfor %}
