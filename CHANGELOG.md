@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.7.3b] -
+#### [0.7.2b] - 2018-04-15
 ###### Added
 - Exception reporting
 - Yak package
