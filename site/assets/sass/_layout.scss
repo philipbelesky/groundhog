@@ -10,6 +10,10 @@
   padding-right: 1.5rem;
 }
 
+.gh-half-section {
+  padding: 1.5rem; // Half vertical padding on main section class
+}
+
 p > img + p > img {
   border: 5px solid red;
 }
