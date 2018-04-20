@@ -1,20 +1,20 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.1.6)
+    activesupport (5.2.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    aws-sdk (2.11.21)
-      aws-sdk-resources (= 2.11.21)
-    aws-sdk-core (2.11.21)
+    aws-sdk (2.11.34)
+      aws-sdk-resources (= 2.11.34)
+    aws-sdk-core (2.11.34)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.21)
-      aws-sdk-core (= 2.11.21)
+    aws-sdk-resources (2.11.34)
+      aws-sdk-core (= 2.11.34)
     aws-sigv4 (1.0.2)
     colorator (1.1.0)
     colored (1.2)
@@ -39,7 +39,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    jekyll (3.7.0)
+    jekyll (3.8.0)
       addressable (~> 2.4)
       colorator (~> 1.0)
       em-websocket (~> 0.5)
@@ -52,7 +52,7 @@ GEM
       pathutil (~> 0.9)
       rouge (>= 1.7, < 4)
       safe_yaml (~> 1.0)
-    jekyll-assets (3.0.8)
+    jekyll-assets (3.0.11)
       activesupport (~> 5.0)
       execjs (~> 2.7)
       extras (~> 0.2)
@@ -80,10 +80,10 @@ GEM
       jekyll
     jekyll-watch (2.0.0)
       listen (~> 3.0)
-    jmespath (1.3.1)
+    jmespath (1.4.0)
     kramdown (1.16.2)
     liquid (4.0.0)
-    liquid-tag-parser (1.8.0)
+    liquid-tag-parser (1.9.0)
       extras (~> 0.3)
       liquid (>= 3.0, < 5.0)
     listen (3.1.5)
@@ -129,7 +129,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (= 3.7.0)
+  jekyll (= 3.8.0)
   jekyll-assets
   jekyll-feed
   jekyll-pandoc
