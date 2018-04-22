@@ -87,7 +87,7 @@ namespace groundhog
         }
 
         private List<Point3d> DispatchFlowPoints(Brep FLOW_SURFACE, Point3d initialStartPoint,
-            double MOVE_DISTANCE, int FLOW_LIMIT)
+                                                 double MOVE_DISTANCE, int FLOW_LIMIT)
         {
             var flowPoints = new List<Point3d>(); // Holds each step
 

@@ -151,9 +151,7 @@ namespace groundhog
             for (var j = 0; j < size1; j++)
                 pointsList.Add(gridPts[i, j].Location);
 
-            var fieldSrf =
-                NurbsSurface.CreateFromPoints(pointsList, xGridExtents, yGridExtents, 3,
-                    3); // points, x/y counts, u/v degrees
+            var fieldSrf = NurbsSurface.CreateFromPoints(pointsList, xGridExtents, yGridExtents, 3, 3);
 
             // Assign variables to output parameters
             DA.SetData(0, fieldSrf);
