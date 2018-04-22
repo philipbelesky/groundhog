@@ -26,7 +26,7 @@ namespace groundhog
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Divisions", "D", "Sample points spacings for the resulting field (greatest extent in one direction)", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Divisions", "D", "Sample points spacings for the resulting field (greatest extent in one direction)", GH_ParamAccess.item);
             pManager.AddCurveParameter("Areas", "A", "Boundary box for the resulting field", GH_ParamAccess.list);
             pManager.AddNumberParameter("Z Range", "Z", "Maximum height of the surface field (defaults to 5% of boundary width/height)", GH_ParamAccess.item, 0.0);
         }
@@ -41,7 +41,7 @@ namespace groundhog
         {
             // Create holder variables for input parameters
             Curve gridBounds = null;
-            var gridDivisions = 24.0;
+            var gridDivisions = 24;
             var areas = new List<Curve>();
             var zRange = 0.0; // Default value; is later set to 5% of maximum dimension if still 0
 
@@ -57,26 +57,40 @@ namespace groundhog
             var ALL_DATA_REGIONS = areas;
             var INTERPOLATE = true;
 
+            // Input Validation
             if (gridDivisions < 4)
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Numver of grid divisions must be greater than 4 in order to create a surface");
-
-            // Validate input curves are planar
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The number of grid divisions must be greater than 4 in order to create a field");
+                return;
+            }
             if (!BOUNDARY.IsPlanar())
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve is not planar");
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not planar");
+                return;
+            }
             if (!BOUNDARY.IsClosed)
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve is not closed");
-
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not closed");
+                return;
+            }
             for (var i = 0; i < areas.Count; i = i + 1)
             {
                 if (areas[i] == null)
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "An area curve is not defined (null)");
-                else
-                    if (!areas[i].IsPlanar())
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "A boundary curve is not planar");
-                    if (!areas[i].IsClosed)
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "A boundary curve is not closed");
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An area curve is not defined (null)");
+                    return;
+                }
+                else if (!areas[i].IsPlanar())
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An area curve curve is not planar");
+                    return;
+                }
+                else if (!areas[i].IsClosed)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An area curve curve is not closed");
+                    return;
+                }
             }
-
 
             // Construct the bounding box for the search limits boundary; identify its extents and if its square
             var boundaryBox = BOUNDARY.GetBoundingBox(false); // False = uses estimate method
