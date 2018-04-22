@@ -82,8 +82,9 @@ namespace groundhog
         }
 
         // Components must implement the method
-        protected abstract void GroundHogSolveInstance(IGH_DataAccess DA); 
+        protected abstract void GroundHogSolveInstance(IGH_DataAccess DA);
 
+        #if !DEBUG
         // Override the main solve instance method to wrap it in a try/catch for error re"ortin purposes
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -93,14 +94,18 @@ namespace groundhog
             catch (Exception componentException)
             {
                 Console.WriteLine("Exception caught: {0}", componentException);
-                #if !DEBUG
                 // Log exception to Sentry
                 constructRavenClient().Capture(new SentryEvent(componentException)); 
-                #endif
-                // Throw the error anyway so it bubbles up
-                throw; 
+            // Throw the error anyway so it bubbles up
+            throw; 
             }
         }
+        #else
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            GroundHogSolveInstance(DA);
+        }
+        #endif
 
         // Pass the constructor parameters up to the main GH_Component abstract class
         protected GroundHog_Component(string name, string nickname, string description, string category, string subCategory)

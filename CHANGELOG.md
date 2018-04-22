@@ -1,5 +1,9 @@
 ## Changelog
 
+#### [0.7.3b] - ????-??-??
+###### Fixed
+- Flow components will no longer crash when given fewer than three points without a specified Fidelity
+
 #### [0.7.2b] - 2018-04-15
 ###### Added
 - Exception reporting

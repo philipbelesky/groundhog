@@ -60,7 +60,7 @@ namespace groundhog
 
             if (FLOW_FIDELITY == 0)
             {
-                FLOW_FIDELITY = FlowCalculations.getSensibleFidelity(FLOW_ORIGINS);
+                FLOW_FIDELITY = FlowCalculations.getSensibleFidelity(FLOW_ORIGINS, FLOW_MESH, null);
             }
 
             var startPoints = FLOW_ORIGINS.ToArray(); // Array for multithreading

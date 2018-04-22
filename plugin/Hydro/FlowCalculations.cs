@@ -12,8 +12,23 @@ using Rhino.Geometry;
 
 public static class FlowCalculations
 {
-    public static double getSensibleFidelity(List<Point3d> flowPathPoints)
+    public static double getSensibleFidelity(List<Point3d> flowPathPoints, Mesh mesh, Surface surface)
     {
+        // Below method fails if there aren't at least three points; use this instead
+        if (flowPathPoints.Count <= 3) {
+            var bbox = new BoundingBox();
+            if (mesh != null)
+            {
+                bbox = mesh.GetBoundingBox(false);
+            }
+            if (surface != null)
+            {
+                bbox = surface.GetBoundingBox(false);
+            }
+            var span = bbox.Center.DistanceTo(bbox.GetCorners()[0]);
+            return span / 25;            
+        }
+
         // Measure distances between each of the points
         List<double> distances = new List<double>();
         for (var i = 1; i < flowPathPoints.Count; i++)
