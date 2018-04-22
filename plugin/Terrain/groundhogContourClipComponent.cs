@@ -51,6 +51,12 @@ namespace groundhog
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
             if (!DA.GetData(1, ref BOUNDARY)) return;
             DA.GetData(2, ref CREATE_SRFS);
+            
+            if (ALL_CONTOURS.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No contour curves provided.");
+                return;
+            }
 
             // Create holder variables for ouput parameters
             var fixedContours = new List<Curve>();
@@ -256,7 +262,8 @@ namespace groundhog
 
             var ccx = Intersection.CurveCurve(initialCurve, BOUNDARY, tolerance, tolerance);
 
-            if (ccx.Count > 0)
+            // Used to be 0. It is possible to have a ccx array of only 1 element (which will crash) but unclear what that signifies
+            if (ccx.Count > 1)
             {
                 var innerEdgeA = BOUNDARY.Trim(ccx[0].ParameterB, ccx[1].ParameterB); // remove before t0; after t1
                 var innerEdgeB = BOUNDARY.Trim(ccx[1].ParameterB, ccx[0].ParameterB); // remove before t0; after t1

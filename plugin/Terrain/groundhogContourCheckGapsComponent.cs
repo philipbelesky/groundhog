@@ -58,7 +58,7 @@ namespace groundhog
             if (MAXIMUM_GAP <= 0.0) {
                 DA.SetDataList(0, ALL_CONTOURS);
                 DA.SetDataList(1, null);
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "Maximum Distance was set at or below 0 so no changes were made to the contours.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Maximum Distance was set at or below 0 so no changes were made to the contours.");
                 return;
             }
 
@@ -78,35 +78,43 @@ namespace groundhog
                         possibleSplitPoints.Add(contour.PointAtEnd);
                 }
             }
-
-            // For each point that needs to be connected, find the closest non-self point, and creating a joining line
-            var joinedPoints = new List<Point3d>();
-            foreach (var point in possibleSplitPoints)
-                if (joinedPoints.Contains(point) == false)
+            if (possibleSplitPoints != null && possibleSplitPoints.Count > 0)
+            {
+                // For each point that needs to be connected, find the closest non-self point, and creating a joining line
+                var joinedPoints = new List<Point3d>();
+                foreach (var point in possibleSplitPoints)
                 {
-                    var possibleSplitPointsWithoutSelf =
-                        new List<Point3d>(possibleSplitPoints); // clone the current list
-                    possibleSplitPointsWithoutSelf.Remove(point); // remove the item we are searching from
+                    if (joinedPoints.Contains(point) == false)
+                    {
+                        var possibleSplitPointsWithoutSelf = new List<Point3d>(possibleSplitPoints); // clone the current list
+                        possibleSplitPointsWithoutSelf.Remove(point); // remove the item we are searching from
 
-                    // Get the closest point on the boundary and check we aren't extending to a boundary gap
-                    var closestPoint = Point3dList.ClosestPointInList(possibleSplitPointsWithoutSelf, point);
-                    double closestBoundaryPtParamater;
-                    BOUNDARY.ClosestPoint(point, out closestBoundaryPtParamater);
-                    var closestBoundaryPt = BOUNDARY.PointAt(closestBoundaryPtParamater);
-                    closestBoundaryPt.Z = point.Z; // Set the Z's to be the same as the boundary is assumed to be 3D
+                        if (possibleSplitPointsWithoutSelf.Count == 0)
+                        {
+                            continue;
+                        }
 
-                    // Don't proceed if the closest point has already been joined
-                    if (joinedPoints.Contains(closestPoint) == false)
-                        if (point.DistanceTo(closestPoint) < point.DistanceTo(closestBoundaryPt))
-                            if (point.DistanceTo(closestPoint) <= MAXIMUM_GAP)
-                            {
-                                Curve connection = new LineCurve(point, closestPoint);
-                                connections.Add(connection);
-                                fixedContours.Add(connection);
-                                joinedPoints.Add(point);
-                                joinedPoints.Add(closestPoint);
-                            }
+                        // Get the closest point on the boundary and check we aren't extending to a boundary gap
+                        var closestPoint = Point3dList.ClosestPointInList(possibleSplitPointsWithoutSelf, point);
+                        double closestBoundaryPtParamater;
+                        BOUNDARY.ClosestPoint(point, out closestBoundaryPtParamater);
+                        var closestBoundaryPt = BOUNDARY.PointAt(closestBoundaryPtParamater);
+                        closestBoundaryPt.Z = point.Z; // Set the Z's to be the same as the boundary is assumed to be 3D
+
+                        // Don't proceed if the closest point has already been joined
+                        if (joinedPoints.Contains(closestPoint) == false)
+                            if (point.DistanceTo(closestPoint) < point.DistanceTo(closestBoundaryPt))
+                                if (point.DistanceTo(closestPoint) <= MAXIMUM_GAP)
+                                {
+                                    Curve connection = new LineCurve(point, closestPoint);
+                                    connections.Add(connection);
+                                    fixedContours.Add(connection);
+                                    joinedPoints.Add(point);
+                                    joinedPoints.Add(closestPoint);
+                                }
+                    }
                 }
+            }
 
             // Assign variables to output parameters
             DA.SetDataList(0, Curve.JoinCurves(fixedContours));

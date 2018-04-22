@@ -4,6 +4,7 @@
 ###### Fixed
 - Flow components will no longer crash when given fewer than three points without a specified Fidelity
 - Providing bad input to the Field Mapper component will now reject it rather than proceeding and creating an error
+- Improved some error handling on the Contour components
 
 #### [0.7.2b] - 2018-04-15
 ###### Added
