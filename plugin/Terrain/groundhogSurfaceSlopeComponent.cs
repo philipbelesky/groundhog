@@ -22,8 +22,7 @@ namespace groundhog
         {
             pManager.AddSurfaceParameter("Surface", "S", "The terrain surface", GH_ParamAccess.item);
             pManager[0].Optional = false;
-            pManager.AddMeshParameter("Settings", "P", "Settings to be used by the meshing algorithm", GH_ParamAccess.item);
-            pManager[1].Optional = true;
+            // TODO: add Mesh construction settings/parameters (Param_MeshParameters)
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)

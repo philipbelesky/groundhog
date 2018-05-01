@@ -24,8 +24,7 @@ namespace groundhog
             pManager[0].Optional = false;
             pManager.AddVectorParameter("Aspect", "A", "Vector representing the direction to measure aspect against", GH_ParamAccess.item, new Vector3d(0, 1, 0));
             pManager[1].Optional = true;
-            pManager.AddMeshParameter("Settings", "P", "Settings to be used by the meshing algorithm", GH_ParamAccess.item);
-            pManager[2].Optional = true;
+            // TODO: add Mesh construction settings/parameters (Param_MeshParameters)
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
