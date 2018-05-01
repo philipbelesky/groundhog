@@ -3,13 +3,16 @@
 {% else %}
   {% assign collection = item.collection %}
 {% endif %}
+
+<!-- Need to provide a blank thumbnailAsset otherwise jekyll asset will look for it and fail -->
 {% if item.thumbnail %}
   {% capture thumbnailFullPath %}{{ item.url }}{{ item.thumbnail }}{% endcapture %}
   {% assign thumbnailAssetPath = thumbnailFullPath | remove: collection | remove: '/plugin/' | remove_first: "//" %}
+  {% capture thumbnailAsset %}
+    {% asset '{{ thumbnailAssetPath }}' magick:resize=450x450^ magick:crop=450x450+0+0 magick:quality=33 @path %}
+  {% endcapture %}
+{% else %}
 {% endif %}
-{% capture thumbnailAsset %}
-  {% asset '{{ thumbnailAssetPath }}' magick:resize=450x450^ magick:crop=450x450+0+0 magick:quality=33 @path %}
-{% endcapture %}
 
 {% if collection == 'documentation' %}
   {% assign icon = 'book' %}
