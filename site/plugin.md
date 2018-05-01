@@ -1,7 +1,7 @@
 ---
 layout:     page
 title:      Plugin
-excerpt:    Download the latest version (0.7.2b) of the Groundhog plugin for Grasshopper.
+excerpt:    Download the latest version (0.8.0b) of the Groundhog plugin for Grasshopper.
 thumbnail:  thumbnail.png
 ---
 

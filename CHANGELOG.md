@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.8.0] - ????-??-??
+#### [0.8.0] - 2018-05-01
 ###### Added
 - Surface equivalents of the Slope and Aspect terrain components
 
