@@ -7,21 +7,23 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogMeshSlopeComponent : GroundHog_Component
+    public class groundhogSurfaceSlopeComponent : GroundHog_Component
     {
-        public groundhogMeshSlopeComponent()
-            : base("Mesh Slope", "Slope", "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")
+        public groundhogSurfaceSlopeComponent()
+            : base("Surface Slope", "Slope", "Analyses the slope of a Surface, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")
         {
         }
 
-        protected override Bitmap Icon => Resources.icon_mesh_slope;
+        protected override Bitmap Icon => Resources.icon_surface_slope;
 
-        public override Guid ComponentGuid => new Guid("{c3b67aca-0e15-4279-9d6c-96cce97fcb47}");
+        public override Guid ComponentGuid => new Guid("{be26de07-efd2-4696-be0c-323d32583bb3}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddMeshParameter("Mesh", "M", "The terrain mesh", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "S", "The terrain surface", GH_ParamAccess.item);
             pManager[0].Optional = false;
+            pManager.AddMeshParameter("Settings", "P", "Settings to be used by the meshing algorithm", GH_ParamAccess.item);
+            pManager[1].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -35,10 +37,14 @@ namespace groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
-            var MESH = default(Mesh);
+            var SURFACE = default(Surface);
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref MESH)) return;
+            if (!DA.GetData(0, ref SURFACE)) return;
 
+            // Convert Surface to Mesh; TODO: expose mesh parameters; handle multiple outputs
+            Mesh[] PREMESH = Mesh.CreateFromBrep(SURFACE.ToBrep(), MeshingParameters.Default);
+            var MESH = PREMESH[0];
+            
             var subMeshes = TerrainCalculations.Explode(MESH);
             var subCentres = TerrainCalculations.GetCenters(MESH);
             var subDirections = TerrainCalculations.GetDirections(subMeshes, subCentres);

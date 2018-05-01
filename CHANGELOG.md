@@ -1,6 +1,9 @@
 ## Changelog
 
-#### [0.7.3b] - ????-??-??
+#### [0.8.0] - ????-??-??
+###### Added
+- Surface equivalents of the Slope and Aspect terrain components
+
 ###### Fixed
 - Flow components will no longer crash when given fewer than three points without a specified Fidelity
 - Providing bad input to the Field Mapper component will now reject it rather than proceeding and creating an error

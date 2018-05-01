@@ -99,6 +99,8 @@
     <Compile Include="Terrain\groundhogContourCheckPlanarityComponent.cs" />
     <Compile Include="Terrain\groundhogContourClipComponent.cs" />
     <Compile Include="groundhog_component.cs" />
+    <Compile Include="Terrain\groundhogSurfaceSlopeComponent.cs" />
+    <Compile Include="Terrain\groundhogSurfaceAspectComponent.cs" />
     <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
     <Compile Include="Terrain\groundhogMeshSlopeComponent.cs" />
     <Compile Include="Terrain\TerrainCalculations.cs" />
@@ -136,6 +138,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_surface_aspect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_surface_slope.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
