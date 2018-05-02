@@ -2,17 +2,28 @@
 title:      Terrain
 excerpt:    Components for quantifying different elements of topographic form.
 date:       18-05-01
-published:  false
-thumbnail:  false
+files:      true
+files_text: model and definition that demonstrating the use of these components
+thumbnail:  thumbnail.jpg
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. LIPSUM
+Topography is heterogeneous in a more complex manner than contours or a 3D visualisation suggest. Different and seemingly-similar areas of landform can posses quite different characteristics depending on relatively small variations in their grading and wider position within the landscape. 3D models in particular often make it difficult to determine or apprehend these characteristics of digital terrain models given the highly artificial manner in which they are rendered. 
 
-{% include elements/component.html title='SurfaceSlope' %}
+Groundhog provides components for measuring the slope and the aspect of a given landform. 
+
+{% include elements/figure.html image='terrain/1.png' caption="Visualisations of slope analysis across a mesh, showing each face's grade as a vector, fill, and label" credit='Philip Belesky, for http://groundhog.la' %}
+
+The slope analysis operates by identifying the normals of each face within the form and measuring those against the Z-axis to produce a measure of steepness that can be output as either an angle or percentile. This can then be filtered and visualised to assist in grading tasks that may need to ensure slopes stay within a particular range (say to ensure accessible circulation) or to highlight areas that are vulnerable to erosion or require stabilisation. 
+
 {% include elements/component.html title='MeshSlope' %}
 
-{% include elements/component.html title='SurfaceAspect' %}
+The aspect analysis operates in a similar fashion but measures the faces' normals relative to a specified vector. This vector defaults to the Y-axis (assuming that is the North direction) and so produces a measure of which direction a slope faces. This can be used to identify areas within the landform that have a particular aspect, such as those that are predominantly northeasterly. This can be used to help determine the microclimates of different areas of the landscape (based on their different levels of solar insolation) or to determine their visibility relative to a given vantage point.
+
 {% include elements/component.html title='MeshAspect' %}
 
+Components are provided (as a convenience) for employing the same analytics on a `Surface` rather than a `Mesh` although note that the former will be converted to the latter during the process.
+
+{% include elements/component.html title='SurfaceSlope' %}
+{% include elements/component.html title='SurfaceAspect' %}
 
 > ***Coming Soon**: further components that provide other metrics for assessing different terrain characteristics.*
