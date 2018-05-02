@@ -7,6 +7,7 @@ image: Visual Studio 2017
 
 init:
   - ps: $env:APPVEYOR_CACHE_SKIP_RESTORE = "true"
+  - ps: git lfs install --skip-smudge # Don't download lfs files
 
 # Scripts that run after cloning repository
 install:
