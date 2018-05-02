@@ -22,7 +22,7 @@
 #### Plugin/Website
 
 - Rebuild `groundhog readme.pdf` from the Markdown source
-- Follow `compile.sh` and `s3_website` steps in `site/README.md`
+- Run `npm run publish` in the site directory
 
 #### Yak
 

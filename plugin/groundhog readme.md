@@ -2,7 +2,7 @@
 
 <!-- included as a pdf in the release -->
 
-# Groundhog (0.8.0b)
+# Groundhog `v0.8.0 beta`
 
 *... a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design in landscape architecture.*
 
@@ -29,7 +29,7 @@ The preferred method of submitting bug reports and feature requests is through [
 
 #### Contributing
 
-This is an open source project and the code for the plugin and groundhog.la are [hosted on Github](https://github.com/philipbelesky/groundhog). Contributions to the plugin, and to the articles and reference definitions on the wiki are welcome.
+This is an open source project and the code for both the plugin and groundhog.la site are [hosted on Github](https://github.com/philipbelesky/groundhog). Contributions to the plugin, and to the articles or models on the site are welcome.
 
 #### Developer and License
 
