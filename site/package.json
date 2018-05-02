@@ -1,11 +1,11 @@
 {
   "name": "groundhog",
-  "version": "0.7.2b",
+  "version": "0.8.0b",
   "description": "groundhog.la site source",
   "main": "index.html",
   "dependencies": {
     "@ibm/type": "^0.5.4",
-    "bulma": "^0.6.2",
+    "bulma": "^0.7.1",
     "feather-icons": "^4.7.0",
     "masonry-layout": "^4.2.1",
     "picturefill": "^3.0.2"
