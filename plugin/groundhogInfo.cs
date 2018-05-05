@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 
 namespace groundhog
 {
@@ -13,12 +14,12 @@ namespace groundhog
                 return "Groundhog";
             }
         }
+
         public override Bitmap Icon
         {
             get
             {
-                //Return a 24x24 pixel bitmap to represent this GHA library.
-                return null;
+                return Resources.icon_groundhog;
             }
         }
         public override string Description
@@ -34,6 +35,14 @@ namespace groundhog
             get
             {
                 return new Guid("7dc547b5-ca43-457d-a3e2-8286f0784ad0");
+            }
+        }
+
+        public override GH_LibraryLicense AssemblyLicense
+        {
+            get
+            {
+                return GH_LibraryLicense.opensource;
             }
         }
 
