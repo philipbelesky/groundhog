@@ -129,6 +129,7 @@
     <None Include="packages.config" />
     <None Include="Resources\icon_flows_mesh.png" />
     <None Include="Resources\icon_flows_srf.png" />
+    <None Include="Resources\icon_groundhog.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_field_grid_vis.png" />
