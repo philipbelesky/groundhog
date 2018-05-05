@@ -13,7 +13,7 @@ namespace groundhog
     {
 
         public groundhogFieldComponent()
-            : base("Field Mapper", "Field", "Create ", "Groundhog", "Mapping")
+            : base("Field Mapper", "Field", "Create a field representation from collections of bounded curves/lines.", "Groundhog", "Mapping")
         {
         }
 
