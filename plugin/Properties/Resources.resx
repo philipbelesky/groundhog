@@ -175,4 +175,7 @@
   <data name="icon_surface_slope" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_surface_slope.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icon_groundhog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_groundhog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

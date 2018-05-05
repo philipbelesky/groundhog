@@ -98,7 +98,7 @@
     <Compile Include="Terrain\groundhogContourCheckGapsComponent.cs" />
     <Compile Include="Terrain\groundhogContourCheckPlanarityComponent.cs" />
     <Compile Include="Terrain\groundhogContourClipComponent.cs" />
-    <Compile Include="groundhog_component.cs" />
+    <Compile Include="groundhogComponent.cs" />
     <Compile Include="Terrain\groundhogSurfaceSlopeComponent.cs" />
     <Compile Include="Terrain\groundhogSurfaceAspectComponent.cs" />
     <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
