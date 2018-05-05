@@ -77,32 +77,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="groundhogInfo.cs" />
-    <Compile Include="Hydro\groundhogFlowCatchmentComponent.cs" />
-    <Compile Include="Hydro\groundhogSurfaceFlowPathComponent.cs" />
-    <Compile Include="Hydro\groundhogMeshFlowPathComponent.cs" />
-    <Compile Include="Hydro\groundhogFloodRiverComponent.cs" />
-    <Compile Include="Hydro\groundhogFloodSeaComponent.cs" />
-    <Compile Include="Mapping\groundhogFieldComponent.cs" />
-    <Compile Include="Mapping\groundhogFieldVisualisationGridComponent.cs" />
-    <Compile Include="Plants\groundhogPGenericComponent.cs" />
-    <Compile Include="Plants\groundhogPImportComponent.cs" />
-    <Compile Include="Plants\groundhogPlanterComponent.cs" />
-    <Compile Include="Plants\groundhogPShowerComponent.cs" />
+    <Compile Include="Hydro\FloodRiverComponent.cs" />
+    <Compile Include="Hydro\FloodSeaComponent.cs" />
+    <Compile Include="Hydro\FlowCatchmentComponent.cs" />
+    <Compile Include="Hydro\MeshFlowPathComponent.cs" />
+    <Compile Include="Hydro\SurfaceFlowPathComponent.cs" />
+    <Compile Include="Mapping\FieldComponent.cs" />
+    <Compile Include="Mapping\FieldVisualisationGridComponent.cs" />
+    <Compile Include="Plants\PGenericComponent.cs" />
+    <Compile Include="Plants\PImportComponent.cs" />
+    <Compile Include="Plants\PlanterComponent.cs" />
     <Compile Include="Plants\Plants.cs" />
+    <Compile Include="Plants\PShowerComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Terrain\groundhogContourCheckGapsComponent.cs" />
-    <Compile Include="Terrain\groundhogContourCheckPlanarityComponent.cs" />
-    <Compile Include="Terrain\groundhogContourClipComponent.cs" />
     <Compile Include="groundhogComponent.cs" />
-    <Compile Include="Terrain\groundhogSurfaceSlopeComponent.cs" />
-    <Compile Include="Terrain\groundhogSurfaceAspectComponent.cs" />
-    <Compile Include="Terrain\groundhogMeshAspectComponent.cs" />
-    <Compile Include="Terrain\groundhogMeshSlopeComponent.cs" />
+    <Compile Include="Terrain\ContourCheckGapsComponent.cs" />
+    <Compile Include="Terrain\ContourCheckPlanarityComponent.cs" />
+    <Compile Include="Terrain\ContourClipComponent.cs" />
+    <Compile Include="Terrain\MeshAspectComponent.cs" />
+    <Compile Include="Terrain\MeshSlopeComponent.cs" />
+    <Compile Include="Terrain\SurfaceAspectComponent.cs" />
+    <Compile Include="Terrain\SurfaceSlopeComponent.cs" />
     <Compile Include="Terrain\TerrainCalculations.cs" />
     <Compile Include="Hydro\FlowCalculations.cs" />
     <Compile Include="Mapping\groundhogShortestPathComponent.cs" />
