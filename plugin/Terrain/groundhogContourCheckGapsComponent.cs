@@ -8,10 +8,10 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogContourCheckGapsComponent : GroundHog_Component
+    public class GroundhogContourCheckGapsComponent : GroundHogComponent
     {
 
-        public groundhogContourCheckGapsComponent()
+        public GroundhogContourCheckGapsComponent()
             : base("Contour Gap Fix", "Contour Gaps", "Checks if contours have gaps, and bridges them if so", "Groundhog", "Terrain")
         {
         }
@@ -129,7 +129,7 @@ namespace groundhog
             return values[Convert.ToInt32(count / 2)];
         }
 
-        private List<double> getZValues(List<Point3d> controlPts)
+        private List<double> GetZValues(List<Point3d> controlPts)
         {
             var zValues = new List<double>();
             foreach (var point in controlPts)

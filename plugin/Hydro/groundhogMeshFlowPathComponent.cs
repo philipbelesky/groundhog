@@ -11,9 +11,9 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogMeshFlowComponent : GroundHog_Component
+    public class GroundhogMeshFlowComponent : GroundHogComponent
     {
-        public groundhogMeshFlowComponent()
+        public GroundhogMeshFlowComponent()
             : base("Flow Projection (Mesh)", "Mesh Flows", "Construct flow paths over a mesh", "Groundhog", "Hydro")
         {
         }

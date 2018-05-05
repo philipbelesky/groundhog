@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogSurfaceAspectComponent : GroundHog_Component
+    public class GroundhogSurfaceAspectComponent : GroundHogComponent
     {
-        public groundhogSurfaceAspectComponent()
+        public GroundhogSurfaceAspectComponent()
             : base("Surface Aspect", "Aspect", "Analyses the aspect of a Surface, outputting separated faces for coloring and the aspect", "Groundhog", "Terrain")
         {
         }

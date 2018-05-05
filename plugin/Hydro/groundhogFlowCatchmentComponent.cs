@@ -13,9 +13,9 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogCatchmentComponent : GroundHog_Component
+    public class GroundhogCatchmentComponent : GroundHogComponent
     {
-        public groundhogCatchmentComponent()
+        public GroundhogCatchmentComponent()
             : base("Flow Catchments", "Catchments", "Identify the catchments within a set of flow paths", "Groundhog", "Hydro")
         {
         }
