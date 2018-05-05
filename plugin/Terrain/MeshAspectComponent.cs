@@ -7,24 +7,23 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogSurfaceAspectComponent : GroundHog_Component
+    public class GroundhogMeshAspectComponent : GroundHogComponent
     {
-        public groundhogSurfaceAspectComponent()
-            : base("Surface Aspect", "Aspect", "Analyses the aspect of a Surface, outputting separated faces for coloring and the aspect", "Groundhog", "Terrain")
+        public GroundhogMeshAspectComponent()
+            : base("Mesh Aspect", "Aspect", "Analyses the aspect of a Mesh, outputting separated faces for coloring and the aspect", "Groundhog", "Terrain")
         {
         }
 
-        protected override Bitmap Icon => Resources.icon_surface_aspect;
+        protected override Bitmap Icon => Resources.icon_mesh_aspect;
 
-        public override Guid ComponentGuid => new Guid("{56be2741-8d92-4607-8177-a4108d9d72fd}");
+        public override Guid ComponentGuid => new Guid("{c3b67aca-0c15-2552-9d6c-96cce97fcb47}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "S", "The terrain surface", GH_ParamAccess.item);
+            pManager.AddMeshParameter("Mesh", "M", "The terrain mesh", GH_ParamAccess.item);
             pManager[0].Optional = false;
             pManager.AddVectorParameter("Aspect", "A", "Vector representing the direction to measure aspect against", GH_ParamAccess.item, new Vector3d(0, 1, 0));
             pManager[1].Optional = true;
-            // TODO: add Mesh construction settings/parameters (Param_MeshParameters)
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -36,16 +35,12 @@ namespace groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
-            var SURFACE = default(Surface);
+            var MESH = default(Mesh);
             var ASPECT = default(Vector3d);
 
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref SURFACE)) return;
+            if (!DA.GetData(0, ref MESH)) return;
             if (!DA.GetData(1, ref ASPECT)) return;
-
-            // Convert Surface to Mesh; TODO: expose mesh parameters; handle multiple outputs
-            Mesh[] PREMESH = Mesh.CreateFromBrep(SURFACE.ToBrep(), MeshingParameters.Default);
-            var MESH = PREMESH[0];
 
             var subMeshes = TerrainCalculations.Explode(MESH);
             var subCentres = TerrainCalculations.GetCenters(MESH);

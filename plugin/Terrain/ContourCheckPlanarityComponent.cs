@@ -7,10 +7,10 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogContourCheckPlanarityComponent : GroundHog_Component
+    public class GroundhogContourCheckPlanarityComponent : GroundHogComponent
     {
 
-        public groundhogContourCheckPlanarityComponent()
+        public GroundhogContourCheckPlanarityComponent()
             : base("Contour Planarity Fix", "Contour Planarity", "Checks contours are planar and corrects them if not", "Groundhog", "Terrain")
         {
         }
@@ -53,12 +53,12 @@ namespace groundhog
                     Polyline contourPLine;
                     contour.TryGetPolyline(out contourPLine); // Convert to Polyline
 
-                    var zValues = getZValues(new List<Point3d>(contourPLine.ToArray()));
+                    var zValues = GetZValues(new List<Point3d>(contourPLine.ToArray()));
 
                     if (zValues[0] != zValues[zValues.Count - 1])
                     {
                         // All are not the same z-index
-                        var medianZ = calculateMean(zValues);
+                        var medianZ = CalculateMean(zValues);
 
                         var newPoints = new List<Point3d>();
                         foreach (var point in contourPLine)
@@ -86,11 +86,11 @@ namespace groundhog
                     foreach (var ncp in contourNurbsCurve.Points)
                         pts.Add(ncp.Location);
 
-                    var zValues = getZValues(pts);
+                    var zValues = GetZValues(pts);
 
                     if (zValues[0] != zValues[zValues.Count - 1])
                     {
-                        var medianZ = calculateMean(zValues);
+                        var medianZ = CalculateMean(zValues);
 
                         for (var index = 0; index < contourNurbsCurve.Points.Count; index++)
                         {
@@ -114,7 +114,7 @@ namespace groundhog
             DA.SetDataList(1, fixedContours);
         }
 
-        private double calculateMean(List<double> values)
+        private double CalculateMean(List<double> values)
         {
             var count = values.Count;
 
@@ -122,7 +122,7 @@ namespace groundhog
             return values[Convert.ToInt32(count / 2)];
         }
 
-        private List<double> getZValues(List<Point3d> controlPts)
+        private List<double> GetZValues(List<Point3d> controlPts)
         {
             var zValues = new List<double>();
             foreach (var point in controlPts)

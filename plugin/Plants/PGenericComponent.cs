@@ -6,10 +6,10 @@ using Grasshopper.Kernel;
 
 namespace groundhog
 {
-    public class groundhogPGenericComponent : GroundHog_Component
+    public class GroundhogPGenericComponent : GroundHogComponent
     {
 
-        public groundhogPGenericComponent()
+        public GroundhogPGenericComponent()
             : base("Generic Species", "PGeneric", "Output plant objects from pre-define generic types ", "Groundhog", "Flora")
         {
         }

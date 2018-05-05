@@ -10,9 +10,9 @@ using Rhino.Geometry.Intersect;
 
 namespace groundhog
 {
-    public class groundhogContourClipComponent : GroundHog_Component
+    public class GroundhogContourClipComponent : GroundHogComponent
     {
-        public groundhogContourClipComponent()
+        public GroundhogContourClipComponent()
             : base("Contour Clipper", "Contour Clip", "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
         {
         }

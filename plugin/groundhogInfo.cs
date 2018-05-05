@@ -63,4 +63,14 @@ namespace groundhog
             }
         }
     }
+
+    class GroundHogTab : GH_AssemblyPriority
+    {
+        public override GH_LoadingInstruction PriorityLoad()
+        {
+            // Icon used in the components tabs
+            Grasshopper.Instances.ComponentServer.AddCategoryIcon("Groundhog", Resources.icon_groundhog);
+            return GH_LoadingInstruction.Proceed;
+        }
+    }
 }
