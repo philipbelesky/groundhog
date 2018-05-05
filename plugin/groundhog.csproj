@@ -84,6 +84,7 @@
     <Compile Include="Hydro\SurfaceFlowPathComponent.cs" />
     <Compile Include="Mapping\FieldComponent.cs" />
     <Compile Include="Mapping\FieldVisualisationGridComponent.cs" />
+    <Compile Include="Mapping\RandomPathComponent.cs" />
     <Compile Include="Plants\PGenericComponent.cs" />
     <Compile Include="Plants\PImportComponent.cs" />
     <Compile Include="Plants\PlanterComponent.cs" />
