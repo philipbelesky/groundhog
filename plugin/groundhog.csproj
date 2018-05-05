@@ -105,7 +105,7 @@
     <Compile Include="Terrain\SurfaceSlopeComponent.cs" />
     <Compile Include="Terrain\TerrainCalculations.cs" />
     <Compile Include="Hydro\FlowCalculations.cs" />
-    <Compile Include="Mapping\groundhogShortestPathComponent.cs" />
+    <Compile Include="Mapping\ShortestPathComponent.cs" />
     <Compile Include="Mapping\ShortestWalk\ListByPattern.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\CurvesTopology.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\EdgeAddress.cs" />
@@ -151,6 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_surface_slope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icon_random_path.png" />
+    <Content Include="Resources\icon_shortest_path.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -244,6 +244,26 @@ namespace groundhog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_random_path {
+            get {
+                object obj = ResourceManager.GetObject("icon_random_path", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_shortest_path {
+            get {
+                object obj = ResourceManager.GetObject("icon_shortest_path", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_surface_aspect {
             get {
                 object obj = ResourceManager.GetObject("icon_surface_aspect", resourceCulture);

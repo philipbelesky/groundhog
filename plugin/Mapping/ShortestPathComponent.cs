@@ -13,15 +13,15 @@ using ShortestWalk.Geometry;
 
 namespace groundhog
 {
-    public class groundhogShortestPathComponent : GroundHog_Component
+    public class GroundhogShortestPathComponent : GroundHogComponent
     {
-        public groundhogShortestPathComponent()
+        public GroundhogShortestPathComponent()
             : base("Shortest Path", "ShortPath", "Calculates the shortest path in a network of curves",
                    "Groundhog", "Mapping")
         { 
         }
 
-        protected override Bitmap Icon => Resources.icon_surface_slope;
+        protected override Bitmap Icon => Resources.icon_shortest_path;
 
         public override Guid ComponentGuid => new Guid("{07169277-e561-4d6f-93a2-5f9d6bb0084a}");
 
