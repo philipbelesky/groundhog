@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using groundhog.Properties;
@@ -9,11 +9,11 @@ using Point = System.Drawing.Point;
 
 namespace groundhog
 {
-    public class groundhogFieldComponent : GroundHog_Component
+    public class GroundhogFieldComponent : GroundHogComponent
     {
 
-        public groundhogFieldComponent()
-            : base("Field Mapper", "Field", "Create ", "Groundhog", "Mapping")
+        public GroundhogFieldComponent()
+            : base("Field Mapper", "Field", "Create a field representation from collections of bounded curves/lines.", "Groundhog", "Mapping")
         {
         }
 

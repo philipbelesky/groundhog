@@ -13,7 +13,7 @@ namespace groundhog
         public static bool Logged = false; // Keep track of whether a log has been issued
     }
 
-    public abstract class GroundHog_Component : GH_Component
+    public abstract class GroundHogComponent : GH_Component
     {
         const string SentryKey = "https://2677778a4e2147f0b2e2aa2c39c403b0:119205cb453641ad9da791b5a83af67b@sentry.io/218018";
 
@@ -108,7 +108,7 @@ namespace groundhog
         #endif
 
         // Pass the constructor parameters up to the main GH_Component abstract class
-        protected GroundHog_Component(string name, string nickname, string description, string category, string subCategory)
+        protected GroundHogComponent(string name, string nickname, string description, string category, string subCategory)
             :base(name, nickname, description, category, subCategory) {
         }
 

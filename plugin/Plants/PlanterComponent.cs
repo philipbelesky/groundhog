@@ -6,10 +6,10 @@ using Grasshopper.Kernel;
 namespace groundhog
 {
     // To fix/restore
-    //public class groundhogPlanterComponent : GroundHog_Component
+    //public class GroundhogPlanterComponent : GroundHogComponent
     //{
 
-    //    public groundhogPlanterComponent()
+    //    public GroundhogPlanterComponent()
     //        : base("Plant Placement Solver", "Placer", "Place particular plant objects at a spatial point given particular inputs and constraints", "Groundhog", "Flora")
     //    {
     //    }

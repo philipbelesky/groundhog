@@ -6,9 +6,9 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogRiverFloodComponent : GroundHog_Component
+    public class GroundhogRiverFloodComponent : GroundHogComponent
     {
-        public groundhogRiverFloodComponent()
+        public GroundhogRiverFloodComponent()
             : base("River Flood Levels", "River Floods", "Examine flooding levels along a surface from a river source", "Groundhog", "Hydro")
         {
         }

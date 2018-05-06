@@ -7,10 +7,10 @@ using Grasshopper.Kernel.Types;
 
 namespace groundhog
 {
-    public class groundhogPImportComponent : GroundHog_Component
+    public class GroundhogPImportComponent : GroundHogComponent
     {
 
-        public groundhogPImportComponent()
+        public GroundhogPImportComponent()
             : base("Species Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
         {
         }

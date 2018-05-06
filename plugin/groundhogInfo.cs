@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 
 namespace groundhog
 {
@@ -13,12 +14,12 @@ namespace groundhog
                 return "Groundhog";
             }
         }
+
         public override Bitmap Icon
         {
             get
             {
-                //Return a 24x24 pixel bitmap to represent this GHA library.
-                return null;
+                return Resources.icon_groundhog;
             }
         }
         public override string Description
@@ -37,6 +38,14 @@ namespace groundhog
             }
         }
 
+        public override GH_LibraryLicense AssemblyLicense
+        {
+            get
+            {
+                return GH_LibraryLicense.opensource;
+            }
+        }
+
         public override string AuthorName
         {
             get
@@ -52,6 +61,16 @@ namespace groundhog
                 //Return a string representing your preferred contact details.
                 return "contact@philipbelesky.com";
             }
+        }
+    }
+
+    class GroundHogTab : GH_AssemblyPriority
+    {
+        public override GH_LoadingInstruction PriorityLoad()
+        {
+            // Icon used in the components tabs
+            Grasshopper.Instances.ComponentServer.AddCategoryIcon("Groundhog", Resources.icon_groundhog);
+            return GH_LoadingInstruction.Proceed;
         }
     }
 }

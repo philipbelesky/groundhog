@@ -174,6 +174,16 @@ namespace groundhog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_groundhog {
+            get {
+                object obj = ResourceManager.GetObject("icon_groundhog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_mesh_aspect {
             get {
                 object obj = ResourceManager.GetObject("icon_mesh_aspect", resourceCulture);
@@ -227,6 +237,26 @@ namespace groundhog.Properties {
         internal static System.Drawing.Bitmap icon_pshower {
             get {
                 object obj = ResourceManager.GetObject("icon_pshower", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_random_path {
+            get {
+                object obj = ResourceManager.GetObject("icon_random_path", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_shortest_path {
+            get {
+                object obj = ResourceManager.GetObject("icon_shortest_path", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

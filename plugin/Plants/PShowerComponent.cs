@@ -8,7 +8,7 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class groundhogShowerComponent : GroundHog_Component
+    public class GroundhogShowerComponent : GroundHogComponent
     {
         public List<Color> allColours;
         public List<Circle> allCrowns;
@@ -18,7 +18,7 @@ namespace groundhog
         public List<Circle> allSpacings;
         public List<Circle> allTrunks;
 
-        public groundhogShowerComponent()
+        public GroundhogShowerComponent()
             : base("Plant Appearance", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
         {
         }
