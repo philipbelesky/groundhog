@@ -29,5 +29,3 @@ The first component for this is `FlowCatchment`. It uses the collection of flow 
 {% include elements/figure.html image='flows/model.jpg' %}
 
 {% include elements/figure.html image='flows/definition.jpg' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for http://groundhog.la' %}
-
-> ***Coming Soon**: further components that extend upon the flow path analysis to calculate surface permeability/penetration and pooling effects along the specified paths.*
