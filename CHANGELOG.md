@@ -1,5 +1,10 @@
 ## Changelog
 
+#### [0.9.0] - 2018-05-06
+###### Added
+- RandomPath component for simulating psuedo random 2D walks
+- ShortestPath component for identifying quickest part with a curve network
+
 #### [0.8.0] - 2018-05-01
 ###### Added
 - Surface equivalents of the Slope and Aspect terrain components

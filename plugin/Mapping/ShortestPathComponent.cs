@@ -156,7 +156,7 @@ namespace groundhog
 
                 if (fromIndex == toIndex)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The start and end positions are equal");
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The start and end positions are equal; perhaps because they are not close enough to one of the curves in the network.");
                     resultCurves.Add(null);
                     continue;
                 }
