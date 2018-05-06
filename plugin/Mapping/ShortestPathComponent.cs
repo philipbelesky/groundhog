@@ -28,9 +28,12 @@ namespace groundhog
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Curves", "C", "The group of curves that form the network to traverse", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Lengths", "L", "A length for each curve. If the number of lengths is less than the one of curves, length values are repeated in pattern.\nIf there are no lengths provided, they will be calculated for each of the curves.", GH_ParamAccess.list);
-            pManager[1].Optional = true;
-            pManager.AddLineParameter("Desired Path", "P", "The lines from the start to the end of the path", GH_ParamAccess.list);
+            pManager.AddPointParameter("Starts", "S", "The point or points that form the starting point of the path", GH_ParamAccess.list);
+            pManager.AddPointParameter("Ends", "E", "The point or points that form the end point of the path", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Lengths", "L", String.Join("A manually-specified length for each curve; useful if you want to artificially ",
+                                                                    "increase or decrease their traversability. If no lengths provided, they will be ",
+                                                                    "manually calculated for each of the curves."), GH_ParamAccess.list);
+            pManager[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -42,7 +45,7 @@ namespace groundhog
         }
 
         static Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
-        static Predicate<Line> _removeInvalidDelegate = RemoveInvalid;
+        static Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
         static Predicate<double> _isNegative = IsNegative;
 
         private static bool RemoveNullAndInvalid(Curve obj)
@@ -50,7 +53,7 @@ namespace groundhog
             return obj == null || !obj.IsValid;
         }
 
-        private static bool RemoveInvalid(Line obj)
+        private static bool RemoveInvalid(Point3d obj)
         {
             return !obj.IsValid;
         }
@@ -62,111 +65,143 @@ namespace groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
-            var curves = new List<Curve>();
-            var lengths = new List<double>();
-            var lines = new List<Line>();
-
-            if (DA.GetDataList(0, curves) && DA.GetDataList(2, lines))
+            var CURVES = new List<Curve>();
+            var STARTS = new List<Point3d>();
+            var ENDS = new List<Point3d>();
+            var LENGTHS = new List<double>();
+            
+            // Access and extract data from the input parameters individually
+            if (!DA.GetDataList(0, CURVES)) return;
+            if (!DA.GetDataList(1, STARTS)) return;
+            if (!DA.GetDataList(2, ENDS)) return;
+            DA.GetDataList(3, LENGTHS);
+            
+            // Input validation
+            int negativeIndex = LENGTHS.FindIndex(_isNegative);
+            if (negativeIndex != -1)
             {
-                DA.GetDataList(1, lengths);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, 
+                                  string.Format("Distances cannot be negative. At least one negative value encounter at index {0}.", negativeIndex));
+                return;
+            }
 
-                int negativeIndex = lengths.FindIndex(_isNegative);
-                if (negativeIndex != -1)
+            CURVES.RemoveAll(_removeNullAndInvalidDelegate);
+            if (CURVES.Count < 1)
+            {
+                return;
+            }
+
+            STARTS.RemoveAll(_removeInvalidDelegate);
+            ENDS.RemoveAll(_removeInvalidDelegate);
+            if (STARTS.Count != ENDS.Count)
+            {
+                if (ENDS.Count == 1 && STARTS.Count > 1)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
-                        string.Format("Distances cannot be negative. At least one negative value encounter at index {0}.",
-                        negativeIndex));
-                    return;
+                    // Assume multiple starts going to single end; populate ends to match
+                    for (int i = 1; i < STARTS.Count; i++)
+                    {
+                        ENDS.Add(ENDS[0]);
+                    }
                 }
-
-                curves.RemoveAll(_removeNullAndInvalidDelegate);
-                lines.RemoveAll(_removeInvalidDelegate);
-
-                if (curves.Count < 1)
+                else if (STARTS.Count == 1 && ENDS.Count > 1)
                 {
-                    return;
-                }
-                
-                CurvesTopology top = new CurvesTopology(curves, GH_Component.DocumentTolerance());
-                //CurvesTopologyPreview.Mark(top, Color.BurlyWood, Color.Bisque);
-
-                PathMethod pathSearch;
-                if (lengths.Count == 0)
-                {
-                    IList<double> distances = top.MeasureAllEdgeLengths();
-                    pathSearch = new AStar(top, distances);
-                }
-                else if (lengths.Count == 1)
-                {
-                    pathSearch = new Dijkstra(top, lengths[0]);
+                    // Assume single start going to multiple ends; populate starts to match
+                    for (int i = 1; i < ENDS.Count; i++)
+                    {
+                        STARTS.Add(STARTS[0]);
+                    }
                 }
                 else
                 {
-                    IList<double> interfLengths = lengths;
-
-                    if (interfLengths.Count < top.EdgeLength)
-                        interfLengths = new ListByPattern<double>(interfLengths, top.EdgeLength);
-
-                    bool isAlwaysShorterOrEqual = true;
-                    for(int i=0; i<top.EdgeLength; i++)
-                    {
-                        if (top.LinearDistanceAt(i) > interfLengths[i])
-                        {
-                            isAlwaysShorterOrEqual = false;
-                            break;
-                        }
-                    }
-
-                    if (isAlwaysShorterOrEqual)
-                        pathSearch = new AStar(top, interfLengths);
-                    else
-                        pathSearch = new Dijkstra(top, interfLengths);
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The quantity of start points does not match the quantity of end points");
+                    return;
                 }
-
-                var resultCurves = new List<Curve>();
-                var resultLinks = new GH_Structure<GH_Integer>();
-                var resultDirs = new GH_Structure<GH_Boolean>();
-                var resultLengths = new List<double>();
-
-                for (int i = 0; i < lines.Count; i++)
-                {
-                    var line = lines[i];
-
-                    int fromIndex = top.GetClosestNode(line.From);
-                    int toIndex = top.GetClosestNode(line.To);
-
-                    if (fromIndex == toIndex)
-                    {
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The start and end positions are equal");
-                        resultCurves.Add(null);
-                        continue;
-                    }
-
-                    int[] nodes, edges; bool[] dir; double tot;
-                    var current = pathSearch.Cross(fromIndex, toIndex, out nodes, out edges, out dir, out tot);
-
-                    if (current == null)
-                    {
-                        AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                            string.Format("No walk found for line at position {0}. Are end points isolated?", i.ToString()));
-                    }
-                    else
-                    {
-                        var pathLinks = DA.ParameterTargetPath(1).AppendElement(i);
-
-                        resultLinks.AppendRange(GhWrapTypeArray<int, GH_Integer>(edges), pathLinks);
-                        resultDirs.AppendRange(GhWrapTypeArray<bool, GH_Boolean>(dir), pathLinks);
-                        resultLengths.Add(tot);
-                    }
-
-                    resultCurves.Add(current);
-                }
-
-                DA.SetDataList(0, resultCurves);
-                DA.SetDataTree(1, resultLinks);
-                DA.SetDataTree(2, resultDirs);
-                DA.SetDataList(3, resultLengths);
             }
+
+            if (LENGTHS.Count > 0 && LENGTHS.Count != CURVES.Count)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "If lengths are provided they must match the number of curves");
+                return;
+            }
+
+            // Construct topology
+            CurvesTopology top = new CurvesTopology(CURVES, GH_Component.DocumentTolerance());
+            //CurvesTopologyPreview.Mark(top, Color.BurlyWood, Color.Bisque);
+            PathMethod pathSearch;
+
+            if (LENGTHS.Count == 0)
+            {
+                IList<double> distances = top.MeasureAllEdgeLengths();
+                pathSearch = new AStar(top, distances);
+            }
+            else if (LENGTHS.Count == 1)
+            {
+                pathSearch = new Dijkstra(top, LENGTHS[0]);
+            }
+            else
+            {
+                IList<double> interfLengths = LENGTHS;
+
+                if (interfLengths.Count < top.EdgeLength)
+                    interfLengths = new ListByPattern<double>(interfLengths, top.EdgeLength);
+
+                bool isAlwaysShorterOrEqual = true;
+                for(int i=0; i<top.EdgeLength; i++)
+                {
+                    if (top.LinearDistanceAt(i) > interfLengths[i])
+                    {
+                        isAlwaysShorterOrEqual = false;
+                        break;
+                    }
+                }
+
+                if (isAlwaysShorterOrEqual)
+                    pathSearch = new AStar(top, interfLengths);
+                else
+                    pathSearch = new Dijkstra(top, interfLengths);
+            }
+
+            var resultCurves = new List<Curve>();
+            var resultLinks = new GH_Structure<GH_Integer>();
+            var resultDirs = new GH_Structure<GH_Boolean>();
+            var resultLengths = new List<double>();
+
+            for (int i = 0; i < STARTS.Count; i++)
+            {
+                int fromIndex = top.GetClosestNode(STARTS[i]);
+                int toIndex = top.GetClosestNode(ENDS[i]);
+
+                if (fromIndex == toIndex)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The start and end positions are equal");
+                    resultCurves.Add(null);
+                    continue;
+                }
+
+                int[] nodes, edges; bool[] dir; double tot;
+                var current = pathSearch.Cross(fromIndex, toIndex, out nodes, out edges, out dir, out tot);
+
+                if (current == null)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                        string.Format("No walk found for start point at position {0}. Are end points isolated?", i.ToString()));
+                }
+                else
+                {
+                    var pathLinks = DA.ParameterTargetPath(1).AppendElement(i);
+
+                    resultLinks.AppendRange(GhWrapTypeArray<int, GH_Integer>(edges), pathLinks);
+                    resultDirs.AppendRange(GhWrapTypeArray<bool, GH_Boolean>(dir), pathLinks);
+                    resultLengths.Add(tot);
+                }
+
+                resultCurves.Add(current);
+            }
+
+            DA.SetDataList(0, resultCurves);
+            DA.SetDataTree(1, resultLinks);
+            DA.SetDataTree(2, resultDirs);
+            DA.SetDataList(3, resultLengths);
         }
 
         private TGh[] GhWrapTypeArray<T, TGh>(T[] input)
