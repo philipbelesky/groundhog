@@ -2,7 +2,7 @@
 
 <!-- included as a pdf in the release -->
 
-# Groundhog (0.8.0b)
+# Groundhog (0.9.0b)
 
 *... a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design in landscape architecture.*
 
