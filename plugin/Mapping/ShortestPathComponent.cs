@@ -21,6 +21,8 @@ namespace groundhog
         { 
         }
 
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
         protected override Bitmap Icon => Resources.icon_shortest_path;
 
         public override Guid ComponentGuid => new Guid("{07169277-e561-4d6f-93a2-5f9d6bb0084a}");
@@ -43,26 +45,7 @@ namespace groundhog
             pManager.AddBooleanParameter("Direction", "D", "True if the curve in succession is walked from start to end, false otherwise", GH_ParamAccess.tree);
             pManager.AddNumberParameter("Length", "L", "The total length, as an aggregation of the input lengths measured along the path", GH_ParamAccess.list);
         }
-
-        static Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
-        static Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
-        static Predicate<double> _isNegative = IsNegative;
-
-        private static bool RemoveNullAndInvalid(Curve obj)
-        {
-            return obj == null || !obj.IsValid;
-        }
-
-        private static bool RemoveInvalid(Point3d obj)
-        {
-            return !obj.IsValid;
-        }
-
-        private static bool IsNegative(double number)
-        {
-            return number < 0;
-        }
-
+        
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             var CURVES = new List<Curve>();
@@ -81,7 +64,7 @@ namespace groundhog
             if (negativeIndex != -1)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, 
-                                  string.Format("Distances cannot be negative. At least one negative value encounter at index {0}.", negativeIndex));
+                                  string.Format("Distances cannot be negative. At least one negative value found at index {0}.", negativeIndex));
                 return;
             }
 
@@ -202,6 +185,25 @@ namespace groundhog
             DA.SetDataTree(1, resultLinks);
             DA.SetDataTree(2, resultDirs);
             DA.SetDataList(3, resultLengths);
+        }
+        
+        static Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
+        static Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
+        static Predicate<double> _isNegative = IsNegative;
+
+        private static bool RemoveNullAndInvalid(Curve obj)
+        {
+            return obj == null || !obj.IsValid;
+        }
+
+        private static bool RemoveInvalid(Point3d obj)
+        {
+            return !obj.IsValid;
+        }
+
+        private static bool IsNegative(double number)
+        {
+            return number < 0;
         }
 
         private TGh[] GhWrapTypeArray<T, TGh>(T[] input)
