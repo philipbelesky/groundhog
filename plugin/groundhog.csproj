@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <ReleaseVersion>0.8.0</ReleaseVersion>
+    <ReleaseVersion>0.6</ReleaseVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -84,6 +84,7 @@
     <Compile Include="Hydro\SurfaceFlowPathComponent.cs" />
     <Compile Include="Mapping\FieldComponent.cs" />
     <Compile Include="Mapping\FieldVisualisationGridComponent.cs" />
+    <Compile Include="Mapping\RandomPathComponent.cs" />
     <Compile Include="Plants\PGenericComponent.cs" />
     <Compile Include="Plants\PImportComponent.cs" />
     <Compile Include="Plants\PlanterComponent.cs" />
@@ -105,6 +106,12 @@
     <Compile Include="Terrain\SurfaceSlopeComponent.cs" />
     <Compile Include="Terrain\TerrainCalculations.cs" />
     <Compile Include="Hydro\FlowCalculations.cs" />
+    <Compile Include="Mapping\ShortestPathComponent.cs" />
+    <Compile Include="Mapping\ShortestWalk\ListByPattern.cs" />
+    <Compile Include="Mapping\ShortestWalk\Geometry\CurvesTopology.cs" />
+    <Compile Include="Mapping\ShortestWalk\Geometry\EdgeAddress.cs" />
+    <Compile Include="Mapping\ShortestWalk\Geometry\NodeAddress.cs" />
+    <Compile Include="Mapping\ShortestWalk\Geometry\PathMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -145,6 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_surface_slope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icon_random_path.png" />
+    <Content Include="Resources\icon_shortest_path.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
