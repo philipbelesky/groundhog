@@ -43,13 +43,40 @@ namespace groundhog
             // Create holder variables for output parameters
             var csvPlantSpecies = new List<PlantSpecies>();
 
+            // Validation
+            if (csvContents.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An invalid CSV path or empty CSV has been provided so there is nothing to import.");
+                return;
+            }
+            if (csvContents.Count == 1)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Your CSV file has ony 1 line; it must be missing either the headers or any species.");
+                return;
+            }
+
             // Format
             var csvHeaders = csvContents[0];
             csvContents.Remove(csvHeaders);
 
             foreach (var csvValue in csvContents)
             {
-                var instanceDictionary = PlantFactory.ParseToDictionary(csvHeaders, csvValue);
+                if (csvValue.Trim() == "") // Skip blank lines
+                {                    
+                    continue;
+                }
+
+                var instanceDictionary = new Dictionary<string, string>();
+                try
+                {
+                    instanceDictionary = PlantFactory.ParseToDictionary(csvHeaders, csvValue);
+                }
+                catch (System.IndexOutOfRangeException e)  // CS0168
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, String.Format("Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}", csvValue));
+                    continue;
+                }
+
                 var createSpecies = PlantFactory.ParseFromDictionary(instanceDictionary);
 
                 var instanceSpecies = createSpecies.Item1;
