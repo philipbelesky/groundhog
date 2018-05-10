@@ -58,6 +58,18 @@ namespace groundhog
             if (!DA.GetData(3, ref FLOW_LIMIT)) return;
             if (!DA.GetData(4, ref THREAD)) return;
 
+            // Validation
+            if (FLOW_SURFACE == null)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Surface input; please correct this input.");
+                return;
+            }
+            // TODO: properly cull nulls; they come through as 0,0,0 however
+            if (FLOW_ORIGINS.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid points have been provided; perhaps check that you have not provided null or invalid points?");
+                return;
+            }
             if (FLOW_FIDELITY == 0)
             {
                 FLOW_FIDELITY = FlowCalculations.getSensibleFidelity(FLOW_ORIGINS, null, FLOW_SURFACE);
