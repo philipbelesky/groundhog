@@ -8,7 +8,7 @@
 - Version number to be iterated in `groundhog.csproj`
 - Version number to be iterated in `groundhog readme.md`
 - Version number to be iterated in the `gh_string` of each definition; search string for *Definition prepared for Groundhog v0.8.0b and depends on*
-- Version number to be iterated in `package.json`
+- Version number to be iterated in `package.json` + `package-lock.json`
 - Version number to be iterated in `manifest.yml`
 - Release date/notes in `CHANGELOG.md`
 
