@@ -13,12 +13,13 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "purge": "rm -rf _site && rm -rf .jekyll",
+    "purge": "rm -rf _site && rm -rf .jekyll-cache",
     "serve": "bundle exec jekyll serve --incremental --livereload --unpublished  --host=0.0.0.0",
     "preview": "bundle exec jekyll serve --incremental --livereload  --host=0.0.0.0",
     "watch": "npm run serve",
     "build": "bash ./compile.sh && bundle exec jekyll build",
-    "publish": "bash ./compile.sh && JEKYLL_ENV=production bundle exec jekyll build && s3_website push"
+    "publish": "bash ./compile.sh && JEKYLL_ENV=production bundle exec jekyll build && s3_website push",
+    "publish-incremental": "JEKYLL_ENV=production bundle exec jekyll build && s3_website push"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",
