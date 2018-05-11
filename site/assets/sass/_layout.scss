@@ -109,14 +109,3 @@ p > img + p > img {
 .footer {
   padding-bottom: 3rem;
 }
-
-// Sticky Footer
-.footer-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.footer-pushdown {
-  flex: 1;
-}
