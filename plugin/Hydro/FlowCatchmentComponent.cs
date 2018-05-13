@@ -40,7 +40,7 @@ namespace groundhog
             pManager.AddCurveParameter("Flow Paths", "P", "The flow paths grouped by catchment", GH_ParamAccess.tree);
             pManager.AddColourParameter("Color Codes", "C", "Colour codes the uniquely identify each path and boundary", GH_ParamAccess.tree);
         }
-
+                
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
@@ -55,9 +55,11 @@ namespace groundhog
             // TODO: add a warning/note that these should be a flat list
             //AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Make a flat list");
 
+            // Remove null items; can be due to passing in the points not the path
+            FLOW_PATHS.RemoveAll(curve => curve == null);
             if (FLOW_PATHS.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "No Flow Paths provided");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "No Flow Paths provided or they were provided as an inappropriate geometry.");
                 return;
             }
 
