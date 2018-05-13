@@ -14,8 +14,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "purge": "rm -rf _site && rm -rf .jekyll-cache",
-    "serve": "bundle exec jekyll serve --incremental --livereload --unpublished  --host=0.0.0.0",
-    "preview": "bundle exec jekyll serve --incremental --livereload  --host=0.0.0.0",
+    "serve": "bundle exec jekyll serve --incremental --livereload --unpublished",
+    "preview": "bundle exec jekyll serve --incremental --livereload",
     "watch": "npm run serve",
     "build": "bash ./compile.sh && bundle exec jekyll build",
     "publish": "bash ./compile.sh && JEKYLL_ENV=production bundle exec jekyll build && s3_website push",
