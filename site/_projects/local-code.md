@@ -3,7 +3,6 @@ title:      Local Code
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:
 year:
 location:
 designers:  Nicholas de Mochaux and...

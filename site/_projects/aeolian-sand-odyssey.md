@@ -3,7 +3,6 @@ title:      Aeolian Sand Odyssey
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:  1.jpg
 year:       2014 (designed)
 location:
 designers:  Niki Kakali, Anastasia Kotenko

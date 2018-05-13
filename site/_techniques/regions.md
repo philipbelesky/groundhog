@@ -2,7 +2,6 @@
 title:      "Mapping: Thresholds and Areas"
 excerpt:    "TODO"
 published:  false
-thumbnail:  thumbnail.png
 date:       18-03-19
 ---
 

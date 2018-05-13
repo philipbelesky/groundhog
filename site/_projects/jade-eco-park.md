@@ -3,7 +3,6 @@ title:      Jade Eco Park
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:  1.jpg
 year:       2018 (constructed)
 location:   Taichung, Taiwan
 designers:  Philippe Rahm Architect, Mosbach Paysagistes, Ricky Liu & Associates

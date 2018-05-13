@@ -3,7 +3,6 @@ title:      Busan Cinema Complex
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:  1.jpeg
 year:       2006 (designed)
 location:   Busan, South Korea
 designers:  James Corner Field Operations and TEN Arquitectos

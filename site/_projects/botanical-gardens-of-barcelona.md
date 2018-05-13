@@ -3,7 +3,6 @@ title:      Botanic Gardens of Barcelona
 date:       18-01-31
 published:  true
 excerpt:    Facets form a mosaic that stretches across a steep slope and structures a tailored planting plan.
-thumbnail:  thumbnail.png
 year:       1999 (constructed)
 location:   Barcelona, Spain
 designers:  Carlos Ferrater, Josep Lluís Canosa, Bet Figueras, Artur Bossy, Joan Pedrola
