@@ -47,6 +47,12 @@ namespace groundhog
 
             foreach (var contour in ALL_CONTOURS)
             {
+                if (contour == null)
+                {
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "One of the contours was a null item; perhaps because the object no longer exists in Rhinoceros. It has not been output.");
+                    continue;
+                }
+
                 var degree = contour.Degree;
                 if (contour.IsPolyline())
                 {
