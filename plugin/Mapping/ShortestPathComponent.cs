@@ -161,8 +161,7 @@ namespace groundhog
                     continue;
                 }
 
-                int[] nodes, edges; bool[] dir; double tot;
-                var current = pathSearch.Cross(fromIndex, toIndex, out nodes, out edges, out dir, out tot);
+                var current = pathSearch.Cross(fromIndex, toIndex, out int[] nodes, out int[] edges, out bool[] dir, out double tot);
 
                 if (current == null)
                 {
@@ -215,8 +214,10 @@ namespace groundhog
             var newArray = new TGh[input.Length];
             for (int i = 0; i < input.Length; i++)
             {
-                var gh = new TGh();
-                gh.Value = input[i];
+                var gh = new TGh
+                {
+                    Value = input[i]
+                };
                 newArray[i] = gh;
             }
             return newArray;

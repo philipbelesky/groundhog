@@ -109,12 +109,12 @@ namespace groundhog
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
-                allTrunks.Add(plantInstance.getTrunk(plantLocations[i], plantTime));
-                allRoots.Add(plantInstance.getRoot(plantLocations[i], plantTime));
-                allCrowns.Add(plantInstance.getCrown(plantLocations[i], plantTime));
-                allSpacings.Add(plantInstance.getSpacing(plantLocations[i]));
-                allColours.Add(plantInstance.getColour());
-                allLabels.Add(plantInstance.getLabel());
+                allTrunks.Add(plantInstance.GetTrunk(plantLocations[i], plantTime));
+                allRoots.Add(plantInstance.GetRoot(plantLocations[i], plantTime));
+                allCrowns.Add(plantInstance.GetCrown(plantLocations[i], plantTime));
+                allSpacings.Add(plantInstance.GetSpacing(plantLocations[i]));
+                allColours.Add(plantInstance.GetColor());
+                allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters

@@ -69,7 +69,7 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "At least one step size must be provided.");
                 return;
             }
-            int negativeIndex = STEP_SIZES.FindIndex(isZero);
+            int negativeIndex = STEP_SIZES.FindIndex(IsZero);
             if (negativeIndex != -1)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
@@ -127,8 +127,10 @@ namespace groundhog
         private PolylineCurve DispatchRandomPaths(Point3d startPoint, List<double> DIRECTIONS,
                                                   List<double> STEP_SIZES, int STEP_COUNT, Curve BOUNDARY, Random rnd)
         {
-            var stepPoints = new List<Point3d>();
-            stepPoints.Add(startPoint);
+            var stepPoints = new List<Point3d>
+            {
+                startPoint
+            };
 
             // Loop over the steps and make the movement
             var attempts = 0; // Safety check for when its impractical to find a solution that can not avoid boundary
@@ -166,9 +168,9 @@ namespace groundhog
             return Point3d.Add(startPoint, vectorDirection * distance);
         }
 
-        static Predicate<double> _isZero = isZero;
+        static Predicate<double> _isZero = IsZero;
 
-        private static bool isZero(double number)
+        private static bool IsZero(double number)
         {
             return number == 0;
         }
