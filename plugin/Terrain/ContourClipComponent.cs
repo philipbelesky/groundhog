@@ -52,21 +52,25 @@ namespace groundhog
             if (!DA.GetData(1, ref BOUNDARY)) return;
             DA.GetData(2, ref CREATE_SRFS);
             
+            // Input Validation
+            int preCullSize = ALL_CONTOURS.Count;
+            ALL_CONTOURS.RemoveAll(item => item == null);
             if (ALL_CONTOURS.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No contour curves provided.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
                 return;
             }
-
-            // Create holder variables for ouput parameters
-            var fixedContours = new List<Curve>();
-            var edgedContours = new List<Curve>();
-            var planarSrfs = new List<Brep>();
+            else if (ALL_CONTOURS.Count < preCullSize)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, String.Format("{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.", preCullSize - ALL_CONTOURS.Count));
+            }
 
             // Get lowest point
             var heightGuages = new List<double>();
             foreach (var curve in ALL_CONTOURS)
+            {
                 heightGuages.Add(curve.PointAtEnd.Z);
+            }
             heightGuages.Sort();
 
             var contourLow = heightGuages[0];
@@ -87,6 +91,11 @@ namespace groundhog
 
             var boundaryExtrusion = new Vector3d(0, 0, contourHigh - contourLow + 2);
             var boundarySrf = Surface.CreateExtrusion(BOUNDARY, boundaryExtrusion);
+            
+            // Create holder variables for ouput parameters
+            var fixedContours = new List<Curve>();
+            var edgedContours = new List<Curve>();
+            var planarSrfs = new List<Brep>();
 
             // End Point Clipping
             foreach (var curve in ALL_CONTOURS)
@@ -147,13 +156,16 @@ namespace groundhog
 
             var testPoint = new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
 
-            var pointContainment = BOUNDARY.Contains(testPoint);
+            var inBoundary = BOUNDARY.Contains(testPoint);
 
-            if (pointContainment.ToString() == "Inside")
+            if (inBoundary == PointContainment.Inside)
             {
                 // Extend
                 var extendedCurve = ExtendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
-                return extendedCurve;
+                if (extendedCurve != null) // Extension presumably fails due to no extendable path
+                {
+                    return extendedCurve;
+                }
             }
             return initialCurve;
         }
@@ -164,9 +176,8 @@ namespace groundhog
             Curve trimmedCurveEnds;
 
             // Find where the boundary and curve intersect
-            Curve[] intersectCurves;
-            Point3d[] intersectPoints;
-            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, out intersectCurves, out intersectPoints);
+            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, 
+                                   out Curve[] intersectCurves, out Point3d[] intersectPoints);
 
             // Get closest point from intersections and its parameters
             double? minimumDistance = null;
@@ -181,8 +192,7 @@ namespace groundhog
                 }
             }
             var closestPoint = intersectPoints[index];
-            double startTrim;
-            initialCurve.ClosestPoint(closestPoint, out startTrim, 0); // Get Paramter of Intersection
+            initialCurve.ClosestPoint(closestPoint, out double startTrim, 0); // Get Paramter of Intersection
 
             // Trim the curve bit that over extends
             if (startTrim != 0.0)
@@ -209,13 +219,10 @@ namespace groundhog
         {
             Brep[] boundaryCollision = {boundarySrf.ToBrep()};
 
-            Curve extendedCurve;
             if (startPoint.DistanceTo(initialCurve.PointAtEnd) == 0)
-                extendedCurve = initialCurve.Extend(CurveEnd.End, CurveExtensionStyle.Smooth, boundaryCollision);
+                return initialCurve.Extend(CurveEnd.End, CurveExtensionStyle.Smooth, boundaryCollision);
             else
-                extendedCurve = initialCurve.Extend(CurveEnd.Start, CurveExtensionStyle.Smooth, boundaryCollision);
-
-            return extendedCurve;
+                return initialCurve.Extend(CurveEnd.Start, CurveExtensionStyle.Smooth, boundaryCollision);
         }
 
         private List<Curve> ClipMeanderingCurvesToBoundary(Curve initialCurve, Curve BOUNDARY, Surface boundarySrf)

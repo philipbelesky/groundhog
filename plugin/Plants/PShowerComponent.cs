@@ -60,13 +60,19 @@ namespace groundhog
             DA.GetDataList(1, plantLocations);
             DA.GetData(2, ref plantTime);
 
+            // Negative time values mean don't calculate/show plants (useful for successional schemes)
+            if (plantTime < 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The specified time was less than zero so no species have been allocated locations.");
+                return;
+            }
+
             // Need to unwrap the species from generic list to a plantSpecies list
             var wrappedSpecies = new List<GH_ObjectWrapper>();
             if (!DA.GetDataList(0, wrappedSpecies)) return;
             foreach (var unwrappedObject in wrappedSpecies)
                 plantSpecies.Add(unwrappedObject.Value as PlantSpecies);
-
-
+            
             // We should now validate the data and warn the user if invalid data is supplied.
             if (plantLocations.Count == 0)
             {
@@ -103,12 +109,12 @@ namespace groundhog
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
-                allTrunks.Add(plantInstance.getTrunk(plantLocations[i], plantTime));
-                allRoots.Add(plantInstance.getRoot(plantLocations[i], plantTime));
-                allCrowns.Add(plantInstance.getCrown(plantLocations[i], plantTime));
-                allSpacings.Add(plantInstance.getSpacing(plantLocations[i]));
-                allColours.Add(plantInstance.getColour());
-                allLabels.Add(plantInstance.getLabel());
+                allTrunks.Add(plantInstance.GetTrunk(plantLocations[i], plantTime));
+                allRoots.Add(plantInstance.GetRoot(plantLocations[i], plantTime));
+                allCrowns.Add(plantInstance.GetCrown(plantLocations[i], plantTime));
+                allSpacings.Add(plantInstance.GetSpacing(plantLocations[i]));
+                allColours.Add(plantInstance.GetColor());
+                allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters

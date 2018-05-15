@@ -30,7 +30,7 @@ namespace groundhog
             // Naming
             string speciesName, commonName, indigenousName;
             // Lifespan
-            double timetoMaturity, deathRate;
+            double timetoMaturity;
             // Placement
             double requiredSpacingRadius;
             // Form
@@ -311,7 +311,7 @@ namespace groundhog
         }
 
         // Get current state
-        private double getGrowth(double initial, double eventual, double time)
+        private double GetGrowth(double initial, double eventual, double time)
         {
             var annualRate = (eventual - initial) / timetoMaturity;
             var grownTime = Math.Min(time, timetoMaturity);
@@ -320,38 +320,38 @@ namespace groundhog
         }
 
         // Get geometry
-        public Circle getCrown(Point3d location, double time)
+        public Circle GetCrown(Point3d location, double time)
         {
-            var height = getGrowth(initialHeight, matureHeight, time);
-            var radius = getGrowth(initialCrownRadius, matureCrownRadius, time);
+            var height = GetGrowth(initialHeight, matureHeight, time);
+            var radius = GetGrowth(initialCrownRadius, matureCrownRadius, time);
             var canopyLocation = new Point3d(location.X, location.Y, location.Z + height);
             return new Circle(canopyLocation, radius);
         }
 
-        public Circle getRoot(Point3d location, double time)
+        public Circle GetRoot(Point3d location, double time)
         {
-            var radius = getGrowth(initialRootRadius, matureRootRadius, time);
+            var radius = GetGrowth(initialRootRadius, matureRootRadius, time);
             return new Circle(location, radius);
         }
 
-        public Circle getTrunk(Point3d location, double time)
+        public Circle GetTrunk(Point3d location, double time)
         {
-            var radius = getGrowth(initialTrunkRadius, matureTrunkRadius, time);
+            var radius = GetGrowth(initialTrunkRadius, matureTrunkRadius, time);
             return new Circle(location, radius);
         }
 
-        public Circle getSpacing(Point3d location)
+        public Circle GetSpacing(Point3d location)
         {
             return new Circle(location, requiredSpacingRadius);
         }
 
-        public Color getColour()
+        public Color GetColor()
         {
-            var colour = Color.FromArgb(displayR, displayG, displayB);
-            return colour;
+            var color = Color.FromArgb(displayR, displayG, displayB);
+            return color;
         }
 
-        public GH_String getLabel()
+        public GH_String GetLabel()
         {
             return new GH_String(speciesName);
         }

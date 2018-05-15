@@ -41,6 +41,19 @@ namespace groundhog
             // Access and extract data from the input parameters individually
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
 
+            // Input Validation
+            int preCullSize = ALL_CONTOURS.Count;
+            ALL_CONTOURS.RemoveAll(item => item == null);
+            if (ALL_CONTOURS.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
+                return;
+            }
+            else if (ALL_CONTOURS.Count < preCullSize)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, String.Format("{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.", preCullSize - ALL_CONTOURS.Count));
+            }
+
             // Create holder variables for ouput parameters
             var fixedContours = new List<Curve>();
             var allContours = new List<Curve>();
@@ -50,8 +63,7 @@ namespace groundhog
                 var degree = contour.Degree;
                 if (contour.IsPolyline())
                 {
-                    Polyline contourPLine;
-                    contour.TryGetPolyline(out contourPLine); // Convert to Polyline
+                    contour.TryGetPolyline(out Polyline contourPLine); // Convert to Polyline
 
                     var zValues = GetZValues(new List<Point3d>(contourPLine.ToArray()));
 

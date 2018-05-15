@@ -49,10 +49,19 @@ namespace groundhog
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
             if (!DA.GetData(1, ref BOUNDARY)) return;
             if (!DA.GetData(2, ref MAXIMUM_GAP)) return;
-
-            // Create holder variables for ouput parameters
-            var fixedContours = new List<Curve>();
-            var connections = new List<Curve>();
+            
+            // Input Validation
+            int preCullSize = ALL_CONTOURS.Count;
+            ALL_CONTOURS.RemoveAll(item => item == null);
+            if (ALL_CONTOURS.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
+                return;
+            }
+            else if (ALL_CONTOURS.Count < preCullSize)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, String.Format("{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.", preCullSize - ALL_CONTOURS.Count));
+            }
 
             // Ensure the maximum gap is a positive number (won't crash if not; but just does nothing)
             if (MAXIMUM_GAP <= 0.0) {
@@ -61,6 +70,10 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Maximum Distance was set at or below 0 so no changes were made to the contours.");
                 return;
             }
+            
+            // Create holder variables for ouput parameters
+            var fixedContours = new List<Curve>();
+            var connections = new List<Curve>();
 
             // For each contour, get start and end points that arent outside or on the boundaries
             var possibleSplitPoints = new List<Point3d>();
@@ -96,8 +109,7 @@ namespace groundhog
 
                         // Get the closest point on the boundary and check we aren't extending to a boundary gap
                         var closestPoint = Point3dList.ClosestPointInList(possibleSplitPointsWithoutSelf, point);
-                        double closestBoundaryPtParamater;
-                        BOUNDARY.ClosestPoint(point, out closestBoundaryPtParamater);
+                        BOUNDARY.ClosestPoint(point, out double closestBoundaryPtParamater);
                         var closestBoundaryPt = BOUNDARY.PointAt(closestBoundaryPtParamater);
                         closestBoundaryPt.Z = point.Z; // Set the Z's to be the same as the boundary is assumed to be 3D
 
@@ -121,7 +133,7 @@ namespace groundhog
             DA.SetDataList(1, connections);
         }
 
-        private double calculateMean(List<double> values)
+        private double CalculateMean(List<double> values)
         {
             var count = values.Count;
 

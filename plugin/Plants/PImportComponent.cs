@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using groundhog.Properties;
@@ -73,7 +73,7 @@ namespace groundhog
                 }
                 catch (System.IndexOutOfRangeException e)  // CS0168
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, String.Format("Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}", csvValue));
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, String.Format("Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}; the error is {1}", csvValue, e));
                     continue;
                 }
 

@@ -5,7 +5,6 @@
 - Version number to be iterated in `plugin.md`
 - Version number to be iterated in `download.html`
 - Version number to be iterated in `AssemblyInfo.cs`
-- Version number to be iterated in `groundhog.csproj`
 - Version number to be iterated in `groundhog readme.md`
 - Version number to be iterated in the `gh_string` of each definition; search string for *Definition prepared for Groundhog v0.8.0b and depends on*
 - Version number to be iterated in `package.json` + `package-lock.json`
@@ -14,7 +13,7 @@
 
 #### Models/Definitions
 
-- Downsave models to Rhinoceros 5 
+- Downsave models to Rhinoceros 5
 - Update screenshots used on site
     - Check Full Names are off; fancy wires are on
     - Export as JPG with background 227, 222, 218; at 2X resolution (needs to be done in Rhinoceros 6)
