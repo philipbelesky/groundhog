@@ -156,13 +156,16 @@ namespace groundhog
 
             var testPoint = new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
 
-            var pointContainment = BOUNDARY.Contains(testPoint);
+            var inBoundary = BOUNDARY.Contains(testPoint);
 
-            if (pointContainment.ToString() == "Inside")
+            if (inBoundary == PointContainment.Inside)
             {
                 // Extend
                 var extendedCurve = ExtendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
-                return extendedCurve;
+                if (extendedCurve != null) // Extension presumably fails due to no extendable path
+                {
+                    return extendedCurve;
+                }
             }
             return initialCurve;
         }
@@ -173,9 +176,8 @@ namespace groundhog
             Curve trimmedCurveEnds;
 
             // Find where the boundary and curve intersect
-            Curve[] intersectCurves;
-            Point3d[] intersectPoints;
-            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, out intersectCurves, out intersectPoints);
+            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, 
+                                   out Curve[] intersectCurves, out Point3d[] intersectPoints);
 
             // Get closest point from intersections and its parameters
             double? minimumDistance = null;
@@ -190,8 +192,7 @@ namespace groundhog
                 }
             }
             var closestPoint = intersectPoints[index];
-            double startTrim;
-            initialCurve.ClosestPoint(closestPoint, out startTrim, 0); // Get Paramter of Intersection
+            initialCurve.ClosestPoint(closestPoint, out double startTrim, 0); // Get Paramter of Intersection
 
             // Trim the curve bit that over extends
             if (startTrim != 0.0)

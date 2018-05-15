@@ -109,8 +109,7 @@ namespace groundhog
 
                         // Get the closest point on the boundary and check we aren't extending to a boundary gap
                         var closestPoint = Point3dList.ClosestPointInList(possibleSplitPointsWithoutSelf, point);
-                        double closestBoundaryPtParamater;
-                        BOUNDARY.ClosestPoint(point, out closestBoundaryPtParamater);
+                        BOUNDARY.ClosestPoint(point, out double closestBoundaryPtParamater);
                         var closestBoundaryPt = BOUNDARY.PointAt(closestBoundaryPtParamater);
                         closestBoundaryPt.Z = point.Z; // Set the Z's to be the same as the boundary is assumed to be 3D
 
@@ -134,7 +133,7 @@ namespace groundhog
             DA.SetDataList(1, connections);
         }
 
-        private double calculateMean(List<double> values)
+        private double CalculateMean(List<double> values)
         {
             var count = values.Count;
 

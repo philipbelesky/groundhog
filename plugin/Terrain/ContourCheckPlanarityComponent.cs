@@ -63,8 +63,7 @@ namespace groundhog
                 var degree = contour.Degree;
                 if (contour.IsPolyline())
                 {
-                    Polyline contourPLine;
-                    contour.TryGetPolyline(out contourPLine); // Convert to Polyline
+                    contour.TryGetPolyline(out Polyline contourPLine); // Convert to Polyline
 
                     var zValues = GetZValues(new List<Point3d>(contourPLine.ToArray()));
 
