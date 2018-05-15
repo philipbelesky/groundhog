@@ -3,6 +3,7 @@
 #### [0.9.1] - 2018-05-
 ###### Changed
 - Plant shower will now do nothing when provided with a negative time value so successional planting schemes are easier to implement
+- Random Path component now provides a seed parameter so results can be used deterministically
 
 ###### Fixed
 - Improved handling of null items and bad inputs across many components

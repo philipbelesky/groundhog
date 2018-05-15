@@ -26,13 +26,15 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Start", "S", "The initial starting point or points for the path(s)", GH_ParamAccess.list);
+            pManager.AddPointParameter("Start", "P", "The initial starting point or points for the path(s)", GH_ParamAccess.list);
             pManager.AddNumberParameter("Step Size", "L", "The distance to move forward for each step. If provided as a list a random option will be selected for each step.", GH_ParamAccess.list);
             pManager.AddIntegerParameter("Step Count", "C", "The number of steps to take.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Directions", "D", "The possible angles in which to move (as a list of numbers in degrees). If not set a random direction in a 360 degree range will be used.", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Random Seed", "S", "The random seed to be used for each of the path distance and angle choices. If set the same random results will be produced; if not set they will be different for each run.", GH_ParamAccess.item);
             pManager[3].Optional = true;
-            pManager.AddCurveParameter("Boundary", "B", "A boundary (must be a closed planar curve) that the steps will not be allowed to cross", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Directions", "D", "The possible angles in which to move (as a list of numbers in degrees). If not set a random direction in a 360 degree range will be used.", GH_ParamAccess.list);
             pManager[4].Optional = true;
+            pManager.AddCurveParameter("Boundary", "B", "A boundary (must be a closed planar curve) that the steps will not be allowed to cross", GH_ParamAccess.item);
+            pManager[5].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -46,6 +48,7 @@ namespace groundhog
             var PATH_ORIGINS = new List<Point3d>();
             var STEP_SIZES = new List<double>();
             int STEP_COUNT = 0;
+            int? SEED = null;
             var DIRECTIONS = new List<double>();
             Curve BOUNDARY = null;
             
@@ -53,8 +56,9 @@ namespace groundhog
             if (!DA.GetDataList(0, PATH_ORIGINS)) return;
             if (!DA.GetDataList(1, STEP_SIZES)) return;
             DA.GetData(2, ref STEP_COUNT);
-            DA.GetDataList(3, DIRECTIONS);
-            DA.GetData(4, ref BOUNDARY);
+            DA.GetData(3, ref SEED);
+            DA.GetDataList(4, DIRECTIONS);
+            DA.GetData(5, ref BOUNDARY);
 
             // Input validation
             if (DIRECTIONS.Count == 0)
@@ -111,6 +115,8 @@ namespace groundhog
 
             // Create random generate just once
             Random rnd = new Random();
+            if (SEED.HasValue)
+                rnd = new Random(SEED.Value); // Use SEED if it has been provided
 
             // Calculate walks
             var outputPaths = new List<Curve>();
