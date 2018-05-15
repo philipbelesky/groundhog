@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.9.1] - 2018-05-
+#### [0.9.1] - 2018-05-15
 ###### Changed
 - Plant shower will now do nothing when provided with a negative time value so successional planting schemes are easier to implement
 - Random Path component now provides a seed parameter so results can be used deterministically
