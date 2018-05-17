@@ -16,9 +16,8 @@ namespace groundhog
     public class GroundhogShortestPathComponent : GroundHogComponent
     {
         public GroundhogShortestPathComponent()
-            : base("Shortest Path", "ShortPath", "Calculates the shortest path in a network of curves",
-                   "Groundhog", "Mapping")
-        { 
+            : base("Shortest Path", "ShortPath", "Calculates the shortest path in a network of curves", "Groundhog", "Mapping")
+        {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
@@ -45,25 +44,25 @@ namespace groundhog
             pManager.AddBooleanParameter("Direction", "D", "True if the curve in succession is walked from start to end, false otherwise", GH_ParamAccess.tree);
             pManager.AddNumberParameter("Length", "L", "The total length, as an aggregation of the input lengths measured along the path", GH_ParamAccess.list);
         }
-        
+
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             var CURVES = new List<Curve>();
             var STARTS = new List<Point3d>();
             var ENDS = new List<Point3d>();
             var LENGTHS = new List<double>();
-            
+
             // Access and extract data from the input parameters individually
             if (!DA.GetDataList(0, CURVES)) return;
             if (!DA.GetDataList(1, STARTS)) return;
             if (!DA.GetDataList(2, ENDS)) return;
             DA.GetDataList(3, LENGTHS);
-            
+
             // Input validation
             int negativeIndex = LENGTHS.FindIndex(_isNegative);
             if (negativeIndex != -1)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, 
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
                                   string.Format("Distances cannot be negative. At least one negative value found at index {0}.", negativeIndex));
                 return;
             }
@@ -185,7 +184,7 @@ namespace groundhog
             DA.SetDataTree(2, resultDirs);
             DA.SetDataList(3, resultLengths);
         }
-        
+
         static Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
         static Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
         static Predicate<double> _isNegative = IsNegative;

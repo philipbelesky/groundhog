@@ -13,9 +13,8 @@ namespace groundhog
     public class GroundhogRandomPathComponent : GroundHogComponent
     {
         public GroundhogRandomPathComponent()
-            : base("Random Path", "RandPath", "Calculates a random path (in 2 dimensions)",
-                   "Groundhog", "Mapping")
-        { 
+            : base("Random Path", "RandPath", "Calculates a random path (in 2 dimensions)", "Groundhog", "Mapping")
+        {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
@@ -51,7 +50,7 @@ namespace groundhog
             int? SEED = null;
             var DIRECTIONS = new List<double>();
             Curve BOUNDARY = null;
-            
+
             // Access and extract data from the input parameters individually
             if (!DA.GetDataList(0, PATH_ORIGINS)) return;
             if (!DA.GetDataList(1, STEP_SIZES)) return;
@@ -122,10 +121,10 @@ namespace groundhog
             var outputPaths = new List<Curve>();
             for (int i = 0; i < PATH_ORIGINS.Count; i++)
             {
-                outputPaths.Add(DispatchRandomPaths(PATH_ORIGINS[i], DIRECTIONS, STEP_SIZES, 
+                outputPaths.Add(DispatchRandomPaths(PATH_ORIGINS[i], DIRECTIONS, STEP_SIZES,
                                                     STEP_COUNT, BOUNDARY, rnd));
             }
-            
+
             // Assign variables to output parameters
             DA.SetDataList(0, outputPaths);
         }
