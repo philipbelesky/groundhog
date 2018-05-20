@@ -9,7 +9,7 @@
   {% capture thumbnailFullPath %}{{ item.url }}{{ item.thumbnail }}{% endcapture %}
   {% assign thumbnailAssetPath = thumbnailFullPath | remove: collection | remove: '/plugin/' | remove_first: "//" %}
   {% capture thumbnailAsset %}
-    {% asset '{{ thumbnailAssetPath }}' magick:resize=450x450^ magick:crop=450x450+0+0 magick:quality=33 @path %}
+    {% asset '{{ thumbnailAssetPath }}' magick:resize=550x550^ magick:crop=550x550+0+0 magick:quality=50 @path %}
   {% endcapture %}
 {% else %}
 {% endif %}
@@ -33,8 +33,7 @@
 
 <div class="column {{ include.span }} masonry-item">
   <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ item.url }}"
-     style="background: linear-gradient({{ color }}, {{ color }}),
-                        50% 50% url('{{ thumbnailAsset | strip }}');">
+     style="background: linear-gradient({{ color }}, {{ color }}), 50% 50% url('{{ thumbnailAsset | strip }}'); background-size: cover;">
 
     <div class="is-white is-pulled-right">
       <i data-feather="{{ icon }}"></i>

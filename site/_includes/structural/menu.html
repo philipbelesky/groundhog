@@ -18,9 +18,6 @@
 
       <div class="navbar-start">
 
-        <a class="navbar-item gh-about-text {% if current[1] == 'about' %}active{% endif %}" href="{{ site.baseurl }}{% link about.md %}">
-          <i data-feather="help-circle"></i> About
-        </a>
         <a class="navbar-item gh-plugin-text {% if current[1] == 'plugin' %}active{% endif %}" href="{{ site.baseurl }}{% link plugin.md %}">
           <i data-feather="package"></i> Plugin
         </a>
@@ -32,6 +29,9 @@
         </a>
         <a class="navbar-item gh-projects-text {% if current[1] == 'projects' %}active{% endif %}" href="{{ site.baseurl }}{% link projects.md %}">
           <i data-feather="aperture"></i> Projects
+        </a>
+        <a class="navbar-item gh-about-text {% if current[1] == 'about' %}active{% endif %}" href="{{ site.baseurl }}{% link about.md %}">
+          <i data-feather="help-circle"></i> About
         </a>
 
       </div>
