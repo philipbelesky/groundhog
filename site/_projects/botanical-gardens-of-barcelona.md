@@ -3,13 +3,12 @@ title:      Botanic Gardens of Barcelona
 date:       18-01-31
 published:  true
 excerpt:    Facets form a mosaic that stretches across a steep slope and structures a tailored planting plan.
-thumbnail:  thumbnail.png
 year:       1999 (constructed)
 location:   Barcelona, Spain
-designers:  Carlos Ferrater, Josep Lluís Canosa, Bet Figueras, Artur Bossy, Joan Pedrola
+designers:  Carlos Ferrater, Josep Lluís Canosa, and Bet Figueras
 files:      true
 files_text: model and definition that demonstrating a partial recreation of this project
-tags:
+thumbnail:  thumbnail.png
 ---
 
 The *Botanic Gardens of Barcelona* show an early example of how a sophisticated model of natural systems can help generate, test, and provide feedback upon the complex design criteria, such as grading and planting, that define the key features of a landscape  design.
@@ -17,7 +16,7 @@ The *Botanic Gardens of Barcelona* show an early example of how a sophisticated 
 {% include elements/figure.html image='botanical-gardens-of-barcelona/2.jpg' %}
 {% include elements/figure.html image='botanical-gardens-of-barcelona/3.jpg' caption='An irregular triangular grid spreads across the garden, organising the planting typologies and path network.' credit='Image from Ferrater, Carlos, and Borja Ferrater. "Synchronizing Geometry". Actar, 2016.' %}
 
-Designed in 1989, the gardens were the product of a collaboration between Bet Figueras (landscape architect), Carles Ferrater and Josep Lluís Canosa (architects), Joan Pedrola (biologist) and Artur Bossy (horticulturist).[@Anonymous:vh] Located on a steep site in Barcelona the design proposed an irregular triangular grid that spread across the site. The grid structure was in part developed to avoid the need for major earthworks, as the triangular geometry could closely follow the existing topography by keeping two of each triangle's vertices at the same elevation but allowing the third to shift vertically to match the pre-existing slope.[@Preziosi:2004vf 116] The resulting grading, paths, and retaining walls create a highly expressive and architectonic landscape that render the circulation experience as that of a faceted network[@Ferrater:2016ta 19] as paths split and converge to connect the planar surfaces.
+Designed in 1989, the gardens were the product of a collaboration between Bet Figueras (landscape architect), Carles Ferrater and Josep Lluís Canosa (architects), Joan Pedrola (biologist) and Artur Bossy (horticulturist).[@Anonymous:vs] Located on a steep site in Barcelona the design proposed an irregular triangular grid that spread across the site. The grid structure was in part developed to avoid the need for major earthworks, as the triangular geometry could closely follow the existing topography by keeping two of each triangle's vertices at the same elevation but allowing the third to shift vertically to match the pre-existing slope.[@Preziosi:2004vf 116] The resulting grading, paths, and retaining walls create a highly expressive and architectonic landscape that render the circulation experience as that of a faceted network[@Ferrater:2016ta 19] as paths split and converge to connect the planar surfaces.
 
 {% include elements/figure.html image='botanical-gardens-of-barcelona/5.jpg' caption="The configuration of each of the facet's vertices creates a number of distinct planting conditions correspond to the conditions of various geographic areas represented in the garden's vegetation." credit='Image from Ferrater, Carlos, and Borja Ferrater. "Synchronizing Geometry". Actar, 2016.' %}
 

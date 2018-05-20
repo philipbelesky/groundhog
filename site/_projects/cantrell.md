@@ -3,7 +3,6 @@ title:      Cantrell
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:  1.jpg
 year:
 location:
 designers:

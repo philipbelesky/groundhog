@@ -3,7 +3,6 @@ title:      Flowing Gardens
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:  1.jpg
 year:       2011 (constructed)
 location:   Xi'an, China
 designers:  Plasma Studio and Groundlab

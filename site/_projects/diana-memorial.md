@@ -3,7 +3,6 @@ title:      Diana Princess of Wales Memorial
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:  1.jpg
 year:       2004 (constructed)
 location:   London, United Kingdom
 designers:  Gustafson Porter

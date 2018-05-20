@@ -41,7 +41,7 @@ em {
   figcaption {
     font-style: normal;
     line-height: 1.33;
-    padding: 0.5rem 3rem 0;
+    padding: .5rem 3rem 0;
     // Use the emphasis part as a proxy for the attribution
     em {
       @extend .is-size-7;

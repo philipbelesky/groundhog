@@ -3,7 +3,6 @@ title:      Relational Urbanism Research Cluster 18
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:
 year:       2014 (designed)
 location:   Bartlett, London, United Kingdom
 designers:  Enriqueta Llabres and Eduardo Rico + ...? (Placeholder)

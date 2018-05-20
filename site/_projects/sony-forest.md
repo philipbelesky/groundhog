@@ -3,7 +3,6 @@ title:      Sony Forest
 date:       18-01-31
 published:  false
 excerpt:    lorum
-thumbnail:
 year:       2012 (constructed)
 location:
 designers:  ANS Studio
