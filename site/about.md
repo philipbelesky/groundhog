@@ -3,7 +3,9 @@ layout: page
 title: About Groundhog
 ---
 
-# Developer
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. LIPSUM
+
+### Developer
 
 Philip Belesky is an Associate Lecturer and PhD candidate in the Landscape Architecture program at RMIT University in Melbourne, Australia, and has previously worked as a programmer and computational designer. His current research explores the use of computational methods and tooling to design landscape systems — more information available at [philipbelesky.com](http://www.philipbelesky.com).
 
