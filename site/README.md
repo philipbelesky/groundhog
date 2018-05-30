@@ -14,7 +14,7 @@ Install dependencies using:
     bundler install
     npm install
 
-`imagemagick` will also need to be installed (i.e. with homebrew)
+`imagemagick` will also need to be installed (i.e. with homebrew) as will a Java run time (if deploying using s3_website).
 
 ## Serving
 

@@ -18,7 +18,7 @@ tags:
 {% include elements/figure.html image='keio-university-roof-garden/1.jpg' credit="Image via MBP website's project
  page (http://micheldesvignepaysagiste.com/en/keio-university-慶應義塾)" %}
 
-The most visible impact of computational design techniques on the design of landscapes is often in the formal treatment of 'hard' surfaces — street furniture, paving elements, pavilions, and other items that can be manufactured specifically for a particular project. As manufactured and constructed artefacts, these elements can draw from the design and fabrication techniques typically developed in other disciplines.
+The most visible impact of computational design techniques on the design of landscapes is often in the formal treatment of 'hard' surfaces or structures — street furniture, paving elements, pavilions, and other items that. As manufactured and constructed artefacts, these elements can draw from the design and fabrication techniques typically developed in other disciplines.
 
 For example, the Keio University Roof Garden employs a 'field' technique whereby the radii of a  parametrically-defined grid of circles grows in response to an image. This image is initially read as 2D grid of pixels that are then transposed on to the site model so that each grid point can 'sample' the brightness of the corresponding pixels on the original image. The apertures that result from these grid-samples become voids within the paving grid and are either used for planting beds or extruded as cylinders that function as seating.[@Corner:2009jg 173]
 
