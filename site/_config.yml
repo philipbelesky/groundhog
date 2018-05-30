@@ -99,6 +99,7 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - node_modules
   - .ruby-version
   - package.json
   - package-lock.json

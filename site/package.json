@@ -17,7 +17,7 @@
     "serve": "bundle exec jekyll serve --host 0.0.0.0 --port 4002 --incremental --livereload --unpublished --future",
     "preview": "bundle exec jekyll serve --host 0.0.0.0 --port 4002 --incremental --livereload  --strict_front_matter",
     "watch": "npm run serve",
-    "build": "bash ./compile.sh && bundle exec jekyll build --profile",
+    "build": "bash ./compile.sh && bundle exec jekyll build",
     "publish": "npm run purge && JEKYLL_ENV=production npm run build && s3_website push"
   },
   "author": "Philip Belesky",
