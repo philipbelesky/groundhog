@@ -1,5 +1,27 @@
-<figure class="gh-figure"><a href="{% asset '{{ include.image }}' @path %}" target="_blank">{% asset '{{ include.image }}' @pic srcset:max-width='2688' srcset:max-width='1344' srcset:max-width='768' srcset:max-width='640' %}{% assign paths=include.image|split: '/' %}</a>
-{% if include.caption or include.credit %}<figcaption>
-{% if include.caption %}<p>{{ include.caption }}</p>{% endif %}
-{% if include.credit %}<em>{{ include.credit }}</em>{% endif %}
-</figcaption>{% endif %}</figure>
+<figure class="gh-figure">
+  <a href="{%- asset '{{ include.image }}' @path -%}" target="_blank">
+    <img
+      srcset="{% asset '{{ include.image }}' @path
+              magick:quality=70 magick:resize=800x magick:compress=jpeg %} 800w,
+              {% asset '{{ include.image }}' @path
+              magick:quality=70 magick:resize=1080x magick:compress=jpeg %} 1080w,
+              {% asset '{{ include.image }}' @path
+              magick:quality=70 magick:resize=1600x magick:compress=jpeg %} 1600w,
+              {% asset '{{ include.image }}' @path
+              magick:quality=70 magick:resize=2200x magick:compress=jpeg %} 2686w,"
+      sizes="(max-width: 768px) 100vw,
+             (max-width: 1024px) 96vw,
+             (max-width: 1408px) 92vw,
+             2600w"
+      src="{% asset '{{ include.image }}' @path
+           magick:quality=70 magick:resize=1600x magick:compress=jpeg %}"
+      alt="{{ include.caption }}" width="100%"
+    >
+  </a>
+  {%- if include.caption or include.credit -%}
+  <figcaption>
+    {% if include.caption %}<p>{{ include.caption }}</p>{% endif %}
+    {% if include.credit %}<em>{{ include.credit }}</em>{% endif %}
+  </figcaption>
+  {%- endif -%}
+</figure>
