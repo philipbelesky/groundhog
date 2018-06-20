@@ -61,7 +61,9 @@ em {
 .gh-component {
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
-  overflow: scroll; // Blown out wrappings can mess up entire page
+  @include until($tablet) {
+    overflow-x: scroll; // Blown out wrappings can mess up entire page
+  }
 
   p {
     margin-top: 1rem;
