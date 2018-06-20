@@ -88,6 +88,7 @@ def parse_file(name, contents):
         json.dump(data, outfile, ensure_ascii=False, indent=2)
 
 
+files_count = 0
 for directory in COMPONENT_DIRECTORIES:
     for file in os.listdir(directory):
         if file.endswith('.cs') and 'Component' in file:
@@ -96,3 +97,6 @@ for directory in COMPONENT_DIRECTORIES:
             name = file.replace('groundhog', '')
             name = name.replace('Component', '').replace('.cs', '')
             parse_file(name, contents)
+            files_count += 1
+
+print('Extracted %s components for documentation tables' % files_count)

@@ -8,7 +8,7 @@
 # ===============================
 rm -rf ../site/_data/components/*.json # Delete old files
 python ../docs/extract_params.py
-echo "Extracted Component Paramters"
+
 
 # Plugin Icons
 # ============
