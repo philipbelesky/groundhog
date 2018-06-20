@@ -9,7 +9,7 @@ thumbnail:  thumbnail.jpg
 
 If considered just in terms of their CAD representation, planting design appears to be an exercise in arranging circles. Some circles are smaller or larger, brighter or duller; more round or more frayed. But, removing the metadata that are the sprites, colours, and labels, we start and end with a representation of a particular species' dimensions at maturity: a disc.
 
-It is regrettable that in both digital and analogue mediums the typical representations used poorly reflect their subject matter. Depictions of vegetation are rarely spatially explicit, and often rely on fixed and idealised averages that do not reflect the general nature, or the actual reality, of specific species.[@Elkin:2017ee 60-61][@Raxworthy:2013wa 113] A plan, once planted, will reach the 'mature' state it depicts after years if not decades. This mature state itself is itself an abstraction, as each plant's dimensions vary according to the localised condition that propel or constrain individual growth.
+It is regrettable that in both digital and analogue mediums the typical representations used poorly reflect their subject matter. Depictions of vegetation are rarely spatially explicit, and often rely on fixed and idealised averages that do not reflect the general nature, or the actual reality, of specific species.[@Elkin:2017ee 60-61][@Raxworthy:2013wa 113] A plan, once planted, will reach the 'mature' state it depicts after years if not decades. This mature state itself is itself an abstraction, as each plant's dimensions vary according to the localised condition that propel or constrain individual growth and are typically altered through ongoing maintenance regimes
 
 {% include elements/figure.html image='plants/1.jpg' caption='Parametric methods of planting design can manage vast quantities of individual species distributed across a site and evaluate how they change over time.' credit='Philip Belesky, for http://groundhog.la' %}
 
@@ -35,7 +35,7 @@ Once a location (in the form of a `Point`) has been generated for each instance 
 
 {% include elements/component.html title='PShower' %}
 
-While the components are relatively simple here in their calculations (especially given the currently-released set of components available) their value is in enabling quantitative criteria to be more easily used in designing and assessing vegetation distributions. The tripartite attribute/placement/ simulation stages have emerged from extensive iteration in testing how to best support planting design workflows by best allowing each task to easily interface with the existing methods of generation and analysis available in Grasshopper.
+While the components are relatively simple here in their calculations (especially given the currently-released set of components available) their value is in enabling quantitative criteria to be more easily used in designing and assessing vegetation distributions. The tripartite attribute/placement/simulation stages have emerged from extensive iteration in testing how to best support planting design workflows by best allowing each task to easily interface with the existing methods of generation and analysis available in Grasshopper.
 
 {% include elements/figure.html image='plants/definition.jpg' caption='Grasshopper definition demonstrating how to select particular species, place them, and simulate basic growth characteristics.' credit='Philip Belesky, for http://groundhog.la' %}
 

@@ -1,5 +1,24 @@
-<figure class="gh-figure"><a href="{% asset '{{ include.image }}' @path %}" target="_blank">{% asset '{{ include.image }}' @pic srcset:max-width='2688' srcset:max-width='1344' srcset:max-width='768' srcset:max-width='640' %}{% assign paths=include.image|split: '/' %}</a>
-{% if include.caption or include.credit %}<figcaption>
-{% if include.caption %}<p>{{ include.caption }}</p>{% endif %}
-{% if include.credit %}<em>{{ include.credit }}</em>{% endif %}
-</figcaption>{% endif %}</figure>
+{%- capture default -%}{% asset '{{ include.image }}' @path magick:resize=1600x optim='default' %}{%- endcapture %}
+<figure class="gh-figure">
+  <a href="{%- asset '{{ include.image }}' @path -%}" target="_blank">
+    <img
+      srcset="{% asset '{{ include.image }}' @path
+              magick:resize=1080x optim='default' %} 1080w,
+              {{ default }} 1600w,
+              {% asset '{{ include.image }}' @path
+              magick:resize=2200x optim='default' %} 2686w,"
+      sizes="(max-width: 768px) 100vw,
+             (max-width: 1024px) 96vw,
+             (max-width: 1408px) 92vw,
+             2600w"
+      src="{{ default }}"
+      alt="{{ include.caption }}" width="100%"
+    >
+  </a>
+  {%- if include.caption or include.credit -%}
+  <figcaption>
+    {% if include.caption %}<p>{{ include.caption }}</p>{% endif %}
+    {% if include.credit %}<em>{{ include.credit }}</em>{% endif %}
+  </figcaption>
+  {%- endif -%}
+</figure>

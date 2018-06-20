@@ -91,16 +91,36 @@ assets:
     - assets/plugin
     - assets/projects
     - assets/techniques
+  plugins:
+    img:
+      optim: # The preset used by @optim tag
+        default:
+          verbose: false
+          allow_lossy: true
+          jpegoptim: false
+          gifsicle: false
+          advpng: false
+          pngcrush: false
+          pngout: false
+          optipng: false
+          jhead: false
+          jpegtran: false
+          svgo: false
+          jpegrecompress:
+            allow_lossy: true
+            quality: 1
+          pngquant:
+            allow_lossy: true
 
-# Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
+# node_modules not excluded because the font is referenced from there
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
-  - .ruby-version
   - node_modules
+  - .ruby-version
   - package.json
   - package-lock.json
   - s3_website.yml
