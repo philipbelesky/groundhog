@@ -1,6 +1,7 @@
 ---
-layout: page
-title: About Groundhog
+layout:     page
+title:      About Groundhog
+meta:       info about this plugin and wiki
 ---
 
 ### Introduction
