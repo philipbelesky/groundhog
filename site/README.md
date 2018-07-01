@@ -37,3 +37,5 @@ Deployment is done using [s3_website](https://github.com/laurilehmijoki/s3_websi
 This is packaged together in
 
     npm run publish
+
+Note that credentials are stored in environment variables; i.e. a `.env` file in this directory.
