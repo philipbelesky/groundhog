@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using groundhog.Properties;
 using Grasshopper;
@@ -36,7 +37,7 @@ namespace groundhog
         {
             pManager.AddCurveParameter("Body", "B", "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
             pManager.AddNumberParameter("Area", "A", "The area of the calculated perimeter(s)", GH_ParamAccess.list);
-            pManager.AddPointParameter("test", "T", "test", GH_ParamAccess.list);
+            pManager.AddGeometryParameter("test", "T", "test", GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -50,6 +51,8 @@ namespace groundhog
             if (!DA.GetData(1, ref AREA_TARGET)) return;
             double AREA_PRECISION = AREA_TARGET * 0.01; // Provide default (will be overwritten if set)
             DA.GetData(2, ref AREA_PRECISION);
+
+            var test = new List<Curve>(); // DEBUG
 
             // Validation
             if (CHANNEL_CURVE == null)
@@ -68,92 +71,105 @@ namespace groundhog
 
             // Get the extremes of the curve
             // TODO: refine the search strategy here; should I be searching from the lowest-Z to the highest-Z at unit intervals rather than params?
-            var upper_param = CHANNEL_CURVE.Domain.T1;
-            var lower_param = CHANNEL_CURVE.Domain.T0;
-            var initial_guess_param = (upper_param - lower_param) * 0.25;
+            var upperParam = CHANNEL_CURVE.Domain.T1;
+            var lowerParam = CHANNEL_CURVE.Domain.T0;
+            var initialGuessParam = (upperParam - lowerParam) * 0.25;
 
-            var output_profiles = new List<Curve>();
-            var output_areas = new List<double>();
+            var outputProfiles = new List<Curve>();
+            var outputAreas = new List<double>();
 
             // Use bisect method to refine to the approximate area
-            double intervalBegin = lower_param;
-            double intervalEnd = upper_param * 0.5; // TODO replace with lowest Z? or a unitised halfway point? to test
-            double precision = 0.1; // TODO: not hardcode
+            double intervalBegin = lowerParam;
+            double intervalEnd = upperParam * 0.5; // TODO replace with lowest Z? or a unitised halfway point? to test
+            double precision = 0.01; // TODO: not hardcode
             double middle;
-            Curve test_curve;
 
             while ((intervalEnd - intervalBegin) > precision)
             {
                 // Get curve at test parameter
                 middle = (intervalBegin + intervalEnd) / 2;
-                test_curve = getWaterAreaAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
+
+                // Find the actual channel geometries at that parameter
+                var testChannels = GetWaterChannelsAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
+                if (testChannels == null)
+                {
+                    break; // No test curve when <2 intersections; i.e. overflown perimeter
+                }
+
+                test.AddRange(testChannels); // DEBUG
 
                 // Calculate its area
-                var area_calc = AreaMassProperties.Compute(test_curve);
-                double? area = null;
-                if (area_calc != null)
-                {
-                    if (area_calc.Area < 0.0)
-                        area = area_calc.Area * -1; // Areas can be negative; same same
-                    else
-                        area = area_calc.Area;
-                }
-                else
-                {                    
-                    break; // TODO handle nulls from AreaMassProperties
-                }
-                if (!area.HasValue)
-                {
-                    break; // TODO handle nulls from AreaMassProperties.Area
-                }
+                var calculatedAreas = GetAreasForWaterChannels(testChannels);
+                var totalArea = calculatedAreas.Sum();
 
                 // Refine the interval
-                if (Math.Abs(AREA_TARGET - area.Value) <= AREA_PRECISION)
+                if (Math.Abs(AREA_TARGET - totalArea) <= AREA_PRECISION)
                 {
                     // SUCCESS
-                    output_profiles.Add(test_curve);
-                    output_areas.Add(area.Value);
+                    outputProfiles.AddRange(testChannels);
+                    outputAreas.AddRange(calculatedAreas);
                     break;
                 }
 
-                if (AREA_TARGET > area)
-                {
-                    // Reduce the upper bound as the section is larger than desired
-                    intervalEnd = middle;
-                }
+                if (AREA_TARGET > totalArea)
+                    intervalEnd = middle; // Reduce the upper bound as the sectional area is larger than desired
                 else
-                {
-                    intervalBegin = middle;
-                }   
+                    intervalBegin = middle; // Reduce the lower bound as the sectional area is smaller than desired
             }
-            
+
+            if (!outputProfiles.Any())
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Specified area could not be contained in the profile; you probably need to reduce the area to get a result.");
+            }
+
             // Assign variables to output parameters
             Console.WriteLine("done");
-            DA.SetDataList(0, output_profiles);
-            DA.SetDataList(1, output_areas);
-            //DA.SetDataList(2, testPoints);
+            DA.SetDataList(0, outputProfiles);
+            DA.SetDataList(1, outputAreas);
+            DA.SetDataList(2, test);
         }
 
-        private Curve getWaterAreaAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
+        private List<double> GetAreasForWaterChannels(List<Curve> channels)
+        {
+            var areas = new List<double>();
+            for (var i = 0; i < channels.Count; i = i + 1)
+            {
+                var area_calc = AreaMassProperties.Compute(channels[i]);
+                if (area_calc != null)
+                {
+                    areas.Add(Math.Abs(area_calc.Area));
+                }
+            }
+            return areas;
+        }
+
+        private List<Curve> GetWaterChannelsAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
         {
             var test_point = CHANNEL_CURVE.PointAt(bankParameter); // Assume somewhat symmetrical so 0.25 is halfway up one side
             var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1)); // Create an XY plane positioned vertically at the test point
+            var channelCurves = new List<Curve>();
 
             // Intersect Plane with the Curve to get water level(s)
             var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);
+            if (intersections == null)
+                return null;
+            if (intersections.Count < 2)
+                return null;
 
-            // TODO: deal with multiple intersections and/or even numbers of intersections
+            for (var i = 0; i < Math.Floor(intersections.Count / 2.0); i = i + 2)
+            {
+                var ixA = intersections[i];
+                var ixB = intersections[i + 1];
 
-            // Get intersection events on main curve
-            var param_range = new Tuple<double, double>(intersections[0].ParameterA, intersections[1].ParameterA);
-            var point_range = new Tuple<Point3d, Point3d>(intersections[0].PointA, intersections[1].PointA);
-            var sub_curve = CHANNEL_CURVE.Trim(param_range.Item1, param_range.Item2); // Get the sub-curve
+                // Make an array of top water line and the sub channel then join to close
+                var wettedLine = CHANNEL_CURVE.Trim(ixA.ParameterA, ixB.ParameterA); // Get the sub-curve of the channel
+                var waterLine = new Line(ixA.PointB, ixB.PointB).ToNurbsCurve();
 
-            // Make an array of top line and the channel to join then close
-            var top_curve = new Line(point_range.Item1, point_range.Item2).ToNurbsCurve(); // Waterline
-            Curve[] channel_curve = Curve.JoinCurves(new Curve[] { sub_curve, top_curve }); // Joined Curves
-
-            return channel_curve[0];
+                Curve[] channel = Curve.JoinCurves(new Curve[] { wettedLine, waterLine });                
+                if (channel.Length > 0)
+                    channelCurves.Add(channel[0]);
+            }
+            return channelCurves;
         }
     }
 }
