@@ -52,7 +52,7 @@ namespace groundhog
             double AREA_PRECISION = AREA_TARGET * 0.01; // Provide default (will be overwritten if set)
             DA.GetData(2, ref AREA_PRECISION);
 
-            var test = new List<Curve>(); // DEBUG
+            var test = new List<Point3d>(); // DEBUG
 
             // Validation
             if (CHANNEL_CURVE == null)
@@ -84,6 +84,9 @@ namespace groundhog
             double precision = 0.01; // TODO: not hardcode
             double middle;
 
+            // DEBUG; set here to can be accessed later
+            middle = (intervalBegin + intervalEnd) / 2;
+
             while ((intervalEnd - intervalBegin) > precision)
             {
                 // Get curve at test parameter
@@ -93,11 +96,9 @@ namespace groundhog
                 var testChannels = GetWaterChannelsAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
                 if (testChannels == null)
                 {
-                    break; // No test curve when <2 intersections; i.e. overflown perimeter
+                     break; // No test curve when <2 intersections; i.e. overflown perimeter
                 }
-
-                test.AddRange(testChannels); // DEBUG
-
+                
                 // Calculate its area
                 var calculatedAreas = GetAreasForWaterChannels(testChannels);
                 var totalArea = calculatedAreas.Sum();
@@ -110,11 +111,22 @@ namespace groundhog
                     outputAreas.AddRange(calculatedAreas);
                     break;
                 }
-
+                
                 if (AREA_TARGET > totalArea)
                     intervalEnd = middle; // Reduce the upper bound as the sectional area is larger than desired
                 else
                     intervalBegin = middle; // Reduce the lower bound as the sectional area is smaller than desired
+            }
+            
+            // DEBUG - last iteration
+            var testFoundIntersections = TestGetWaterChannelsAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
+            for (var i = 0; i < testFoundIntersections.Count; i = i + 1)
+            {
+                test.Add(testFoundIntersections[i].PointA);
+                test.Add(testFoundIntersections[i].PointA2);
+                test.Add(testFoundIntersections[i].PointB);
+                test.Add(testFoundIntersections[i].PointB2);
+                test.Add(new Point3d(0, 0, 0));
             }
 
             if (!outputProfiles.Any())
@@ -126,7 +138,7 @@ namespace groundhog
             Console.WriteLine("done");
             DA.SetDataList(0, outputProfiles);
             DA.SetDataList(1, outputAreas);
-            DA.SetDataList(2, test);
+            DA.SetDataList(2, test); // DEBUG
         }
 
         private List<double> GetAreasForWaterChannels(List<Curve> channels)
@@ -154,22 +166,59 @@ namespace groundhog
             if (intersections == null)
                 return null;
             if (intersections.Count < 2)
-                return null;
+                return null; // One or fewer intersections is not solvable
 
-            for (var i = 0; i < Math.Floor(intersections.Count / 2.0); i = i + 2)
+            var validIntersections = new List<Tuple<Point3d, double>>();
+            // For each intersection event we check evaluate the curve slightly ahead and check with the Z-position is down or up
+            // A higher Z-position is not allowable as a starting point but does indicate a valid end
+            for (var i = 0; i < intersections.Count; i = i + 1)
             {
-                var ixA = intersections[i];
-                var ixB = intersections[i + 1];
+                var currentCurvePoint = intersections[i].PointA;
+                var currentCurveParameter = intersections[i].ParameterA;
+                var pointFurtherAlongCurve = CHANNEL_CURVE.PointAt(currentCurveParameter + 0.01);
+                if (pointFurtherAlongCurve.Z <= currentCurvePoint.Z)
+                {
+                    validIntersections.Add(Tuple.Create(currentCurvePoint, currentCurveParameter));
+                    // Also add the next valid point along and skip processing it
+                    i += 1;
+                    if (i + 1 >= intersections.Count)
+                    {
+                        break; // Only add to the list when there is another point to pair with
+                    }
+                    validIntersections.Add(Tuple.Create(intersections[i].PointA, intersections[i].ParameterA));
+                }
+            }
+
+            for (var i = 0; i < validIntersections.Count; i = i + 2)
+            {
+                if (i + 1 >= intersections.Count)
+                {
+                    break; // Only add to the list when there is another point to pair with
+                }
+                var ixA = validIntersections[i];
+                var ixB = validIntersections[i + 1];
 
                 // Make an array of top water line and the sub channel then join to close
-                var wettedLine = CHANNEL_CURVE.Trim(ixA.ParameterA, ixB.ParameterA); // Get the sub-curve of the channel
-                var waterLine = new Line(ixA.PointB, ixB.PointB).ToNurbsCurve();
+                var wettedLine = CHANNEL_CURVE.Trim(ixA.Item2, ixB.Item2); // Get the sub-curve of the channel
+                var waterLine = new Line(ixA.Item1, ixB.Item1).ToNurbsCurve();
 
                 Curve[] channel = Curve.JoinCurves(new Curve[] { wettedLine, waterLine });                
                 if (channel.Length > 0)
                     channelCurves.Add(channel[0]);
             }
             return channelCurves;
+        }
+
+
+        private Rhino.Geometry.Intersect.CurveIntersections TestGetWaterChannelsAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
+        {
+            var test_point = CHANNEL_CURVE.PointAt(bankParameter); // Assume somewhat symmetrical so 0.25 is halfway up one side
+            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1)); // Create an XY plane positioned vertically at the test point
+            var channelCurves = new List<Curve>();
+
+            // Intersect Plane with the Curve to get water level(s)
+            var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);            
+            return intersections;
         }
     }
 }
