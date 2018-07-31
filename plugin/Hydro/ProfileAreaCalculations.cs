@@ -15,7 +15,7 @@ namespace groundhog
     public class GroundhogProfileAreaCalculations : GroundHogComponent
     {
         public GroundhogProfileAreaCalculations()
-            : base("Flow Area", "FArea", "Determine the area of water within a channel given a volume", "Groundhog", "Hydro")
+            : base("Flow Channel", "FChannel", "Determine the area of water within a channel given a volume", "Groundhog", "Hydro")
         {
         }
 
@@ -27,67 +27,75 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", "The sectional curve profile of the channel; must be planar", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Area", "A", "The desired area of the flow body", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Precision", "T", "The number of units to be accurate to; if unspecified it will use 1% of the area", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Channel", "C", 
+                "The sectional curve profile of the channel; must be planar", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Area", "A", 
+                "The desired area of the flow body", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Precision", "T", 
+                "The number of units to be accurate to; if unspecified it will use 1% of the area", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Body", "B", "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Area", "A", "The area of the calculated perimeter(s)", GH_ParamAccess.list);
-            pManager.AddGeometryParameter("test", "T", "test", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Body", "B", 
+                "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Area", "A", 
+                "The area of the calculated perimeter(s)", GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
+            var TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             var CHANNEL_CURVE = default(Curve);
             double AREA_TARGET = 0.0;
 
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref CHANNEL_CURVE)) return;
             if (!DA.GetData(1, ref AREA_TARGET)) return;
-            double AREA_PRECISION = AREA_TARGET * 0.01; // Provide default (will be overwritten if set)
+            double AREA_PRECISION = AREA_TARGET * 0.01; // Default; overwritten if set
             DA.GetData(2, ref AREA_PRECISION);
-
-            var test = new List<Point3d>(); // DEBUG
 
             // Validation
             if (CHANNEL_CURVE == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Channel input; please correct this input.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
+                    "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
             if (CHANNEL_CURVE.IsPlanar() == false)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A non-planar curve has been provided as the channel section; please ensure it is planar.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
+                    "A non-planar curve has been provided as the channel section; please ensure it is planar.");
                 return;
             }
-            // TODO VALIDATE AREA
+            if (AREA_TARGET <= 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area target must be greater than 0.");
+                return;
+            }
+            if (AREA_PRECISION <= 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area precision must be greater than 0.");
+                return;
+            }
             
-            var TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
-
             // Get the extremes of the curve
-            // TODO: refine the search strategy here; should I be searching from the lowest-Z to the highest-Z at unit intervals rather than params?
             var upperParam = CHANNEL_CURVE.Domain.T1;
             var lowerParam = CHANNEL_CURVE.Domain.T0;
             var initialGuessParam = (upperParam - lowerParam) * 0.25;
 
+            // Placeholders for outputs
             var outputProfiles = new List<Curve>();
             var outputAreas = new List<double>();
 
             // Use bisect method to refine to the approximate area
             double intervalBegin = lowerParam;
             double intervalEnd = upperParam * 0.5; // TODO replace with lowest Z? or a unitised halfway point? to test
-            double precision = 0.01; // TODO: not hardcode
             double middle;
 
-            // DEBUG; set here to can be accessed later
-            middle = (intervalBegin + intervalEnd) / 2;
-
-            while ((intervalEnd - intervalBegin) > precision)
+            while ((intervalEnd - intervalBegin) > TOLERANCE)
             {
                 // Get curve at test parameter
                 middle = (intervalBegin + intervalEnd) / 2;
@@ -116,29 +124,17 @@ namespace groundhog
                     intervalEnd = middle; // Reduce the upper bound as the sectional area is larger than desired
                 else
                     intervalBegin = middle; // Reduce the lower bound as the sectional area is smaller than desired
-            }
-            
-            // DEBUG - last iteration
-            var testFoundIntersections = TestGetWaterChannelsAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
-            for (var i = 0; i < testFoundIntersections.Count; i = i + 1)
-            {
-                test.Add(testFoundIntersections[i].PointA);
-                test.Add(testFoundIntersections[i].PointA2);
-                test.Add(testFoundIntersections[i].PointB);
-                test.Add(testFoundIntersections[i].PointB2);
-                test.Add(new Point3d(0, 0, 0));
-            }
+            }           
 
             if (!outputProfiles.Any())
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Specified area could not be contained in the profile; you probably need to reduce the area to get a result.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
+                    "Specified area could not be contained in the profile; you probably need to reduce the area to get a result.");
             }
 
             // Assign variables to output parameters
-            Console.WriteLine("done");
             DA.SetDataList(0, outputProfiles);
             DA.SetDataList(1, outputAreas);
-            DA.SetDataList(2, test); // DEBUG
         }
 
         private List<double> GetAreasForWaterChannels(List<Curve> channels)
@@ -157,10 +153,12 @@ namespace groundhog
 
         private List<Curve> GetWaterChannelsAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
         {
-            var test_point = CHANNEL_CURVE.PointAt(bankParameter); // Assume somewhat symmetrical so 0.25 is halfway up one side
-            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1)); // Create an XY plane positioned vertically at the test point
-            var channelCurves = new List<Curve>();
+            // Assume somewhat symmetrical so 0.25 is halfway up one side
+            var test_point = CHANNEL_CURVE.PointAt(bankParameter); 
 
+            // Create an XY plane positioned vertically at the test point
+            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1)); 
+            
             // Intersect Plane with the Curve to get water level(s)
             var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);
             if (intersections == null)
@@ -169,8 +167,8 @@ namespace groundhog
                 return null; // One or fewer intersections is not solvable
 
             var validIntersections = new List<Tuple<Point3d, double>>();
-            // For each intersection event we check evaluate the curve slightly ahead and check with the Z-position is down or up
-            // A higher Z-position is not allowable as a starting point but does indicate a valid end
+            // For each intersection event we check evaluate the curve slightly ahead and check whether the 
+            // Z-position is down or up. A higher Z is not allowable as a starting point is a valid end
             for (var i = 0; i < intersections.Count; i = i + 1)
             {
                 var currentCurvePoint = intersections[i].PointA;
@@ -181,7 +179,7 @@ namespace groundhog
                     validIntersections.Add(Tuple.Create(currentCurvePoint, currentCurveParameter));
                     // Also add the next valid point along and skip processing it
                     i += 1;
-                    if (i + 1 >= intersections.Count)
+                    if (i >= intersections.Count)
                     {
                         break; // Only add to the list when there is another point to pair with
                     }
@@ -189,9 +187,11 @@ namespace groundhog
                 }
             }
 
+            var channelCurves = new List<Curve>();
+            // Loop over the valid interesections pairs and make them into bounded sub-curves (ala channels)
             for (var i = 0; i < validIntersections.Count; i = i + 2)
             {
-                if (i + 1 >= intersections.Count)
+                if (i + 1 >= validIntersections.Count)
                 {
                     break; // Only add to the list when there is another point to pair with
                 }
@@ -207,18 +207,6 @@ namespace groundhog
                     channelCurves.Add(channel[0]);
             }
             return channelCurves;
-        }
-
-
-        private Rhino.Geometry.Intersect.CurveIntersections TestGetWaterChannelsAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
-        {
-            var test_point = CHANNEL_CURVE.PointAt(bankParameter); // Assume somewhat symmetrical so 0.25 is halfway up one side
-            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1)); // Create an XY plane positioned vertically at the test point
-            var channelCurves = new List<Curve>();
-
-            // Intersect Plane with the Curve to get water level(s)
-            var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);            
-            return intersections;
         }
     }
 }
