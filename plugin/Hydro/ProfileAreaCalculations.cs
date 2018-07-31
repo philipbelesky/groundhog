@@ -38,7 +38,7 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Body", "B", 
+            pManager.AddCurveParameter("Channel", "C", 
                 "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
             pManager.AddNumberParameter("Area", "A", 
                 "The area of the calculated perimeter(s)", GH_ParamAccess.list);
@@ -64,7 +64,7 @@ namespace groundhog
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
-            if (CHANNEL_CURVE.IsPlanar() == false)
+            if (CHANNEL_CURVE.IsPlanar(TOLERANCE) == false)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
                     "A non-planar curve has been provided as the channel section; please ensure it is planar.");
@@ -94,6 +94,8 @@ namespace groundhog
             double intervalBegin = lowerParam;
             double intervalEnd = upperParam * 0.5; // TODO replace with lowest Z? or a unitised halfway point? to test
             double middle;
+            double lastArea = 0.0;
+            
 
             while ((intervalEnd - intervalBegin) > TOLERANCE)
             {
@@ -110,6 +112,7 @@ namespace groundhog
                 // Calculate its area
                 var calculatedAreas = GetAreasForWaterChannels(testChannels);
                 var totalArea = calculatedAreas.Sum();
+                lastArea = totalArea;
 
                 // Refine the interval
                 if (Math.Abs(AREA_TARGET - totalArea) <= AREA_PRECISION)
@@ -128,8 +131,14 @@ namespace groundhog
 
             if (!outputProfiles.Any())
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
-                    "Specified area could not be contained in the profile; you probably need to reduce the area to get a result.");
+                string helpMessage;
+                if (lastArea < AREA_TARGET)
+                    helpMessage = "decrease";
+                else
+                    helpMessage = "increase";
+
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    $"Specified area {AREA_TARGET} could not be contained in the profile; the last attempt found an area of {Convert.ToInt32(lastArea)}. You probably need {helpMessage} the area to get a result.");
             }
 
             // Assign variables to output parameters

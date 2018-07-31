@@ -27,9 +27,9 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "B", 
+            pManager.AddCurveParameter("Channel", "C", 
                 "A closed planar curve representing a section of the water body; assumes a level top", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Roughness", "n", 
+            pManager.AddNumberParameter("Roughness", "N", 
                 "Manning's roughness coefficient for the channel", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddNumberParameter("Slope", "S", 
@@ -41,17 +41,17 @@ namespace groundhog
         {
             pManager.AddNumberParameter("Area", "A",
                 "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Max Depth", "X", 
+            pManager.AddNumberParameter("Max Depth", "mD", 
                 "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Mean Depth", "M", 
+            pManager.AddNumberParameter("Mean Depth", "aD", 
                 "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Wetted Perimeter", "W", 
+            pManager.AddNumberParameter("Wetted Perimeter", "P", 
                 "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Hydraulic Radius", "H", 
+            pManager.AddNumberParameter("Hydraulic Radius", "R", 
                 "", GH_ParamAccess.item);
             pManager.AddNumberParameter("Velocity", "V", 
                 "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Discharge", "D", 
+            pManager.AddNumberParameter("Discharge", "Q", 
                 "The rate of discharge in cubic document units per second", GH_ParamAccess.item);
         }
 
@@ -125,8 +125,8 @@ namespace groundhog
             if (GAUCKLER_MANNING > 0 && SLOPE > 0)
             {
                 // Manning's Formula
-                double velocity = (1.00 / GAUCKLER_MANNING) * area.Value * Math.Pow(hydraulicRadius, 0.6666666) * Math.Sqrt(SLOPE);
-                double discharge = velocity * area.Value;
+                double discharge = (1.00 / GAUCKLER_MANNING) * area.Value * Math.Pow(hydraulicRadius, 0.6666666) * Math.Sqrt(SLOPE);
+                double velocity = discharge / area.Value;
 
                 DA.SetData(5, velocity);
                 DA.SetData(6, discharge);
