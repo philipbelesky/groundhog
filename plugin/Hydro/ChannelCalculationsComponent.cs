@@ -12,10 +12,10 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class GroundhogProfileAreaCalculations : GroundHogComponent
+    public class GroundhogCalculationsComponent : GroundHogComponent
     {
-        public GroundhogProfileAreaCalculations()
-            : base("Flow Channel", "FChannel", "Determine the area of water within a channel given a volume", "Groundhog", "Hydro")
+        public GroundhogCalculationsComponent()
+            : base("Channel Region", "FChannel", "Determine the area of water within a channel given a volume", "Groundhog", "Hydro")
         {
         }
 
@@ -27,21 +27,16 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", 
-                "The sectional curve profile of the channel; must be planar", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Area", "A", 
-                "The desired area of the flow body", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Precision", "T", 
-                "The number of units to be accurate to; if unspecified it will use 1% of the area", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Channel", "C", "The sectional curve profile of the channel; must be planar", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Area", "A", "The desired area of the flow body", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Precision", "T", "The number of units to be accurate to; if unspecified it will use 1% of the area", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", 
-                "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Area", "A", 
-                "The area of the calculated perimeter(s)", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Channel", "C", "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Area", "A", "The area of the calculated perimeter(s)", GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)

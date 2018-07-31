@@ -11,11 +11,10 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class GroundhogProfileFlowCalculations : GroundHogComponent
+    public class GroundhogChannelProfileComponent : GroundHogComponent
     {
-        public GroundhogProfileFlowCalculations()
-            : base("Channel Profile", "FProfile",
-                  "Calculate information about water flow in a given channel section", "Groundhog", "Hydro")
+        public GroundhogChannelProfileComponent()
+            : base("Channel Profile", "FProfile", "Calculate information about water flow in a given channel section", "Groundhog", "Hydro")
         {
         }
 
@@ -27,32 +26,22 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", 
-                "A closed planar curve representing a section of the water body; assumes a level top", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Roughness", "N", 
-                "Manning's roughness coefficient for the channel", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Channel", "C", "A closed planar curve representing a section of the water body; assumes a level top", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Roughness", "N", "Manning's roughness coefficient for the channel", GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Slope", "S", 
-                "Slope of the hydraulic grade line as a decimal (i.e. rise/run = 0.5)", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Slope", "S", "Slope of the hydraulic grade line as a decimal (i.e. rise/run = 0.5)", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("Area", "A",
-                "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Max Depth", "mD", 
-                "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Mean Depth", "aD", 
-                "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Wetted Perimeter", "P", 
-                "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Hydraulic Radius", "R", 
-                "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Velocity", "V", 
-                "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Discharge", "Q", 
-                "The rate of discharge in cubic document units per second", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Area", "A", "Area of the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Max Depth", "mD", "Maximum depth of the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Mean Depth", "aD", "Mean depth of the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Wetted Perimeter", "P", "Length of the channel in the boundary", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Hydraulic Radius", "R", "Ratio of area to wetted perimeter", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Velocity", "V", "Velocity of the water flow in the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Discharge", "Q", "The rate of discharge in cubic document units per second", GH_ParamAccess.item);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)

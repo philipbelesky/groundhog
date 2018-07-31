@@ -77,8 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="groundhogInfo.cs" />
-    <Compile Include="Hydro\ProfileAreaCalculations.cs" />
-    <Compile Include="Hydro\ProfileFlowCalculations.cs" />
+    <Compile Include="Hydro\ChannelCalculationsComponent.cs" />
+    <Compile Include="Hydro\ChannelProfileComponent.cs" />
     <Compile Include="Hydro\FloodRiverComponent.cs" />
     <Compile Include="Hydro\FloodSeaComponent.cs" />
     <Compile Include="Hydro\FlowCatchmentComponent.cs" />
@@ -107,13 +107,13 @@
     <Compile Include="Terrain\SurfaceAspectComponent.cs" />
     <Compile Include="Terrain\SurfaceSlopeComponent.cs" />
     <Compile Include="Terrain\TerrainCalculations.cs" />
-    <Compile Include="Hydro\FlowCalculations.cs" />
     <Compile Include="Mapping\ShortestPathComponent.cs" />
     <Compile Include="Mapping\ShortestWalk\ListByPattern.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\CurvesTopology.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\EdgeAddress.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\NodeAddress.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\PathMethods.cs" />
+    <Compile Include="Hydro\FlowCalculations.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
