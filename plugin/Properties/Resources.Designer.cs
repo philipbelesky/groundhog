@@ -74,9 +74,19 @@ namespace groundhog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_catchments {
+        internal static System.Drawing.Bitmap icon_channel_profile {
             get {
-                object obj = ResourceManager.GetObject("icon_catchments", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_channel_profile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_channel_region {
+            get {
+                object obj = ResourceManager.GetObject("icon_channel_region", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -147,6 +157,16 @@ namespace groundhog.Properties {
         internal static System.Drawing.Bitmap icon_floods_sea {
             get {
                 object obj = ResourceManager.GetObject("icon_floods_sea", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_flows_catchments {
+            get {
+                object obj = ResourceManager.GetObject("icon_flows_catchments", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

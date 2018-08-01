@@ -121,9 +121,6 @@
   <data name="generic_plants" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\generic_plants.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="icon_catchments" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon_catchments.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icon_contour_clip" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_contour_clip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -183,5 +180,14 @@
   </data>
   <data name="icon_shortest_path" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_shortest_path.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_channel_profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_channel_profile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_channel_region" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_channel_region.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_flows_catchments" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_flows_catchments.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

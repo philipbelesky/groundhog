@@ -14,13 +14,13 @@ namespace groundhog
     public class GroundhogChannelProfileComponent : GroundHogComponent
     {
         public GroundhogChannelProfileComponent()
-            : base("Channel Profile", "FProfile", "Calculate information about water flow in a given channel section", "Groundhog", "Hydro")
+            : base("Channel Profile", "FProfile", "Calculate information about water flow in a channel given the submerged region", "Groundhog", "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        protected override Bitmap Icon => Resources.icon_flows_srf;
+        protected override Bitmap Icon => Resources.icon_channel_profile;
 
         public override Guid ComponentGuid => new Guid("{008255a6-edff-44d9-b96f-23eb050b4a1a}");
 

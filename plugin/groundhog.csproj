@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="groundhogInfo.cs" />
-    <Compile Include="Hydro\ChannelCalculationsComponent.cs" />
+    <Compile Include="Hydro\ChannelRegionComponent.cs" />
     <Compile Include="Hydro\ChannelProfileComponent.cs" />
     <Compile Include="Hydro\FloodRiverComponent.cs" />
     <Compile Include="Hydro\FloodSeaComponent.cs" />
@@ -156,6 +156,9 @@
     <None Include="Resources\icon_surface_slope.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon_channel_profile.png" />
+    <None Include="Resources\icon_channel_region.png" />
+    <None Include="Resources\icon_flows_catchments.png" />
     <Content Include="Resources\icon_random_path.png" />
     <Content Include="Resources\icon_shortest_path.png" />
   </ItemGroup>
