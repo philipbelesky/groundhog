@@ -14,7 +14,7 @@ namespace groundhog
     public class GroundhogChannelProfileComponent : GroundHogComponent
     {
         public GroundhogChannelProfileComponent()
-            : base("Channel Profile", "FProfile", "Calculate information about water flow in a channel given the submerged region", "Groundhog", "Hydro")
+            : base("Channel Profile", "CProfile", "Calculate information about water flow in a channel given the submerged region", "Groundhog", "Hydro")
         {
         }
 

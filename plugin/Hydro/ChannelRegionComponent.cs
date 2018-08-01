@@ -12,16 +12,16 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class GroundhogCalculationsComponent : GroundHogComponent
+    public class GroundhogChannelRegionComponent : GroundHogComponent
     {
-        public GroundhogCalculationsComponent()
-            : base("Channel Region", "FChannel", "Determine the area of water within a channel given a volume", "Groundhog", "Hydro")
+        public GroundhogChannelRegionComponent()
+            : base("Channel Region", "CRegion", "Determine the submerged region of a channel given a quantity of water", "Groundhog", "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        protected override Bitmap Icon => Resources.icon_flows_srf;
+        protected override Bitmap Icon => Resources.icon_channel_region;
 
         public override Guid ComponentGuid => new Guid("{ffba138d-a959-4dbc-988d-c1ef761b8e79}");
 
@@ -55,13 +55,13 @@ namespace groundhog
             // Validation
             if (CHANNEL_CURVE == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
             if (CHANNEL_CURVE.IsPlanar(TOLERANCE) == false)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, 
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A non-planar curve has been provided as the channel section; please ensure it is planar.");
                 return;
             }
@@ -75,7 +75,7 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area precision must be greater than 0.");
                 return;
             }
-            
+
             // Get the extremes of the curve
             var upperParam = CHANNEL_CURVE.Domain.T1;
             var lowerParam = CHANNEL_CURVE.Domain.T0;
@@ -90,7 +90,7 @@ namespace groundhog
             double intervalEnd = upperParam * 0.5; // TODO replace with lowest Z? or a unitised halfway point? to test
             double middle;
             double lastArea = 0.0;
-            
+
 
             while ((intervalEnd - intervalBegin) > TOLERANCE)
             {
@@ -101,9 +101,9 @@ namespace groundhog
                 var testChannels = GetWaterChannelsAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
                 if (testChannels == null)
                 {
-                     break; // No test curve when <2 intersections; i.e. overflown perimeter
+                    break; // No test curve when <2 intersections; i.e. overflown perimeter
                 }
-                
+
                 // Calculate its area
                 var calculatedAreas = GetAreasForWaterChannels(testChannels);
                 var totalArea = calculatedAreas.Sum();
@@ -117,12 +117,12 @@ namespace groundhog
                     outputAreas.AddRange(calculatedAreas);
                     break;
                 }
-                
+
                 if (AREA_TARGET > totalArea)
                     intervalEnd = middle; // Reduce the upper bound as the sectional area is larger than desired
                 else
                     intervalBegin = middle; // Reduce the lower bound as the sectional area is smaller than desired
-            }           
+            }
 
             if (!outputProfiles.Any())
             {
@@ -158,11 +158,11 @@ namespace groundhog
         private List<Curve> GetWaterChannelsAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
         {
             // Assume somewhat symmetrical so 0.25 is halfway up one side
-            var test_point = CHANNEL_CURVE.PointAt(bankParameter); 
+            var test_point = CHANNEL_CURVE.PointAt(bankParameter);
 
             // Create an XY plane positioned vertically at the test point
-            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1)); 
-            
+            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1));
+
             // Intersect Plane with the Curve to get water level(s)
             var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);
             if (intersections == null)
@@ -206,7 +206,7 @@ namespace groundhog
                 var wettedLine = CHANNEL_CURVE.Trim(ixA.Item2, ixB.Item2); // Get the sub-curve of the channel
                 var waterLine = new Line(ixA.Item1, ixB.Item1).ToNurbsCurve();
 
-                Curve[] channel = Curve.JoinCurves(new Curve[] { wettedLine, waterLine });                
+                Curve[] channel = Curve.JoinCurves(new Curve[] { wettedLine, waterLine });
                 if (channel.Length > 0)
                     channelCurves.Add(channel[0]);
             }
