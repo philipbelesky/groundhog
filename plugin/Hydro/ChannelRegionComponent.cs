@@ -27,9 +27,9 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", "The sectional curve profile of the channel; must be planar", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Channel", "C", "The sectional curve profile of the channel; must be planar and vertically-aligned (i.e. it fills up in the Z-axis)", GH_ParamAccess.item);
             pManager.AddNumberParameter("Area", "A", "The desired area of the flow body", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Precision", "T", "The number of units to be accurate to; if unspecified it will use 1% of the area", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Precision", "T", "The number of units to be accurate to in finding a matching area. If unspecified it will use 0.01% of the area. Smaller values will take longer to calculate.", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
@@ -37,19 +37,20 @@ namespace groundhog
         {
             pManager.AddCurveParameter("Channel", "C", "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
             pManager.AddNumberParameter("Area", "A", "The area of the calculated perimeter(s)", GH_ParamAccess.list);
+            // pManager.AddCurveParameter("DEBUG", "D", "The perimeter(s) of the calculated water body", GH_ParamAccess.tree); // DEBUG
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            var TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+            double TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance; ; // Default; overwritten if set
             var CHANNEL_CURVE = default(Curve);
             double AREA_TARGET = 0.0;
 
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref CHANNEL_CURVE)) return;
             if (!DA.GetData(1, ref AREA_TARGET)) return;
-            double AREA_PRECISION = AREA_TARGET * 0.01; // Default; overwritten if set
+            double AREA_PRECISION = AREA_TARGET * 0.01; ; // Default; overwritten if set
             DA.GetData(2, ref AREA_PRECISION);
 
             // Validation
@@ -59,7 +60,7 @@ namespace groundhog
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
-            if (CHANNEL_CURVE.IsPlanar(TOLERANCE) == false)
+            if (CHANNEL_CURVE.IsPlanar(AREA_PRECISION) == false)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A non-planar curve has been provided as the channel section; please ensure it is planar.");
@@ -76,29 +77,38 @@ namespace groundhog
                 return;
             }
 
+            var bbox = CHANNEL_CURVE.GetBoundingBox(true);
+            if (!bbox.IsValid)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Could not calculate bounding box for the curve");
+                return;
+            }
+
             // Get the extremes of the curve
-            var upperParam = CHANNEL_CURVE.Domain.T1;
-            var lowerParam = CHANNEL_CURVE.Domain.T0;
-            var initialGuessParam = (upperParam - lowerParam) * 0.25;
+            var lowerParam = bbox.Corner(true, true, true).Z; // Minimum X/Y/Z corner's Z-value
+            var upperParam = bbox.Corner(false, false, false).Z; // Maximum X/Y/Z corner's Z-value
 
             // Placeholders for outputs
             var outputProfiles = new List<Curve>();
             var outputAreas = new List<double>();
+            // var debugProfiles = new DataTree<Curve>();  // DEBUG
 
             // Use bisect method to refine to the approximate area
             double intervalBegin = lowerParam;
-            double intervalEnd = upperParam * 0.5; // TODO replace with lowest Z? or a unitised halfway point? to test
+            double intervalEnd = upperParam; 
             double middle;
             double lastArea = 0.0;
+            int iterations = 0;
+            double zPrecision = 0.00001;
 
-
-            while ((intervalEnd - intervalBegin) > TOLERANCE)
+            while ((intervalEnd - intervalBegin) > zPrecision)
             {
-                // Get curve at test parameter
-                middle = (intervalBegin + intervalEnd) / 2;
+                // Test parameter is halfway between the current upper and lower Z-bounds
+                iterations += 1;
+                middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
 
                 // Find the actual channel geometries at that parameter
-                var testChannels = GetWaterChannelsAtParameter(middle, CHANNEL_CURVE, TOLERANCE);
+                var testChannels = GetWaterChannelsAtZHeight(middle, CHANNEL_CURVE, TOLERANCE);
                 if (testChannels == null)
                 {
                     break; // No test curve when <2 intersections; i.e. overflown perimeter
@@ -109,6 +119,11 @@ namespace groundhog
                 var totalArea = calculatedAreas.Sum();
                 lastArea = totalArea;
 
+                // DEBUG
+                // var nextPath = debugProfiles.Paths.Count;
+                // debugProfiles.EnsurePath(nextPath);
+                // debugProfiles.AddRange(testChannels);
+
                 // Refine the interval
                 if (Math.Abs(AREA_TARGET - totalArea) <= AREA_PRECISION)
                 {
@@ -118,27 +133,29 @@ namespace groundhog
                     break;
                 }
 
-                if (AREA_TARGET > totalArea)
+                if (AREA_TARGET < totalArea)
                     intervalEnd = middle; // Reduce the upper bound as the sectional area is larger than desired
                 else
                     intervalBegin = middle; // Reduce the lower bound as the sectional area is smaller than desired
             }
 
+            // AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"Completed in {iterations} iterations"); // DEBUG
+
             if (!outputProfiles.Any())
             {
-                string helpMessage;
-                if (lastArea < AREA_TARGET)
-                    helpMessage = "decrease";
+                middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
+                if ((upperParam - middle) < (middle - lowerParam))
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                        $"Specified area of {AREA_TARGET} exceeded what could be contained in the profile. The last attempt found an area of {lastArea}. Decrease the area or increase channel height to produce a solution.");
                 else
-                    helpMessage = "increase";
-
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    $"Specified area {AREA_TARGET} could not be contained in the profile; the last attempt found an area of {Convert.ToInt32(lastArea)}. You probably need {helpMessage} the area to get a result.");
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                        $"Specified area of {AREA_TARGET} could not be contained in the profile; possibly because your precision value prevented a finer match. The last attempt found an area of {lastArea} which didn't match given a precision of {AREA_PRECISION}. You probably need to make the precision larger in order to get a match or avoid perfectly flat portions in the channel.");
             }
 
             // Assign variables to output parameters
             DA.SetDataList(0, outputProfiles);
             DA.SetDataList(1, outputAreas);
+            // DA.SetDataTree(2, debugProfiles); // DEBUG
         }
 
         private List<double> GetAreasForWaterChannels(List<Curve> channels)
@@ -155,13 +172,10 @@ namespace groundhog
             return areas;
         }
 
-        private List<Curve> GetWaterChannelsAtParameter(double bankParameter, Curve CHANNEL_CURVE, double TOLERANCE)
+        private List<Curve> GetWaterChannelsAtZHeight(double zHeight, Curve CHANNEL_CURVE, double TOLERANCE)
         {
-            // Assume somewhat symmetrical so 0.25 is halfway up one side
-            var test_point = CHANNEL_CURVE.PointAt(bankParameter);
-
             // Create an XY plane positioned vertically at the test point
-            var test_plane = new Plane(new Point3d(0, 0, test_point.Z), new Vector3d(0, 0, 1));
+            var test_plane = new Plane(new Point3d(0, 0, zHeight), new Vector3d(0, 0, 1));
 
             // Intersect Plane with the Curve to get water level(s)
             var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);
