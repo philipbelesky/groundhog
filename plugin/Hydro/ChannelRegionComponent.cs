@@ -28,61 +28,68 @@ namespace groundhog
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Channel", "C", "The sectional curve profile of the channel; must be planar and vertically-aligned (i.e. it fills up in the Z-axis)", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Area", "A", "The desired area of the flow body", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Area", "A", "The desired area of the flow body. If unspecified it will try to guess a sensible value to use that can serve as a reference", GH_ParamAccess.item);
+            pManager[1].Optional = true;
             pManager.AddNumberParameter("Precision", "T", "The number of units to be accurate to in finding a matching area. If unspecified it will use 0.01% of the area. Smaller values will take longer to calculate.", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", "The perimeter(s) of the calculated water body", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Area", "A", "The area of the calculated perimeter(s)", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Channel(s)", "C", "The perimeter(s) of the calculated water body or bodies", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Area(s)", "A", "The area of the calculated water body or bodies", GH_ParamAccess.list);
             // pManager.AddCurveParameter("DEBUG", "D", "The perimeter(s) of the calculated water body", GH_ParamAccess.tree); // DEBUG
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            double TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance; ; // Default; overwritten if set
+            double TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance; // Default; overwritten if set
             var CHANNEL_CURVE = default(Curve);
-            double AREA_TARGET = 0.0;
 
-            // Access and extract data from the input parameters individually
+            // Curve Validation
             if (!DA.GetData(0, ref CHANNEL_CURVE)) return;
-            if (!DA.GetData(1, ref AREA_TARGET)) return;
-            double AREA_PRECISION = AREA_TARGET * 0.01; ; // Default; overwritten if set
-            DA.GetData(2, ref AREA_PRECISION);
-
-            // Validation
             if (CHANNEL_CURVE == null)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
-            if (CHANNEL_CURVE.IsPlanar(AREA_PRECISION) == false)
+            if (CHANNEL_CURVE.IsPlanar(TOLERANCE * 100) == false) // Increase tolerance; too many false positives
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A non-planar curve has been provided as the channel section.");
                 return;
             }
-            if (AREA_TARGET <= 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area target must be greater than 0.");
-                return;
-            }
-            if (AREA_PRECISION <= 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area precision must be greater than 0.");
-                return;
-            }
-
             var bbox = CHANNEL_CURVE.GetBoundingBox(true);
             if (!bbox.IsValid)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Could not calculate bounding box for the curve");
                 return;
             }
+
+            // Area Validation + Guessing
+            double AREA_TARGET = 0.0;
+            DA.GetData(1, ref AREA_TARGET);
+            if (AREA_TARGET < 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area target must be greater than 0.");
+                return;
+            }
+            if (AREA_TARGET == 0)
+            {
+                AREA_TARGET = bbox.Diagonal.X * bbox.Diagonal.Z * 0.05; // Set area at 5% of bounding box area
+            }
+
+            // Precision Validation
+            double AREA_PRECISION = AREA_TARGET * 0.01; // Default; overwritten if set
+            DA.GetData(2, ref AREA_PRECISION);
+            if (AREA_PRECISION <= 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area precision must be greater than 0.");
+                return;
+            }
+
 
             // Get the extremes of the curve
             var lowerParam = bbox.Corner(true, true, true).Z; // Minimum X/Y/Z corner's Z-value
@@ -144,10 +151,10 @@ namespace groundhog
             if (!outputProfiles.Any())
             {
                 middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
-                var errorArea = Math.Round(lastArea, 3); // Round for concision
+                var errorArea = Math.Round(lastArea, 2); // Round for concision
                 if (errorArea > 99)
                 {
-                    errorArea = Math.Round(errorArea, 0);  // Round further for concision
+                    errorArea = Math.Round(errorArea);  // Round further for concision
                 }
 
                 if ((upperParam - middle) < (middle - lowerParam))
