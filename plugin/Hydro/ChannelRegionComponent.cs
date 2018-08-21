@@ -63,7 +63,7 @@ namespace groundhog
             if (CHANNEL_CURVE.IsPlanar(AREA_PRECISION) == false)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "A non-planar curve has been provided as the channel section; please ensure it is planar.");
+                    "A non-planar curve has been provided as the channel section.");
                 return;
             }
             if (AREA_TARGET <= 0)
@@ -144,12 +144,18 @@ namespace groundhog
             if (!outputProfiles.Any())
             {
                 middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
+                var errorArea = Math.Round(lastArea, 3); // Round for concision
+                if (errorArea > 99)
+                {
+                    errorArea = Math.Round(errorArea, 0);  // Round further for concision
+                }
+
                 if ((upperParam - middle) < (middle - lowerParam))
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        $"Specified area of {AREA_TARGET} exceeded what could be contained in the profile. The last attempt found an area of {lastArea}. Decrease the area or increase channel height to produce a solution.");
+                        $"Area of {AREA_TARGET} exceeded the profile's capacity (largest area found was {errorArea}). Decrease the area to produce a solution.");
                 else
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        $"Specified area of {AREA_TARGET} could not be contained in the profile; possibly because your precision value prevented a finer match. The last attempt found an area of {lastArea} which didn't match given a precision of {AREA_PRECISION}. You probably need to make the precision larger in order to get a match or avoid perfectly flat portions in the channel.");
+                        $"Area of {AREA_TARGET} could not be found in the profile (smallest area found was {errorArea}; which was not in the margin of {AREA_PRECISION}). Increase the area or precision to produce a solution.");
             }
 
             // Assign variables to output parameters
