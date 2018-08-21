@@ -92,11 +92,11 @@ namespace groundhog
             // Calculate the bounding box for the curve 
             var bbox = CHANNEL_CURVE.GetBoundingBox(CHANNEL_PLANE);
 
-            double maxDepth = bbox.Diagonal.Y; // Distance from high to low
-            double maxWidth = bbox.Diagonal.X; // Distance from side to side
+            double maxDepth = bbox.Diagonal.X; // Distance from high to low
+            double maxWidth = bbox.Diagonal.Y; // Distance from side to side
 
             // Mean Depth = cross-sectional area divided by the surface width
-            double meanDepth = area.Value / maxWidth; // TODO 
+            double meanDepth = area.Value / maxWidth; 
 
             // Wetted Perimeter = the channel curve that is not the top segment
             double wettedPerimeter = CHANNEL_CURVE.GetLength() - maxWidth; // Basically ignore the top channel
