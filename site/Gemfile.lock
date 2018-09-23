@@ -76,7 +76,7 @@ GEM
       nokogiri (~> 1.8)
       pathutil (~> 0.16)
       sprockets (>= 3.3, < 4.1.beta)
-    jekyll-feed (0.10.0)
+    jekyll-feed (0.11.0)
       jekyll (~> 3.3)
     jekyll-pandoc (2.0.1)
       jekyll (>= 3.0)
