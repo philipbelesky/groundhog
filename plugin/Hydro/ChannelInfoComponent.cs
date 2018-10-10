@@ -11,16 +11,16 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class GroundhogChannelProfileComponent : GroundHogComponent
+    public class GroundhogChannelInfoComponent : GroundHogComponent
     {
-        public GroundhogChannelProfileComponent()
-            : base("Channel Profile", "CProfile", "Calculate information about water flow in a channel given the submerged region", "Groundhog", "Hydro")
+        public GroundhogChannelInfoComponent()
+            : base("Channel Info", "CInfo", "Calculate characteristics of water flow in a channel from its submerged region", "Groundhog", "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
-        protected override Bitmap Icon => Resources.icon_channel_profile;
+        protected override Bitmap Icon => Resources.icon_channel_info;
 
         public override Guid ComponentGuid => new Guid("{008255a6-edff-44d9-b96f-23eb050b4a1a}");
 
@@ -89,14 +89,14 @@ namespace groundhog
                     area = area_calc.Area;
             }
 
-            // Calculate the bounding box for the curve 
+            // Calculate the bounding box for the curve
             var bbox = CHANNEL_CURVE.GetBoundingBox(CHANNEL_PLANE);
 
             double maxDepth = bbox.Diagonal.X; // Distance from high to low
             double maxWidth = bbox.Diagonal.Y; // Distance from side to side
 
             // Mean Depth = cross-sectional area divided by the surface width
-            double meanDepth = area.Value / maxWidth; 
+            double meanDepth = area.Value / maxWidth;
 
             // Wetted Perimeter = the channel curve that is not the top segment
             double wettedPerimeter = CHANNEL_CURVE.GetLength() - maxWidth; // Basically ignore the top channel
