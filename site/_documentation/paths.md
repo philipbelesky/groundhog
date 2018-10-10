@@ -1,24 +1,29 @@
 ---
-title:      Channels
-excerpt:    Components for deriving and analysing water flows within a sectional profile.
+title:      Paths
+excerpt:    Components for ...
 date:       18-07-31
 files:      true
 files_text: model and definition that demonstrating the use of these components
-thumbnail:  thumbnail.jpg
+thumbnail:  false
 ---
 
 - Introduction to general hydraulic principles
 - Describe process for deriving level from flow quantity; noting not that water does not strictly follow this process (i.e. settling effects)
 
-{% include elements/component.html title='ChannelRegion' %}
+{% include elements/component.html title='ShortestPath' %}
 
-- Description of the calculated attributes and their meaning/purpose
-- More detailed discussion of manning formula and link to predefined values for channel materials (noting the uncertainty involved in using them)
+- Description of topology / shortest path algorithm
 
-{% include elements/component.html title='ChannelInfo' %}
+{% include elements/component.html title='RandomPath' %}
 
-- Discussion of applications to design
+- Description of random path component
+- Note link to ecologist's behavioural models
 
 {% include elements/figure.html image='channels/model.jpg' %}
+
+- Discussion of uses within design process
+    - Understanding connectivity across a landscape/city etc
+    - Understanding more abstracted 'connections' — i.e. river systems
+    - Random path as useful for things like seed scattering etc
 
 {% include elements/figure.html image='channels/definition.jpg' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for http://groundhog.la' %}
