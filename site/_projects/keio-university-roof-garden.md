@@ -15,16 +15,15 @@ tags:
 - vegetation
 ---
 
-{% include elements/figure.html image='keio-university-roof-garden/1.jpg' credit="Image via MBP website's project
- page (http://micheldesvignepaysagiste.com/en/keio-university-慶應義塾)" %}
+{% include elements/figure.html image='keio-university-roof-garden/1.jpg' credit="Image via MBP website's project page (http://micheldesvignepaysagiste.com/en/keio-university-慶應義塾)" %}
 
 The most visible impact of computational design techniques on the design of landscapes is often in the formal treatment of 'hard' surfaces or structures — street furniture, paving elements, pavilions, and other items that. As manufactured and constructed artefacts, these elements can draw from the design and fabrication techniques typically developed in other disciplines.
 
-For example, the Keio University Roof Garden employs a 'field' technique whereby the radii of a  parametrically-defined grid of circles grows in response to an image. This image is initially read as 2D grid of pixels that are then transposed on to the site model so that each grid point can 'sample' the brightness of the corresponding pixels on the original image. The apertures that result from these grid-samples become voids within the paving grid and are either used for planting beds or extruded as cylinders that function as seating.[@Corner:2009jg 173]
+For example, the Keio University Roof Garden employs a 'field' technique whereby the radii of a  parametrically-defined grid of circles grows in response to an image. This image is initially read as 2D grid of pixels that are then transposed on to the site model so that each grid point can 'sample' the brightness of the corresponding pixels on the original image. The apertures that result from these grid-samples become voids within the paving grid and are either used for planting beds or extruded as cylinders that function as seating.[@Gilles:2009 173]
 
 The resulting aesthetic is one of a smoothly differentiated surface with semi-enclosed areas that reflects the that form a braided river in plan; an image used to drive the geometric layout:
 
-> "One slips into this space, drifting along on the feelings aroused by the water and the light, playing on the same logic. There is no clear separation here (nor was there in Noguchi's garden) between voids and solids. This composition plays with successive planes and textures of variable densities. The even punctuation of the ground gives cadence to these variations. This is a small structure that organizes textures, porosities, densities, and transparencies—the material and the complex spaces, just as in a natural landscape." [@Corner:2009jg 175]
+> "One slips into this space, drifting along on the feelings aroused by the water and the light, playing on the same logic. There is no clear separation here (nor was there in Noguchi's garden) between voids and solids. This composition plays with successive planes and textures of variable densities. The even punctuation of the ground gives cadence to these variations. This is a small structure that organizes textures, porosities, densities, and transparencies—the material and the complex spaces, just as in a natural landscape." [@Gilles:2009 175]
 
 {% include elements/figure.html image='keio-university-roof-garden/2.jpg' title='The different types of granite slab in terms of their dimensions and appearance in the resulting design.' credit='Image via "Intermediate Natures, The Landscapes of Michel Desvigne" (2009) p172' %}
 
