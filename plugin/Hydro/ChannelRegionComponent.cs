@@ -78,18 +78,25 @@ namespace groundhog
             }
             if (AREA_TARGET == 0)
             {
-                AREA_TARGET = bbox.Diagonal.X * bbox.Diagonal.Z * 0.05; // Set area at 5% of bounding box area
+                double[] boxDimensions = new double[3] { bbox.Diagonal.X, bbox.Diagonal.Y, bbox.Diagonal.Z };
+                Array.Sort(boxDimensions); // If its the box of a planar curve one of the dimensions will be 0; need to sort + ignore
+                AREA_TARGET = boxDimensions[1] * boxDimensions[2] * 0.05; // Set area at 5% of bounding box area (bbox.Area property unavailable)
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"The area target was unpsecified so has been set to {AREA_TARGET}.");
             }
 
-            // Precision Validation
-            double AREA_PRECISION = AREA_TARGET * 0.01; // Default; overwritten if set
+            // Precision Validation + Guessing
+            double AREA_PRECISION = 0.0;
             DA.GetData(2, ref AREA_PRECISION);
-            if (AREA_PRECISION <= 0)
+            if (AREA_PRECISION < 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area precision must be greater than 0.");
                 return;
             }
-
+            if (AREA_PRECISION <= 0)
+            {
+                AREA_PRECISION = AREA_TARGET * 0.01; // Default; overwritten if set
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"The area precision was unpsecified or less than 0 so has been set to {AREA_PRECISION}.");
+            }
 
             // Get the extremes of the curve
             var lowerParam = bbox.Corner(true, true, true).Z; // Minimum X/Y/Z corner's Z-value
