@@ -8,7 +8,7 @@
     "bulma": "^0.7.2",
     "feather-icons": "^4.7.0",
     "masonry-layout": "^4.2.2",
-    "picturefill": "^3.0.2"
+    "picturefill": "^3.0.3"
   },
   "devDependencies": {},
   "scripts": {
