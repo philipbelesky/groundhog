@@ -14,7 +14,8 @@ python ../docs/extract_params.py
 # ============
 rm -rf ./assets/plugin/icons/*.png
 cp ../plugin/Resources/**.png ./assets/plugin/icons/
-echo "Extracted Component Icons"
+ICONS=$(ls -1 "./assets/plugin/icons/" | wc -l | xargs)
+echo "Extracted ${ICONS} Component Icons"
 
 
 # Documentation Files
@@ -26,7 +27,8 @@ done
 
 rm -rf ./downloads/documentation/*.zip
 mv ../docs/**.zip ./downloads/documentation/
-echo "Moved Documentation Files"
+DOCS=$(ls -1 "./downloads/documentation/" | wc -l | xargs)
+echo "Moved ${DOCS} Documentation Files"
 
 
 # Project Files
@@ -38,7 +40,8 @@ done
 
 rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./downloads/projects/
-echo "Moved Project Files"
+PROJECTS=$(ls -1 "./downloads/projects/" | wc -l | xargs)
+echo "Moved ${PROJECTS} Project Files"
 
 
 # NPM Dependencies

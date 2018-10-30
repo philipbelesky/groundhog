@@ -16,8 +16,7 @@
 title: Groundhog
 email: groundhog@philipbelesky.com
 description: a Grasshopper plugin and wiki exploring the applications of computational design in landscape architecture.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. http://example.com
+
 
 # Build settings
 markdown: Pandoc

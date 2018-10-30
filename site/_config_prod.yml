@@ -1,5 +1,8 @@
 environment: production
 
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. http://example.com
+
 jekyll_tidy:
   compress_html: false
 

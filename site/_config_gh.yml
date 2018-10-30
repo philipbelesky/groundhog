@@ -1,18 +1,9 @@
-# For local development; disable assets and sets up live reloading etc
+# For Github pages; just sets the configuration variables to the required URL
 
 environment: development
 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-
-host: 0.0.0.0
-port: 4002
-
-incremental: true
-livereload: true
-
-sass:
-  style: expanded
+baseurl: "/groundhog"
+url: ""
 
 # For development skip compilation of assets
 assets:
