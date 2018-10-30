@@ -1,0 +1,26 @@
+environment: production
+
+jekyll_tidy:
+  compress_html: false
+
+plugins:
+  - jekyll-feed
+  - jekyll-tidy
+
+sass:
+  style: compressed
+
+# Jekyll-Assets management
+assets:
+  plugins:
+    img:
+      optim: # The preset used by @optim tag
+        default:
+          jpegrecompress:
+            allow_lossy: true
+            quality: 1
+          pngquant:
+            allow_lossy: true
+
+google_analytics: UA-314178-30
+

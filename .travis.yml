@@ -12,7 +12,7 @@ script:
   - bundler install
   - npm install
   - bash ./compile_assets.sh
-  - bundle exec jekyll build
+  - bundle exec jekyll build --config=_config.yml,_config_dev.yml --url http://philipbelesky.github.io --baseurl /groundhog
   - htmlproofer ./_site
 
 # Branch whitelist, only for GitHub Pages
@@ -31,14 +31,15 @@ addons:
 
 sudo: false # Route your build to the container-based infrastructure for a faster build
 
+# Copy compiled site over to Github pages
 deploy:
   provider: pages
-  local-dir: ./site
+  local-dir: ./site/_site
   target-branch: gh-pages
   email: deploy@travis-ci.org
   name: Deployment Bot
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
-  keep-history: true
+  keep-history: false
   on:
     branch: develop

@@ -7,10 +7,12 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Plugins
 gem "jekyll-assets", group: :jekyll_plugins
-gem "jekyll-feed", group: :jekyll_plugins
 gem "jekyll-pandoc", group: :jekyll_plugins
-gem "jekyll-sitemap", group: :jekyll_plugins
-gem "jekyll-tidy", group: :jekyll_plugins
+
+# Plugins only for production
+gem "jekyll-feed"
+gem "jekyll-sitemap"
+gem "jekyll-tidy"
 
 # Assets
 gem "mini_magick"

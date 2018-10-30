@@ -1,0 +1,23 @@
+environment: development
+
+host: 0.0.0.0
+port: 4002
+
+incremental: true
+livereload: true
+
+sass:
+  style: expanded
+
+# For development skip compilation of assets
+assets:
+  raw_precompile:
+    - "*.png"
+    - "*.jpg"
+    - "*.jpeg"
+  plugins:
+    img:
+      optim: # The preset used by @optim tag; disable those used for production
+        default:
+          jpegrecompress: false
+          pngquant: false
