@@ -127,3 +127,4 @@ exclude:
   - compile.sh
   - style.csl
   - npm-debug.log
+  - vendor # Exclude gem file on travis

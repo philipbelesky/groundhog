@@ -1,0 +1,44 @@
+language: generic # Need python and node
+cache: bundler # Caching bundler gem packages will speed up build
+
+# Setup pandoc for building
+before_install:
+- sudo apt-get update -qq
+- sudo apt-get install -y pandoc
+- sudo apt-get install pandoc-citeproc
+
+script:
+  - cd site
+  - bundler install
+  - npm install
+  - bash ./compile_assets.sh
+  - bundle exec jekyll build
+  - htmlproofer ./_site
+
+# Branch whitelist, only for GitHub Pages
+branches:
+  only:
+  - develop
+
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # Speeds up installation of html-proofer
+
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+
+sudo: false # Route your build to the container-based infrastructure for a faster build
+
+deploy:
+  provider: pages
+  local-dir: ./site
+  target-branch: gh-pages
+  email: deploy@travis-ci.org
+  name: Deployment Bot
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: develop

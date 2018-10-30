@@ -19,3 +19,6 @@ gem "image_optim_pack"
 
 # For Deployment
 gem 's3_website'
+
+# For Travis
+gem 'html-proofer'
