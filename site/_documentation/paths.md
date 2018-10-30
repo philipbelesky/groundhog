@@ -18,12 +18,8 @@ thumbnail:  false
 
 - Description of random path component
 - Note link to ecologist's behavioural models
-
-{% include elements/figure.html image='channels/model.jpg' %}
-
 - Discussion of uses within design process
     - Understanding connectivity across a landscape/city etc
     - Understanding more abstracted 'connections' — i.e. river systems
     - Random path as useful for things like seed scattering etc
 
-{% include elements/figure.html image='channels/definition.jpg' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for http://groundhog.la' %}

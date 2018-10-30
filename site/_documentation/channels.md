@@ -19,6 +19,6 @@ thumbnail:  thumbnail.jpg
 
 - Discussion of applications to design
 
-{% include elements/figure.html image='channels/model.jpg' %}
+{% include elements/figure.html image='channels/model.jpg' alt='Images of the channel tool applied to various geometries' %}
 
 {% include elements/figure.html image='channels/definition.jpg' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for http://groundhog.la' %}

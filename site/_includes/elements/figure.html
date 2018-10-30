@@ -12,7 +12,7 @@
              (max-width: 1408px) 92vw,
              2600w"
       src="{{ default }}"
-      alt="{{ include.caption }}" width="100%"
+      alt="{%- if include.alt -%}{{ include.alt }}{%- else %}{{ include.caption }}{%- endif -%}" width="100%"
     >
   </a>
   {%- if include.caption or include.credit -%}

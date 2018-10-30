@@ -24,6 +24,6 @@ The first component for this is `FlowCatchment`. It uses the collection of flow 
 
 {% include elements/component.html title='FlowCatchment' %}
 
-{% include elements/figure.html image='flows/model.jpg' %}
+{% include elements/figure.html image='flows/model.jpg' alt='Image of the flows component used across two hypothetical landforms' %}
 
 {% include elements/figure.html image='flows/definition.jpg' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for http://groundhog.la' %}
