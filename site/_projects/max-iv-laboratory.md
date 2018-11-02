@@ -1,13 +1,13 @@
 ---
 title:      MAX IV Laboratory Landscape
 date:       17-11-14
-excerpt:    A defensive topography that that creates an intricate series of rolling mounds to dampen vibrations from a nearby highway.
+excerpt:    A defensive topography that creates an intricate series of rolling mounds to dampen vibrations from a nearby highway.
 thumbnail:  4.jpg
 year:       2016 (constructed)
 location:   Lund, Sweden
 designers:  Snøhetta
 files:      true
-files_text: model and definition that demonstrating a partial recreation of this project
+files_text: model and definition that demonstrate a partial recreation of this project
 categories:
 - parametric geometry
 - simulation
@@ -20,12 +20,12 @@ In designing this new scientific facility a major concern was that external vibr
 
 > "3D-modelling proved crucial for several reasons. The design layout was established by extracting the nature of vibrations into rational values inserted in a generic model (Grasshopper; a Rhino plug-in). In plan, intersecting tangents radiating from the major storage ring form the first basis of the wave pattern. These align with the positions of potential future laboratories, and the starting points were defined by 10 to 40m vibration wavelengths and a 4.5m amplitude. ... Our digital model enabled continuous testing of the pattern's effect on mitigating the ground vibrations."
 
-Several Grasshopper definitions were used across the project. In the main definition that drove the base landform, the vibrations from the adjacent roads were implemented as a parametised constraint whose exact value could be honed over many iterations in conjunction with an engineering team.[@Walliss:2016 39] Once set, this constraint allowed the design team to then assess the dampening effects of specific topographic forms and fine-tune them. The resulting topographies could then be further analysed and evaluated according to secondary design criteria that were encapsulated in other definitions that would simulate wind conditions, inform tree planting, visualise a maximum slope gradient, or measure stormwater drainage and retention.[@Walliss:2016 37]
+Several Grasshopper definitions were used across the project. In the main definition that drove the base landform, the vibrations from the adjacent roads were implemented as a parametised constraint whose exact value could be honed over many iterations in conjunction with an engineering team.[@Walliss:2016 39] Once set, this constraint allowed the design team to then assess the dampening effects of specific topographic forms and fine-tune them. The resulting topographies could then be further analysed and evaluated according to secondary design criteria that were encapsulated in other definitions that would simulate wind conditions, inform tree planting, visualise a maximum slope gradient, or measure storm-water drainage and retention.[@Walliss:2016 37]
 
 {% include elements/figure.html image='max-iv-laboratory/3.jpg' alt='Diagram of the Max Lab IV\'s geometry showing the spiralling patterns.' %}
 {% include elements/figure.html image='max-iv-laboratory/6.jpg' caption='The topographic form was designed using an intersecting series of geometric projections that extend as tangents from the outer ring of the main laboratory building.' credit='Image via Snøhetta  press release "The MAX IV Laboratory Landscape Design by Snøhetta to Open Summer 2016."' %}
 
-As compared to other projects discussed, the design process for the MAX Lab IV landscape presents a clearer (or perhaps just more articulated) example of how computational design methods can improve design development. The projects makes a case for these tools as a necessary means to achieve crucial levels of precision when producing and testing a complex landscape design against a complex design goal. While the results of this process still need to be assessed by designers and their consultants, the use of parametric models here shows how computational approaches can help to speed that testing and make some of the trade-offs between design criteria more explicit.
+As compared to other projects discussed, the design process for the MAX Lab IV landscape presents a clearer (or perhaps just more articulated) example of how computational design methods can improve design development. The project makes a case for these tools as a necessary means to achieve crucial levels of precision when producing and testing a complex landscape design against a complex design goal. While the results of this process still need to be assessed by designers and their consultants, the use of parametric models here shows how computational approaches can help to speed that testing and make some of the trade-offs between design criteria more explicit.
 
 {% include elements/figure.html image='max-iv-laboratory/model.png' alt='Rhinoceros model of the MAX IV Laboratory Landscape' %}
 {% include elements/figure.html image='max-iv-laboratory/definition.png' caption='Grasshopper definition recreating the basic pattern effect that defines the topographic forms.' credit='Philip Belesky, for http://groundhog.la' %}
