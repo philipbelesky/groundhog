@@ -64,7 +64,7 @@ GEM
       image_optim (~> 0.19)
     image_size (2.0.0)
     in_threads (1.5.0)
-    jekyll (3.8.4)
+    jekyll (3.8.5)
       addressable (~> 2.4)
       colorator (~> 1.0)
       em-websocket (~> 0.5)
@@ -103,11 +103,11 @@ GEM
       htmlbeautifier
       htmlcompressor
       jekyll
-    jekyll-watch (2.0.0)
+    jekyll-watch (2.1.2)
       listen (~> 3.0)
     jmespath (1.4.0)
     kramdown (1.17.0)
-    liquid (4.0.0)
+    liquid (4.0.1)
     liquid-tag-parser (1.9.0)
       extras (~> 0.3)
       liquid (>= 3.0, < 5.0)
@@ -123,7 +123,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     pandoc-ruby (2.0.2)
     parallel (1.12.1)
-    pathutil (0.16.1)
+    pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     progress (3.4.0)
     public_suffix (3.0.3)
@@ -131,7 +131,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rouge (3.2.1)
+    rouge (3.3.0)
     ruby_dep (1.5.0)
     s3_website (3.4.0)
       colored (= 1.2)
@@ -162,7 +162,7 @@ DEPENDENCIES
   html-proofer
   image_optim
   image_optim_pack
-  jekyll (= 3.8.4)
+  jekyll (= 3.8.5)
   jekyll-assets
   jekyll-feed
   jekyll-pandoc
