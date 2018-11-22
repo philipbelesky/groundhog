@@ -7,8 +7,8 @@ jekyll_tidy:
   compress_html: false
 
 plugins:
-  - jekyll-feed
   - jekyll-tidy
+  - jekyll-sitemap
 
 sass:
   style: compressed
