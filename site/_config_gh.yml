@@ -1,0 +1,19 @@
+# For Github pages; just sets the configuration variables to the required URL
+
+environment: development
+
+baseurl: "/groundhog"
+url: ""
+
+# For development skip compilation of assets
+assets:
+  raw_precompile:
+    - "*.png"
+    - "*.jpg"
+    - "*.jpeg"
+  plugins:
+    img:
+      optim: # The preset used by @optim tag; disable those used for production
+        default:
+          jpegrecompress: false
+          pngquant: false

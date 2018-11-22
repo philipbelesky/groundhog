@@ -15,30 +15,23 @@
 # in the templates via {{ site.myvariable }}.
 title: Groundhog
 email: groundhog@philipbelesky.com
-description: is a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design in landscape architecture.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://groundhog.la" # the base hostname & protocol for your site, e.g. http://example.com
+description: a Grasshopper plugin and wiki exploring the applications of computational design in landscape architecture.
+
 
 # Build settings
-livereload: true
 markdown: Pandoc
 plugins:
-  - jekyll-feed
   - jekyll-pandoc
-  - jekyll-sitemap
-  - jekyll-tidy
+  - jekyll-sitemap # Part of html-proofer tests
 pandoc:
   extensions:
     - csl: "./assets/style.csl"
     - bibliography: "./assets/cites.bib"
 
-google_analytics: UA-314178-30
+permalink: pretty # Ditch the .html suffix for links
 
-# Configuration
-permalink: pretty # Ditch the .html
 sass:
   sass_dir: assets
-  style: compressed
 
 # Custom types
 collections:
@@ -79,12 +72,7 @@ defaults:
     values:
       layout: post
 
-jekyll_tidy:
-  # exclude: ["index.html"]
-  compress_html: false
-  ignore_env: false
-
-# Jekyll-Assets management
+# Shared assets setup
 assets:
   sources:
     - assets/documentation
@@ -106,11 +94,6 @@ assets:
           jhead: false
           jpegtran: false
           svgo: false
-          jpegrecompress:
-            allow_lossy: true
-            quality: 1
-          pngquant:
-            allow_lossy: true
 
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -127,3 +110,4 @@ exclude:
   - compile.sh
   - style.csl
   - npm-debug.log
+  - vendor # Exclude gem file on travis

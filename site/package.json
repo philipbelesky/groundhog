@@ -1,24 +1,23 @@
 {
   "name": "groundhog",
-  "version": "0.9.1b",
+  "version": "0.10.0b",
   "description": "groundhog.la site source",
   "main": "index.html",
   "dependencies": {
     "@ibm/type": "^0.5.4",
-    "bulma": "^0.7.1",
+    "bulma": "^0.7.2",
     "feather-icons": "^4.7.0",
-    "masonry-layout": "^4.2.1",
-    "picturefill": "^3.0.2"
+    "masonry-layout": "^4.2.2",
+    "picturefill": "^3.0.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
-    "serve": "bundle exec jekyll serve --host 0.0.0.0 --port 4002 --incremental --livereload --unpublished --future",
-    "preview": "bundle exec jekyll serve --host 0.0.0.0 --port 4002 --incremental --livereload  --strict_front_matter",
-    "watch": "npm run serve",
-    "build": "bash ./compile.sh && bundle exec jekyll build",
-    "publish": "npm run purge && JEKYLL_ENV=production npm run build && s3_website push"
+    "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
+    "preview": "bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
+    "compile": "bash ./compile_assets.sh && bash ./compile_plugin.sh",
+    "build": "npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
+    "publish": "npm run purge && npm run build && s3_website push"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",

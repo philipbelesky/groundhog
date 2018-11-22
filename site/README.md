@@ -24,6 +24,10 @@ To start a local copy of the website, use:
 
 Then open `http://localhost:4000/`. If using a [Livereload plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) changes to files (layout; markdown; css; etc) should trigger browser updates live.
 
+## Staging
+
+Staging copy of the site is built by Travis and deployed to [Github Pages](http://philipbelesky.github.io/groundhog/)
+
 ## Deploying
 
 Note the `compile.sh` script handles compiling JSON representations of components and zipping/shifting the necessary files over to the `_site` for publishing. This is run when building Jekyll for deployment:

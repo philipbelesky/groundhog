@@ -7,15 +7,17 @@
     <title>{{ site.title | escape }} - {% if page.meta %}{{ page.meta | escape }}{% else %}{{ page.title | escape }}{% endif %}</title>
     <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
 
-    <link rel="icon" type="image/png" href="{{ '/assets/logo-32x32.png' | absolute_url }}" sizes="32x32" />
-    <link rel="icon" type="image/png" href="{{ '/assets/logo-16x16.png' | absolute_url }}" sizes="16x16" />
-    <link rel="stylesheet" href="{{ '/assets/main.css' | absolute_url }}">
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}{% link /assets/logo-32x32.png %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}{% link /assets/logo-16x16.png %}" sizes="16x16" />
+    <link rel="stylesheet" href="{{ site.baseurl }}{{ '/assets/main.css' }}">
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | absolute_url }}">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ 'sitemap.xml' | absolute_url }}" />
-    {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.baseurl }}{% link sitemap.xml %}" />
+    {%- if site.environment == 'production' and site.google_analytics -%}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ site.baseurl }}{% link /feed.xml %}">
     {%- include google-analytics.html -%}
+    {% else %}
+    <meta name="robots" content="noindex"><!-- Block google indexing from Jekyll staging copy-->
     {% endif %}
     <script>
     document.createElement( "picture" ); // Picture element HTML5 shiv

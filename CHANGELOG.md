@@ -1,5 +1,11 @@
 ## Changelog
 
+#### [0.10.0] - 2018-11-22
+###### Added
+- Added the Flow Area component that derives the water level within a defined channel given a defined flow quantity
+- Added the Flow Profile component that calculates a series of hydraulic characteristics for a given flow area
+- The Slope components will now calculate slope as a ratio
+
 #### [0.9.1] - 2018-05-15
 ###### Changed
 - Plant shower will now do nothing when provided with a negative time value so successional planting schemes are easier to implement
