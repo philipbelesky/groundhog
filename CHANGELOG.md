@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.10.0] - TBA
+#### [0.10.0] - 2018-11-22
 ###### Added
 - Added the Flow Area component that derives the water level within a defined channel given a defined flow quantity
 - Added the Flow Profile component that calculates a series of hydraulic characteristics for a given flow area
