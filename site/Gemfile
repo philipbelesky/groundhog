@@ -10,7 +10,6 @@ gem "jekyll-assets", group: :jekyll_plugins
 gem "jekyll-pandoc", group: :jekyll_plugins
 
 # Plugins only for production
-gem "jekyll-feed"
 gem "jekyll-sitemap"
 gem "jekyll-tidy"
 

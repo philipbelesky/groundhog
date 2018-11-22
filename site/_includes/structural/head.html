@@ -14,7 +14,6 @@
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.baseurl }}{% link sitemap.xml %}" />
     {%- if site.environment == 'production' and site.google_analytics -%}
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ site.baseurl }}{% link /feed.xml %}">
     {%- include google-analytics.html -%}
     {% else %}
     <meta name="robots" content="noindex"><!-- Block google indexing from Jekyll staging copy-->
