@@ -7,7 +7,7 @@ files_text: model and definition that demonstrating the use of these components
 thumbnail:  thumbnail.jpg
 ---
 
-If considered just in terms of its CAD representation, planting design appears to be an exercise in arranging circles. Some circles are smaller or larger, brighter or duller; more round or more frayed. But, removing the metadata that are the sprites, colours, and labels, we start and end with a representation of a particular species' dimensions at maturity: a disc.
+If considered just in terms of its CAD representation, planting design appears to be an exercise in arranging circles. Some circles are smaller or larger, brighter or duller; more round or more frayed. But, removing the metadata that are the sprites, colors, and labels, we start and end with a representation of a particular species' dimensions at maturity: a disc.
 
 It is regrettable that in both digital and analogue mediums the typical representations used poorly reflect their subject matter. Depictions of vegetation are rarely spatially explicit, and often rely on fixed and idealised averages that do not reflect the general nature, or the actual reality, of specific species.[@Elkin:2017 60-61][@Raxworthy:2013 113] A plan, once planted, will reach the 'mature' state it depicts after years if not decades. This mature state is itself an abstraction, as each plant's dimensions vary according to the localised conditions that propel or constrain individual growth and are typically altered through ongoing maintenance regimes.
 
