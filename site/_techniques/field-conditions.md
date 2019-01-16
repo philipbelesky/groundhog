@@ -20,9 +20,9 @@ The second enduring impact is in how the concept helps re-evaluate figure-ground
 
 [^ghn]: It's worth noting that the popularity of many of the techniques below occured in tandem with the popularity of NURBs- and parametric- based modelling. Grid deformations tie closely to topological surface modelling; while vector, heat-map, differentiated geometries, and the like are easier to achieve using parametric methods.
 
-- The use of gradiented heat-map style visual representations that depict site conditions along a colour spectrum that is then overlaid and spread across a spatial extent in a diffuse manner.
+- The use of gradiented heat-map style visual representations that depict site conditions along a color spectrum that is then overlaid and spread across a spatial extent in a diffuse manner.
 - The use of a visual pattern whose geometric shape shifts subtly in response to spatial conditions; such as using a grid of circles whose radii expand or contract over the course of a site in response to particular points of interest.
-- The use of vector diagrams to measure site information; often paired with variable-length or coloured arrows to display site information that has both a spatial direction (say the movement of air) as well as a given magnitude.
+- The use of vector diagrams to measure site information; often paired with variable-length or colored arrows to display site information that has both a spatial direction (say the movement of air) as well as a given magnitude.
 - The use of grids that transform and transfigure in relation to a site's embedded spatial systems so that they can be appropriated as a structure for generating novelty rather than enforcing order.[@Monacella:2011 44]
 
 {% include elements/figure.html image='field-conditions/2.jpg' caption="Lateral Office's study of the ecological characteristics across Baffin Island in Nunavut, Canada." credit='*Image via Lateral Office for the Arctic Food Network project, posted on ArchDaily (https://www.archdaily.com/182435/arctic-food-network-lateral-office)' %}

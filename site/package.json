@@ -13,9 +13,9 @@
   "devDependencies": {},
   "scripts": {
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
-    "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
-    "preview": "bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
     "compile": "bash ./compile_assets.sh && bash ./compile_plugin.sh",
+    "serve": "npm run compile && bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
+    "preview": "npm run compile && bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
     "build": "npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
     "publish": "npm run purge && npm run build && s3_website push"
   },

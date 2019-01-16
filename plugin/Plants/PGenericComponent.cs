@@ -10,7 +10,7 @@ namespace groundhog
     {
 
         public GroundhogPGenericComponent()
-            : base("Generic Species", "PGeneric", "Output plant objects from pre-define generic types ", "Groundhog", "Flora")
+            : base("Generic Species", "PGeneric", "Output plant objects from pre-defined generic types ", "Groundhog", "Flora")
         {
         }
 
