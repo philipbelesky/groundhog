@@ -2,7 +2,7 @@
 title:      South Park
 date:       18-11-22
 thumbnail:  thumbnail.jpg
-excerpt:    Computational tools testing the resilience of analogue rules
+excerpt:    Computational tools test the resilience of analogue rules
 year:       2017 (constructed)
 location:   San Francisco, United States of America
 designers:  Fletcher Studio
@@ -15,7 +15,7 @@ files_text: model and definition that demonstrate a partial recreation of this p
 
 When Fletcher Studio first began work on San Francisco's South Park, the initial design not was developed using computational scripting tools but "through iterative analogue diagramming"[@Fletcher:2018 72] made on paper with a focus on "an intuitive understanding of the site and embedded in an analogue rule set."[@Fletcher:2018 72] This rule set was derived from on-the-ground observations. Designers observed and collected data on "land use, park usage, circulation patterns, tree conditions and drainage systems"[@Fletcher:2018 72] as well as "points of entry and desire lines."[@Fletcher:2018 72] This data was aggregated into a "hierarchy of circulation patterns, access points, social nodes, existing trees and structures to retain"[@Fletcher:2018 72] that worked to inform the width and position of the central path running through the park.
 
-While the designers implemented a 'rules based' approach even from the earliest stages of site analysis, they also made of a point of "utilizing a combination of blend tools, manual adjustments, and hand drawings"[@Fletcher:2018 72] which "allowed for idiosyncratic moments while conforming to a robust formal rule set based on environmental, spatial and material logic."[@Fletcher:2018 72] The design team made a special point of working with computational tools only when there was a clear need.
+While the designers implemented a 'rules based' approach even from the earliest stages of site analysis, they also made of a point of using "a combination of blend tools, manual adjustments, and hand drawings"[@Fletcher:2018 72] which "allowed for idiosyncratic moments while conforming to a robust formal rule set based on environmental, spatial and material logic."[@Fletcher:2018 72] The design team made a special point of working with computational tools only when there was a clear need.
 
 {% include elements/figure.html image='south-park/3.jpg' caption='Control points of varying intensity are parametrised to manipulate the alignment of that path which runs through site.' credit='Fletcher Studio, image from Bentley, Chris, "Follow the Script", Landscape Architecture Magazine 107, no. 7, 2016, p. 72' %}
 
@@ -27,7 +27,7 @@ This is where Grasshopper came in for the designers of South Park. They translat
 
 By translating their rule set into grasshopper and refining it through iterative testing, Fletcher Studio eventually developed what they call a "live model"[@Fletcher:2018a 39] which:
 
-> "was responsive, in the sense that various 3-D parameters could be modified and would universally update the entire model. Paving tablet width, length and distribution could be adjusted by modifying inputs, allowing the entry of exact values, or perhaps more intuitive site specific adjustments."[@Fletcher:2018a 39]
+> "... was responsive, in the sense that various 3-D parameters could be modified and would universally update the entire model. Paving tablet width, length and distribution could be adjusted by modifying inputs, allowing the entry of exact values, or perhaps more intuitive site specific adjustments."[@Fletcher:2018a 39]
 
 This 'live model', in turn, offered more opportunities later in the design process. After the resilience of the initial analogue design parameters was tested, parametric design techniques went on to serve as a powerful aid for time-saving when working through the implications of design alterations. For example, "introducing a slight slope to improve drainage in one area... would create a problem in the site 200 feet away" and in being able to quickly pinpoint this, "the program helped them \[the designers\] juggle interdependent aspects of the design."[@Bentley:2016a 68]
 
