@@ -15,7 +15,8 @@ script:
   - cd site
   - bundler install
   - npm install
-  - pyenv install # Need python 3.4 at least for pathlib
+  - pyenv versions
+  - pyenv install --skip-existing
   - bash ./compile_assets.sh
   - touch ./downloads/plugin/groundhog.zip # Fake file for link checking
   # Note -d; need to build into subdirectory to simulate GH pages baseURL
