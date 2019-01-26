@@ -170,7 +170,7 @@
   <!--
     COMPILATION
   -->
-  <PropertyGroup Condition="Exists('/Applications/RhinoWIP.app/')">
+  <PropertyGroup Condition="Exists('/Applications/Rhinoceros.app/')">
     <PostBuildEvent>
       cp "$(TargetDir)groundhog.dll" "$(TargetDir)$(ProjectName).gha"
       rm "$(TargetDir)groundhog.dll"
