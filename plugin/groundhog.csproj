@@ -123,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\generic_plants.csv" />
-    <None Include="Resources\icon_catchments.png" />
     <None Include="Resources\icon_contour_clip.png" />
     <None Include="Resources\icon_contour_gap.png" />
     <None Include="Resources\icon_contour_planarity.png" />
@@ -139,6 +138,11 @@
     <None Include="Resources\icon_flows_mesh.png" />
     <None Include="Resources\icon_flows_srf.png" />
     <None Include="Resources\icon_groundhog.png" />
+    <None Include="Resources\icon_channel_info.png" />
+    <None Include="Resources\icon_flow_area.png" />
+    <None Include="Resources\icon_flow_profile.png" />
+    <None Include="Resources\icon_path_random.png" />
+    <None Include="Resources\icon_path_shortest.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_field_grid_vis.png" />
@@ -156,11 +160,8 @@
     <None Include="Resources\icon_surface_slope.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon_channel_profile.png" />
     <None Include="Resources\icon_channel_region.png" />
     <None Include="Resources\icon_flows_catchments.png" />
-    <Content Include="Resources\icon_random_path.png" />
-    <Content Include="Resources\icon_shortest_path.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
