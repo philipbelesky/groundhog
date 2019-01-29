@@ -6,7 +6,7 @@
   "dependencies": {
     "@ibm/type": "^0.5.4",
     "bulma": "^0.7.2",
-    "feather-icons": "^4.13.0",
+    "feather-icons": "^4.14.0",
     "masonry-layout": "^4.2.2",
     "picturefill": "^3.0.3"
   },
