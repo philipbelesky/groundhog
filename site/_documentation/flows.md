@@ -22,7 +22,7 @@ The `FlowPath` component takes two forms a `SurfaceFlowPath` and a `MeshFlowPath
 
 Once calculated, these flow paths can then be used to support further analysis of the landscape's hydrological features.
 
-The first component for this is `FlowCatchment`. It uses the collection of flow paths (knowing their endpoints) to identify different catchment areas. To do so, it classifies each flow path into groups depending upon which paths finish or 'drain' into the same approximate location. This grouping is visually represented using a Voronoi diagram with each cell centred on the original `Pts` used as the 'start' of each path (adjacent cells of the same group will be merged). Additionally, the different catchment groups are provided with a distinct color code and their cells/paths are output as distinct branches to aid further visualisation or analysis.
+The first component for this is `FlowCatchment`. It uses the collection of pre-calculated flow paths to identify different catchment areas. To do so, it classifies each flow path into groups depending upon which paths finish or 'drain' into the same approximate location. This grouping is visually represented using a Voronoi diagram with each cell centred on the original `Pts` used as the 'start' of each flow path. Once formed, adjacent Voronoi cells whose origins drain to the same end location are joined together to form 'catchment' boundaries. Additionally, the different catchment groups are provided with a distinct color code and their cells/paths are output as distinct branches to aid further visualisation or analysis.
 
 {% include elements/component.html title='FlowCatchment' %}
 
