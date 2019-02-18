@@ -191,15 +191,17 @@
     </StartArguments>
     <StartAction>Program</StartAction>
     <StartProgram Condition="Exists('C:\Program Files (x86)\Rhinoceros 5\System\')">C:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe</StartProgram>
+    <StartProgram Condition="Exists('/Applications/RhinoWIP.app')">/Applications/RhinoWIP.app</StartProgram>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
-    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
     <StartArguments>
     </StartArguments>
+    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('/Applications/RhinoWIP.app')">/Applications/RhinoWIP.app</StartProgram>
     <StartAction>Program</StartAction>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
