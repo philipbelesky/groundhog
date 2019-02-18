@@ -65,13 +65,16 @@ em {
     overflow-x: scroll; // Blown out wrappings can mess up entire page
   }
 
-  p {
-    margin-top: 1rem;
+  .card-content {
+    padding: 1rem; // Reduce padding around tables
   }
 
-  .level,
-  .table {
-    margin-bottom: -10px;
+  .level {
+    margin-bottom: 0.25rem; // Reduce padding to subtitle
+  }
+
+  table tbody tr:last-child td {
+    border-bottom-width: 1px; // Override inherited; adds bottom border to table
   }
 
   .level-item:last-child {
