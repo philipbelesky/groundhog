@@ -6,7 +6,7 @@
   "dependencies": {
     "@ibm/type": "^0.5.4",
     "bulma": "^0.7.4",
-    "feather-icons": "^4.17.0",
+    "feather-icons": "^4.19.0",
     "gulp": "^4.0.0",
     "gulp-responsive": "^2.13.0",
     "masonry-layout": "^4.2.2",
