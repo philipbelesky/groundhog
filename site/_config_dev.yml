@@ -13,16 +13,3 @@ livereload: true
 
 sass:
   style: expanded
-
-# For development skip compilation of assets
-assets:
-  raw_precompile:
-    - "*.png"
-    - "*.jpg"
-    - "*.jpeg"
-  plugins:
-    img:
-      optim: # The preset used by @optim tag; disable those used for production
-        default:
-          jpegrecompress: false
-          pngquant: false

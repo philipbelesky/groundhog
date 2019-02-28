@@ -7,6 +7,8 @@
     "@ibm/type": "^0.5.4",
     "bulma": "^0.7.4",
     "feather-icons": "^4.17.0",
+    "gulp": "^4.0.0",
+    "gulp-responsive": "^2.13.0",
     "masonry-layout": "^4.2.2",
     "picturefill": "^3.0.3"
   },
@@ -14,10 +16,10 @@
   "scripts": {
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
     "compile": "bash ./compile_assets.sh && bash ./compile_plugin.sh",
-    "serve": "npm run compile && bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
-    "preview": "npm run compile && bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
-    "build": "npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
-    "publish": "npm run purge && npm run build && s3_website push"
+    "serve": "gulp images & npm run compile && bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
+    "preview": "gulp images & npm run compile && bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
+    "build": "gulp images & npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
+    "publish": "gulp images && npm run purge && npm run build && s3_website push"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",

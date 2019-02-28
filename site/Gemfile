@@ -6,17 +6,11 @@ gem "jekyll", "3.8.5"
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Plugins
-gem "jekyll-assets", group: :jekyll_plugins
 gem "jekyll-pandoc", group: :jekyll_plugins
 
 # Plugins only for production
 gem "jekyll-sitemap"
 gem "jekyll-tidy"
-
-# Assets
-gem "mini_magick"
-gem "image_optim"
-gem "image_optim_pack"
 
 # For Deployment
 gem 's3_website'

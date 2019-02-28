@@ -72,29 +72,6 @@ defaults:
     values:
       layout: post
 
-# Shared assets setup
-assets:
-  sources:
-    - assets/documentation
-    - assets/plugin
-    - assets/projects
-    - assets/techniques
-  plugins:
-    img:
-      optim: # The preset used by @optim tag
-        default:
-          verbose: false
-          allow_lossy: true
-          jpegoptim: false
-          gifsicle: false
-          advpng: false
-          pngcrush: false
-          pngout: false
-          optipng: false
-          jhead: false
-          jpegtran: false
-          svgo: false
-
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 # node_modules not excluded because the font is referenced from there
@@ -107,6 +84,7 @@ exclude:
   - package.json
   - package-lock.json
   - s3_website.yml
+  - gulpfile.js
   - compile.sh
   - style.csl
   - npm-debug.log
