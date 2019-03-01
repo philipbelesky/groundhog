@@ -3,9 +3,9 @@ var responsive = require('gulp-responsive');
 
 gulp.task('images', function () {
   return gulp.src([
-      './assets/documentation/**/*.{png,jpg}',
-      './assets/projects/**/*.{png,jpg}',
-      './assets/techniques/**/*.{png,jpg}'
+      // './assets/documentation/**/*.{png,jpg,jpeg}', // OK
+      './assets/projects/**/*.{png,jpg,jpeg}',
+      // './assets/techniques/**/*.{png,jpg,jpeg}' // OK
     ]).pipe(responsive({
       '**/*.*': [
       {
@@ -16,70 +16,70 @@ gulp.task('images', function () {
         },
       },
       {
-        width: 600,
+        width: 800,
         rename: {
           suffix: '-small',
           extname: '.jpg',
         },
       },
       {
-        width: 600 * 2,
+        width: 800 * 2,
         rename: {
           suffix: '-small@2x',
           extname: '.jpg',
         },
       },
       {
-        width: 900,
+        width: 960,
         rename: {
           suffix: '-large',
           extname: '.jpg',
         },
       },
       {
-        width: 900 * 2,
+        width: 960 * 2,
         rename: {
           suffix: '-large@2x',
           extname: '.jpg',
         },
       },
       {
-        width: 1200,
+        width: 1344,
         rename: {
           suffix: '-extralarge',
           extname: '.jpg',
         },
       },
       {
-        width: 1200 * 2,
+        width: 1344 * 2,
         rename: {
           suffix: '-extralarge@2x',
           extname: '.jpg',
         },
       },
       {
-        width: 600,
+        width: 800,
         rename: {
           suffix: '-small',
           extname: '.webp',
         },
       },
       {
-        width: 600 * 2,
+        width: 800 * 2,
         rename: {
           suffix: '-small@2x',
           extname: '.webp',
         },
       },
       {
-        width: 900,
+        width: 960,
         rename: {
           suffix: '-large',
           extname: '.webp',
         },
       },
       {
-        width: 900 * 2,
+        width: 960 * 2,
         rename: {
           suffix: '-large@2x',
           extname: '.webp',

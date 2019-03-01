@@ -1,19 +1,19 @@
-{%- capture default -%}{% asset '{{ include.image }}' @path magick:resize=1600x optim='default' %}{%- endcapture %}
+{%- capture basePath -%}
+  /assets/img/{{ page.slug }}/{{ include.image }}
+{%- endcapture -%}
+
 <figure class="gh-figure">
-  <a href="{%- asset '{{ include.image }}' @path -%}" target="_blank">
-    <img
-      srcset="{% asset '{{ include.image }}' @path
-              magick:resize=1080x optim='default' %} 1080w,
-              {{ default }} 1600w,
-              {% asset '{{ include.image }}' @path
-              magick:resize=2200x optim='default' %} 2686w,"
-      sizes="(max-width: 768px) 100vw,
-             (max-width: 1024px) 96vw,
-             (max-width: 1408px) 92vw,
-             2600w"
-      src="{{ default }}"
-      alt="{%- if include.alt -%}{{ include.alt }}{%- else %}{{ include.caption }}{%- endif -%}" width="100%"
-    >
+  <a class="image-link" href="-original.jpeg" target="_blank">
+    <picture>
+      <source type="image/webp" srcset="{{ basePath }}-extralarge.webp, {{ basePath }}-extralarge@2x.webp 2x" media="(min-width: 1600px)">
+      <source                   srcset="{{ basePath }}-extralarge.jpeg, {{ basePath }}-extralarge@2x.jpeg 2x" media="(min-width: 1600px)">
+      <source type="image/webp" srcset="{{ basePath }}-large.webp, {{ basePath }}-large@2x.webp 2x"           media="(min-width: 800px)">
+      <source                   srcset="{{ basePath }}-large.jpeg, {{ basePath }}-large@2x.jpeg 2x"           media="(min-width: 800px)">
+      <source type="image/webp" srcset="{{ basePath }}-small.webp, {{ basePath }}-small@2x.webp 2x">
+      <source                   srcset="{{ basePath }}-small.jpeg, {{ basePath }}-small@2x.jpeg 2x">
+      <!-- fallback -->
+      <img src="{{ basePath }}-small.jpeg" alt="{%- if include.alt -%}{{ include.alt }}{%- else %}{{ include.caption }}{%- endif -%}">
+    </picture>
   </a>
   {%- if include.caption or include.credit -%}
   <figcaption>

@@ -6,11 +6,8 @@
 
 <!-- Need to provide a blank thumbnailAsset otherwise jekyll asset will look for it and fail -->
 {% if item.thumbnail %}
-  {% capture thumbnailFullPath %}{{ item.url }}{{ item.thumbnail }}{% endcapture %}
-  {% assign thumbnailAssetPath = thumbnailFullPath | remove: collection | remove: '/plugin/' | remove_first: "//" %}
-  {% capture thumbnailAsset %}
-    {% asset '{{ thumbnailAssetPath }}' magick:resize=550x550^ magick:crop=550x550+0+0 magick:quality=50 @path %}
-  {% endcapture %}
+  {% capture thumbnailFullPath %}/assets/img/{{ item.slug }}/thumbnail-small.jpeg{% endcapture %}
+  {% assign thumbnailAssetPath = thumbnailFullPath %}
 {% else %}
 {% endif %}
 
@@ -33,7 +30,7 @@
 
 <div class="column {{ include.span }} masonry-item">
   <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ site.baseurl }}{{ item.url }}"
-     style="background: linear-gradient({{ color }}, {{ color }}), 50% 50% url('{{ thumbnailAsset | strip }}'); background-size: cover;">
+     style="background: linear-gradient({{ color }}, {{ color }}), 50% 50% url('{{ thumbnailAssetPath }}'); background-size: cover;">
 
     <div class="is-white is-pulled-right">
       <i data-feather="{{ icon }}"></i>
