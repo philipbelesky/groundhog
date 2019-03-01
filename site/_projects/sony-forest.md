@@ -16,11 +16,11 @@ ANS Studio developed a constraints-based parametric model — a "Seed Scattering
 
 What distinguishes this project from many other approaches — such of that of Snohetta — is the sophistication of the modelling process and the use of the model as the key design driver spanning from site analysis to design documentation. Rather than using landscape form as the key site of design investigation (and have analysis performed in response to changes) the model itself embodied the process of form development, with the designer instead choosing amongst possible solutions and adjusting input weights.
 
-{% include elements/figure.html image='sony-forest/1.png' caption='A model of plant growth was used to project the expected plant morphology over time.' credit='(image from paper)' %}
+{% include elements/figure.html image='1' caption='A model of plant growth was used to project the expected plant morphology over time.' credit='(image from paper)' %}
 
 The model itself performed a number of steps when creating a possible design. Broadly speaking the first phase was in identifying how environmental conditions, such as soil composition, building shading, and wind sheltering, affected different portions of the site. Follow from this the design logic was developed, whereby the designer could adjust parameter's values and possible layout patterns for how the plant placement would respond to the environmental conditions. Finally the system would take all of these into account to create the planting plan, with the algorithm's primary outputs being the  'seed' points that represented a plant with a particular spacing and species optimised to the given site conditions and design criteria.[@Takenaka:2012vn 431] The location of the pathway system occurs after this distribution (optimising to work around root systems).
 
-{% include elements/figure.html image='sony-forest/2.png' caption='The design logic was able to reformulate the tiling and vegetation distributions according to desired entry paths.' credit='(image from paper)' %}
+{% include elements/figure.html image='2' caption='The design logic was able to reformulate the tiling and vegetation distributions according to desired entry paths.' credit='(image from paper)' %}
 
 This system had a number of benefits:
 

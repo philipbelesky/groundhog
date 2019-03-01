@@ -7,7 +7,7 @@ files_text: model and definition that demonstrating the use of these components
 thumbnail:  thumbnail.jpg
 ---
 
-{% include elements/figure.html image='flows/1.jpg' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
+{% include elements/figure.html image='1' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
 
 The "flows" components create naïve projections or simulations of surface water flows and provide further means to analyse the results of these calculations. The key component — the `FlowPath` — accepts a series of 'drop points' on a `Surface` or `Mesh` that become the starting locations of each hypothetical flow path. From there, each point samples the surface or mesh to determine its slope, which becomes a directing vector (i.e. one that points 'downhill'). Each point is then moved along this vector a pre-specified distance, forming a line. The end of this line then becomes the starting point for the next sample; creating a recursive process where flow paths assemble themselves as `Polylines` that grow through this series of descending jumps.
 
@@ -26,6 +26,6 @@ The first component for this is `FlowCatchment`. It uses the collection of pre-c
 
 {% include elements/component.html title='FlowCatchment' %}
 
-{% include elements/figure.html image='flows/model.jpg' alt='Image of the flows component used across two hypothetical landforms' %}
+{% include elements/figure.html image='model' alt='Image of the flows component used across two hypothetical landforms' %}
 
-{% include elements/figure.html image='flows/definition.jpg' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for http://groundhog.la' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for http://groundhog.la' %}

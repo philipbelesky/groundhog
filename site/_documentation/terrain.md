@@ -11,7 +11,7 @@ Landform is more heterogeneous and complex than contour lines suggest. Seemingly
 
 Groundhog provides a number of components for measuring particular characteristics of a given landform. However its worth noting that, as above, such tools for classifying topographic features are only as good as their underpinning 3D representations. Representing a landform as (say) either a `Mesh` or a `Surface` will create different trade-offs in the types of accuracy and detail offered.
 
-{% include elements/figure.html image='terrain/1.png' caption="Visualisations of slope analysis across a `Mesh`, showing each face's grade as a vector, fill, and label" credit='Philip Belesky, for http://groundhog.la' %}
+{% include elements/figure.html image='1' caption="Visualisations of slope analysis across a `Mesh`, showing each face's grade as a vector, fill, and label" credit='Philip Belesky, for http://groundhog.la' %}
 
 The slope analysis components operate by identifying the normals of each face within the (land)form and measuring those vectors against the Z-axis. This produces a measure of steepness that can be output as either an angle or percentile. Either output can then be filtered and visualised to assist in grading tasks that may need to ensure slopes stay within a particular range (say to ensure accessible circulation) or to highlight areas that are vulnerable to erosion or require stabilisation.
 
