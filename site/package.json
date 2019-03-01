@@ -15,11 +15,12 @@
   "devDependencies": {},
   "scripts": {
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
-    "compile": "bash ./compile_assets.sh && bash ./compile_plugin.sh",
-    "serve": "gulp images & npm run compile && bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
-    "preview": "gulp images & npm run compile && bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
-    "build": "gulp images & npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
-    "publish": "gulp images && npm run purge && npm run build && s3_website push"
+    "compile": "gulp images && bash ./compile_assets.sh && bash ./compile_plugin.sh",
+    "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
+    "preview": "bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
+    "build": "npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
+    "publish": "gulp images && npm run purge && npm run build && s3_website push",
+    "test": "htmlproofer ./_site"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",

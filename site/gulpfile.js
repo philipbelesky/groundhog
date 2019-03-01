@@ -3,9 +3,9 @@ var responsive = require('gulp-responsive');
 
 gulp.task('images', function () {
   return gulp.src([
-      // './assets/documentation/**/*.{png,jpg,jpeg}', // OK
+      './assets/documentation/**/*.{png,jpg,jpeg}',
       './assets/projects/**/*.{png,jpg,jpeg}',
-      // './assets/techniques/**/*.{png,jpg,jpeg}' // OK
+      './assets/techniques/**/*.{png,jpg,jpeg}'
     ]).pipe(responsive({
       '**/*.*': [
       {
