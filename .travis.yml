@@ -20,7 +20,7 @@ script:
   - bash ./compile_assets.sh
   - touch ./downloads/plugin/groundhog.zip # Fake file for link checking
   # Note -d; need to build into subdirectory to simulate GH pages baseURL
-  - bundle exec jekyll build -d _site/groundhog --config=_config.yml,_config_gh.yml
+  - npm run preview
   - htmlproofer ./_site
 
 # Branch whitelist, only for GitHub Pages

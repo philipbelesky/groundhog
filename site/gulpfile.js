@@ -8,99 +8,98 @@ gulp.task('images', function () {
       './assets/techniques/**/*.{png,jpg,jpeg}'
     ]).pipe(responsive({
       '**/*.*': [
-      {
-        // original image (for linking to)
-        rename: {
-          suffix: '-original',
-          extname: '.jpg',
+        {
+          // original image (for linking to)
+          rename: {
+            suffix: '-original',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 800,
-        rename: {
-          suffix: '-small',
-          extname: '.jpg',
+        {
+          width: 800,
+          rename: {
+            suffix: '-small',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 800 * 2,
-        rename: {
-          suffix: '-small@2x',
-          extname: '.jpg',
+        {
+          width: 800 * 2,
+          rename: {
+            suffix: '-small@2x',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 960,
-        rename: {
-          suffix: '-large',
-          extname: '.jpg',
+        {
+          width: 960,
+          rename: {
+            suffix: '-medium',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 960 * 2,
-        rename: {
-          suffix: '-large@2x',
-          extname: '.jpg',
+        {
+          width: 960 * 2,
+          rename: {
+            suffix: '-medium@2x',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 1344,
-        rename: {
-          suffix: '-extralarge',
-          extname: '.jpg',
+        {
+          width: 1344,
+          rename: {
+            suffix: '-large',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 1344 * 2,
-        rename: {
-          suffix: '-extralarge@2x',
-          extname: '.jpg',
+        {
+          width: 1344 * 2,
+          rename: {
+            suffix: '-large@2x',
+            extname: '.jpg',
+          },
         },
-      },
-      {
-        width: 800,
-        rename: {
-          suffix: '-small',
-          extname: '.webp',
+        {
+          width: 800,
+          rename: {
+            suffix: '-small',
+            extname: '.webp',
+          },
         },
-      },
-      {
-        width: 800 * 2,
-        rename: {
-          suffix: '-small@2x',
-          extname: '.webp',
+        {
+          width: 800 * 2,
+          rename: {
+            suffix: '-small@2x',
+            extname: '.webp',
+          },
         },
-      },
-      {
-        width: 960,
-        rename: {
-          suffix: '-large',
-          extname: '.webp',
+        {
+          width: 960,
+          rename: {
+            suffix: '-medium',
+            extname: '.webp',
+          },
         },
-      },
-      {
-        width: 960 * 2,
-        rename: {
-          suffix: '-large@2x',
-          extname: '.webp',
+        {
+          width: 960 * 2,
+          rename: {
+            suffix: '-medium@2x',
+            extname: '.webp',
+          },
         },
-      },
-      {
-        width: 1200,
-        rename: {
-          suffix: '-extralarge',
-          extname: '.webp',
-          // Skip enlargment
+        {
+          width: 1344,
+          rename: {
+            suffix: '-large',
+            extname: '.webp',
+          },
         },
-      },
-      {
-        width: 1200 * 2,
-        rename: {
-          suffix: '-extralarge@2x',
-          extname: '.webp',
-        },
-      }
-    ],
+        {
+          width: 1344 * 2,
+          rename: {
+            suffix: '-large@2x',
+            extname: '.webp',
+          },
+        }
+      ],
     }, {
       // Global configuration for all images
       // The output quality for JPEG, WebP and TIFF output formats

@@ -4,13 +4,6 @@
   {% assign collection = item.collection %}
 {% endif %}
 
-<!-- Need to provide a blank thumbnailAsset otherwise jekyll asset will look for it and fail -->
-{% if item.thumbnail %}
-  {% capture thumbnailFullPath %}/assets/img/{{ item.slug }}/thumbnail-small.jpeg{% endcapture %}
-  {% assign thumbnailAssetPath = thumbnailFullPath %}
-{% else %}
-{% endif %}
-
 {% if collection == 'documentation' %}
   {% assign icon = 'book' %}
   {% assign color = 'rgba(142, 215, 89, 0.90)' %}
@@ -23,9 +16,14 @@
   {% assign icon = 'aperture' %}
   {% assign color = 'rgba(246, 112, 140, 0.90)' %}
 {% endif %}
+
 {% if collection == 'plugin' %}
   {% assign icon = 'package' %}
   {% assign color = 'rgba(114, 227, 210, 0.90)' %}
+  {% assign thumbnailAssetPath = '/assets/plugin/thumbnail.png' %}
+{% else %}
+  {% capture thumbnailFullPath %}/assets/img/{{ item.slug }}/thumbnail-medium.jpeg{% endcapture %}
+  {% assign thumbnailAssetPath = thumbnailFullPath %}
 {% endif %}
 
 <div class="column {{ include.span }} masonry-item">
