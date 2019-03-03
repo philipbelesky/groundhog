@@ -4,7 +4,6 @@ excerpt:    Components for creating simple projections and analysis of surface w
 date:       17-10-14
 files:      true
 files_text: model and definition that demonstrating the use of these components
-thumbnail:  thumbnail.jpg
 ---
 
 {% include elements/figure.html image='1' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}

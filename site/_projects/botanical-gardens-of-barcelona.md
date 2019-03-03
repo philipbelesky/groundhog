@@ -8,7 +8,6 @@ location:   Barcelona, Spain
 designers:  Carlos Ferrater, Josep Lluís Canosa, and Bet Figueras
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-thumbnail:  thumbnail.png
 ---
 
 The *Botanic Gardens of Barcelona* show an early example of how a sophisticated model of natural systems can help generate, test, and provide feedback upon the complex design criteria, such as grading and planting, that define the key features of a landscape.

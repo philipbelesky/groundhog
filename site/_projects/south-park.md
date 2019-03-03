@@ -1,7 +1,6 @@
 ---
 title:      South Park
 date:       18-11-22
-thumbnail:  thumbnail.jpg
 excerpt:    Computational tools test the resilience of analogue rules
 year:       2017 (constructed)
 location:   San Francisco, United States of America

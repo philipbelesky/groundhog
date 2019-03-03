@@ -4,7 +4,6 @@ excerpt:    Components for deriving and analysing water flows within a sectional
 date:       18-07-31
 files:      true
 files_text: model and definition that demonstrating the use of these components
-thumbnail:  thumbnail.jpg
 published:  false
 ---
 

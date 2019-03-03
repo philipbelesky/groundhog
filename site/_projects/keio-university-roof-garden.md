@@ -2,7 +2,6 @@
 title:      Keio University Roof Garden
 date:       17-09-14
 excerpt:    A contemporary rooftop garden that uses a tiled field to recreate natural planting patterns.
-thumbnail:  thumbnail.jpg
 year:       2012 (constructed)
 location:   Tokyo, Japan
 designers:  Michel Desvigne Paysagiste

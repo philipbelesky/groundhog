@@ -4,7 +4,6 @@ excerpt:    Components that enable the parametric control of plant selection, di
 date:       17-11-08
 files:      true
 files_text: model and definition that demonstrating the use of these components
-thumbnail:  thumbnail.jpg
 ---
 
 If considered just in terms of its CAD representation, planting design appears to be an exercise in arranging circles. Some circles are smaller or larger, brighter or duller; more round or more frayed. But, after removing the metadata of sprites, colors, and labels, we start and end with a representation of a particular species' dimensions at maturity: a disc.
