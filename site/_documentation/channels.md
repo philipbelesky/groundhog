@@ -21,4 +21,4 @@ published:  false
 
 {% include elements/figure.html image='model' alt='Images of the channel tool applied to various geometries' %}
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for http://groundhog.la' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for https://groundhog.la' %}

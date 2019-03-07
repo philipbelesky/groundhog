@@ -27,4 +27,4 @@ The first component for this is `FlowCatchment`. It uses the collection of pre-c
 
 {% include elements/figure.html image='model' alt='Image of the flows component used across two hypothetical landforms' %}
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for http://groundhog.la' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for https://groundhog.la' %}
