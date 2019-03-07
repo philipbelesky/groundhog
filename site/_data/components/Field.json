@@ -1,0 +1,47 @@
+{
+  "name": "Field Mapper",
+  "nickname": "Field",
+  "icon": "icon_field.png",
+  "description": "Create a field representation from collections of bounded curves/lines.",
+  "category": "Groundhog",
+  "subcategory": "Mapping",
+  "inputs": [
+    {
+      "name": "Bounds",
+      "id": "B",
+      "description": "Boundary box for the resulting field",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Divisions",
+      "id": "D",
+      "description": "Sample points spacings for the resulting field (greatest extent in one direction)",
+      "optional": false,
+      "type": "IntegerParameter"
+    },
+    {
+      "name": "Areas",
+      "id": "A",
+      "description": "Boundary box for the resulting field",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Z Range",
+      "id": "Z",
+      "description": "Maximum height of the surface field (defaults to 5% of boundary width/height)",
+      "optional": false,
+      "type": "NumberParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Field",
+      "id": "F",
+      "description": "Resulting field",
+      "optional": false,
+      "type": "SurfaceParameter"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Channel Info",
+  "nickname": "CInfo",
+  "icon": "icon_channel_info.png",
+  "description": "Calculate characteristics of water flow in a channel from its submerged region",
+  "category": "Groundhog",
+  "subcategory": "Hydro",
+  "inputs": [
+    {
+      "name": "Channel",
+      "id": "C",
+      "description": "A closed planar curve representing a section of the water body; assumes a level top",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Roughness",
+      "id": "N",
+      "description": "Manning's roughness coefficient for the channel",
+      "optional": true,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Slope",
+      "id": "S",
+      "description": "Slope of the hydraulic grade line as a decimal (i.e. rise/run = 0.5)",
+      "optional": true,
+      "type": "NumberParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Area",
+      "id": "A",
+      "description": "Area of the channel",
+      "optional": false,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Max Depth",
+      "id": "mD",
+      "description": "Maximum depth of the channel",
+      "optional": false,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Mean Depth",
+      "id": "aD",
+      "description": "Mean depth of the channel",
+      "optional": false,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Wetted Perimeter",
+      "id": "P",
+      "description": "Length of the channel in the boundary",
+      "optional": false,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Hydraulic Radius",
+      "id": "R",
+      "description": "Ratio of area to wetted perimeter",
+      "optional": false,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Velocity",
+      "id": "V",
+      "description": "Velocity of the water flow in the channel",
+      "optional": false,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Discharge",
+      "id": "Q",
+      "description": "The rate of discharge in cubic document units per second",
+      "optional": false,
+      "type": "NumberParameter"
+    }
+  ]
+}

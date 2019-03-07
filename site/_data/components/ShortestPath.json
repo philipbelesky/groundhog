@@ -1,0 +1,68 @@
+{
+  "name": "Shortest Path",
+  "nickname": "ShortPath",
+  "icon": "icon_path_shortest.png",
+  "description": "Calculates the shortest path in a network of curves",
+  "category": "Groundhog",
+  "subcategory": "Mapping",
+  "inputs": [
+    {
+      "name": "Curves",
+      "id": "C",
+      "description": "The group of curves that form the network to traverse",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Starts",
+      "id": "S",
+      "description": "The point or points that form the starting point of the path",
+      "optional": false,
+      "type": "PointParameter"
+    },
+    {
+      "name": "Ends",
+      "id": "E",
+      "description": "The point or points that form the end point of the path",
+      "optional": false,
+      "type": "PointParameter"
+    },
+    {
+      "name": "Lengths",
+      "id": "L",
+      "description": "A manually-specified length for each curve; useful if you want to artificially ",
+      "optional": true,
+      "type": "NumberParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Shortest Path",
+      "id": "P",
+      "description": "The curve showing the shortest connection",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Succession",
+      "id": "S",
+      "description": "The indices of the curves that form the shortest path",
+      "optional": false,
+      "type": "IntegerParameter"
+    },
+    {
+      "name": "Direction",
+      "id": "D",
+      "description": "True if the curve in succession is walked from start to end, false otherwise",
+      "optional": false,
+      "type": "BooleanParameter"
+    },
+    {
+      "name": "Length",
+      "id": "L",
+      "description": "The total length, as an aggregation of the input lengths measured along the path",
+      "optional": false,
+      "type": "NumberParameter"
+    }
+  ]
+}

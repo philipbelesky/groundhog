@@ -1,0 +1,26 @@
+{
+  "name": "Species Importer",
+  "nickname": "PImport",
+  "icon": "icon_pimport.png",
+  "description": "Create plant attributes from an imported spreadsheet",
+  "category": "Groundhog",
+  "subcategory": "Flora",
+  "inputs": [
+    {
+      "name": "CSV File",
+      "id": "C",
+      "description": "The contents of a CSV file (use the output of a Read File component",
+      "optional": false,
+      "type": "GenericParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Plants",
+      "id": "P",
+      "description": "The resulting plant objects",
+      "optional": false,
+      "type": "GenericParam"
+    }
+  ]
+}

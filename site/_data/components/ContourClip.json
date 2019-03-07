@@ -1,0 +1,54 @@
+{
+  "name": "Contour Clipper",
+  "nickname": "Contour Clip",
+  "icon": "icon_contour_clip.png",
+  "description": "Checks contours meet a specific boundary, otherwise extend/trim them",
+  "category": "Groundhog",
+  "subcategory": "Terrain",
+  "inputs": [
+    {
+      "name": "Contour Curves",
+      "id": "C",
+      "description": "The contours to clip",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Boundary",
+      "id": "B",
+      "description": "The boundary rectangle to clip to",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Create PlanarSrfs",
+      "id": "P",
+      "description": "Whether to create planar surfaces; may be slow with large quantities of contours!",
+      "optional": true,
+      "type": "BooleanParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Contours",
+      "id": "C",
+      "description": "The clipped contours",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Edged Contours",
+      "id": "E",
+      "description": "All contours with edges following the boundary",
+      "optional": false,
+      "type": "CurveParameter"
+    },
+    {
+      "name": "Planar Surfaces",
+      "id": "P",
+      "description": "Edge contours as planar surfaces (must be toggled on)",
+      "optional": false,
+      "type": "BrepParameter"
+    }
+  ]
+}

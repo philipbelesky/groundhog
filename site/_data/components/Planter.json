@@ -1,0 +1,40 @@
+{
+  "name": "Plant Placement Solver",
+  "nickname": "Placer",
+  "icon": "icon_pplacer.png",
+  "description": "Place particular plant objects at a spatial point given particular inputs and constraints",
+  "category": "Groundhog",
+  "subcategory": "Flora",
+  "inputs": [
+    {
+      "name": "Plants",
+      "id": "P",
+      "description": "The planting pallete from which to select from",
+      "optional": false,
+      "type": "GenericParameter"
+    },
+    {
+      "name": "Area",
+      "id": "A",
+      "description": "The area in which to place the plants",
+      "optional": false,
+      "type": "SurfaceParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Plants",
+      "id": "P",
+      "description": "The resulting plant objects",
+      "optional": false,
+      "type": "GenericParameter"
+    },
+    {
+      "name": "Locations",
+      "id": "L",
+      "description": "The locations of the resulting plant objects",
+      "optional": false,
+      "type": "PointParameter"
+    }
+  ]
+}
