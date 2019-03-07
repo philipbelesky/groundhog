@@ -21,7 +21,7 @@
 #### Plugin/Website
 
 - Rebuild `groundhog readme.pdf` from the Markdown source
-- Run `npm run publish` in the site directory
+- Run `compile_plugin.sh` in the site directory and commit the gha/pdf updates to source
 
 #### Yak
 

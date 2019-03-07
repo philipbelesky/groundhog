@@ -9,10 +9,12 @@
 _site
 .env
 
-# Redundant Assets
+# Redundant Assets (generated during deployment)
 site/assets/plugin/icons
 site/assets/fonts
-site/_data/components/
+site/downloads/documentation
+site/downloads/projects
+site/downloads/techniques
 
 ################################################################################
 # Groundhog Plugin
@@ -20,9 +22,7 @@ site/_data/components/
 
 # Build files/dirs
 plugin/bin/
-plugin/release/*.gha
 plugin/release/*.pdb
-plugin/release/*.pdf
 
 ################################################################################
 # Groundhog Reference Files

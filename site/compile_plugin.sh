@@ -1,18 +1,14 @@
 #!/bin/bash
 
-# Build the plugin itself and move/bundle the files over
+# Note the plugin zip file is intended to be committed to src
+# As are the json files
 
-# Build
-# =====
+# Build the plugin itself
 MSBuild ../plugin/groundhog.csproj /property:Configuration=Release /verbosity:q
+echo "Build plugin gha"
 
+# Extract input/output parameters from plugin file to json for Jekyll docs
+rm -rf ../site/_data/components/*.json # Delete old files
+python ../docs/extract_params.py
+echo "Extracted components JSON"
 
-# Plugin Files
-# ============
-rm -f ../plugin/release/groundhog.gha.mdb
-rm -f ../plugin/release/groundhog.pdb # Comes from VS build using release config
-mv -f ../plugin/release/groundhog.dll ../plugin/release/groundhog.gha
-rm -f ./downloads/plugin/groundhog.zip
-
-zip -r -q -j ./downloads/plugin/groundhog.zip ../plugin/release/ -x "*.DS_Store*" -x "*manifest.yml*"
-echo "Built and Moved Plugin Files"

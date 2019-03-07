@@ -14,13 +14,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
-    "compile": "gulp images && bash ./compile_assets.sh && bash ./compile_plugin.sh",
-    "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
     "preview": "bundle exec jekyll serve --strict_front_matter --config=_config.yml,_config_dev.yml",
-    "build": "npm run compile && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
-    "publish": "gulp images && npm run purge && npm run build && s3_website push",
-    "test": "htmlproofer ./_site"
+    "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
+    "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
+    "test": "htmlproofer ./_site",
+    "compile-version": "bash ./compile_plugin.sh",
+    "compile-deploy": "bash ./compile_assets.sh & gulp images",
+    "build": "npm run compile-deploy && bundle exec jekyll build --config=_config.yml,_config_prod.yml"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",
