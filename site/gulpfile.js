@@ -1,11 +1,12 @@
 var gulp = require('gulp');
 var responsive = require('gulp-responsive');
 
-gulp.task('images', function () {
+
+gulp.task('figures', function () {
   return gulp.src([
-      './assets/documentation/**/*.{png,jpg,jpeg}',
-      './assets/projects/**/*.{png,jpg,jpeg}',
-      './assets/techniques/**/*.{png,jpg,jpeg}'
+      './assets/documentation/**/!(thumbnail)*.{png,jpg,jpeg}',
+      './assets/projects/**/!(thumbnail)*.{png,jpg,jpeg}',
+      './assets/techniques/**/!(thumbnail)*.{png,jpg,jpeg}'
     ]).pipe(responsive({
       '**/*.*': [
         {
@@ -117,3 +118,42 @@ gulp.task('images', function () {
     }))
     .pipe(gulp.dest('_site/assets/img/'));
 });
+
+
+// These have different quality and size formats (lower/smaller/singular)
+gulp.task('thumbnails', function () {
+  return gulp.src([
+    './assets/documentation/**/thumbnail.{png,jpg,jpeg}',
+    './assets/projects/**/thumbnail.{png,jpg,jpeg}',
+    './assets/techniques/**/thumbnail.{png,jpg,jpeg}'
+  ]).pipe(responsive({
+    '**/*.*': [
+      {
+        width: 690,
+        rename: {
+          suffix: '-medium',
+          extname: '.jpg',
+        },
+      },
+      {
+        width: 690,
+        rename: {
+          suffix: '-medium',
+          extname: '.webp',
+        },
+      }
+    ]
+  }, {
+    // Global configuration for all images
+    // The output quality for JPEG, WebP and TIFF output formats
+    quality: 70,
+    // Zlib compression level of PNG output format
+    compressionLevel: 6,
+    // Strip all metadata
+    withMetadata: false,
+  }))
+  .pipe(gulp.dest('_site/assets/img/'));
+});
+
+
+gulp.task('images', gulp.series('thumbnails', 'figures'));
