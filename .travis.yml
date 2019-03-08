@@ -15,12 +15,7 @@ script:
   - cd site
   - bundler install
   - npm install
-  - pyenv versions
-  - pyenv install --skip-existing
-  - bash ./compile_assets.sh
-  - touch ./downloads/plugin/groundhog.zip # Fake file for link checking
-  # Note -d; need to build into subdirectory to simulate GH pages baseURL
-  - npm run preview
+  - npm run build
   - htmlproofer ./_site
 
 # Branch whitelist, only for GitHub Pages
@@ -38,16 +33,3 @@ addons:
     - libcurl4-openssl-dev
 
 sudo: false # Route your build to the container-based infrastructure for a faster build
-
-# Copy compiled site over to Github pages
-deploy:
-  provider: pages
-  local-dir: ./site/_site/groundhog
-  target-branch: gh-pages
-  email: deploy@travis-ci.org
-  name: Deployment Bot
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: false
-  on:
-    branch: develop
