@@ -1,7 +1,7 @@
 ---
 title:      Busan Cinema Complex
 date:       18-01-31
-published:  false
+published:  true
 excerpt:    lorum
 year:       2006 (designed)
 location:   Busan, South Korea
@@ -21,3 +21,6 @@ Here a rectangular grid distributes a series of tiles across a surface, with the
 {% include elements/figure.html image='3' caption='A parametric model showing how the surface topographic is used to scale and rotate the paving grid.' credit="TODO" %}
 
 That said the tight tie between landform and tiling strategy suggests an approach that can establish a more direct and intuitive link between a primary design driver — the topography — and a secondary design feature that can begin to optimise according to a given landscape condition. In contrast to the two earlier examples where surface development proceeded by transposing a pattern or developing a freeform mesh, here the surface development precedes the application of the parametric geometries, which in turn can inform the underlying surface development. The field-like tiling strategy  responds to iterations in the underlying landform, and takes local variations within the surface as its driver; creating a feedback loop that informs both the 'base' geometry and the tiling strategy itself.
+
+{% include elements/figure.html image='model' alt='Rhinoceros model of the landscape concept for the Busan Cinema Complex competition entry' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the tiling pattern used in the proposal.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}

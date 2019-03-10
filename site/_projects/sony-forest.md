@@ -1,11 +1,11 @@
 ---
 title:      Sony Forest
 date:       18-01-31
-published:  false
+published:  true
 excerpt:    lorum
 year:       2012 (constructed)
 location:
-designers:  ANS Studio
+designers:  ANS Studio + 
 files:      true
 files_text: model and definition that demonstrating a partial recreation of this project
 tags:
@@ -31,3 +31,7 @@ This system had a number of benefits:
 Because the design criteria could be encompassed in a relatively complete manner by choices in the vegetation (and their direct relationship to pathing) the design logic could be encapsulated neatly in a weighted model, particularly when both the initial and final site conditions were flat in formal terms. However, the use of a singular model becomes much more difficult as the design criteria become more multivalent, and come to encompass wider ranges of criteria. In these cases, and in cases where the design has more formal effects, the use of formal representations to link between different performances criteria becomes key. That is to say rather than have a single model encompass and generate a design from the first to last stages of the design process, formal representations (says surfaces in a CAD program) are used to store the results of these models or to negotiate between multiple models investigating different criteria.
 
 Similarly, it is unclear how generalisable this particular model is to other projects. Often highly advanced models become overly tied to project-specific criteria, and so are difficult to transplant into other situations. That this particular model does not seem to be implemented in a common CAD environment means it is likely to require a large degree of expertise to adapt and deploy within other projects.
+
+{% include elements/figure.html image='model' alt='Rhinoceros model of the Sony Forest landscape' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the planting and tiling strategies.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
+

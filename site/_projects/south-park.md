@@ -73,4 +73,8 @@ While *South Park* is a small site, the capabilities of the parametric methods u
 
 {% include elements/figure.html image='iteration_2' caption='The script is capable of operating over a wide range of environments. Here it regulates how a path moves through a forest.'  credit='Albert Rex, for groundhog.la' %}
 
-{% include elements/figure.html image='iteration_3' caption='The script can be easily altered to accommodate additional, site-specific. variations. Here an additional path is influenced by the original set of attractor curves and cuts under the first path, while at the same time the definition rebuilds garden beds around it.'  credit='Albert Rex, for groundhog.la' %}
+{% include elements/figure.html image='iteration_3' caption='The script can be easily altered to accommodate additional, site-specific. variations. Here an additional path is influenced by the original set of attractor curves and cuts under the first path, while at the same time the definition rebuilds garden beds around it.' credit='Albert Rex, for groundhog.la' %}
+
+{% include elements/figure.html image='model' alt='Rhinoceros model of South Park' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the logic used to define key paths within the landscape.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
+
