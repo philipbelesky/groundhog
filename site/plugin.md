@@ -9,8 +9,8 @@ excerpt:    Download the latest version (0.10.0b) of the Groundhog plugin for Gr
 
 ---
 
+{% include elements/beta.html %}
 {% include elements/download.html %}
-
 {% include elements/newsletter.html %}
 
 ---
