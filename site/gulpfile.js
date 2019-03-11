@@ -10,9 +10,8 @@ gulp.task('figures', function () {
     ]).pipe(responsive({
       '**/*.*': [
         {
-          // original image (for linking to)
           rename: {
-            suffix: '-original',
+            suffix: '-original', // original image (for linking to)
             extname: '.jpg',
           },
         },
@@ -24,7 +23,7 @@ gulp.task('figures', function () {
           },
         },
         {
-          width: 800 * 2,
+          width: 1600,
           rename: {
             suffix: '-small@2x',
             extname: '.jpg',
@@ -38,7 +37,7 @@ gulp.task('figures', function () {
           },
         },
         {
-          width: 960 * 2,
+          width: 1920,
           rename: {
             suffix: '-medium@2x',
             extname: '.jpg',
@@ -52,7 +51,7 @@ gulp.task('figures', function () {
           },
         },
         {
-          width: 1344 * 2,
+          width: 2688,
           rename: {
             suffix: '-large@2x',
             extname: '.jpg',
@@ -66,7 +65,7 @@ gulp.task('figures', function () {
           },
         },
         {
-          width: 800 * 2,
+          width: 1600,
           rename: {
             suffix: '-small@2x',
             extname: '.webp',
@@ -80,7 +79,7 @@ gulp.task('figures', function () {
           },
         },
         {
-          width: 960 * 2,
+          width: 1920,
           rename: {
             suffix: '-medium@2x',
             extname: '.webp',
@@ -94,7 +93,7 @@ gulp.task('figures', function () {
           },
         },
         {
-          width: 1344 * 2,
+          width: 2688,
           rename: {
             suffix: '-large@2x',
             extname: '.webp',

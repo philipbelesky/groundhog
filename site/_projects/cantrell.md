@@ -7,7 +7,7 @@ year:
 location:
 designers:
 files:      true
-files_text: model and definition that demonstrating a partial recreation of this project
+files_text: model and definition that demonstrate a partial recreation of this project
 tags:
 - analog computation
 

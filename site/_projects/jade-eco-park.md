@@ -7,7 +7,7 @@ year:       2018 (constructed)
 location:   Taichung, Taiwan
 designers:  Philippe Rahm Architect, Mosbach Paysagistes, Ricky Liu & Associates
 files:      true
-files_text: model and definition that demonstrating a partial recreation of this project
+files_text: model and definition that demonstrate a partial recreation of this project
 tags:
 
 ---
