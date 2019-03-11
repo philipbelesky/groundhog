@@ -11,16 +11,42 @@ files_text: model and definition that demonstrating a partial recreation of this
 tags:
 ---
 
-{% include elements/figure.html image='1' caption='TODO' credit="TODO" %}
+{% include elements/figure.html image='busan-birds-eye' caption='Busan Cinema Centre design concept.' credit="By James Corner Field Operations and TEN Arquitectos, from Film and Architecture: Busan Cinema Complex International Invited Competition, p. 215." %}
 
-The 2006 competition entry for the *Busan Cinema Complex* by James Corner Field Operations and TEN Arquitectos demonstrates more simple, but more explicit, link between surface development strategies and particular performance goals.
+In 2006, landscape architects James Corner Field Operations  worked with architects TEN Arquitectos – Mexico City, New York - to submit a proposal for a competition run by the Busan International Architectural Cultural Festival for the design of a new Busan Cinema Centre in South Korea.
 
-Here a rectangular grid distributes a series of tiles across a surface, with the size and rotation of each element controlled using parametric relationships. The result is a graduated field where the tiles are smallest and most offset from their original horizontal orientation where the surface is highest. Presumably a series of parametric rules control these relationships, with each point in the grid sampling the topography's current vertical height dynamically. The logic of this is that the larger mounds contain subterranean bladders for storing run-off and/or storm water[@Hansen:2011tka] although the increased permeability at the peaks seems unrelated to the task of collecting run-off for the bladders — only that the tiles "subtly reveal [their] position."[@Hansen:2011tka] To the extent the tiles are performative it is seemingly as a marker of infrastructure, or providing differentiated surface materials for programmatic use.
+Although the competition entry was not successful, it is notable as one of relatively few proposals or projects by Field Operations – perhaps the most well know landscape architecture studio operating today - to incorporate parametric technologies as a central design driver.
 
-{% include elements/figure.html image='2.jpeg' %}
-{% include elements/figure.html image='3' caption='A parametric model showing how the surface topographic is used to scale and rotate the paving grid.' credit="TODO" %}
+{% include elements/figure.html image='busan-layers' credit='By James Corner Field Operations and TEN Arquitectos, reproduced from Film and Architecture: Busan Cinema Complex International Invited Competition, p. 216-217.' %}
 
-That said the tight tie between landform and tiling strategy suggests an approach that can establish a more direct and intuitive link between a primary design driver — the topography — and a secondary design feature that can begin to optimise according to a given landscape condition. In contrast to the two earlier examples where surface development proceeded by transposing a pattern or developing a freeform mesh, here the surface development precedes the application of the parametric geometries, which in turn can inform the underlying surface development. The field-like tiling strategy  responds to iterations in the underlying landform, and takes local variations within the surface as its driver; creating a feedback loop that informs both the 'base' geometry and the tiling strategy itself.
+The landscape portion of the design concept featured an expansive undulating lawn dotted with planting to guide pedestrian circulation and an adaptive parametric paving system that stretched across the site.
 
-{% include elements/figure.html image='model' alt='Rhinoceros model of the landscape concept for the Busan Cinema Complex competition entry' %}
-{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the tiling pattern used in the proposal.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
+{% include elements/figure.html image='busan-field' caption='Details of paving system from the Busan Cinema Complex competition entry.' credit='By James Corner Field Operations and TEN Arquitectos, reproduced from From Hand to Land.' %}
+
+This parametrically controlled paving system was developed using a rule set where paver size and rotation increased or decreased in response to site topography. The result is a graduated field where the tiles are smallest and most offset from their original horizontal orientation where the surface is highest.
+
+This tie between landform and tiling strategy suggests an approach that can establish a direct and intuitive link between a primary design driver — the landform — and a secondary design feature — tiling — that can be optimised according to a given landscape condition.
+
+This field-like tiling strategy, once developed, would respond to iterations in the underlying landform, creating a feedback loop that could inform both the 'base' geometry of the topography and the tiling strategy itself as the design develops.
+
+{% include elements/figure.html image='busan-pspxv' alt='Perspective of the Busan Cinema competition entry.' credit="By James Corner Field Operations and TEN Arquitectos, adapted from From Hand to Land." %}
+
+The use of parametric tools in the development of Field Operations' submission for the Bussan Cinema Complex competition allowed the design team to work at both a conceptual and detail documentation stage of the design process simultaneously. Changes in topography, tile shape, tile size, or architectural elements could be accommodated with ease because the relationships between each element had been explicitly defined as computational rules. This is a way of working that becomes particularly useful in a competition scenario, where time limits can become significant constraints upon the full realisation of a concept.
+
+In this following section, we give an example of how this proposal could have been put together using tools such as Rhino and Grasshopper. First, contours from Rhino, distributed accurately in 3D space are imported into Grasshopper and 'Patched' into a 3D surface.
+
+{% include elements/figure.html image='step_1' caption='Grasshopper patching a 3D surface with contours imported from Rhino.' credit="Albert Rex, for groundhog.la." %}
+
+A 'bounding box' is used to roughly calculate the number of pavers that will fit comfortably within the paving area. These points are 'projected' onto the site topography with a small planar rectangle generated from each to serve as a base for future operations.
+
+{% include elements/figure.html image='step_2' caption='Origin points for each paver regularly projected across paving area in Grasshopper.' credit="Albert Rex, for groundhog.la." %}
+
+The Vertical offset of each projected point from a standard base plane is calculated. This information, or more specifically the variation between the various points, is 'remapped' into data that informs the rotation and size of the two different tile elements.
+
+NOTE: This element of the definition affords considerable design freedom to the user of the script. The rotation, shape and size of all tiles are controllable from this point, as is the data input used to regulate it.
+
+{% include elements/figure.html image='step_3' caption='Paver height illustrated in section. Relationship to pave shape, size and rotation displayed diagrammatically above.' credit="Albert Rex, for groundhog.la." %}
+
+The result is a paving system that responds to and accentuates the topography of site. It can iterate quickly as topography changes or the rules that control the shape, size and rotation of paving elements are changed.
+
+{% include elements/figure.html image='step_4' caption='A paving system which responds dynamically to topography.' credit="Albert Rex, for groundhog.la." %}
