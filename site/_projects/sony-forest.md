@@ -1,18 +1,18 @@
 ---
 title:      Sony Forest
 date:       18-01-31
-published:  true
+published:  false
 excerpt:    lorum
 year:       2012 (constructed)
 location:
-designers:  ANS Studio + 
+designers:  ANS Studio +
 files:      true
-files_text: model and definition that demonstrating a partial recreation of this project
+files_text: model and definition that demonstrate a partial recreation of this project
 tags:
 - analog computation
 ---
 
-ANS Studio developed a constraints-based parametric model — a "Seed Scattering System" — as a means to create a 'natural' distribution of plants for the garden surrounding an office building. The natural stipulation here is not understood in terms of an untended garden or of a naturalistic formal pattern, but as a distribution that locates plants and chooses species in a manner that replicates the end-result of the localised growth and succession processes that occur in a forest. This was not the sole focus though — the model made heavy use of parametised goals and constraints to allow for other design criteria to affect the distribution.
+ANS Studio developed a constraints-based parametric model — a "Seed Scattering System" — as a means to create a 'natural' distribution of plants for the garden surrounding an office building. The natural stipulation here is not understood in terms of an untended garden or of a naturalistic formal pattern, but as a distribution that locates plants and chooses species in a manner that replicates the end-result of the localised growth and succession processes that occur in a forest. This was not the sole focus though — the model made heavy use of parameterised goals and constraints to allow for other design criteria to affect the distribution.
 
 What distinguishes this project from many other approaches — such of that of Snohetta — is the sophistication of the modelling process and the use of the model as the key design driver spanning from site analysis to design documentation. Rather than using landscape form as the key site of design investigation (and have analysis performed in response to changes) the model itself embodied the process of form development, with the designer instead choosing amongst possible solutions and adjusting input weights.
 
