@@ -2,13 +2,12 @@
 title:      Busan Cinema Complex
 date:       19-03-11
 published:  true
-excerpt:    lorum
+excerpt:    A scripted ties topography to tile over the course of this competition entry.
 year:       2006 (designed)
 location:   Busan, South Korea
 designers:  James Corner Field Operations and TEN Arquitectos
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
 ---
 
 In 2006, landscape architects James Corner Field Operations worked with architects TEN Arquitectos to develop a competition entry for the design of a new Busan Cinema Centre in South Korea. Although their entry was not successful, it is notable as an early example of a computational design method driving landscape architectural design.

@@ -1,13 +1,12 @@
 ---
 title:      Edaphic Effects
 date:       19-03-10
-excerpt:    Parametric patterns produce 'incremental infrastructures' in-grade
+excerpt:    Parametric patterns produce infiltration infrastructure in-grade.
 year:       2011 (constructed)
 location:   Philadelphia, United States of America
 designers:  PEG Office of Landscape + Architecture
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
 ---
 
 {% include elements/figure.html image='edaphic-materials' caption='The parametrically-controlled geo-textile system following initial regrowth.' credit='PEG Office of Landscape + Architecture, via www.suckerpunchdaily.com/2011/12/26/edaphic-effects/' %}

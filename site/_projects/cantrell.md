@@ -8,9 +8,6 @@ location:
 designers:
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
-- analog computation
-
 ---
 
 <!-- TODO: nail down which project to show/discuss  -->

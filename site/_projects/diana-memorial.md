@@ -8,8 +8,6 @@ location:   London, United Kingdom
 designers:  Gustafson Porter
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
-
 ---
 
 {% include elements/figure.html image='1' caption='CNC machined granite was used to create surface forms and control the movement of water.' credit="TODO" %}

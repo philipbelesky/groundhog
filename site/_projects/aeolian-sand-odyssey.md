@@ -8,7 +8,6 @@ location:
 designers:  Niki Kakali, Anastasia Kotenko
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
 ---
 
 {% include elements/figure.html image='1' caption='Numerous test cases and iterations were performed to guage how dune movement took place under various different conditions.' credit='(image from thesis documents)' %}

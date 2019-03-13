@@ -1,7 +1,7 @@
 ---
 title:      South Park
 date:       18-11-22
-excerpt:    Computational tools test the resilience of analogue rules
+excerpt:    Computational tools test the resilience of analogue rules for spatial partitioning within a small park.
 year:       2017 (constructed)
 location:   San Francisco, United States of America
 designers:  Fletcher Studio

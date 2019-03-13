@@ -8,8 +8,6 @@ location:
 designers:  Nicholas de Mochaux and...
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
-
 ---
 
 {% include elements/figure.html image='3' caption='TODO' credit='(Image from competition boards http://wpa2.aud.ucla.edu/info/index.php?/theprojects/)' %}

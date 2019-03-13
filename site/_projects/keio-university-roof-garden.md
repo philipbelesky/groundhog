@@ -7,11 +7,6 @@ location:   Tokyo, Japan
 designers:  Michel Desvigne Paysagiste
 files:      true
 files_text: model and definition that demonstrates a partial recreation of this project
-tags:
-- image map
-- hardscape
-- tile
-- vegetation
 ---
 
 {% include elements/figure.html image='1' alt='Photographs of the Keio University Roof Garden' credit="Image via MBP website's project page (http://micheldesvignepaysagiste.com/en/keio-university-慶應義塾)" %}

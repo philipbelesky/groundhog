@@ -7,10 +7,6 @@ location:   Lund, Sweden
 designers:  Snøhetta
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-categories:
-- parametric geometry
-- simulation
-tags:       grasshopper,
 ---
 
 {% include elements/figure.html image='7' caption='The MAX Lab facility uses a rippled spiral of topographic form to surround the main building.' credit="Image via Snøhetta website's project page (https://snohetta.com/projects/70-max-iv-laboratory-landscape)" %}

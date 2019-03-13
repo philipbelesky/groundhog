@@ -8,8 +8,6 @@ location:
 designers:  ANS Studio +
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
-- analog computation
 ---
 
 ANS Studio developed a constraints-based parametric model — a "Seed Scattering System" — as a means to create a 'natural' distribution of plants for the garden surrounding an office building. The natural stipulation here is not understood in terms of an untended garden or of a naturalistic formal pattern, but as a distribution that locates plants and chooses species in a manner that replicates the end-result of the localised growth and succession processes that occur in a forest. This was not the sole focus though — the model made heavy use of parameterised goals and constraints to allow for other design criteria to affect the distribution.

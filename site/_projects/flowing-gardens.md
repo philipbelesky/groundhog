@@ -8,8 +8,6 @@ location:   Xi'an, China
 designers:  Plasma Studio and Groundlab
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
-
 ---
 
 {% include elements/figure.html image='1' caption='TODO' credit="TODO" %}

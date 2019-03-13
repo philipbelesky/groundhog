@@ -8,9 +8,6 @@ location:   Bartlett, London, United Kingdom
 designers:  Enriqueta Llabres and Eduardo Rico + ...? (Placeholder)
 files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
-tags:
-- analog computation
-
 ---
 
 {% include elements/figure.html image='1' caption='The particular topography and substrates present on site inform simulations that examine new potential water flows over time' credit='(image from paper)' %}
