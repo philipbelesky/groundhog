@@ -15,3 +15,4 @@
 *.psd filter=lfs diff=lfs merge=lfs -text
 site/**/*.png filter=lfs diff=lfs merge=lfs -text
 site/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+site/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
