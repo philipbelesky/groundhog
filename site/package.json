@@ -19,8 +19,9 @@
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
     "test": "htmlproofer ./_site",
     "compile-version": "bash ./compile_plugin.sh",
-    "compile-deploy": "bash ./compile_assets.sh & gulp images",
-    "build": "npm run compile-deploy && bundle exec jekyll build --config=_config.yml,_config_prod.yml"
+    "compile-deploy": "bash ./compile_assets.sh && gulp images",
+    "build": "npm run compile-deploy && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
+    "publish": "npm run purge && npm run build && s3_website push"
   },
   "author": "Philip Belesky",
   "license": "GPL-3.0",
