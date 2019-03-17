@@ -12,7 +12,7 @@ gulp.task('figures', function () {
         {
           rename: {
             suffix: '-original', // original image (for linking to)
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         // JPEG VARIATIONS
@@ -20,42 +20,42 @@ gulp.task('figures', function () {
           width: 960, // 1x Mobile;
           rename: {
             suffix: '-smaller',
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         {
           width: 1152, // 1x Desktops at widths less than 1472 (from bpoint)
           rename: {
             suffix: '-small',
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         {
           width: 1344, // 1x Desktops at widths greater than 1472 (from bpoint)
           rename: {
             suffix: '-medium',
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         {
           width: 1536, // 2x Mobile (768 * 2x); where 768 is assumed max
           rename: {
             suffix: '-large',
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         {
           width: 1920, // 2X Tablets and 2X Desktops at low width (960 * 2x)
           rename: {
             suffix: '-larger',
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         {
           width: 2304, // 2X Desktops at medium width and above (1152 * 2x)
           rename: {
             suffix: '-huge',
-            extname: '.jpg',
+            extname: '.jpeg',
           },
         },
         // WEBP variations
@@ -98,7 +98,7 @@ gulp.task('figures', function () {
           width: 2304, // 2X Desktops at medium width and above (1152 * 2x)
           rename: {
             suffix: '-huge',
-            extname: '.jpg',
+            extname: '.webp',
           },
         },
       ],
