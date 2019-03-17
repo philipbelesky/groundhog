@@ -92,7 +92,7 @@ p > img + p > img {
 }
 
 //------------------------------------------------------------------------------
-// Pages
+// Pages List
 //------------------------------------------------------------------------------
 
 .gh-page-grid {
@@ -108,6 +108,16 @@ p > img + p > img {
   p {
     @extend .is-size-5;
     margin-top: 9rem;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Pages
+//------------------------------------------------------------------------------
+
+@media only screen and (max-width : 768px) {
+  .gh-meta-info .level-item {
+    justify-content: left; // Force center-alignment until they can span horizontal
   }
 }
 

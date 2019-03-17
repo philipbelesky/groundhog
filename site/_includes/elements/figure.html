@@ -1,18 +1,34 @@
 {%- capture basePath -%}
   /assets/img/{{ page.slug }}/{{ include.image }}
 {%- endcapture -%}
+{%- capture imageAlt -%}
+  {%- if include.alt -%}{{ include.alt }}{%- else -%}{{ include.caption }}{%- endif -%}
+{%- endcapture -%}
 
 <figure class="gh-figure">
   <a class="image-link" href="{{ basePath }}-original.jpeg" target="_blank">
     <picture>
-      <source media="(min-width: 1200px)" srcset="{{ basePath }}-large.webp,  {{ basePath }}-large@2x.webp 2x" type="image/webp">
-      <source media="(min-width: 1200px)" srcset="{{ basePath }}-large.jpeg,  {{ basePath }}-large@2x.jpeg 2x">
-      <source media="(min-width:  800px)" srcset="{{ basePath }}-medium.webp, {{ basePath }}-medium@2x.webp 2x" type="image/webp">
-      <source media="(min-width:  800px)" srcset="{{ basePath }}-medium.jpeg, {{ basePath }}-medium@2x.jpeg 2x">
-      <source media="(max-width:  799px)" srcset="{{ basePath }}-small.webp,  {{ basePath }}-small@2x.webp 2x" type="image/webp">
-      <source media="(max-width:  799px)" srcset="{{ basePath }}-small.jpeg,  {{ basePath }}-small@2x.jpeg 2x">
-      <!-- Fallback -->
-      <img src="{{ basePath }}-small.jpeg" alt="{%- if include.alt -%}{{ include.alt }}{%- else %}{{ include.caption }}{%- endif -%}">
+      <source type="image/webp" srcset="{{ basePath }}-huge.webp    2304w,
+                                        {{ basePath }}-larger.webp  1920w,
+                                        {{ basePath }}-large.webp   1536w,
+                                        {{ basePath }}-medium.webp  1344w,
+                                        {{ basePath }}-smaller.webp 1152w,
+                                        {{ basePath }}-smaller.webp 960w"
+                                sizes="(min-width: 1472px) 1344px,
+                                       (min-width: 1280px) 1152px,
+                                       (min-width: 1088px) 960px,
+                                       100vw" />
+      <source                   srcset="{{ basePath }}-huge.jpeg    2304w,
+                                        {{ basePath }}-larger.jpeg  1920w,
+                                        {{ basePath }}-large.jpeg   1536w,
+                                        {{ basePath }}-medium.jpeg  1344w,
+                                        {{ basePath }}-smaller.jpeg 1152w,
+                                        {{ basePath }}-smaller.jpeg 960w"
+                                sizes="(min-width: 1472px) 1344px,
+                                       (min-width: 1280px) 1152px,
+                                       (min-width: 1088px) 960px,
+                                       100vw" />
+      <img src="{{ basePath }}-medium.jpeg" alt="{{ imageAlt }}" />
     </picture>
   </a>
   {%- if include.caption or include.credit -%}
