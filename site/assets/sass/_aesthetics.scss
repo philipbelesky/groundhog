@@ -45,7 +45,8 @@ em {
   figcaption {
     font-style: normal;
     line-height: 1.33;
-    padding: .5rem 3rem 0;
+    padding: .5rem 2rem 0;
+    overflow-x: hidden; // Can blow out widths on mobile
     // Use the emphasis part as a proxy for the attribution
     em {
       @extend .is-size-7;
@@ -60,6 +61,12 @@ em {
 
 .content figure.gh-figure + figure.gh-figure {
   margin-top: -1.5em; // Subsequent images have tight spacing
+}
+
+@media only screen and (max-width : 768px) {
+  .content figure.gh-figure figcaption {
+    padding: .5rem .5rem 0; // Reduce caption padding on mobile
+  }
 }
 
 .gh-component {
