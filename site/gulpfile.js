@@ -15,90 +15,92 @@ gulp.task('figures', function () {
             extname: '.jpg',
           },
         },
+        // JPEG VARIATIONS
         {
-          width: 800,
+          width: 960, // 1x Mobile;
+          rename: {
+            suffix: '-smaller',
+            extname: '.jpg',
+          },
+        },
+        {
+          width: 1152, // 1x Desktops at widths less than 1472 (from bpoint)
           rename: {
             suffix: '-small',
             extname: '.jpg',
           },
         },
         {
-          width: 1600,
-          rename: {
-            suffix: '-small@2x',
-            extname: '.jpg',
-          },
-        },
-        {
-          width: 960,
+          width: 1344, // 1x Desktops at widths greater than 1472 (from bpoint)
           rename: {
             suffix: '-medium',
             extname: '.jpg',
           },
         },
         {
-          width: 1920,
-          rename: {
-            suffix: '-medium@2x',
-            extname: '.jpg',
-          },
-        },
-        {
-          width: 1344,
+          width: 1536, // 2x Mobile (768 * 2x); where 768 is assumed max
           rename: {
             suffix: '-large',
             extname: '.jpg',
           },
         },
         {
-          width: 2688,
+          width: 1920, // 2X Tablets and 2X Desktops at low width (960 * 2x)
           rename: {
-            suffix: '-large@2x',
+            suffix: '-larger',
             extname: '.jpg',
           },
         },
         {
-          width: 800,
+          width: 2304, // 2X Desktops at medium width and above (1152 * 2x)
+          rename: {
+            suffix: '-huge',
+            extname: '.jpg',
+          },
+        },
+        // WEBP variations
+        {
+          width: 960, // 1x Mobile;
+          rename: {
+            suffix: '-smaller',
+            extname: '.webp',
+          },
+        },
+        {
+          width: 1152, // 1x Desktops at widths less than 1472 (from bpoint)
           rename: {
             suffix: '-small',
             extname: '.webp',
           },
         },
         {
-          width: 1600,
-          rename: {
-            suffix: '-small@2x',
-            extname: '.webp',
-          },
-        },
-        {
-          width: 960,
+          width: 1344, // 1x Desktops at widths greater than 1472 (from bpoint)
           rename: {
             suffix: '-medium',
             extname: '.webp',
           },
         },
         {
-          width: 1920,
-          rename: {
-            suffix: '-medium@2x',
-            extname: '.webp',
-          },
-        },
-        {
-          width: 1344,
+          width: 1536, // 2x Mobile (768 * 2x); where 768 is assumed max
           rename: {
             suffix: '-large',
             extname: '.webp',
           },
         },
         {
-          width: 2688,
+          width: 1920, // 2X Tablets and 2X Desktops at low width (960 * 2x)
           rename: {
-            suffix: '-large@2x',
+            suffix: '-larger',
             extname: '.webp',
           },
-        }
+        },
+        {
+          width: 2304, // 2X Desktops at medium width and above (1152 * 2x)
+          rename: {
+            suffix: '-huge',
+            extname: '.jpg',
+          },
+        },
       ],
     }, {
       // Global configuration for all images

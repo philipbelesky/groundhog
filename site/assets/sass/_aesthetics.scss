@@ -34,6 +34,10 @@ em {
 // Elements
 //------------------------------------------------------------------------------
 
+.content figure img {
+  width: 100%; // Can trust the responsive images to always fit at max
+}
+
 .content figure.gh-figure {
   margin-left: 0;
   margin-right: 0;
