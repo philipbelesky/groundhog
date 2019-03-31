@@ -7927,7 +7927,7 @@
                     <item name="Optional" type_name="gh_bool" type_code="1">false</item>
                     <item name="ScrollRatio" type_name="gh_double" type_code="6">0</item>
                     <item name="SourceCount" type_name="gh_int32" type_code="3">0</item>
-                    <item name="UserText" type_name="gh_string" type_code="10">This is where you could substitute in anotehr factor to control dilation. For exampel you could sample the area of each cell to inform dilation.</item>
+                    <item name="UserText" type_name="gh_string" type_code="10">This is where you could substitute in another factor to control the inner cell offsets. For example you could sample the area or aspect of each cell to inform how much it dilates.</item>
                   </items>
                   <chunks count="2">
                     <chunk name="Attributes">
