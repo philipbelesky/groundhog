@@ -24,10 +24,13 @@ echo "Moved ${DOCS} Documentation Files"
 
 
 # Project Files
-for i in ../projects/*;
-    # Only do stuff i fthey are a directory
-    do if [ -d $i ]; then zip -r -q -j "${i%/}.zip" "$i" -x "*.DS_Store"; fi
+# Need to keep inner folders but not outer folders so cant use -j option; instead do some CDing
+cd "../projects/"
+for i in ./*;
+    # Only do stuff if they are a directory
+    do if [ -d $i ]; then zip -rq "${i%/}.zip" "$i"/* -x "*.DS_Store" -x "*Thumbs.db" && echo "$i"; fi
 done
+cd "../site/"
 
 rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./downloads/projects/
