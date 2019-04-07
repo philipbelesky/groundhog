@@ -1,6 +1,6 @@
 {
   "name": "groundhog",
-  "version": "0.10.0b",
+  "version": "0.10.1b",
   "description": "groundhog.la site source",
   "main": "index.html",
   "dependencies": {

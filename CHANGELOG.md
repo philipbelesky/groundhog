@@ -1,5 +1,10 @@
 ## Changelog
 
+#### [0.11.0] - 2019-??-??
+###### Fixed
+- Improved handling of non-planar curves in the ChannelRegion component
+- Improved handling of null points in the Flows components
+
 #### [0.10.0] - 2018-11-22
 ###### Added
 - Added the Flow Area component that derives the water level within a defined channel given a defined flow quantity

@@ -130,14 +130,17 @@ namespace groundhog
         {
             //base.DrawViewportWires(args);
             int i;
-            for (i = 0; i < allTrunks.Count; i = i + 1)
+            if (allTrunks != null) // Happens when component is placed with no items wired up
             {
-                args.Display.DrawCircle(allTrunks[i], allColours[i], 4);
-                args.Display.DrawCircle(allRoots[i], allColours[i], 2);
-                args.Display.DrawCircle(allCrowns[i], allColours[i], 1);
-                args.Display.DrawCircle(allSpacings[i], Color.FromArgb(110, 110, 110), 1);
-                var line = new Line(new Point3d(0, 0, 0), new Point3d(1000, 1000, 0));
-                args.Display.DrawDottedLine(line, Color.FromArgb(0, 0, 0));
+                for (i = 0; i < allTrunks.Count; i = i + 1)
+                {
+                    args.Display.DrawCircle(allTrunks[i], allColours[i], 4);
+                    args.Display.DrawCircle(allRoots[i], allColours[i], 2);
+                    args.Display.DrawCircle(allCrowns[i], allColours[i], 1);
+                    args.Display.DrawCircle(allSpacings[i], Color.FromArgb(110, 110, 110), 1);
+                    var line = new Line(new Point3d(0, 0, 0), new Point3d(1000, 1000, 0));
+                    args.Display.DrawDottedLine(line, Color.FromArgb(0, 0, 0));
+                }
             }
         }
     }

@@ -55,11 +55,14 @@ namespace groundhog
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
-            if (CHANNEL_CURVE.IsPlanar(TOLERANCE * 100) == false) // Increase tolerance; too many false positives
+            if (CHANNEL_CURVE.IsPlanar(TOLERANCE) == false) // Need to be strict here else the area calculation will fail
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "A non-planar curve has been provided as the channel section.");
-                return;
+                // The plane from TryGetPlane() seems off; as a work-around make one assuming the curve's end points define a good plane
+                var yPoint = new Point3d(CHANNEL_CURVE.PointAtEnd.X, CHANNEL_CURVE.PointAtEnd.Y, CHANNEL_CURVE.PointAtEnd.Z + 100);
+                var curvePlane = new Plane(CHANNEL_CURVE.PointAtEnd, CHANNEL_CURVE.PointAtStart, yPoint);
+                CHANNEL_CURVE = Curve.ProjectToPlane(CHANNEL_CURVE, curvePlane);
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "A non-planar curve has been provided as the channel section;" +
+                                                                 " it has been automatically converted into a planar curve");
             }
             var bbox = CHANNEL_CURVE.GetBoundingBox(true);
             if (!bbox.IsValid)
