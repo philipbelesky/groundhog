@@ -1,9 +1,9 @@
 ## Changelog
 
 #### [0.11.0] - 2019-??-??
-
 ###### Fixed
 - Improved handling of non-planar curves in the ChannelRegion component
+- Improved handling of null points in the Flows components
 
 #### [0.10.0] - 2018-11-22
 ###### Added

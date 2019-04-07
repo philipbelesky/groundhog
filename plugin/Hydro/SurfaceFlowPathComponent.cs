@@ -8,6 +8,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Rhino;
 using Rhino.Geometry;
+using System.Linq;
 
 namespace groundhog
 {
@@ -64,8 +65,10 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Surface input; please correct this input.");
                 return;
             }
-            // TODO: properly cull nulls; they come through as 0,0,0 however
-            if (FLOW_ORIGINS.Count == 0)
+            // If referenced points get deleted in Rhino they default to 0,0,0 thus make a list that excludes these point types first
+            var nullPoint = new Point3d(0, 0, 0);
+            IEnumerable<Point3d> validFlowPathPoints = from point in FLOW_ORIGINS where point != nullPoint select point;
+            if (FLOW_ORIGINS.Count == 0 || validFlowPathPoints.Count() == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid points have been provided; perhaps check that you have not provided null or invalid points?");
                 return;

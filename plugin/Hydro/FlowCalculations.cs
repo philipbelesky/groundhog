@@ -14,7 +14,7 @@ public static class FlowCalculations
 {
     public static double getSensibleFidelity(List<Point3d> flowPathPoints, Mesh mesh, Surface surface)
     {
-        // Below method fails if there aren't at least three points; use this instead
+        // Below distance based method fails if there aren't at least three points; guess from mesh bounds if this is the case
         if (flowPathPoints.Count <= 3) {
             var bbox = new BoundingBox();
             if (mesh != null)
