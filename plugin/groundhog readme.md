@@ -2,7 +2,7 @@
 
 <!-- included as a pdf in the release -->
 
-# Groundhog v0.10.0 beta
+# Groundhog v0.10.1 beta
 
 *... a Grasshopper plugin, a set of reference models, and wiki exploring the applications of computational design in landscape architecture.*
 
@@ -12,12 +12,12 @@
 
 #### Installation
 
-- Open up Grasshopper, then in the "File" menu go to "Special Folders" and then "Components Folder".
+- Open up Grasshopper, then in the "File" menu go to "Special Folders" > "Components Folder".
 - Copy the plugin file `groundhog.gha` to this folder, then quit Rhinoceros.
 - If you are on Windows right-click on the plugin file and open the properties tab. In that properties window, check if there is an 'unblock' option in the bottom right corner. If it exists, click it. If it doesn't exist, proceed through the next steps. For more details, [refer to this guide](https://blogs.msdn.microsoft.com/delay/p/unblockingdownloadedfile/).
 - Reopen Rhinoceros and Grasshopper. If the installation worked there should be a "Groundhog" tab present in Grasshopper's components toolbar.
 
-Refer [to this video](https://www.youtube.com/watch?v=TB5wkh79Pv4) for further help installing a Grasshopper plugin on Windows. Note that new releases will be posted to [groundhog.la/plugin](http://groundhog.la/plugin/) and to [the newsletter](http://eepurl.com/c-0nNL).
+Refer [to this video](https://www.youtube.com/watch?v=TB5wkh79Pv4) for further help installing a Grasshopper plugin on Windows.
 
 #### Documentation
 
