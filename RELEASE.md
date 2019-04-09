@@ -1,6 +1,6 @@
 ## Release Check-list
 
-#### Version Numbers
+#### Increment Version Numbers
 
 - Version number to be iterated in `plugin.md`
 - Version number to be iterated in `download.html`
@@ -11,26 +11,26 @@
 - Version number to be iterated in `manifest.yml`
 - Release date/notes in `CHANGELOG.md`
 
-#### Models/Definitions
+#### Update Models/Definitions
 
 - Downsave models to Rhinoceros 5
 - Update screenshots used on site
     - Check Full Names are on; fancy wires are on
     - Export as JPG with background 227, 222, 218; at 2X resolution (needs to be done in Rhinoceros 6)
 
-#### Plugin/Website
+#### Update Plugin on Website
 
 - Rebuild `groundhog readme.pdf` from the Markdown source
 - Run `compile_plugin.sh` in the site directory and commit the gha/json/pdf updates to source
 
-#### Yak
+#### Update Plugin on Yak
 
-In command prompt (not power shell) while in the `release` folder of Groundhog:
+In command prompt (not power shell) executed in the `plugin\release` directory:
 
     > "C:\Program Files\Rhino 6\System\Yak.exe" build
     > "C:\Program Files\Rhino 6\System\Yak.exe" push groundhog-X.Y.Z.yak
     > "C:\Program Files\Rhino 6\System\Yak.exe" search groundhog
 
-#### Github
+#### Update Plugin on Github
 
 - Upload plugin zip
