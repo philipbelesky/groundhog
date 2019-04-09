@@ -2,7 +2,7 @@
 layout:     page
 title:      Plugin
 meta:       download latest plugin version
-excerpt:    Download the latest version (0.10.1b) of the Groundhog plugin for Grasshopper.
+excerpt:    Download the latest version (0.10.2b) of the Groundhog plugin for Grasshopper.
 ---
 
 # Download and Install
