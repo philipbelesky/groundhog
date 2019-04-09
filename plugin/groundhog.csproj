@@ -216,7 +216,6 @@
     POST BUILD COMPILATION
    -->
   <Target Name="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <Copy SourceFiles="$(ProjectDir)/groundhog readme.pdf" DestinationFolder="$(OutDir)" />
     <!--
     <ItemGroup>
       <Precedents Include="$(ProjectDir)/../projects/**/*.*" />
