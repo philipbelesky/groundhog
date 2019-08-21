@@ -14,7 +14,7 @@ In 2006, landscape architects James Corner Field Operations worked with architec
 
 {% include elements/figure.html image='busan-birds-eye' alt='Perspective of the landscape design' credit="James Corner Field Operations and TEN Arquitectos, from Film and Architecture, p. 215." %}
 
-The entry's landscape concept featured an undulating lawn dotted with planting to guide pedestrian circulation and an adaptive paving system that stretched across the site. The differentiated pavers are designed to be responsive to the landform of the proposal, whereby the orientation and size of each individual set of tiles smoothly shifts according to changes in slope. The result is a [field aesthetic]({{ site.baseurl }}{% link _techniques/field-conditions.md %}) or "ambient surface"[@JoonKang:2006 208] where the tiles are smallest and most offset from their original horizontal orientation where the topography is highest.
+The entry's landscape concept featured an undulating lawn dotted with planting to guide pedestrian circulation and an adaptive paving system that stretched across the site. The differentiated pavers are designed to be responsive to the landform of the proposal, whereby the orientation and size of each individual set of tiles smoothly shifts according to changes in slope. The result is a [field aesthetic]({% link _techniques/field-conditions.md %}) or "ambient surface"[@JoonKang:2006 208] where the tiles are smallest and most offset from their original horizontal orientation where the topography is highest.
 
 {% include elements/figure.html image='busan-field' caption='Details of the paving system and its relationship to landform.' credit='By James Corner Field Operations and TEN Arquitectos, via scenariojournal.com/lu-from-hand-to-land/.' %}
 

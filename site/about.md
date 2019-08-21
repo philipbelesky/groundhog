@@ -20,7 +20,7 @@ Support requests, bug reports, feature suggestions and other plugin-related comm
 
 ### Contributors
 
-Albert Rex produced the [South Park]({{ site.baseurl }}{% link _projects/south-park.md %}) documentation and model, alongside a range of improvements in other pages.
+Albert Rex produced the [South Park]({% link _projects/south-park.md %}) documentation and model, alongside a range of improvements in other pages.
 
 ### Acknowledgements
 
