@@ -1,9 +1,11 @@
-language: generic # Need python and node
+language: ruby # Need python and node
 
 cache:
-  pip: true
   bundler: true
   npm: true
+
+rvm:
+  - 2.6.2
 
 # Setup pandoc for building
 before_install:
@@ -13,6 +15,7 @@ before_install:
 
 script:
   - cd site
+  - ruby --version
   - bundler install
   - npm install
   - npm run build
