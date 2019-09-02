@@ -1,5 +1,9 @@
 ## Changelog
 
+#### [0.11.0] -
+###### Changed
+- Definitions and models now default to Rhino 6 compatibility
+
 #### [0.10.2] - 2019-04-09
 ###### Fixed
 - Fixed issue where no components would work due to problem in the build process
