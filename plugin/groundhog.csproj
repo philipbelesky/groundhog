@@ -73,7 +73,6 @@
       <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <!-- Note to prevent hardcoding a Windows App Data UDID I've just copy/pasted Grasshopper.dll and GH_IO.dll into C:\Program Files (x86)\Rhinoceros 5\System\-->
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -189,8 +188,6 @@
     POST BUILD EVENTS (Start Rhino)
   -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>
-    </StartArguments>
     <StartAction>Program</StartAction>
     <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
     <StartProgram Condition="Exists('/Applications/RhinoWIP.app')">/Applications/RhinoWIP.app</StartProgram>
