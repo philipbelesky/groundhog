@@ -3,6 +3,7 @@
 #### [0.11.0] -
 ###### Changed
 - Definitions and models now default to Rhino 6 compatibility
+- Clarified parameter labels in planting components
 
 #### [0.10.2] - 2019-04-09
 ###### Fixed

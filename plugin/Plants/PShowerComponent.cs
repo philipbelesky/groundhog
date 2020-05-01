@@ -19,7 +19,7 @@ namespace groundhog
         public List<Circle> allTrunks;
 
         public GroundhogShowerComponent()
-            : base("Plant Appearance", "Shower", "Simulate the appearance of a particular plant instance", "Groundhog", "Flora")
+            : base("Plant Appearance (discs)", "Shower (discs)", "Simulate the appearance of a particular plant instance using circles", "Groundhog", "Flora")
         {
         }
 
@@ -31,7 +31,7 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Plants", "P", "The plant attributes to simulate", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Species", "S", "The plant attributes to simulate", GH_ParamAccess.list);
             pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute", GH_ParamAccess.list);
             pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display", GH_ParamAccess.item);
             pManager[2].Optional = true;
@@ -41,12 +41,12 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCircleParameter("Trunk", "T", "Trunk radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Root", "R", "Root radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Crown", "C", "Crown radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Spacing", "S", "Spacing radius", GH_ParamAccess.list);
-            pManager.AddColourParameter("Color", "C", "The species color of each plant", GH_ParamAccess.list);
-            pManager.AddTextParameter("Label", "T", "The species label of each plant", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Trunk", "Tr", "Trunk radius", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Root", "Rr", "Root radius", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Crown", "Cr", "Crown radius", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Spacing", "Sr", "Spacing radius", GH_ParamAccess.list);
+            pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
+            pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)

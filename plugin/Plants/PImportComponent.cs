@@ -29,7 +29,7 @@ namespace groundhog
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             // Generic is its a GH_ObjectWrapper wrapper for our custom class
-            pManager.Register_GenericParam("Plants", "P", "The resulting plant objects");
+            pManager.Register_GenericParam("Species", "S", "The resulting plant species objects");
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
