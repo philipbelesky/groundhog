@@ -173,29 +173,14 @@
   <!--<Target Name="BeforeBuild">/Target>-->
   <!--<Target Name="AfterBuild">/Target>-->
   <!--
-    COMPILATION
-  -->
-  <PropertyGroup Condition="Exists('/Applications/Rhinoceros.app/')">
-    <PostBuildEvent>
-      cp "$(TargetDir)groundhog.dll" "$(TargetDir)$(ProjectName).gha"
-      rm "$(TargetDir)groundhog.dll"
-    </PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition="Exists('C:\Program Files\Rhino 6\System\')">
-    <PostBuildEvent>
-      Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-      Erase "$(TargetPath)"
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!--
     POST BUILD EVENTS (Start Rhino)
   -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
-    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('C:\Program Files\Rhino 7 WIP\System\')">C:\Program Files\Rhino 7 WIP\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('/Applications/Rhinoceros6.app')">/Applications/Rhinoceros6.app</StartProgram>
     <StartProgram Condition="Exists('/Applications/RhinoWIP.app')">/Applications/RhinoWIP.app</StartProgram>
     <StartProgram Condition="Exists('/Applications/Rhinoceros.app')">/Applications/Rhinoceros.app</StartProgram>
-    <StartProgram Condition="Exists('/Applications/Rhinoceros6.app')">/Applications/Rhinoceros6.app</StartProgram>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
