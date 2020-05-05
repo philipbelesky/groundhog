@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\Costura.Fody.3.3.3\build\Costura.Fody.props" Condition="Exists('packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Configuration Condition="'$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition="'$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B7E79B45-51E8-4B72-9B2D-44F3454273B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>groundhog</RootNamespace>
-    <AssemblyName>groundhog</AssemblyName>
+    <AssemblyName>Groundhog</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
+    <FallbackCulture>en-US</FallbackCulture>
     <ReleaseVersion>0.6</ReleaseVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -28,7 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
@@ -147,48 +147,16 @@
     <None Include="Resources\icon_flow_profile.png" />
     <None Include="Resources\icon_path_random.png" />
     <None Include="Resources\icon_path_shortest.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icon_field_grid_vis.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icon_mesh_aspect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icon_surface_aspect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icon_surface_slope.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icon_channel_region.png" />
     <None Include="Resources\icon_flows_catchments.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets. -->
-  <!--<Target Name="BeforeBuild">/Target>-->
-  <!--<Target Name="AfterBuild">/Target>-->
-  <!--
-    POST BUILD EVENTS (Start Rhino)
-  -->
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram Condition="Exists('C:\Program Files\Rhino 7 WIP\System\')">C:\Program Files\Rhino 7 WIP\System\Rhino.exe</StartProgram>
-    <StartProgram Condition="Exists('/Applications/Rhinoceros6.app')">/Applications/Rhinoceros6.app</StartProgram>
-    <StartProgram Condition="Exists('/Applications/RhinoWIP.app')">/Applications/RhinoWIP.app</StartProgram>
-    <StartProgram Condition="Exists('/Applications/Rhinoceros.app')">/Applications/Rhinoceros.app</StartProgram>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <FallbackCulture>en-US</FallbackCulture>
-  </PropertyGroup>
-  <!--
-    POST BUILD COMPILATION
-   -->
+  <!-- POST BUILD COMPILATION -->
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -207,4 +175,18 @@
   <Import Project="packages\RhinoCommon.6.17.19235.15041\build\net45\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.6.17.19235.15041\build\net45\RhinoCommon.targets')" />
   <Import Project="packages\Grasshopper.6.17.19235.15041\build\net45\Grasshopper.targets" Condition="Exists('packages\Grasshopper.6.17.19235.15041\build\net45\Grasshopper.targets')" />
   <Import Project="packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('packages\Fody.4.2.1\build\Fody.targets')" />
+  <!-- Renames the DLL to be a GHA -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+      Erase "$(TargetPath)"
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- Run Rhino -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="Exists('C:\Program Files\Rhino 7 WIP\System\')">C:\Program Files\Rhino 7 WIP\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
+    <StartProgram Condition="Exists('/Applications/Rhinoceros6.app')">/Applications/Rhinoceros6.app</StartProgram>
+    <StartProgram Condition="Exists('/Applications/Rhinoceros.app')">/Applications/Rhinoceros.app</StartProgram>
+  </PropertyGroup>
 </Project>
