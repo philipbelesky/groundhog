@@ -11,7 +11,7 @@
 
 </div>
 
-Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of reference models, and wiki exploring the applications of computational design in landscape architecture. Groundhog is currently in beta. The plugin and associated site will be updated with more features and information over the course of 2018.
+Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of reference models, and wiki exploring the applications of computational design in landscape architecture. Groundhog is currently in beta and material is added sporadically, usually in conjunction with [courses at RMIT](http://landscapearchitecture.rmit.edu.au) that teach parametric modelling.
 
 Please visit [www.groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
 
@@ -35,9 +35,9 @@ See the [`README.md` file](https://github.com/philipbelesky/groundhog/blob/devel
 
 To develop the plugin you will need a copy of Rhinoceros installed, and some knowledge working with [C# code](https://docs.microsoft.com/en-us/dotnet/csharp/) and the [Rhinoceros/Grasshopper APIs](http://developer.rhino3d.com).
 
-Editing and compiling that code is best done in Visual Studio 2017. The [community editions](https://www.visualstudio.com) for Windows or macOS should both work. Upon first build it should fetch the required RhinoCommon, Grasshopper, and third-party references from NuGet (an internet connection is required).
+Editing and compiling that code is best done in Visual Studio. The [community editions](https://www.visualstudio.com) for Windows or macOS should both work. Upon first build it should fetch the required RhinoCommon, Grasshopper, and third-party references from NuGet (an internet connection is required).
 
-You will need to add the `build` folder to your Grasshopper Folders once you have compiled the project. To do so use the `GrasshopperDeveloperSettings` command in Rhinoceros.
+Once you have compiled the project you will need to add the `bin` folder to the folders that Grasshopper looks for components in. To do so use the `GrasshopperDeveloperSettings` command in Rhinoceros.
 
 ## Wiki Development
 
