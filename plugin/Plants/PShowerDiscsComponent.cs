@@ -11,9 +11,12 @@ namespace groundhog
     public class GroundhogShowerDiscsComponent : GroundHogComponent
     {
         public List<Color> allColours;
-        public List<Mesh> canopyMeshes;
-        public List<Mesh> rootMeshes;
+        public List<Circle> allCrowns;
         public List<GH_String> allLabels;
+
+        public List<Circle> allRoots;
+        public List<Circle> allSpacings;
+        public List<Circle> allTrunks;
 
         public GroundhogShowerDiscsComponent()
             : base("Plant Appearance (discs)", "Shower (discs)", "Simulate the appearance of a particular plant instance using circles", "Groundhog", "Flora")
@@ -36,8 +39,10 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddMeshParameter("Canopies", nickname: "C", description: "The mesh of each plant's canopy spread'", GH_ParamAccess.list);
-            pManager.AddMeshParameter("Roots", nickname: "R", description: "The mesh of each plant's root spread'", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Trunk", "Tr", "Trunk radius", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Root", "Rr", "Root radius", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Crown", "Cr", "Crown radius", GH_ParamAccess.list);
+            pManager.AddCircleParameter("Spacing", "Sr", "Spacing radius", GH_ParamAccess.list);
             pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
             pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
         }
@@ -92,25 +97,49 @@ namespace groundhog
             }
 
             // Create holder variables for output parameters
-            canopyMeshes = new List<Mesh>();
-            rootMeshes = new List<Mesh>();
+            allRoots = new List<Circle>();
+            allCrowns = new List<Circle>();
+            allSpacings = new List<Circle>();
+            allTrunks = new List<Circle>();
             allColours = new List<Color>();
             allLabels = new List<GH_String>();
+
 
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
-                canopyMeshes.Add(plantInstance.GetCrownMesh(plantLocations[i], plantTime));
-                rootMeshes.Add(plantInstance.GetRootMesh(plantLocations[i], plantTime));
+                allTrunks.Add(plantInstance.GetTrunkDisc(plantLocations[i], plantTime));
+                allRoots.Add(plantInstance.GetRootDisc(plantLocations[i], plantTime));
+                allCrowns.Add(plantInstance.GetCrownDisc(plantLocations[i], plantTime));
+                allSpacings.Add(plantInstance.GetSpacingDisc(plantLocations[i]));
                 allColours.Add(plantInstance.GetColor());
                 allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters
-            DA.SetDataList(0, canopyMeshes);
-            DA.SetDataList(1, rootMeshes);
-            DA.SetDataList(2, allColours);
-            DA.SetDataList(3, allLabels);
+            DA.SetDataList(0, allTrunks);
+            DA.SetDataList(1, allRoots);
+            DA.SetDataList(2, allCrowns);
+            DA.SetDataList(3, allSpacings);
+            DA.SetDataList(4, allColours);
+            DA.SetDataList(5, allLabels);
+        }
+        public override void DrawViewportWires(IGH_PreviewArgs args)
+        {
+            //base.DrawViewportWires(args);
+            int i;
+            if (allTrunks != null) // Happens when component is placed with no items wired up
+            {
+                for (i = 0; i < allTrunks.Count; i = i + 1)
+                {
+                    args.Display.DrawCircle(allTrunks[i], allColours[i], 4);
+                    args.Display.DrawCircle(allRoots[i], allColours[i], 2);
+                    args.Display.DrawCircle(allCrowns[i], allColours[i], 1);
+                    args.Display.DrawCircle(allSpacings[i], Color.FromArgb(110, 110, 110), 1);
+                    var line = new Line(new Point3d(0, 0, 0), new Point3d(1000, 1000, 0));
+                    args.Display.DrawDottedLine(line, Color.FromArgb(0, 0, 0));
+                }
+            }
         }
     }
 }

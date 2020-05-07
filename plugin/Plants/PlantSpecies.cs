@@ -104,21 +104,25 @@ namespace groundhog
             return new Circle(location, requiredSpacingRadius);
         }
 
-        public Mesh GetCrownMesh(Point3d location, double time)
+        public Mesh GetCrownMesh(Point3d location, double time, int plantSides)
         {
             var mesh = new Mesh();
-            var levelOfDetail = 6;
             var trunkCircle = GetTrunkDisc(location, time);
-            var trunkPolygon = Polyline.CreateCircumscribedPolygon(trunkCircle, levelOfDetail);
-            var canopyCircle = GetTrunkDisc(location, time);
-            var canopyPolygon = Polyline.CreateCircumscribedPolygon(trunkCircle, levelOfDetail * 2);
+            var canopyCircle = GetCrownDisc(location, time);
+            var trunkPolygon = Polyline.CreateCircumscribedPolygon(trunkCircle, plantSides);
+            var canopyPolygon = Polyline.CreateCircumscribedPolygon(canopyCircle, plantSides * 2);
 
             mesh.Vertices.AddVertices(trunkPolygon);
             mesh.Vertices.AddVertices(canopyPolygon);
-            for (var i = 0; i < levelOfDetail * 2; i += 2)
+            mesh.Faces.AddFace(new MeshFace(0, plantSides + 1, mesh.Vertices.Count - 2)); // Counter clockwise; pointing in
+            mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
+            mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
+            for (var i = 1; i < plantSides; i++)
             {
-                mesh.Faces.AddFace(new MeshFace(i, i + levelOfDetail, i + levelOfDetail + 1));
-                mesh.Faces.AddFace(new MeshFace(i, i + 1, i + levelOfDetail + 1));
+                int baseNodeIndex = (i * 2) + plantSides + 1;
+                mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex, baseNodeIndex - 1)); // Counter clockwise; pointing in
+                mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
+                mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
             }
 
             mesh.Normals.ComputeNormals();
@@ -126,15 +130,14 @@ namespace groundhog
             return mesh;
         }
 
-        public Mesh GetRootMesh(Point3d location, double time)
+        public Mesh GetRootMesh(Point3d location, double time, int plantSides)
         {
             return null;
         }
 
         public Color GetColor()
         {
-            var color = Color.FromArgb(displayR, displayG, displayB);
-            return color;
+            return Color.FromArgb(displayR, displayG, displayB);
         }
 
         public GH_String GetLabel()

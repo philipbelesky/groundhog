@@ -11,12 +11,9 @@ namespace groundhog
     public class GroundhogShowerMeshComponent : GroundHogComponent
     {
         public List<Color> allColours;
-        public List<Circle> allCrowns;
+        public List<Mesh> canopyMeshes;
+        public List<Mesh> rootMeshes;
         public List<GH_String> allLabels;
-
-        public List<Circle> allRoots;
-        public List<Circle> allSpacings;
-        public List<Circle> allTrunks;
 
         public GroundhogShowerMeshComponent()
             : base("Plant Appearance (mesh)", "Shower (mesh)", "Simulate the appearance of a particular plant instance using a mesh between canopy and trunk", "Groundhog", "Flora")
@@ -35,17 +32,17 @@ namespace groundhog
             pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute", GH_ParamAccess.list);
             pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display", GH_ParamAccess.item);
             pManager[2].Optional = true;
+            pManager.AddIntegerParameter("Sides", "S", "The number of polygon sides for each mesh. Higher numbers will create more complex geometry", GH_ParamAccess.item);
+            pManager[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCircleParameter("Trunk", "Tr", "Trunk radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Root", "Rr", "Root radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Crown", "Cr", "Crown radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Spacing", "Sr", "Spacing radius", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Canopies", nickname: "C", description: "The mesh of each plant's canopy spread'", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Roots", nickname: "R", description: "The mesh of each plant's root spread'", GH_ParamAccess.list);
             pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
             pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
-        }
+       }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
@@ -53,10 +50,12 @@ namespace groundhog
             var plantSpecies = new List<PlantSpecies>();
             var plantLocations = new List<Point3d>();
             var plantTime = 10.0; // default value
+            var plantSides = 4;
 
             // Access and extract data from the input parameters individually
             DA.GetDataList(1, plantLocations);
             DA.GetData(2, ref plantTime);
+            DA.GetData(3, ref plantSides);
 
             // Negative time values mean don't calculate/show plants (useful for successional schemes)
             if (plantTime < 0)
@@ -64,7 +63,13 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The specified time was less than zero so no species have been allocated locations.");
                 return;
             }
-
+            // Negative time values mean don't calculate/show plants (useful for successional schemes)
+            if (plantSides < 3)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The specified plant sides were less than 3, so have been set to 3.");
+                plantSides = 3;
+            }
+            
             // Need to unwrap the species from generic list to a plantSpecies list
             var wrappedSpecies = new List<GH_ObjectWrapper>();
             if (!DA.GetDataList(0, wrappedSpecies)) return;
@@ -97,49 +102,26 @@ namespace groundhog
             }
 
             // Create holder variables for output parameters
-            allRoots = new List<Circle>();
-            allCrowns = new List<Circle>();
-            allSpacings = new List<Circle>();
-            allTrunks = new List<Circle>();
+            canopyMeshes = new List<Mesh>();
+            rootMeshes = new List<Mesh>();
             allColours = new List<Color>();
             allLabels = new List<GH_String>();
 
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
-                allTrunks.Add(plantInstance.GetTrunkDisc(plantLocations[i], plantTime));
-                allRoots.Add(plantInstance.GetRootDisc(plantLocations[i], plantTime));
-                allCrowns.Add(plantInstance.GetCrownDisc(plantLocations[i], plantTime));
-                allSpacings.Add(plantInstance.GetSpacingDisc(plantLocations[i]));
+                canopyMeshes.Add(plantInstance.GetCrownMesh(plantLocations[i], plantTime, plantSides));
+                rootMeshes.Add(plantInstance.GetRootMesh(plantLocations[i], plantTime, plantSides));
                 allColours.Add(plantInstance.GetColor());
                 allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters
-            DA.SetDataList(0, allTrunks);
-            DA.SetDataList(1, allRoots);
-            DA.SetDataList(2, allCrowns);
-            DA.SetDataList(3, allSpacings);
-            DA.SetDataList(4, allColours);
-            DA.SetDataList(5, allLabels);
+            DA.SetDataList(0, canopyMeshes);
+            DA.SetDataList(1, rootMeshes);
+            DA.SetDataList(2, allColours);
+            DA.SetDataList(3, allLabels);
         }
 
-        public override void DrawViewportWires(IGH_PreviewArgs args)
-        {
-            //base.DrawViewportWires(args);
-            int i;
-            if (allTrunks != null) // Happens when component is placed with no items wired up
-            {
-                for (i = 0; i < allTrunks.Count; i = i + 1)
-                {
-                    args.Display.DrawCircle(allTrunks[i], allColours[i], 4);
-                    args.Display.DrawCircle(allRoots[i], allColours[i], 2);
-                    args.Display.DrawCircle(allCrowns[i], allColours[i], 1);
-                    args.Display.DrawCircle(allSpacings[i], Color.FromArgb(110, 110, 110), 1);
-                    var line = new Line(new Point3d(0, 0, 0), new Point3d(1000, 1000, 0));
-                    args.Display.DrawDottedLine(line, Color.FromArgb(0, 0, 0));
-                }
-            }
-        }
     }
 }
