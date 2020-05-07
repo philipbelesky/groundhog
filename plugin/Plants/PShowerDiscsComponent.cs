@@ -8,17 +8,14 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class GroundhogShowerComponent : GroundHogComponent
+    public class GroundhogShowerDiscsComponent : GroundHogComponent
     {
         public List<Color> allColours;
-        public List<Circle> allCrowns;
+        public List<Mesh> canopyMeshes;
+        public List<Mesh> rootMeshes;
         public List<GH_String> allLabels;
 
-        public List<Circle> allRoots;
-        public List<Circle> allSpacings;
-        public List<Circle> allTrunks;
-
-        public GroundhogShowerComponent()
+        public GroundhogShowerDiscsComponent()
             : base("Plant Appearance (discs)", "Shower (discs)", "Simulate the appearance of a particular plant instance using circles", "Groundhog", "Flora")
         {
         }
@@ -35,16 +32,12 @@ namespace groundhog
             pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute", GH_ParamAccess.list);
             pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            //pManager.AddBooleanParameter("Visualisations", "V", "Whether to show a full L-system visualisation (true) or just the base geoemtries (false)", GH_ParamAccess.item, false);
-            //pManager[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCircleParameter("Trunk", "Tr", "Trunk radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Root", "Rr", "Root radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Crown", "Cr", "Crown radius", GH_ParamAccess.list);
-            pManager.AddCircleParameter("Spacing", "Sr", "Spacing radius", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Canopies", nickname: "C", description: "The mesh of each plant's canopy spread'", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Roots", nickname: "R", description: "The mesh of each plant's root spread'", GH_ParamAccess.list);
             pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
             pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
         }
@@ -99,49 +92,25 @@ namespace groundhog
             }
 
             // Create holder variables for output parameters
-            allRoots = new List<Circle>();
-            allCrowns = new List<Circle>();
-            allSpacings = new List<Circle>();
-            allTrunks = new List<Circle>();
+            canopyMeshes = new List<Mesh>();
+            rootMeshes = new List<Mesh>();
             allColours = new List<Color>();
             allLabels = new List<GH_String>();
 
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
-                allTrunks.Add(plantInstance.GetTrunk(plantLocations[i], plantTime));
-                allRoots.Add(plantInstance.GetRoot(plantLocations[i], plantTime));
-                allCrowns.Add(plantInstance.GetCrown(plantLocations[i], plantTime));
-                allSpacings.Add(plantInstance.GetSpacing(plantLocations[i]));
+                canopyMeshes.Add(plantInstance.GetCrownMesh(plantLocations[i], plantTime));
+                rootMeshes.Add(plantInstance.GetRootMesh(plantLocations[i], plantTime));
                 allColours.Add(plantInstance.GetColor());
                 allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters
-            DA.SetDataList(0, allTrunks);
-            DA.SetDataList(1, allRoots);
-            DA.SetDataList(2, allCrowns);
-            DA.SetDataList(3, allSpacings);
-            DA.SetDataList(4, allColours);
-            DA.SetDataList(5, allLabels);
-        }
-
-        public override void DrawViewportWires(IGH_PreviewArgs args)
-        {
-            //base.DrawViewportWires(args);
-            int i;
-            if (allTrunks != null) // Happens when component is placed with no items wired up
-            {
-                for (i = 0; i < allTrunks.Count; i = i + 1)
-                {
-                    args.Display.DrawCircle(allTrunks[i], allColours[i], 4);
-                    args.Display.DrawCircle(allRoots[i], allColours[i], 2);
-                    args.Display.DrawCircle(allCrowns[i], allColours[i], 1);
-                    args.Display.DrawCircle(allSpacings[i], Color.FromArgb(110, 110, 110), 1);
-                    var line = new Line(new Point3d(0, 0, 0), new Point3d(1000, 1000, 0));
-                    args.Display.DrawDottedLine(line, Color.FromArgb(0, 0, 0));
-                }
-            }
+            DA.SetDataList(0, canopyMeshes);
+            DA.SetDataList(1, rootMeshes);
+            DA.SetDataList(2, allColours);
+            DA.SetDataList(3, allLabels);
         }
     }
 }
