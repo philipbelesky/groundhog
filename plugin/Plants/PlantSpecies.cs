@@ -114,6 +114,7 @@ namespace groundhog
 
             mesh.Vertices.AddVertices(trunkPolygon);
             mesh.Vertices.AddVertices(canopyPolygon);
+            // Build the edges of the canopy mesh 
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 1, mesh.Vertices.Count - 2)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
@@ -123,6 +124,11 @@ namespace groundhog
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex, baseNodeIndex - 1)); // Counter clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
+            }
+            // Build the cap of the canopy mesh
+            for (var i = plantSides + 1; i < (plantSides * 3) - 1; i++)
+            {
+                mesh.Faces.AddFace(new MeshFace(plantSides + 1, i + 1, i + 2));
             }
 
             mesh.Normals.ComputeNormals();

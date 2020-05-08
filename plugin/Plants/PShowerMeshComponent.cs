@@ -38,8 +38,8 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddMeshParameter("Canopies", nickname: "C", description: "The mesh of each plant's canopy spread'", GH_ParamAccess.list);
-            pManager.AddMeshParameter("Roots", nickname: "R", description: "The mesh of each plant's root spread'", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Canopies", "C", "The mesh of each plant's canopy spread'", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Roots", "R", "The mesh of each plant's root spread'", GH_ParamAccess.list);
             pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
             pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
        }
