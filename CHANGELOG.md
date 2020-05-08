@@ -4,6 +4,11 @@
 ###### Changed
 - Definitions and models now default to Rhino 6 compatibility
 - Clarified parameter labels in planting components
+- Renamed 'Fidelity' parameter to 'Jump' for flow components
+
+###### Added
+- Added components to visualise canopy/root masses using meshes
+- Flow components can now trace uphill paths with negative distances
 
 #### [0.10.2] - 2019-04-09
 ###### Fixed

@@ -74,11 +74,11 @@ public static class FlowCalculations
         // Get the vector to flow down
         var flowVector = Vector3d.CrossProduct(Vector3d.ZAxis, closestNormal);
         flowVector.Unitize();
-        flowVector.Reverse();
+        flowVector.Reverse(); 
         flowVector.Transform(Transform.Rotation(Math.PI / 2, closestNormal, closestPoint));
+        flowVector = flowVector * MOVE_DISTANCE;
 
         // Flow to the new point
-        var nextFlowPoint = Point3d.Add(closestPoint, flowVector * MOVE_DISTANCE);
-        return nextFlowPoint;        
+        return Point3d.Add(closestPoint, flowVector);        
     }
 }

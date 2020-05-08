@@ -29,7 +29,7 @@ namespace groundhog
         {
             pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as a surface) for the flow calculation", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "P", "Start points for the flow paths. These should be above the surface (they will be projected on to it)", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Fidelity", "F", "Amount to move for each flow iteration. Small numbers may take a long time to compute. If not specified or set to 0 a (hopefully) sensible step size will be calculated.", GH_ParamAccess.item, 0);
+            pManager.AddNumberParameter("Jump", "J", "Amount to move for each flow iteration. Small numbers may take a long time to compute and negative values go uphill. If not specified or set to 0 a (hopefully) sensible step size will be calculated.", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
             pManager.AddIntegerParameter("Steps", "L", "A limit to the number of flow iterations. Leave unset or to 0 for an unlimited set of iterations", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
@@ -116,7 +116,9 @@ namespace groundhog
 
                 if (nextPoint.DistanceTo(startPoint) <= RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
                     break; // Test the point has actully moved
-                if (nextPoint.Z >= startPoint.Z)
+                if (nextPoint.Z >= startPoint.Z && MOVE_DISTANCE > 0) // When going downhill; break on moving up
+                    break; // Test this point is actually lower
+                if (nextPoint.Z <= startPoint.Z && MOVE_DISTANCE < 0) // When going uphill; break on moving down
                     break; // Test this point is actually lower
                 flowPoints.Add(nextPoint);
                 if (FLOW_LIMIT != 0 && FLOW_LIMIT <= flowPoints.Count)
