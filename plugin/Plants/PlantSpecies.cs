@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Web.Security;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
@@ -106,16 +107,29 @@ namespace groundhog
 
         public Mesh GetCrownMesh(Point3d location, double time, int plantSides)
         {
-            var mesh = new Mesh();
-            var trunkCircle = GetTrunkDisc(location, time);
-            var canopyCircle = GetCrownDisc(location, time);
-            var trunkPolygon = Polyline.CreateCircumscribedPolygon(trunkCircle, plantSides);
-            var canopyPolygon = Polyline.CreateCircumscribedPolygon(canopyCircle, plantSides * 2);
+            return makeMeshForAttribute(GetCrownDisc(location, time), GetTrunkDisc(location, time), plantSides);
+        }
 
-            mesh.Vertices.AddVertices(trunkPolygon);
-            mesh.Vertices.AddVertices(canopyPolygon);
-            // Build the edges of the canopy mesh 
-            mesh.Faces.AddFace(new MeshFace(0, plantSides + 1, mesh.Vertices.Count - 2)); // Counter clockwise; pointing in
+        public Mesh GetRootMesh(Point3d location, double time, int plantSides)
+        {
+            var rootBallBottomDisc = GetTrunkDisc(location, time);
+            var rootDepth = GetGrowth(initialRootRadius, matureRootRadius, time); // Assume approx spherical 
+            rootBallBottomDisc.Translate(new Vector3d(0, 0, rootDepth * -1));
+            return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
+        }
+
+        private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference,  int plantSides)
+        {
+            var mesh = new Mesh();
+            var topPolygon = Polyline.CreateCircumscribedPolygon(topCircumference, plantSides * 2);
+            var bottomPolygon = Polyline.CreateCircumscribedPolygon(bottomCircumference, plantSides);
+
+            mesh.Vertices.AddVertices(bottomPolygon);
+            mesh.Vertices.AddVertices(topPolygon);
+            mesh.Vertices.Add(topPolygon.CenterPoint());
+
+            //// Build the edges of the canopy mesh 
+            mesh.Faces.AddFace(new MeshFace(0, plantSides + 1, mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
             for (var i = 1; i < plantSides; i++)
@@ -125,20 +139,16 @@ namespace groundhog
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
             }
+
             // Build the cap of the canopy mesh
-            for (var i = plantSides + 1; i < (plantSides * 3) - 1; i++)
+            for (var i = plantSides + 1; i < mesh.Vertices.Count - 2; i++)
             {
-                mesh.Faces.AddFace(new MeshFace(plantSides + 1, i + 1, i + 2));
+                mesh.Faces.AddFace(new MeshFace(mesh.Vertices.Count - 1, i, i + 1));
             }
 
             mesh.Normals.ComputeNormals();
             mesh.Compact();
             return mesh;
-        }
-
-        public Mesh GetRootMesh(Point3d location, double time, int plantSides)
-        {
-            return null;
         }
 
         public Color GetColor()

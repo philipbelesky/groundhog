@@ -106,7 +106,8 @@
     <Compile Include="Plants\PlanterComponent.cs" />
     <Compile Include="Plants\PlantFactory.cs" />
     <Compile Include="Plants\PlantSpecies.cs" />
-    <Compile Include="Plants\PShowerMeshComponent.cs" />
+    <Compile Include="Plants\PShowerMeshRootComponent.cs" />
+    <Compile Include="Plants\PShowerMeshCanopyComponent.cs" />
     <Compile Include="Plants\PShowerDiscsComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

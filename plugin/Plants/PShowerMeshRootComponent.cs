@@ -8,15 +8,14 @@ using Rhino.Geometry;
 
 namespace groundhog
 {
-    public class GroundhogShowerMeshComponent : GroundHogComponent
+    public class GroundhogShowerRootMeshComponent : GroundHogComponent
     {
         public List<Color> allColours;
-        public List<Mesh> canopyMeshes;
         public List<Mesh> rootMeshes;
         public List<GH_String> allLabels;
 
-        public GroundhogShowerMeshComponent()
-            : base("Plant Appearance (mesh)", "Shower (mesh)", "Simulate the appearance of a particular plant instance using a mesh between canopy and trunk", "Groundhog", "Flora")
+        public GroundhogShowerRootMeshComponent()
+            : base("Plant Appearance (root mesh)", "Shower (root mesh)", "Simulate the appearance of a particular plant instance's root using a mesh between canopy and trunk", "Groundhog", "Flora")
         {
         }
 
@@ -24,7 +23,7 @@ namespace groundhog
 
         protected override Bitmap Icon => Resources.icon_pshower;
 
-        public override Guid ComponentGuid => new Guid("{d5df9bcc-b4a9-48df-8c88-c0b7e4322668}");
+        public override Guid ComponentGuid => new Guid("{d310a8ed-bed6-4eac-9cfb-6436bb918d98}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -38,7 +37,6 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddMeshParameter("Canopies", "C", "The mesh of each plant's canopy spread'", GH_ParamAccess.list);
             pManager.AddMeshParameter("Roots", "R", "The mesh of each plant's root spread'", GH_ParamAccess.list);
             pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
             pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
@@ -102,7 +100,6 @@ namespace groundhog
             }
 
             // Create holder variables for output parameters
-            canopyMeshes = new List<Mesh>();
             rootMeshes = new List<Mesh>();
             allColours = new List<Color>();
             allLabels = new List<GH_String>();
@@ -110,17 +107,15 @@ namespace groundhog
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
-                canopyMeshes.Add(plantInstance.GetCrownMesh(plantLocations[i], plantTime, plantSides));
                 rootMeshes.Add(plantInstance.GetRootMesh(plantLocations[i], plantTime, plantSides));
                 allColours.Add(plantInstance.GetColor());
                 allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters
-            DA.SetDataList(0, canopyMeshes);
-            DA.SetDataList(1, rootMeshes);
-            DA.SetDataList(2, allColours);
-            DA.SetDataList(3, allLabels);
+            DA.SetDataList(0, rootMeshes);
+            DA.SetDataList(1, allColours);
+            DA.SetDataList(2, allLabels);
         }
 
     }
