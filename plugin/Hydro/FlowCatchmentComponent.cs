@@ -54,6 +54,20 @@ namespace groundhog
 
             // TODO: add a warning/note that these should be a flat list
             //AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Make a flat list");
+            if (MIN_PROXIMITY < 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Proximity threshold must be a positive number.");
+                return;
+            }
+            else if (MIN_PROXIMITY == 0)
+            {
+                Polyline samplePath; // Attempt to guess a good proximity amount
+                if (FLOW_PATHS[0].TryGetPolyline(out samplePath))
+                {
+                    MIN_PROXIMITY = samplePath.SegmentAt(0).Length * 2;
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"Proximity Threshold parameter not provided; guessed {MIN_PROXIMITY} as a good value");
+                }
+            }
 
             // Remove null items; can be due to passing in the points not the path
             FLOW_PATHS.RemoveAll(curve => curve == null);

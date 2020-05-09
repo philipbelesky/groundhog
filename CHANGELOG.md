@@ -9,6 +9,7 @@
 ###### Added
 - Added components to visualise canopy/root masses using meshes
 - Flow components can now trace uphill paths with negative distances
+- Flow catchments component now guesses a proximity threshold if one is not set
 
 #### [0.10.2] - 2019-04-09
 ###### Fixed
