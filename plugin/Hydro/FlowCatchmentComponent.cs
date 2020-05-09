@@ -50,7 +50,7 @@ namespace groundhog
 
             // Access and extract data from the input parameters individually
             DA.GetDataList(0, FLOW_PATHS);
-            if (!DA.GetData(1, ref MIN_PROXIMITY)) return;
+            DA.GetData(1, ref MIN_PROXIMITY);
 
             // TODO: add a warning/note that these should be a flat list
             //AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Make a flat list");
