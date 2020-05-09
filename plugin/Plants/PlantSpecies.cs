@@ -30,6 +30,10 @@ namespace groundhog
         // Lifespan
         private readonly double timetoMaturity;
 
+        // Random seeds for variances (these are set during showers; not during init else they aren't unique 
+        // As data is usually repeated in Grasshopper so object values are duplicated
+        private double crownVarianceMultiplier, heightVarianceMultiplier, rootVarianceMultiplier, trunkVarianceMultiplier;
+
         // Init
         public PlantSpecies(
             string speciesName, string commonName, string indigenousName,
@@ -68,35 +72,59 @@ namespace groundhog
             this.displayR = displayR;
             this.displayG = displayG;
             this.displayB = displayB;
+            // Fallbacks; should be overriden in showers
+            this.crownVarianceMultiplier = 1.0;
+            this.heightVarianceMultiplier = 1.0;
+            this.rootVarianceMultiplier = 1.0;
+            this.trunkVarianceMultiplier = 1.0;
+        }
+        
+        public void SetVarianceValues(Random rand) // Rand can't be generated here as its time dependent = same values
+        {
+            this.crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
+            this.heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
+            this.rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
+            this.trunkVarianceMultiplier = GetVarianceMultiplier(rand, varianceTrunkRadius);
+        }
+
+        private double GetVarianceMultiplier(Random rand, double varianceValue)
+        {
+            var multiplier = rand.NextDouble() * varianceValue; // E.g. 0.5 * 20% = 10
+            if (rand.Next(2) > 0)
+            {
+                return 1 + (multiplier / 100); // E.g. 1 + (10 / 100) = 1.1
+            }
+            return 1 - (multiplier / 100); // E.g. 1 - (10 / 100) = 0.9
         }
 
         // Get current state
-        private double GetGrowth(double initial, double eventual, double time)
+        private double GetGrowth(double initialState, double eventualState, double time, double varianceMultiplier)
         {
-            var annualRate = (eventual - initial) / timetoMaturity;
+            var variedEndState = varianceMultiplier * eventualState;
+            var annualRate = (variedEndState - initialState) / timetoMaturity;
             var grownTime = Math.Min(time, timetoMaturity);
-            var grownState = grownTime * annualRate + initial;
+            var grownState = grownTime * annualRate + initialState;
             return grownState;
         }
 
         // Get geometry
         public Circle GetCrownDisc(Point3d location, double time)
         {
-            var height = GetGrowth(initialHeight, matureHeight, time);
-            var radius = GetGrowth(initialCrownRadius, matureCrownRadius, time);
+            var height = GetGrowth(initialHeight, matureHeight, time, heightVarianceMultiplier);
+            var radius = GetGrowth(initialCrownRadius, matureCrownRadius, time, crownVarianceMultiplier);
             var canopyLocation = new Point3d(location.X, location.Y, location.Z + height);
             return new Circle(canopyLocation, radius);
         }
 
         public Circle GetRootDisc(Point3d location, double time)
         {
-            var radius = GetGrowth(initialRootRadius, matureRootRadius, time);
+            var radius = GetGrowth(initialRootRadius, matureRootRadius, time, rootVarianceMultiplier);
             return new Circle(location, radius);
         }
 
         public Circle GetTrunkDisc(Point3d location, double time)
         {
-            var radius = GetGrowth(initialTrunkRadius, matureTrunkRadius, time);
+            var radius = GetGrowth(initialTrunkRadius, matureTrunkRadius, time, trunkVarianceMultiplier);
             return new Circle(location, radius);
         }
 
@@ -113,7 +141,7 @@ namespace groundhog
         public Mesh GetRootMesh(Point3d location, double time, int plantSides)
         {
             var rootBallBottomDisc = GetTrunkDisc(location, time);
-            var rootDepth = GetGrowth(initialRootRadius, matureRootRadius, time); // Assume approx spherical 
+            var rootDepth = GetGrowth(initialRootRadius, matureRootRadius, time, rootVarianceMultiplier); // Assume approx spherical 
             rootBallBottomDisc.Translate(new Vector3d(0, 0, rootDepth * -1));
             return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }

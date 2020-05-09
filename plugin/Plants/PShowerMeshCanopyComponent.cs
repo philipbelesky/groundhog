@@ -103,10 +103,12 @@ namespace groundhog
             canopyMeshes = new List<Mesh>();
             allColours = new List<Color>();
             allLabels = new List<GH_String>();
-
+            
+            Random rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
+                plantInstance.SetVarianceValues(rand);
                 canopyMeshes.Add(plantInstance.GetCrownMesh(plantLocations[i], plantTime, plantSides));
                 allColours.Add(plantInstance.GetColor());
                 allLabels.Add(plantInstance.GetLabel());

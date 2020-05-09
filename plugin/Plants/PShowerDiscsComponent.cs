@@ -103,11 +103,12 @@ namespace groundhog
             allTrunks = new List<Circle>();
             allColours = new List<Color>();
             allLabels = new List<GH_String>();
-
-
+            
+            Random rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = plantSpecies[i];
+                plantInstance.SetVarianceValues(rand);
                 allTrunks.Add(plantInstance.GetTrunkDisc(plantLocations[i], plantTime));
                 allRoots.Add(plantInstance.GetRootDisc(plantLocations[i], plantTime));
                 allCrowns.Add(plantInstance.GetCrownDisc(plantLocations[i], plantTime));
