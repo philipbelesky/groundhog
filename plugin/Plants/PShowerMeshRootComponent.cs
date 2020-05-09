@@ -48,7 +48,7 @@ namespace groundhog
             var plantSpecies = new List<PlantSpecies>();
             var plantLocations = new List<Point3d>();
             var plantTime = 10.0; // default value
-            var plantSides = 4;
+            var plantSides = 6;
 
             // Access and extract data from the input parameters individually
             DA.GetDataList(1, plantLocations);
