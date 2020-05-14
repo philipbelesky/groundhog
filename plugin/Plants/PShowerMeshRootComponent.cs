@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
@@ -11,7 +11,8 @@ namespace groundhog
     public class GroundhogShowerRootMeshComponent : PShowerBase
     {
         public GroundhogShowerRootMeshComponent() : base(
-            "Plant Appearance (root mesh)", "Shower (root mesh)", "Simulate the appearance of a particular plant instance's root using a mesh between canopy and trunk")
+            "Plant Appearance (root mesh)", "Shower (root mesh)",
+            "Simulate the appearance of a particular plant instance's root using a mesh between canopy and trunk")
         {
         }
 
@@ -24,7 +25,9 @@ namespace groundhog
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             base.RegisterInputParams(pManager);
-            pManager.AddIntegerParameter("Sides", "S", "The number of polygon sides for each mesh. Higher numbers will create more complex geometry", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Sides", "S",
+                "The number of polygon sides for each mesh. Higher numbers will create more complex geometry",
+                GH_ParamAccess.item);
             pManager[3].Optional = true;
         }
 
@@ -39,7 +42,7 @@ namespace groundhog
             var plantTimeTemp = GetSimulatedTime(DA);
             if (plantTimeTemp == null)
                 return;
-            double plantTime = plantTimeTemp.Value;
+            var plantTime = plantTimeTemp.Value;
 
             var plantLocations = GetSpeciesLocations(DA);
             if (plantLocations == null) return;
@@ -52,7 +55,7 @@ namespace groundhog
             var allColours = new List<Color>();
             var allLabels = new List<GH_String>();
 
-            Random rand = new Random(); // Random seed for plant variances
+            var rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = GetPlantInstance(plantSpecies, i, rand, allLabels, allColours);
@@ -64,6 +67,5 @@ namespace groundhog
             DA.SetDataList(1, allColours);
             DA.SetDataList(2, allLabels);
         }
-
     }
 }

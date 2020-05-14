@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
@@ -12,19 +9,21 @@ namespace groundhog
 {
     public abstract class PShowerBase : GroundHogComponent
     {
-        public override GH_Exposure Exposure => GH_Exposure.primary;
-
         // Pass the constructor parameters up to the main GH_Component abstract class
         protected PShowerBase(string name, string nickname, string description)
             : base(name, nickname, description, "Groundhog", "Flora")
         {
         }
 
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Species", "S", "The plant attributes to simulate", GH_ParamAccess.list);
-            pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display", GH_ParamAccess.item);
+            pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display",
+                GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
@@ -41,7 +40,8 @@ namespace groundhog
             // Negative time values mean don't calculate/show plants (useful for successional schemes)
             if (plantSides < 3)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The specified plant sides were less than 3, so have been set to 3.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    "The specified plant sides were less than 3, so have been set to 3.");
                 plantSides = 3;
             }
 
@@ -55,7 +55,8 @@ namespace groundhog
             // Negative time values mean don't calculate/show plants (useful for successional schemes)
             if (plantTime < 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "The specified time was less than zero so no species have been allocated locations.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    "The specified time was less than zero so no species have been allocated locations.");
                 return null;
             }
 
@@ -68,7 +69,8 @@ namespace groundhog
             DA.GetDataList(1, plantLocations);
             if (plantLocations.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "There were no locations provided for the specified species");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    "There were no locations provided for the specified species");
                 return null;
             }
 
@@ -84,10 +86,11 @@ namespace groundhog
             if (!DA.GetDataList(0, wrappedSpecies)) return null;
             foreach (var unwrappedObject in wrappedSpecies)
                 plantSpecies.Add(unwrappedObject.Value as PlantSpecies);
-            
+
             if (plantSpecies.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "There were no species provided for the specified locations");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
+                    "There were no species provided for the specified locations");
                 return null;
             }
 
@@ -98,17 +101,19 @@ namespace groundhog
                     "There were more locations provided than species, so some locations have not been allocated plants");
                 plantLocations.RemoveRange(plantSpecies.Count, plantLocations.Count - plantSpecies.Count);
             }
+
             if (plantSpecies.Count > plantLocations.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more species provided than locations, so some species have not been allocated locations");
                 plantSpecies.RemoveRange(plantLocations.Count, plantSpecies.Count - plantLocations.Count);
             }
+
             return plantSpecies;
         }
 
-        public PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, Random rand, 
-                                             List<GH_String> allLabels, List<Color> allColours)
+        public PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, Random rand,
+            List<GH_String> allLabels, List<Color> allColours)
         {
             var plantInstance = plantSpecies[index];
             plantInstance.SetVarianceValues(rand);

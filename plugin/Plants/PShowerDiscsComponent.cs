@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
@@ -11,7 +11,8 @@ namespace groundhog
     public class GroundhogShowerDiscsComponent : PShowerBase
     {
         public GroundhogShowerDiscsComponent() : base(
-            "Plant Appearance (discs)", "Shower (discs)", "Simulate the appearance of a particular plant instance using circles")
+            "Plant Appearance (discs)", "Shower (discs)",
+            "Simulate the appearance of a particular plant instance using circles")
         {
         }
 
@@ -20,7 +21,7 @@ namespace groundhog
         protected override Bitmap Icon => Resources.icon_pshower;
 
         public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d6}");
-        
+
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddCircleParameter("Trunk", "Tr", "Trunk radius", GH_ParamAccess.list);
@@ -35,7 +36,7 @@ namespace groundhog
             var plantTimeTemp = GetSimulatedTime(DA);
             if (plantTimeTemp == null)
                 return;
-            double plantTime = plantTimeTemp.Value;
+            var plantTime = plantTimeTemp.Value;
 
             var plantLocations = GetSpeciesLocations(DA);
             if (plantLocations == null) return;
@@ -49,8 +50,8 @@ namespace groundhog
             var allTrunks = new List<Circle>();
             var allColours = new List<Color>();
             var allLabels = new List<GH_String>();
-            
-            Random rand = new Random(); // Random seed for plant variances
+
+            var rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < plantSpecies.Count; i++)
             {
                 var plantInstance = GetPlantInstance(plantSpecies, i, rand, allLabels, allColours);
