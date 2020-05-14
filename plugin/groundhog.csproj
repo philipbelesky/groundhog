@@ -96,8 +96,9 @@
     <Compile Include="Hydro\FloodRiverComponent.cs" />
     <Compile Include="Hydro\FloodSeaComponent.cs" />
     <Compile Include="Hydro\FlowCatchmentComponent.cs" />
-    <Compile Include="Hydro\MeshFlowPathComponent.cs" />
-    <Compile Include="Hydro\SurfaceFlowPathComponent.cs" />
+    <Compile Include="Hydro\FlowPathBase.cs" />
+    <Compile Include="Hydro\FlowPathMeshComponent.cs" />
+    <Compile Include="Hydro\FlowPathSurfaceComponent.cs" />
     <Compile Include="Mapping\FieldComponent.cs" />
     <Compile Include="Mapping\FieldVisualisationGridComponent.cs" />
     <Compile Include="Mapping\RandomPathComponent.cs" />
