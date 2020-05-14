@@ -42,23 +42,23 @@ namespace groundhog
             if (!SetupSharedVariables(DA))
                 return;
 
-            DA.GetData(3, ref plantSides);
+            DA.GetData(3, ref PLANT_SIDES);
             // Negative time values mean don't calculate/show plants (useful for successional schemes)
-            if (plantSides < 3)
+            if (PLANT_SIDES < 3)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "The specified plant sides were less than 3, so have been set to 3.");
-                plantSides = 3;
+                PLANT_SIDES = 3;
             }
 
             // Create holder variables for output parameters
             canopyMeshes = new List<Mesh>();
 
             var rand = new Random(); // Random seed for plant variances
-            for (var i = 0; i < plantSpecies.Count; i++)
+            for (var i = 0; i < PLANT_SPECIES.Count; i++)
             {
-                var plantInstance = GetPlantInstance(plantSpecies, i, rand, allLabels, allColours);
-                canopyMeshes.Add(plantInstance.GetCrownMesh(plantLocations[i], plantTime, plantSides));
+                var plantInstance = GetPlantInstance(PLANT_SPECIES, i, rand, allLabels, allColours);
+                canopyMeshes.Add(plantInstance.GetCrownMesh(PLANT_LOCATIONS[i], PLANT_TIME, PLANT_SIDES));
             }
 
             // Assign variables to output parameters

@@ -9,10 +9,10 @@ namespace groundhog
 {
     public abstract class PShowerBase : GroundHogComponent
     {
-        protected double plantTime = 10.0;
-        protected int plantSides = 8;
-        protected List<Point3d> plantLocations = new List<Point3d>();
-        protected List<PlantSpecies> plantSpecies = new List<PlantSpecies>();
+        protected double PLANT_TIME = 10.0;
+        protected int PLANT_SIDES = 8;
+        protected List<Point3d> PLANT_LOCATIONS = new List<Point3d>();
+        protected List<PlantSpecies> PLANT_SPECIES = new List<PlantSpecies>();
         protected List<Color> allColours = new List<Color>();
         protected List<GH_String> allLabels = new List<GH_String>();
 
@@ -48,42 +48,42 @@ namespace groundhog
             var wrappedSpecies = new List<GH_ObjectWrapper>();
             if (!DA.GetDataList(0, wrappedSpecies)) return false;
             foreach (var unwrappedObject in wrappedSpecies)
-                plantSpecies.Add(unwrappedObject.Value as PlantSpecies);
-            if (plantSpecies.Count == 0)
+                PLANT_SPECIES.Add(unwrappedObject.Value as PlantSpecies);
+            if (PLANT_SPECIES.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
                     "There were no species provided for the specified locations");
                 return false;
             }
 
-            DA.GetDataList(1, plantLocations);
-            if (plantLocations.Count == 0)
+            DA.GetDataList(1, PLANT_LOCATIONS);
+            if (PLANT_LOCATIONS.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were no locations provided for the specified species");
                 return false;
             }
 
-            DA.GetData(2, ref plantTime);
+            DA.GetData(2, ref PLANT_TIME);
             // Negative time values mean don't calculate/show plants (useful for successional schemes)
-            if (plantTime < 0)
+            if (PLANT_TIME < 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "The specified time was less than zero so no species have been allocated locations.");
                 return false;
             }
             
-            if (plantLocations.Count > plantSpecies.Count)
+            if (PLANT_LOCATIONS.Count > PLANT_SPECIES.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more locations provided than species, so some locations have not been allocated plants");
-                plantLocations.RemoveRange(plantSpecies.Count, plantLocations.Count - plantSpecies.Count);
+                PLANT_LOCATIONS.RemoveRange(PLANT_SPECIES.Count, PLANT_LOCATIONS.Count - PLANT_SPECIES.Count);
             }
-            if (plantSpecies.Count > plantLocations.Count)
+            if (PLANT_SPECIES.Count > PLANT_LOCATIONS.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more species provided than locations, so some species have not been allocated locations");
-                plantSpecies.RemoveRange(plantLocations.Count, plantSpecies.Count - plantLocations.Count);
+                PLANT_SPECIES.RemoveRange(PLANT_LOCATIONS.Count, PLANT_SPECIES.Count - PLANT_LOCATIONS.Count);
             }
    
             return true;
