@@ -39,21 +39,20 @@ namespace groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
-            var plantTimeTemp = GetSimulatedTime(DA);
-            if (plantTimeTemp == null)
+            if (!SetupSharedVariables(DA))
                 return;
-            var plantTime = plantTimeTemp.Value;
 
-            var plantLocations = GetSpeciesLocations(DA);
-            if (plantLocations == null) return;
-            var plantSpecies = GetSpeciesInputs(DA, plantLocations);
-            if (plantSpecies == null) return;
-            var plantSides = GetPlantSides(DA);
+            DA.GetData(3, ref plantSides);
+            // Negative time values mean don't calculate/show plants (useful for successional schemes)
+            if (plantSides < 3)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    "The specified plant sides were less than 3, so have been set to 3.");
+                plantSides = 3;
+            }
 
             // Create holder variables for output parameters
             var rootMeshes = new List<Mesh>();
-            var allColours = new List<Color>();
-            var allLabels = new List<GH_String>();
 
             var rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < plantSpecies.Count; i++)

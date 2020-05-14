@@ -9,6 +9,13 @@ namespace groundhog
 {
     public abstract class PShowerBase : GroundHogComponent
     {
+        protected double plantTime = 10.0;
+        protected int plantSides = 8;
+        protected List<Point3d> plantLocations = new List<Point3d>();
+        protected List<PlantSpecies> plantSpecies = new List<PlantSpecies>();
+        protected List<Color> allColours = new List<Color>();
+        protected List<GH_String> allLabels = new List<GH_String>();
+
         // Pass the constructor parameters up to the main GH_Component abstract class
         protected PShowerBase(string name, string nickname, string description)
             : base(name, nickname, description, "Groundhog", "Flora")
@@ -33,86 +40,56 @@ namespace groundhog
             pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
         }
 
-        public int GetPlantSides(IGH_DataAccess DA) // For mesh components only
+        protected bool SetupSharedVariables(IGH_DataAccess DA)
         {
-            var plantSides = 8;
-            DA.GetData(3, ref plantSides);
-            // Negative time values mean don't calculate/show plants (useful for successional schemes)
-            if (plantSides < 3)
+            // Inits shared variables; a false return triggers inheriting classes to return
+
+            // Need to unwrap the species from generic list to a plantSpecies list
+            var wrappedSpecies = new List<GH_ObjectWrapper>();
+            if (!DA.GetDataList(0, wrappedSpecies)) return false;
+            foreach (var unwrappedObject in wrappedSpecies)
+                plantSpecies.Add(unwrappedObject.Value as PlantSpecies);
+            if (plantSpecies.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
-                    "The specified plant sides were less than 3, so have been set to 3.");
-                plantSides = 3;
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
+                    "There were no species provided for the specified locations");
+                return false;
             }
 
-            return plantSides;
-        }
+            DA.GetDataList(1, plantLocations);
+            if (plantLocations.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    "There were no locations provided for the specified species");
+                return false;
+            }
 
-        public double? GetSimulatedTime(IGH_DataAccess DA)
-        {
-            var plantTime = 10.0; // default value
             DA.GetData(2, ref plantTime);
             // Negative time values mean don't calculate/show plants (useful for successional schemes)
             if (plantTime < 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "The specified time was less than zero so no species have been allocated locations.");
-                return null;
+                return false;
             }
-
-            return plantTime;
-        }
-
-        public List<Point3d> GetSpeciesLocations(IGH_DataAccess DA)
-        {
-            var plantLocations = new List<Point3d>();
-            DA.GetDataList(1, plantLocations);
-            if (plantLocations.Count == 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
-                    "There were no locations provided for the specified species");
-                return null;
-            }
-
-            return plantLocations;
-        }
-
-        public List<PlantSpecies> GetSpeciesInputs(IGH_DataAccess DA, List<Point3d> plantLocations)
-        {
-            var plantSpecies = new List<PlantSpecies>();
-
-            // Need to unwrap the species from generic list to a plantSpecies list
-            var wrappedSpecies = new List<GH_ObjectWrapper>();
-            if (!DA.GetDataList(0, wrappedSpecies)) return null;
-            foreach (var unwrappedObject in wrappedSpecies)
-                plantSpecies.Add(unwrappedObject.Value as PlantSpecies);
-
-            if (plantSpecies.Count == 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
-                    "There were no species provided for the specified locations");
-                return null;
-            }
-
-            // We should now validate the data and warn the user if invalid data is supplied.
+            
             if (plantLocations.Count > plantSpecies.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more locations provided than species, so some locations have not been allocated plants");
                 plantLocations.RemoveRange(plantSpecies.Count, plantLocations.Count - plantSpecies.Count);
             }
-
             if (plantSpecies.Count > plantLocations.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more species provided than locations, so some species have not been allocated locations");
                 plantSpecies.RemoveRange(plantLocations.Count, plantSpecies.Count - plantLocations.Count);
             }
-
-            return plantSpecies;
+   
+            return true;
         }
-
-        public PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, Random rand,
+        
+        protected PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, Random rand,
             List<GH_String> allLabels, List<Color> allColours)
         {
             var plantInstance = plantSpecies[index];
