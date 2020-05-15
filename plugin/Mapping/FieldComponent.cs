@@ -42,38 +42,34 @@ namespace groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
+            var INTERPOLATE = true; // TODO: why does this exist? Never changed
             // Create holder variables for input parameters
-            Curve gridBounds = null;
-            var gridDivisions = 24;
+            Curve GRID_BOUNDS = null;
+            var GRID_DIVISIONS = 24;
             var areas = new List<Curve>();
             var zRange = 0.0; // Default value; is later set to 5% of maximum dimension if still 0
 
             // Access and extract data from the input parameters individually
-            if (!DA.GetData(0, ref gridBounds)) return;
-            if (!DA.GetData(1, ref gridDivisions)) return;
+            if (!DA.GetData(0, ref GRID_BOUNDS)) return;
+            if (!DA.GetData(1, ref GRID_DIVISIONS)) return;
             if (!DA.GetDataList(2, areas)) return;
             if (!DA.GetData(3, ref zRange)) return;
-
-            var FIDELITY = Convert.ToInt32(gridDivisions);
-            var BOUNDARY = gridBounds;
-            var ALL_DATA_REGIONS = areas;
-            var INTERPOLATE = true;
-
+            
             // Input Validation
-            if (gridDivisions < 4)
+            if (GRID_DIVISIONS < 4)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "The number of grid divisions must be greater than 4 in order to create a field");
                 return;
             }
 
-            if (!BOUNDARY.IsPlanar())
+            if (!GRID_BOUNDS.IsPlanar())
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not planar");
                 return;
             }
 
-            if (!BOUNDARY.IsClosed)
+            if (!GRID_BOUNDS.IsClosed)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not closed");
                 return;
@@ -97,16 +93,16 @@ namespace groundhog
                 }
 
             // Construct the bounding box for the search limits boundary; identify its extents and if its square
-            var boundaryBox = BOUNDARY.GetBoundingBox(false); // False = uses estimate method
-            var BOUNDARY_IS_RECT = IsBoundaryRect(BOUNDARY);
+            var boundaryBox = GRID_BOUNDS.GetBoundingBox(false); // False = uses estimate method
+            var boundaryIsRect = IsBoundaryRect(GRID_BOUNDS);
 
             // Construct the boundary boxes for the search targets
             var regionBoxes = new List<BoundingBox>();
-            for (var i = 0; i < ALL_DATA_REGIONS.Count; i = i + 1)
-                regionBoxes.Add(ALL_DATA_REGIONS[i].GetBoundingBox(false));
+            for (var i = 0; i < areas.Count; i = i + 1)
+                regionBoxes.Add(areas[i].GetBoundingBox(false));
 
             // Construct the grid points
-            var gridInfo = CreateGridPts(BOUNDARY, boundaryBox, BOUNDARY_IS_RECT, FIDELITY, zRange);
+            var gridInfo = CreateGridPts(GRID_BOUNDS, boundaryBox, boundaryIsRect, GRID_DIVISIONS, zRange);
             // Unpack the returned values
             var gridPts = gridInfo.Item1;
             zRange = gridInfo.Item2;
@@ -129,7 +125,7 @@ namespace groundhog
             for (var i = 0; i < regionBoxes.Count; i = i + 1)
             {
                 // Construct a tuple to stuff state into the callback
-                var data = Tuple.Create(i, gridPts, ALL_DATA_REGIONS, xGridExtents, yGridExtents);
+                var data = Tuple.Create(i, gridPts, areas, xGridExtents, yGridExtents);
                 rTree.Search(regionBoxes[i], RegionOverlapCallback, data);
             }
 
@@ -210,11 +206,11 @@ namespace groundhog
             var isRect = false;
             if (BOUNDARY.IsPolyline())
             {
-                Polyline BOUNDARY_PLINE;
-                BOUNDARY.TryGetPolyline(out BOUNDARY_PLINE);
-                if (BOUNDARY_PLINE != null && BOUNDARY_PLINE.SegmentCount == 4)
+                Polyline boundaryPline;
+                BOUNDARY.TryGetPolyline(out boundaryPline);
+                if (boundaryPline != null && boundaryPline.SegmentCount == 4)
                 {
-                    var edges = BOUNDARY_PLINE.GetSegments();
+                    var edges = boundaryPline.GetSegments();
                     // Is each pair of segments the same length?
                     if (Math.Abs(edges[0].Length - edges[1].Length) < docUnitTolerance)
                         if (Math.Abs(edges[0].Length - edges[1].Length) < docUnitTolerance)

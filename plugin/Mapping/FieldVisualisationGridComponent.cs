@@ -45,26 +45,26 @@ namespace groundhog
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            Surface gridRawField = null;
-            Curve gridBoundary = null;
-            var pStart = 0.0;
-            var pEnd = 1.0;
+            Surface GRID_RAW_FIELD = null;
+            Curve GRID_BOUNDARY = null;
+            var P_START = 0.0;
+            var P_END = 1.0;
 
-            if (!DA.GetData(0, ref gridRawField)) return;
-            if (!DA.GetData(1, ref gridBoundary)) return;
-            if (!DA.GetData(2, ref pStart)) return;
-            if (!DA.GetData(3, ref pEnd)) return;
+            if (!DA.GetData(0, ref GRID_RAW_FIELD)) return;
+            if (!DA.GetData(1, ref GRID_BOUNDARY)) return;
+            if (!DA.GetData(2, ref P_START)) return;
+            if (!DA.GetData(3, ref P_END)) return;
 
-            if (pStart == pEnd)
+            if (P_START == P_END)
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Parameter start and end numbers must be different");
             // Validate boundary curve is planar
-            if (gridBoundary != null && !gridBoundary.IsPlanar())
+            if (GRID_BOUNDARY != null && !GRID_BOUNDARY.IsPlanar())
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve is not planar");
-            if (gridBoundary != null && !gridBoundary.IsClosed)
+            if (GRID_BOUNDARY != null && !GRID_BOUNDARY.IsClosed)
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Boundary curve is not closed");
 
-            var gridField = gridRawField.ToNurbsSurface();
-            if (gridRawField == null)
+            var gridField = GRID_RAW_FIELD.ToNurbsSurface();
+            if (GRID_RAW_FIELD == null)
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
                     "Grid field is null or not able to be converted to a NURBS surface");
 
@@ -83,9 +83,9 @@ namespace groundhog
                 if (!lowestZ.HasValue || point.Z < lowestZ) lowestZ = point.Z;
                 if (!highestZ.HasValue || point.Z > highestZ) highestZ = point.Z;
 
-                if (gridBoundary != null)
+                if (GRID_BOUNDARY != null)
                 {
-                    var pointContainment = gridBoundary.Contains(point, Plane.WorldXY, docUnitTolerance);
+                    var pointContainment = GRID_BOUNDARY.Contains(point, Plane.WorldXY, docUnitTolerance);
                     if (pointContainment.ToString() == "Inside") inBoundsPoints.Add(point);
                 }
                 else
@@ -104,7 +104,7 @@ namespace groundhog
             for (var i = 0; i < inBoundsPoints.Count; i = i + 1)
             {
                 var z = inBoundsPoints[i].Z;
-                var remappedZ = Remap(z, lowestZ.Value, highestZ.Value, pStart, pEnd);
+                var remappedZ = Remap(z, lowestZ.Value, highestZ.Value, P_START, P_END);
                 inBoundsParameters.Add(remappedZ);
             }
 
