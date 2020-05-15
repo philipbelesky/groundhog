@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using Grasshopper.Kernel;
 using Rhino;
+using Sentry;
+using Sentry.Protocol;
 
 namespace groundhog
 {
@@ -57,6 +60,7 @@ namespace groundhog
                         scope.SetTag("Time", TimeZoneInfo.Local.StandardName);
                         scope.SetTag("Groundhog", getNiceGroundHogVersion());
                         scope.SetTag("Grasshopper", Grasshopper.Versioning.Version.ToString());
+                        scope.SetTag("Component", this.Name);
 
                         // Rhinoceros (seems to fail on rhino for Mac?)
                         try
