@@ -314,12 +314,6 @@ namespace groundhog
                 groupIndex = i;
                 groupDistance = minProximity;
             }
-
-            // Instance Method
-            //public Point3d start()
-            //{
-            //  return startPoint;
-            //}
         }
     }
 }
