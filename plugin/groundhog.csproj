@@ -132,7 +132,7 @@
     <Compile Include="Mapping\ShortestWalk\Geometry\EdgeAddress.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\NodeAddress.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\PathMethods.cs" />
-    <Compile Include="Hydro\FlowCalculations.cs" />
+    <Compile Include="Hydro\FlowPathCalculations.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

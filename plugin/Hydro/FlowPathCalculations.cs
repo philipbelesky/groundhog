@@ -4,7 +4,7 @@ using Grasshopper;
 using Grasshopper.Kernel.Data;
 using Rhino.Geometry;
 
-public static class FlowCalculations
+public static class FlowPathCalculations
 {
     public static double getSensibleFidelity(Point3d[] flowPathPoints, BoundingBox bbox)
     {
@@ -65,4 +65,6 @@ public static class FlowCalculations
         // Flow to the new point
         return Point3d.Add(closestPoint, flowVector);
     }
+
+
 }

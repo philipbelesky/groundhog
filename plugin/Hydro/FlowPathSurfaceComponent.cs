@@ -59,7 +59,7 @@ namespace groundhog
                 for (var i = 0; i < startPoints.Length; i = i + 1)
                     allFlowPathPoints[i] = DispatchFlowPoints(false, null, FLOW_BREP, startPoints[i]);
 
-            var outputs = FlowCalculations.MakeOutputs(allFlowPathPoints);
+            var outputs = FlowPathCalculations.MakeOutputs(allFlowPathPoints);
 
             // Assign variables to output parameters
             DA.SetDataTree(0, outputs.Item1);

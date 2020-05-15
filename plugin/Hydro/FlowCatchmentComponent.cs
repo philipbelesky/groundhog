@@ -48,23 +48,24 @@ namespace groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
-            // Create holder variables for input parameters
             var FLOW_PATHS = new List<Curve>();
-            double MIN_PROXIMITY = 0;
-
-            // Access and extract data from the input parameters individually
             DA.GetDataList(0, FLOW_PATHS);
-            DA.GetData(1, ref MIN_PROXIMITY);
+            FLOW_PATHS.RemoveAll(curve => curve == null); // Remove null items; can be due to passing in the points not the path
+            if (FLOW_PATHS.Count == 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
+                    "No Flow Paths provided or they were provided as an inappropriate geometry.");
+                return;
+            }
 
-            // TODO: add a warning/note that these should be a flat list
-            //AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Make a flat list");
+            double MIN_PROXIMITY = 0;
+            DA.GetData(1, ref MIN_PROXIMITY);
             if (MIN_PROXIMITY < 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Proximity threshold must be a positive number.");
                 return;
             }
-
-            if (MIN_PROXIMITY == 0)
+            else if (MIN_PROXIMITY == 0)
             {
                 Polyline samplePath; // Attempt to guess a good proximity amount
                 if (FLOW_PATHS[0].TryGetPolyline(out samplePath))
@@ -75,14 +76,7 @@ namespace groundhog
                 }
             }
 
-            // Remove null items; can be due to passing in the points not the path
-            FLOW_PATHS.RemoveAll(curve => curve == null);
-            if (FLOW_PATHS.Count == 0)
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
-                    "No Flow Paths provided or they were provided as an inappropriate geometry.");
-                return;
-            }
+            // End initial variable setup
 
             // Create the flowStructure objects
             var flowStructures = new List<FlowStructure>();
@@ -124,7 +118,6 @@ namespace groundhog
                     holdingListCurves[flowStructure.groupIndex] = new List<Curve>();
                     holdingListBounds[flowStructure.groupIndex] = new List<Polyline>();
                 }
-
                 holdingListCurves[flowStructure.groupIndex].Add(flowStructure.curve);
                 holdingListBounds[flowStructure.groupIndex].Add(flowStructure.catchment);
             }
@@ -153,8 +146,7 @@ namespace groundhog
 
                     holdingListBoundsCurves[v] = Curve.JoinCurves(sortedCurves);
                 }
-
-
+            
             // Create the branch structures where each path is a catchment group and add the relevant geometry
             var groupedCurves = new DataTree<Curve>();
             var groupedBounds = new DataTree<Curve>();

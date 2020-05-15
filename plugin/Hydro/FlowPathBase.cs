@@ -10,7 +10,7 @@ namespace groundhog.Hydro
     {
         protected double FLOW_FIDELITY = 1000.0;
         protected int FLOW_LIMIT;
-        protected List<Point3d> FLOW_ORIGINS = new List<Point3d>();
+        protected List<Point3d> FLOW_ORIGINS;
         protected Point3d[] startPoints;
         protected bool THREAD;
 
@@ -49,6 +49,7 @@ namespace groundhog.Hydro
 
         protected bool SetupSharedVariables(IGH_DataAccess DA, BoundingBox bbox)
         {
+            FLOW_ORIGINS = new List<Point3d>();
             if (!DA.GetDataList(1, FLOW_ORIGINS)) return false;
 
             // If referenced points get deleted in Rhino they default to 0,0,0 thus make a list that excludes these point types first
@@ -65,7 +66,7 @@ namespace groundhog.Hydro
             startPoints = validFlowPathPoints.ToArray(); // Array for multithreading
 
             DA.GetData(2, ref FLOW_FIDELITY);
-            if (FLOW_FIDELITY == 0) FLOW_FIDELITY = FlowCalculations.getSensibleFidelity(startPoints, bbox);
+            if (FLOW_FIDELITY == 0) FLOW_FIDELITY = FlowPathCalculations.getSensibleFidelity(startPoints, bbox);
 
             DA.GetData(3, ref FLOW_LIMIT);
             DA.GetData(4, ref THREAD);
@@ -115,7 +116,7 @@ namespace groundhog.Hydro
             // Get closest point
             FLOW_MESH.ClosestPoint(startPoint, out closestPoint, out closestNormal, maximumDistance);
             // Get the next point following the vector
-            var nextFlowPoint = FlowCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
+            var nextFlowPoint = FlowPathCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
             // Need to snap back to the surface (the vector may be pointing off the edge)
             return FLOW_MESH.ClosestPoint(nextFlowPoint);
         }
@@ -132,7 +133,7 @@ namespace groundhog.Hydro
             FLOW_SURFACE.ClosestPoint(startPoint, out closestPoint, out closestCI, out closestS, out closestT,
                 maximumDistance, out closestNormal);
             // Get the next point following the vector
-            var nextFlowPoint = FlowCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
+            var nextFlowPoint = FlowPathCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
             // Need to snap back to the surface (the vector may be pointing off the edge)
             return FLOW_SURFACE.ClosestPoint(nextFlowPoint);
         }
