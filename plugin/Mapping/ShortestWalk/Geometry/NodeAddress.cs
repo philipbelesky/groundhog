@@ -1,22 +1,22 @@
-﻿using System.Text;
+﻿using System;
 using System.Diagnostics;
-using System;
+using System.Text;
 
 namespace ShortestWalk.Geometry
 {
     /// <summary>
-    /// A node, or the location where edges are attached to eachother.
-    /// A NodeAddress does not store any Node index, it merely
-    /// bookmarks the positions where to look for Node indices
+    ///     A node, or the location where edges are attached to eachother.
+    ///     A NodeAddress does not store any Node index, it merely
+    ///     bookmarks the positions where to look for Node indices
     /// </summary>
     public struct NodeAddress
     {
-        int _edgeStart;
+        private int _edgeStart;
 
-        int _edgeCount;
+        private int _edgeCount;
 
         /// <summary>
-        /// Constructs a node from start location inside a topology and count
+        ///     Constructs a node from start location inside a topology and count
         /// </summary>
         /// <param name="edgeStart"></param>
         /// <param name="edgeCount"></param>
@@ -26,16 +26,13 @@ namespace ShortestWalk.Geometry
             _edgeCount = edgeCount;
 
 #if DEBUG
-            _topology = null;
+            Topology = null;
 #endif
         }
 
         internal int EdgeStart
         {
-            get
-            {
-                return _edgeStart;
-            }
+            get => _edgeStart;
             set
             {
                 DoNotAllowNegativeIndices(value);
@@ -44,14 +41,11 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        /// The number of edges at this Node
+        ///     The number of edges at this Node
         /// </summary>
         public int EdgeCount
         {
-            get
-            {
-                return _edgeCount;
-            }
+            get => _edgeCount;
             internal set
             {
                 DoNotAllowNegativeIndices(value);
@@ -67,7 +61,7 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        /// Retrieves the Topology edge index of the Edge at position i at this Node
+        ///     Retrieves the Topology edge index of the Edge at position i at this Node
         /// </summary>
         /// <param name="i">An index smaller than EdgeCount and larger than 0</param>
         /// <param name="top">The reference topology</param>
@@ -81,7 +75,7 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        /// Retrieves the Topology edge of the Edge at position i at this Node
+        ///     Retrieves the Topology edge of the Edge at position i at this Node
         /// </summary>
         /// <param name="i">An edge index smaller than EdgeCount and larger than 0</param>
         /// <param name="top">The reference topology</param>
@@ -95,7 +89,7 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        /// Retrieves the direction of the Edge at position i at this Node
+        ///     Retrieves the direction of the Edge at position i at this Node
         /// </summary>
         /// <param name="i">An edge index smaller than EdgeCount and larger than 0</param>
         /// <param name="top">The reference topology</param>
@@ -109,39 +103,27 @@ namespace ShortestWalk.Geometry
         }
 
         #region Debugging Help and ToString()
-#if DEBUG
-        private CurvesTopology _topology;
 
-        public CurvesTopology Topology
-        {
-            get
-            {
-                return _topology;
-            }
-            set
-            {
-                _topology = value;
-            }
-        }
+#if DEBUG
+
+        public CurvesTopology Topology { get; set; }
 
         public override string ToString()
         {
-            if (_topology != null)
+            if (Topology != null)
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append(EdgeIndexAt(0, _topology));
-                for (int i = 1; i < _edgeCount; i++)
+                var sb = new StringBuilder();
+                sb.Append(EdgeIndexAt(0, Topology));
+                for (var i = 1; i < _edgeCount; i++)
                 {
                     sb.Append(", ");
-                    sb.Append(EdgeIndexAt(i, _topology));
+                    sb.Append(EdgeIndexAt(i, Topology));
                 }
 
                 return sb.ToString();
             }
-            else
-            {
-                return "Set topology for preview";
-            }
+
+            return "Set topology for preview";
         }
 #else
         /// <summary>
@@ -155,6 +137,7 @@ namespace ShortestWalk.Geometry
                 );
         }
 #endif
+
         #endregion
     }
 }

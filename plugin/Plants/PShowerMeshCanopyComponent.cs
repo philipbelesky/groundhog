@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
 using groundhog.Properties;
 using Rhino.Geometry;
 

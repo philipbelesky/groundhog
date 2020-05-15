@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
-using groundhog.Properties;
-using Grasshopper;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
-using Rhino;
+using groundhog.Properties;
 using Rhino.Geometry;
+using Rhino.Geometry.Intersect;
 
 namespace groundhog
 {
     public class GroundhogChannelRegionComponent : GroundHogComponent
     {
         public GroundhogChannelRegionComponent()
-            : base("Channel Region", "CRegion", "Determine the submerged region of a channel given a quantity of water", "Groundhog", "Hydro")
+            : base("Channel Region", "CRegion", "Determine the submerged region of a channel given a quantity of water",
+                "Groundhog", "Hydro")
         {
         }
 
@@ -27,17 +25,25 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", "The sectional curve profile of the channel; must be planar and vertically-aligned (i.e. it fills up in the Z-axis)", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Area", "A", "The desired area of the flow body. If unspecified it will try to guess a sensible value to use that can serve as a reference", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Channel", "C",
+                "The sectional curve profile of the channel; must be planar and vertically-aligned (i.e. it fills up in the Z-axis)",
+                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Area", "A",
+                "The desired area of the flow body. If unspecified it will try to guess a sensible value to use that can serve as a reference",
+                GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Precision", "T", "The number of units to be accurate to in finding a matching area. If unspecified it will use 0.01% of the area. Smaller values will take longer to calculate.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Precision", "T",
+                "The number of units to be accurate to in finding a matching area. If unspecified it will use 0.01% of the area. Smaller values will take longer to calculate.",
+                GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel(s)", "C", "The perimeter(s) of the calculated water body or bodies", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Area(s)", "A", "The area of the calculated water body or bodies", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Channel(s)", "C", "The perimeter(s) of the calculated water body or bodies",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Area(s)", "A", "The area of the calculated water body or bodies",
+                GH_ParamAccess.list);
             // pManager.AddCurveParameter("DEBUG", "D", "The perimeter(s) of the calculated water body", GH_ParamAccess.tree); // DEBUG
         }
 
@@ -54,15 +60,20 @@ namespace groundhog
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
-            if (CHANNEL_CURVE.IsPlanar(docUnitTolerance) == false) // Need to be strict here else the area calculation will fail
+
+            if (CHANNEL_CURVE.IsPlanar(docUnitTolerance) == false
+            ) // Need to be strict here else the area calculation will fail
             {
                 // The plane from TryGetPlane() seems off; as a work-around make one assuming the curve's end points define a good plane
-                var yPoint = new Point3d(CHANNEL_CURVE.PointAtEnd.X, CHANNEL_CURVE.PointAtEnd.Y, CHANNEL_CURVE.PointAtEnd.Z + 100);
+                var yPoint = new Point3d(CHANNEL_CURVE.PointAtEnd.X, CHANNEL_CURVE.PointAtEnd.Y,
+                    CHANNEL_CURVE.PointAtEnd.Z + 100);
                 var curvePlane = new Plane(CHANNEL_CURVE.PointAtEnd, CHANNEL_CURVE.PointAtStart, yPoint);
                 CHANNEL_CURVE = Curve.ProjectToPlane(CHANNEL_CURVE, curvePlane);
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, "A non-planar curve has been provided as the channel section;" +
-                                                                 " it has been automatically converted into a planar curve");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    "A non-planar curve has been provided as the channel section;" +
+                    " it has been automatically converted into a planar curve");
             }
+
             var bbox = CHANNEL_CURVE.GetBoundingBox(true);
             if (!bbox.IsValid)
             {
@@ -71,33 +82,39 @@ namespace groundhog
             }
 
             // Area Validation + Guessing
-            double AREA_TARGET = 0.0;
+            var AREA_TARGET = 0.0;
             DA.GetData(1, ref AREA_TARGET);
             if (AREA_TARGET < 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area target must be greater than 0.");
                 return;
             }
+
             if (AREA_TARGET == 0)
             {
-                double[] boxDimensions = new double[3] { bbox.Diagonal.X, bbox.Diagonal.Y, bbox.Diagonal.Z };
+                var boxDimensions = new double[3] {bbox.Diagonal.X, bbox.Diagonal.Y, bbox.Diagonal.Z};
                 Array.Sort(boxDimensions); // If its the box of a planar curve one of the dimensions will be 0; need to sort + ignore
-                AREA_TARGET = boxDimensions[1] * boxDimensions[2] * 0.05; // Set area at 5% of bounding box area (bbox.Area property unavailable)
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"The area target was unpsecified so has been set to {AREA_TARGET}.");
+                AREA_TARGET =
+                    boxDimensions[1] * boxDimensions[2] *
+                    0.05; // Set area at 5% of bounding box area (bbox.Area property unavailable)
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    $"The area target was unpsecified so has been set to {AREA_TARGET}.");
             }
 
             // Precision Validation + Guessing
-            double AREA_PRECISION = 0.0;
+            var AREA_PRECISION = 0.0;
             DA.GetData(2, ref AREA_PRECISION);
             if (AREA_PRECISION < 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The area precision must be greater than 0.");
                 return;
             }
+
             if (AREA_PRECISION <= 0)
             {
                 AREA_PRECISION = AREA_TARGET * 0.01; // Default; overwritten if set
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"The area precision was unpsecified or less than 0 so has been set to {AREA_PRECISION}.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    $"The area precision was unpsecified or less than 0 so has been set to {AREA_PRECISION}.");
             }
 
             // Get the extremes of the curve
@@ -110,25 +127,22 @@ namespace groundhog
             // var debugProfiles = new DataTree<Curve>();  // DEBUG
 
             // Use bisect method to refine to the approximate area
-            double intervalBegin = lowerParam;
-            double intervalEnd = upperParam; 
+            var intervalBegin = lowerParam;
+            var intervalEnd = upperParam;
             double middle;
-            double lastArea = 0.0;
-            int iterations = 0;
-            double zPrecision = 0.00001;
+            var lastArea = 0.0;
+            var iterations = 0;
+            var zPrecision = 0.00001;
 
-            while ((intervalEnd - intervalBegin) > zPrecision)
+            while (intervalEnd - intervalBegin > zPrecision)
             {
                 // Test parameter is halfway between the current upper and lower Z-bounds
                 iterations += 1;
-                middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
+                middle = intervalBegin + (intervalEnd - intervalBegin) / 2;
 
                 // Find the actual channel geometries at that parameter
                 var testChannels = GetWaterChannelsAtZHeight(middle, CHANNEL_CURVE);
-                if (testChannels == null)
-                {
-                    break; // No test curve when <2 intersections; i.e. overflown perimeter
-                }
+                if (testChannels == null) break; // No test curve when <2 intersections; i.e. overflown perimeter
 
                 // Calculate its area
                 var calculatedAreas = GetAreasForWaterChannels(testChannels);
@@ -159,14 +173,11 @@ namespace groundhog
 
             if (!outputProfiles.Any())
             {
-                middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
+                middle = intervalBegin + (intervalEnd - intervalBegin) / 2;
                 var errorArea = Math.Round(lastArea, 2); // Round for concision
-                if (errorArea > 99)
-                {
-                    errorArea = Math.Round(errorArea);  // Round further for concision
-                }
+                if (errorArea > 99) errorArea = Math.Round(errorArea); // Round further for concision
 
-                if ((upperParam - middle) < (middle - lowerParam))
+                if (upperParam - middle < middle - lowerParam)
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                         $"Area of {AREA_TARGET} exceeded the profile's capacity (largest area found was {errorArea}). Decrease the area to produce a solution.");
                 else
@@ -186,11 +197,9 @@ namespace groundhog
             for (var i = 0; i < channels.Count; i = i + 1)
             {
                 var area_calc = AreaMassProperties.Compute(channels[i]);
-                if (area_calc != null)
-                {
-                    areas.Add(Math.Abs(area_calc.Area));
-                }
+                if (area_calc != null) areas.Add(Math.Abs(area_calc.Area));
             }
+
             return areas;
         }
 
@@ -200,7 +209,7 @@ namespace groundhog
             var test_plane = new Plane(new Point3d(0, 0, zHeight), new Vector3d(0, 0, 1));
 
             // Intersect Plane with the Curve to get water level(s)
-            var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, docUnitTolerance);
+            var intersections = Intersection.CurvePlane(CHANNEL_CURVE, test_plane, docUnitTolerance);
             if (intersections == null)
                 return null;
             if (intersections.Count < 2)
@@ -220,9 +229,7 @@ namespace groundhog
                     // Also add the next valid point along and skip processing it
                     i += 1;
                     if (i >= intersections.Count)
-                    {
                         break; // Only add to the list when there is another point to pair with
-                    }
                     validIntersections.Add(Tuple.Create(intersections[i].PointA, intersections[i].ParameterA));
                 }
             }
@@ -232,9 +239,7 @@ namespace groundhog
             for (var i = 0; i < validIntersections.Count; i = i + 2)
             {
                 if (i + 1 >= validIntersections.Count)
-                {
                     break; // Only add to the list when there is another point to pair with
-                }
                 var ixA = validIntersections[i];
                 var ixB = validIntersections[i + 1];
 
@@ -242,10 +247,11 @@ namespace groundhog
                 var wettedLine = CHANNEL_CURVE.Trim(ixA.Item2, ixB.Item2); // Get the sub-curve of the channel
                 var waterLine = new Line(ixA.Item1, ixB.Item1).ToNurbsCurve();
 
-                Curve[] channel = Curve.JoinCurves(new Curve[] { wettedLine, waterLine });
+                var channel = Curve.JoinCurves(new[] {wettedLine, waterLine});
                 if (channel.Length > 0)
                     channelCurves.Add(channel[0]);
             }
+
             return channelCurves;
         }
     }

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
-using groundhog.Properties;
-using Grasshopper;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
-using Rhino;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
@@ -14,7 +9,8 @@ namespace groundhog
     public class GroundhogChannelInfoComponent : GroundHogComponent
     {
         public GroundhogChannelInfoComponent()
-            : base("Channel Info", "CInfo", "Calculate characteristics of water flow in a channel from its submerged region", "Groundhog", "Hydro")
+            : base("Channel Info", "CInfo",
+                "Calculate characteristics of water flow in a channel from its submerged region", "Groundhog", "Hydro")
         {
         }
 
@@ -26,10 +22,14 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Channel", "C", "A closed planar curve representing a section of the water body; assumes a level top", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Roughness", "N", "Manning's roughness coefficient for the channel", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Channel", "C",
+                "A closed planar curve representing a section of the water body; assumes a level top",
+                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Roughness", "N", "Manning's roughness coefficient for the channel",
+                GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Slope", "S", "Slope of the hydraulic grade line as a decimal (i.e. rise/run = 0.5)", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Slope", "S",
+                "Slope of the hydraulic grade line as a decimal (i.e. rise/run = 0.5)", GH_ParamAccess.item);
             pManager[2].Optional = true;
         }
 
@@ -38,10 +38,14 @@ namespace groundhog
             pManager.AddNumberParameter("Area", "A", "Area of the channel", GH_ParamAccess.item);
             pManager.AddNumberParameter("Max Depth", "mD", "Maximum depth of the channel", GH_ParamAccess.item);
             pManager.AddNumberParameter("Mean Depth", "aD", "Mean depth of the channel", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Wetted Perimeter", "P", "Length of the channel in the boundary", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Hydraulic Radius", "R", "Ratio of area to wetted perimeter", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Velocity", "V", "Velocity of the water flow in the channel", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Discharge", "Q", "The rate of discharge in cubic document units per second", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Wetted Perimeter", "P", "Length of the channel in the boundary",
+                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Hydraulic Radius", "R", "Ratio of area to wetted perimeter",
+                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Velocity", "V", "Velocity of the water flow in the channel",
+                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Discharge", "Q", "The rate of discharge in cubic document units per second",
+                GH_ParamAccess.item);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -49,8 +53,8 @@ namespace groundhog
             // Create holder variables for input parameters
             var CHANNEL_CURVE = default(Curve);
             var CHANNEL_PLANE = default(Plane);
-            double GAUCKLER_MANNING = 0.0; // Default value
-            double SLOPE = 0.0; // Default value
+            var GAUCKLER_MANNING = 0.0; // Default value
+            var SLOPE = 0.0; // Default value
 
             // Access and extract data from the input parameters individually
             if (!DA.GetData(0, ref CHANNEL_CURVE)) return;
@@ -64,12 +68,14 @@ namespace groundhog
                     "A non-planar curve has been provided as the channel section; please ensure it is planar.");
                 return;
             }
+
             if (CHANNEL_CURVE.IsClosed == false)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A non-closed curve has been provided as the channel section; please ensure it is closed.");
                 return;
             }
+
             if (GAUCKLER_MANNING > 0 && SLOPE <= 0 || GAUCKLER_MANNING <= 0 && SLOPE > 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
@@ -91,17 +97,17 @@ namespace groundhog
             // Calculate the bounding box for the curve
             var bbox = CHANNEL_CURVE.GetBoundingBox(CHANNEL_PLANE);
 
-            double maxDepth = bbox.Diagonal.X; // Distance from high to low
-            double maxWidth = bbox.Diagonal.Y; // Distance from side to side
+            var maxDepth = bbox.Diagonal.X; // Distance from high to low
+            var maxWidth = bbox.Diagonal.Y; // Distance from side to side
 
             // Mean Depth = cross-sectional area divided by the surface width
-            double meanDepth = area.Value / maxWidth;
+            var meanDepth = area.Value / maxWidth;
 
             // Wetted Perimeter = the channel curve that is not the top segment
-            double wettedPerimeter = CHANNEL_CURVE.GetLength() - maxWidth; // Basically ignore the top channel
+            var wettedPerimeter = CHANNEL_CURVE.GetLength() - maxWidth; // Basically ignore the top channel
 
             // Hydraulic Radius = area divided by the wetted perimeter
-            double hydraulicRadius = area.Value / wettedPerimeter;
+            var hydraulicRadius = area.Value / wettedPerimeter;
 
             // Assign variables to output parameters
             DA.SetData(0, area);
@@ -113,8 +119,9 @@ namespace groundhog
             if (GAUCKLER_MANNING > 0 && SLOPE > 0)
             {
                 // Manning's Formula
-                double discharge = (1.00 / GAUCKLER_MANNING) * area.Value * Math.Pow(hydraulicRadius, 0.6666666) * Math.Sqrt(SLOPE);
-                double velocity = discharge / area.Value;
+                var discharge = 1.00 / GAUCKLER_MANNING * area.Value * Math.Pow(hydraulicRadius, 0.6666666) *
+                                Math.Sqrt(SLOPE);
+                var velocity = discharge / area.Value;
 
                 DA.SetData(5, velocity);
                 DA.SetData(6, discharge);

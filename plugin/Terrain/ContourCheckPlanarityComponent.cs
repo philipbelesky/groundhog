@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
 {
     public class GroundhogContourCheckPlanarityComponent : GroundHogComponent
     {
-
         public GroundhogContourCheckPlanarityComponent()
-            : base("Contour Planarity Fix", "Contour Planarity", "Checks contours are planar and corrects them if not", "Groundhog", "Terrain")
+            : base("Contour Planarity Fix", "Contour Planarity", "Checks contours are planar and corrects them if not",
+                "Groundhog", "Terrain")
         {
         }
 
@@ -29,8 +29,10 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("All Contours", "AC", "All contours whether or not they were fixed", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Fixed Contours", "FC", "Just the non-planar contours that were fixed", GH_ParamAccess.list);
+            pManager.AddCurveParameter("All Contours", "AC", "All contours whether or not they were fixed",
+                GH_ParamAccess.list);
+            pManager.AddCurveParameter("Fixed Contours", "FC", "Just the non-planar contours that were fixed",
+                GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -42,16 +44,20 @@ namespace groundhog
             if (!DA.GetDataList(0, ALL_CONTOURS)) return;
 
             // Input Validation
-            int preCullSize = ALL_CONTOURS.Count;
+            var preCullSize = ALL_CONTOURS.Count;
             ALL_CONTOURS.RemoveAll(item => item == null);
             if (ALL_CONTOURS.Count == 0)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
                 return;
             }
-            else if (ALL_CONTOURS.Count < preCullSize)
+
+            if (ALL_CONTOURS.Count < preCullSize)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, String.Format("{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.", preCullSize - ALL_CONTOURS.Count));
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    string.Format(
+                        "{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.",
+                        preCullSize - ALL_CONTOURS.Count));
             }
 
             // Create holder variables for ouput parameters
@@ -63,7 +69,7 @@ namespace groundhog
                 var degree = contour.Degree;
                 if (contour.IsPolyline())
                 {
-                    contour.TryGetPolyline(out Polyline contourPLine); // Convert to Polyline
+                    contour.TryGetPolyline(out var contourPLine); // Convert to Polyline
 
                     var zValues = GetZValues(new List<Point3d>(contourPLine.ToArray()));
 
@@ -111,6 +117,7 @@ namespace groundhog
                             tempPt.Z = medianZ;
                             contourNurbsCurve.Points[index] = new ControlPoint(tempPt, tempWeight);
                         }
+
                         fixedContours.Add(contourNurbsCurve);
                         allContours.Add(contourNurbsCurve);
                     }

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
-using Rhino.Geometry;
 
 namespace groundhog
 {
@@ -51,6 +47,7 @@ namespace groundhog
                 speciesName = "Unnamed";
                 warnings += "no Species name; ";
             }
+
             if (speciesInstance.ContainsKey("Common Name"))
             {
                 commonName = speciesInstance["Common Name"];
@@ -60,6 +57,7 @@ namespace groundhog
                 commonName = "Unnamed";
                 warnings += "no Common name; ";
             }
+
             if (speciesInstance.ContainsKey("Indigenous Name"))
             {
                 indigenousName = speciesInstance["Indigenous Name"];
@@ -102,6 +100,7 @@ namespace groundhog
                 initialCrownRadius = 10.0;
                 warnings += "no Initial Crown Radius; ";
             }
+
             if (speciesInstance.ContainsKey("Mature Crown Radius"))
             {
                 matureCrownRadius = Convert.ToDouble(speciesInstance["Mature Crown Radius"]);
@@ -111,6 +110,7 @@ namespace groundhog
                 matureCrownRadius = 10.0;
                 warnings += "no Mature Crown Radiu; s";
             }
+
             if (speciesInstance.ContainsKey("Crown Variance"))
             {
                 varianceCrownRadius = Convert.ToDouble(speciesInstance["Crown Variance"]);
@@ -120,6 +120,7 @@ namespace groundhog
                 varianceCrownRadius = 10.0;
                 warnings += "no Crown Variance; ";
             }
+
             if (speciesInstance.ContainsKey("Initial Trunk Radius"))
             {
                 initialTrunkRadius = Convert.ToDouble(speciesInstance["Initial Trunk Radius"]);
@@ -129,6 +130,7 @@ namespace groundhog
                 initialTrunkRadius = 10.0;
                 warnings += "no Initial Trunk Radius; ";
             }
+
             if (speciesInstance.ContainsKey("Mature Height"))
             {
                 matureTrunkRadius = Convert.ToDouble(speciesInstance["Mature Trunk Radius"]);
@@ -138,6 +140,7 @@ namespace groundhog
                 matureTrunkRadius = 100.0;
                 warnings += "no Mature Trunk Radius; ";
             }
+
             if (speciesInstance.ContainsKey("Trunk Variance"))
             {
                 varianceTrunkRadius = Convert.ToDouble(speciesInstance["Trunk Variance"]);
@@ -147,6 +150,7 @@ namespace groundhog
                 varianceTrunkRadius = 10.0;
                 warnings += "no Trunk Variance; ";
             }
+
             if (speciesInstance.ContainsKey("Initial Height"))
             {
                 initialHeight = Convert.ToDouble(speciesInstance["Initial Height"]);
@@ -156,6 +160,7 @@ namespace groundhog
                 initialHeight = 1000.0;
                 warnings += "no Initial Height; ";
             }
+
             if (speciesInstance.ContainsKey("Mature Height"))
             {
                 matureHeight = Convert.ToDouble(speciesInstance["Mature Height"]);
@@ -165,6 +170,7 @@ namespace groundhog
                 matureHeight = 1000.0;
                 warnings += "no Mature Height; ";
             }
+
             if (speciesInstance.ContainsKey("Height Variance"))
             {
                 varianceHeight = Convert.ToDouble(speciesInstance["Height Variance"]);
@@ -184,6 +190,7 @@ namespace groundhog
                 initialRootRadius = 1000.0;
                 warnings += "no Initial Root Radius; ";
             }
+
             if (speciesInstance.ContainsKey("Mature Root Radius"))
             {
                 matureRootRadius = Convert.ToDouble(speciesInstance["Mature Root Radius"]);
@@ -193,6 +200,7 @@ namespace groundhog
                 matureRootRadius = 1000.0;
                 warnings += "no Mature Root Radius; ";
             }
+
             if (speciesInstance.ContainsKey("Root Variance"))
             {
                 varianceRootRadius = Convert.ToDouble(speciesInstance["Root Variance"]);
@@ -213,6 +221,7 @@ namespace groundhog
                 displayR = 100;
                 warnings += "no Display R; ";
             }
+
             if (speciesInstance.ContainsKey("Display G"))
             {
                 displayG = Convert.ToInt16(speciesInstance["Display G"]);
@@ -222,6 +231,7 @@ namespace groundhog
                 displayG = 255;
                 warnings += "no Display G; ";
             }
+
             if (speciesInstance.ContainsKey("Display B"))
             {
                 displayB = Convert.ToInt16(speciesInstance["Display B"]);

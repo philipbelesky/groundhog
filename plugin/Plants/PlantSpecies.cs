@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Web.Security;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
@@ -32,7 +30,10 @@ namespace groundhog
 
         // Random seeds for variances (these are set during showers; not during init else they aren't unique 
         // As data is usually repeated in Grasshopper so object values are duplicated
-        private double crownVarianceMultiplier, heightVarianceMultiplier, rootVarianceMultiplier, trunkVarianceMultiplier;
+        private double crownVarianceMultiplier,
+            heightVarianceMultiplier,
+            rootVarianceMultiplier,
+            trunkVarianceMultiplier;
 
         // Init
         public PlantSpecies(
@@ -73,28 +74,25 @@ namespace groundhog
             this.displayG = displayG;
             this.displayB = displayB;
             // Fallbacks; should be overriden in showers
-            this.crownVarianceMultiplier = 1.0;
-            this.heightVarianceMultiplier = 1.0;
-            this.rootVarianceMultiplier = 1.0;
-            this.trunkVarianceMultiplier = 1.0;
+            crownVarianceMultiplier = 1.0;
+            heightVarianceMultiplier = 1.0;
+            rootVarianceMultiplier = 1.0;
+            trunkVarianceMultiplier = 1.0;
         }
-        
+
         public void SetVarianceValues(Random rand) // Rand can't be generated here as its time dependent = same values
         {
-            this.crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
-            this.heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
-            this.rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
-            this.trunkVarianceMultiplier = GetVarianceMultiplier(rand, varianceTrunkRadius);
+            crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
+            heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
+            rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
+            trunkVarianceMultiplier = GetVarianceMultiplier(rand, varianceTrunkRadius);
         }
 
         private double GetVarianceMultiplier(Random rand, double varianceValue)
         {
             var multiplier = rand.NextDouble() * varianceValue; // E.g. 0.5 * 20% = 10
-            if (rand.Next(2) > 0)
-            {
-                return 1 + (multiplier / 100); // E.g. 1 + (10 / 100) = 1.1
-            }
-            return 1 - (multiplier / 100); // E.g. 1 - (10 / 100) = 0.9
+            if (rand.Next(2) > 0) return 1 + multiplier / 100; // E.g. 1 + (10 / 100) = 1.1
+            return 1 - multiplier / 100; // E.g. 1 - (10 / 100) = 0.9
         }
 
         // Get current state
@@ -141,12 +139,14 @@ namespace groundhog
         public Mesh GetRootMesh(Point3d location, double time, int plantSides)
         {
             var rootBallBottomDisc = GetTrunkDisc(location, time);
-            var rootDepth = GetGrowth(initialRootRadius, matureRootRadius, time, rootVarianceMultiplier); // Assume approx spherical 
+            var rootDepth =
+                GetGrowth(initialRootRadius, matureRootRadius, time,
+                    rootVarianceMultiplier); // Assume approx spherical 
             rootBallBottomDisc.Translate(new Vector3d(0, 0, rootDepth * -1));
             return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }
 
-        private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference,  int plantSides)
+        private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference, int plantSides)
         {
             var mesh = new Mesh();
             var topPolygon = Polyline.CreateCircumscribedPolygon(topCircumference, plantSides * 2);
@@ -157,12 +157,13 @@ namespace groundhog
             mesh.Vertices.Add(topPolygon.CenterPoint());
 
             //// Build the edges of the canopy mesh 
-            mesh.Faces.AddFace(new MeshFace(0, plantSides + 1, mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
+            mesh.Faces.AddFace(new MeshFace(0, plantSides + 1,
+                mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
             for (var i = 1; i < plantSides; i++)
             {
-                int baseNodeIndex = (i * 2) + plantSides + 1;
+                var baseNodeIndex = i * 2 + plantSides + 1;
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex, baseNodeIndex - 1)); // Counter clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
@@ -170,9 +171,7 @@ namespace groundhog
 
             // Build the cap of the canopy mesh
             for (var i = plantSides + 1; i < mesh.Vertices.Count - 2; i++)
-            {
                 mesh.Faces.AddFace(new MeshFace(mesh.Vertices.Count - 1, i, i + 1));
-            }
 
             mesh.Normals.ComputeNormals();
             mesh.Compact();

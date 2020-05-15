@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using groundhog.Properties;
-using Grasshopper;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
 using groundhog.Hydro;
-using Rhino;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
@@ -27,7 +24,8 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as a mesh) for the flow calculation", GH_ParamAccess.item);
+            pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as a mesh) for the flow calculation",
+                GH_ParamAccess.item);
             base.RegisterInputParams(pManager);
         }
 
@@ -37,7 +35,8 @@ namespace groundhog
             DA.GetData(0, ref FLOW_MESH);
             if (FLOW_MESH == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Mesh input; please correct this input.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    "A null item has been provided as the Mesh input; please correct this input.");
                 return;
             }
 
@@ -50,7 +49,7 @@ namespace groundhog
             if (THREAD)
                 Parallel.For(0, startPoints.Length, i => // Shitty multithreading
                     {
-                        allFlowPathPoints[i] = DispatchFlowPoints(true, FLOW_MESH,  null, startPoints[i]);
+                        allFlowPathPoints[i] = DispatchFlowPoints(true, FLOW_MESH, null, startPoints[i]);
                     }
                 );
             else

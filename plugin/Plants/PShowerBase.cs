@@ -9,12 +9,12 @@ namespace groundhog
 {
     public abstract class PShowerBase : GroundHogComponent
     {
-        protected double PLANT_TIME = 10.0;
-        protected int PLANT_SIDES = 8;
-        protected List<Point3d> PLANT_LOCATIONS = new List<Point3d>();
-        protected List<PlantSpecies> PLANT_SPECIES = new List<PlantSpecies>();
         protected List<Color> allColours = new List<Color>();
         protected List<GH_String> allLabels = new List<GH_String>();
+        protected List<Point3d> PLANT_LOCATIONS = new List<Point3d>();
+        protected int PLANT_SIDES = 8;
+        protected List<PlantSpecies> PLANT_SPECIES = new List<PlantSpecies>();
+        protected double PLANT_TIME = 10.0;
 
         // Pass the constructor parameters up to the main GH_Component abstract class
         protected PShowerBase(string name, string nickname, string description)
@@ -72,23 +72,24 @@ namespace groundhog
                     "The specified time was less than zero so no species have been allocated locations.");
                 return false;
             }
-            
+
             if (PLANT_LOCATIONS.Count > PLANT_SPECIES.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more locations provided than species, so some locations have not been allocated plants");
                 PLANT_LOCATIONS.RemoveRange(PLANT_SPECIES.Count, PLANT_LOCATIONS.Count - PLANT_SPECIES.Count);
             }
+
             if (PLANT_SPECIES.Count > PLANT_LOCATIONS.Count)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     "There were more species provided than locations, so some species have not been allocated locations");
                 PLANT_SPECIES.RemoveRange(PLANT_LOCATIONS.Count, PLANT_SPECIES.Count - PLANT_LOCATIONS.Count);
             }
-   
+
             return true;
         }
-        
+
         protected PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, Random rand,
             List<GH_String> allLabels, List<Color> allColours)
         {

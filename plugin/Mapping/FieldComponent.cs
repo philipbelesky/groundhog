@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
-using Rhino;
+using groundhog.Properties;
 using Rhino.Geometry;
 using Point = System.Drawing.Point;
 
@@ -11,9 +10,9 @@ namespace groundhog
 {
     public class GroundhogFieldComponent : GroundHogComponent
     {
-
         public GroundhogFieldComponent()
-            : base("Field Mapper", "Field", "Create a field representation from collections of bounded curves/lines.", "Groundhog", "Mapping")
+            : base("Field Mapper", "Field", "Create a field representation from collections of bounded curves/lines.",
+                "Groundhog", "Mapping")
         {
         }
 
@@ -26,9 +25,13 @@ namespace groundhog
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddCurveParameter("Bounds", "B", "Boundary box for the resulting field", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Divisions", "D", "Sample points spacings for the resulting field (greatest extent in one direction)", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Divisions", "D",
+                "Sample points spacings for the resulting field (greatest extent in one direction)",
+                GH_ParamAccess.item);
             pManager.AddCurveParameter("Areas", "A", "Boundary box for the resulting field", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Z Range", "Z", "Maximum height of the surface field (defaults to 5% of boundary width/height)", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("Z Range", "Z",
+                "Maximum height of the surface field (defaults to 5% of boundary width/height)", GH_ParamAccess.item,
+                0.0);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -59,21 +62,24 @@ namespace groundhog
             // Input Validation
             if (gridDivisions < 4)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The number of grid divisions must be greater than 4 in order to create a field");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    "The number of grid divisions must be greater than 4 in order to create a field");
                 return;
             }
+
             if (!BOUNDARY.IsPlanar())
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not planar");
                 return;
             }
+
             if (!BOUNDARY.IsClosed)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not closed");
                 return;
             }
+
             for (var i = 0; i < areas.Count; i = i + 1)
-            {
                 if (areas[i] == null)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An area curve is not defined (null)");
@@ -89,7 +95,6 @@ namespace groundhog
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An area curve curve is not closed");
                     return;
                 }
-            }
 
             // Construct the bounding box for the search limits boundary; identify its extents and if its square
             var boundaryBox = BOUNDARY.GetBoundingBox(false); // False = uses estimate method
@@ -222,6 +227,7 @@ namespace groundhog
                         }
                 }
             }
+
             return isRect;
         }
 
@@ -288,6 +294,7 @@ namespace groundhog
                     break; // Found the closest neighbour so we break
                 }
             }
+
             return interpolatedOverlaps;
         }
 

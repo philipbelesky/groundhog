@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
@@ -10,7 +10,9 @@ namespace groundhog
     public class GroundhogSurfaceAspectComponent : GroundHogComponent
     {
         public GroundhogSurfaceAspectComponent()
-            : base("Surface Aspect", "Aspect", "Analyses the aspect of a Surface, outputting separated faces for coloring and the aspect", "Groundhog", "Terrain")
+            : base("Surface Aspect", "Aspect",
+                "Analyses the aspect of a Surface, outputting separated faces for coloring and the aspect", "Groundhog",
+                "Terrain")
         {
         }
 
@@ -22,7 +24,8 @@ namespace groundhog
         {
             pManager.AddSurfaceParameter("Surface", "S", "The terrain surface", GH_ParamAccess.item);
             pManager[0].Optional = false;
-            pManager.AddVectorParameter("Aspect", "A", "Vector representing the direction to measure aspect against", GH_ParamAccess.item, new Vector3d(0, 1, 0));
+            pManager.AddVectorParameter("Aspect", "A", "Vector representing the direction to measure aspect against",
+                GH_ParamAccess.item, new Vector3d(0, 1, 0));
             pManager[1].Optional = true;
             // TODO: add Mesh construction settings/parameters (Param_MeshParameters)
         }
@@ -30,8 +33,10 @@ namespace groundhog
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
-            pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Aspects", "A", "The aspect of each mesh face (measured in degrees)", GH_ParamAccess.list);
+            pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Aspects", "A", "The aspect of each mesh face (measured in degrees)",
+                GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -44,7 +49,7 @@ namespace groundhog
             if (!DA.GetData(1, ref ASPECT)) return;
 
             // Convert Surface to Mesh; TODO: expose mesh parameters; handle multiple outputs
-            Mesh[] PREMESH = Mesh.CreateFromBrep(SURFACE.ToBrep(), MeshingParameters.Default);
+            var PREMESH = Mesh.CreateFromBrep(SURFACE.ToBrep(), MeshingParameters.Default);
             var MESH = PREMESH[0];
 
             var subMeshes = TerrainCalculations.Explode(MESH);
@@ -52,7 +57,7 @@ namespace groundhog
             var subDirections = TerrainCalculations.GetDirections(subMeshes, subCentres);
             // This is the only step different to Slope; i.e. measure angle difference between slope and given vector
             var subAspects = GetAspects(subDirections, ASPECT);
-            
+
             // Assign variables to output parameters
             DA.SetDataList(0, subMeshes);
             DA.SetDataList(1, subCentres);
@@ -65,8 +70,7 @@ namespace groundhog
             // Need to measure with a specified plane so it doesn't return the smallest angle but rather the rotational/radial angle
             var leftPlane = new Plane(new Point3d(0, 0, 0), new Vector3d(0, 0, -1));
             foreach (var direction in subDirections)
-            {
-                if ((direction.X == 0 && direction.Y == 0) || direction.IsZero)
+                if (direction.X == 0 && direction.Y == 0 || direction.IsZero)
                 {
                     subAspects.Add(0); // On perfectly flat surfaces measured angles will produce an infinite Angle
                 }
@@ -75,7 +79,7 @@ namespace groundhog
                     var angle = Vector3d.VectorAngle(ASPECT, direction, leftPlane);
                     subAspects.Add(angle * (180 / Math.PI)); // Convert to radians
                 }
-            }
+
             return subAspects;
         }
 
@@ -94,7 +98,8 @@ namespace groundhog
                 var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
                 subAngles.Add(angle);
             }
+
             return subAngles;
         }
-}
+    }
 }

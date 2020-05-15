@@ -1,30 +1,33 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Globalization;
+using System.Reflection;
 using Grasshopper.Kernel;
 using Rhino;
-using Sentry;
-using Sentry.Protocol;
-
 
 namespace groundhog
 {
     public abstract class GroundHogComponent : GH_Component
     {
-        protected readonly double docUnitTolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
         protected readonly double docAngularTolerance = RhinoDoc.ActiveDoc.ModelAngleToleranceRadians;
+        protected readonly double docUnitTolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+
+        // Pass the constructor parameters up to the main GH_Component abstract class
+        protected GroundHogComponent(string name, string nickname, string description, string category,
+            string subCategory)
+            : base(name, nickname, description, category, subCategory)
+        {
+        }
 
         private Version getGroundHogVersion()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            return Assembly.GetExecutingAssembly().GetName().Version;
         }
 
         private string getNiceGroundHogVersion()
         {
-            var v = this.getGroundHogVersion();
-            return v.Major.ToString() + '.' + v.Minor.ToString() + '.' + v.Build.ToString();
+            var v = getGroundHogVersion();
+            return v.Major.ToString() + '.' + v.Minor + '.' + v.Build;
         }
-        
+
         // Components must implement the method
         protected abstract void GroundHogSolveInstance(IGH_DataAccess DA);
 
@@ -80,12 +83,5 @@ namespace groundhog
             }
 #endif
         }
-
-        // Pass the constructor parameters up to the main GH_Component abstract class
-        protected GroundHogComponent(string name, string nickname, string description, string category, string subCategory)
-            :base(name, nickname, description, category, subCategory) {
-        }
-
     }
-
 }

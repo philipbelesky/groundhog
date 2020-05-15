@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 
 namespace groundhog
 {
     public class GroundhogPGenericComponent : GroundHogComponent
     {
-
         public GroundhogPGenericComponent()
-            : base("Generic Species", "PGeneric", "Output plant objects from pre-defined generic types ", "Groundhog", "Flora")
+            : base("Generic Species", "PGeneric", "Output plant objects from pre-defined generic types ", "Groundhog",
+                "Flora")
         {
         }
 

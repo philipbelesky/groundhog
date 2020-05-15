@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Grasshopper;
 using Grasshopper.Kernel;
 using groundhog.Properties;
 
@@ -7,69 +8,33 @@ namespace groundhog
 {
     public class groundhogInfo : GH_AssemblyInfo
     {
-        public override string Name
-        {
-            get
-            {
-                return "Groundhog";
-            }
-        }
+        public override string Name => "Groundhog";
 
-        public override Bitmap Icon
-        {
-            get
-            {
-                return Resources.icon_groundhog;
-            }
-        }
-        public override string Description
-        {
-            get
-            {
-                //Return a short string describing the purpose of this GHA library.
-                return "";
-            }
-        }
-        public override Guid Id
-        {
-            get
-            {
-                return new Guid("7dc547b5-ca43-457d-a3e2-8286f0784ad0");
-            }
-        }
+        public override Bitmap Icon => Resources.icon_groundhog;
 
-        public override GH_LibraryLicense AssemblyLicense
-        {
-            get
-            {
-                return GH_LibraryLicense.opensource;
-            }
-        }
+        public override string Description =>
+            //Return a short string describing the purpose of this GHA library.
+            "";
 
-        public override string AuthorName
-        {
-            get
-            {
-                //Return a string identifying you or your company.
-                return "Philip Belesky";
-            }
-        }
-        public override string AuthorContact
-        {
-            get
-            {
-                //Return a string representing your preferred contact details.
-                return "contact@philipbelesky.com";
-            }
-        }
+        public override Guid Id => new Guid("7dc547b5-ca43-457d-a3e2-8286f0784ad0");
+
+        public override GH_LibraryLicense AssemblyLicense => GH_LibraryLicense.opensource;
+
+        public override string AuthorName =>
+            //Return a string identifying you or your company.
+            "Philip Belesky";
+
+        public override string AuthorContact =>
+            //Return a string representing your preferred contact details.
+            "contact@philipbelesky.com";
     }
 
-    class GroundHogTab : GH_AssemblyPriority
+    internal class GroundHogTab : GH_AssemblyPriority
     {
         public override GH_LoadingInstruction PriorityLoad()
         {
             // Icon used in the components tabs
-            Grasshopper.Instances.ComponentServer.AddCategoryIcon("Groundhog", Resources.icon_groundhog);
+            Instances.ComponentServer.AddCategoryIcon("Groundhog", Resources.icon_groundhog);
             return GH_LoadingInstruction.Proceed;
         }
     }

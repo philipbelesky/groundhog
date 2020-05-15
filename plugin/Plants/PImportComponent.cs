@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
+using groundhog.Properties;
 
 namespace groundhog
 {
     public class GroundhogPImportComponent : GroundHogComponent
     {
-
         public GroundhogPImportComponent()
-            : base("Species Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog", "Flora")
+            : base("Species Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog",
+                "Flora")
         {
         }
 
@@ -23,7 +23,8 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("CSV File", "C", "The contents of a CSV file (use the output of a Read File component", GH_ParamAccess.list);
+            pManager.AddGenericParameter("CSV File", "C",
+                "The contents of a CSV file (use the output of a Read File component", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -46,12 +47,15 @@ namespace groundhog
             // Validation
             if (csvContents.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An invalid CSV path or empty CSV has been provided so there is nothing to import.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    "An invalid CSV path or empty CSV has been provided so there is nothing to import.");
                 return;
             }
+
             if (csvContents.Count == 1)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Your CSV file has ony 1 line; it must be missing either the headers or any species.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    "Your CSV file has ony 1 line; it must be missing either the headers or any species.");
                 return;
             }
 
@@ -62,18 +66,19 @@ namespace groundhog
             foreach (var csvValue in csvContents)
             {
                 if (csvValue.Trim() == "") // Skip blank lines
-                {                    
                     continue;
-                }
 
                 var instanceDictionary = new Dictionary<string, string>();
                 try
                 {
                     instanceDictionary = PlantFactory.ParseToDictionary(csvHeaders, csvValue);
                 }
-                catch (System.IndexOutOfRangeException e)  // CS0168
+                catch (IndexOutOfRangeException e) // CS0168
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, String.Format("Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}; the error is {1}", csvValue, e));
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                        string.Format(
+                            "Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}; the error is {1}",
+                            csvValue, e));
                     continue;
                 }
 

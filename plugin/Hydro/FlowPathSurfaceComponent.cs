@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using groundhog.Properties;
-using Grasshopper;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
-using Rhino;
-using Rhino.Geometry;
-using System.Linq;
 using groundhog.Hydro;
+using groundhog.Properties;
+using Rhino.Geometry;
 
 namespace groundhog
 {
@@ -28,19 +24,22 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as a surface) for the flow calculation", GH_ParamAccess.item);
+            pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as a surface) for the flow calculation",
+                GH_ParamAccess.item);
             base.RegisterInputParams(pManager);
         }
-        
+
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             var FLOW_SURFACE = default(Surface);
             DA.GetData(0, ref FLOW_SURFACE);
             if (FLOW_SURFACE == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Surface input; please correct this input.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    "A null item has been provided as the Surface input; please correct this input.");
                 return;
             }
+
             var FLOW_BREP = default(Brep);
             if (FLOW_SURFACE != default(Surface)) FLOW_BREP = FLOW_SURFACE.ToBrep();
 

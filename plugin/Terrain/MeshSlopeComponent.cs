@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 using Rhino.Geometry;
 
 namespace groundhog
@@ -10,7 +10,9 @@ namespace groundhog
     public class GroundhogMeshSlopeComponent : GroundHogComponent
     {
         public GroundhogMeshSlopeComponent()
-            : base("Mesh Slope", "Slope", "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade", "Groundhog", "Terrain")
+            : base("Mesh Slope", "Slope",
+                "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade",
+                "Groundhog", "Terrain")
         {
         }
 
@@ -27,11 +29,16 @@ namespace groundhog
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
-            pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
-            pManager.AddVectorParameter("Face Vectors", "V", "The direction to the lowest points of each face", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Slopes °", "A", "The slope of each mesh face, as the angle of inline", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Slopes %", "P", "The slope of each mesh face, as a percentage", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Slopes :", "P", "The slope of each mesh face, as the denominator of a ratio (i.e. 1:x)", GH_ParamAccess.list);
+            pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)",
+                GH_ParamAccess.list);
+            pManager.AddVectorParameter("Face Vectors", "V", "The direction to the lowest points of each face",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Slopes °", "A", "The slope of each mesh face, as the angle of inline",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Slopes %", "P", "The slope of each mesh face, as a percentage",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Slopes :", "P",
+                "The slope of each mesh face, as the denominator of a ratio (i.e. 1:x)", GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -46,7 +53,7 @@ namespace groundhog
             var subAngles = GetAngles(MESH);
 
             // Calculate ratios from angles
-            var subPercentiles= new List<double>();
+            var subPercentiles = new List<double>();
             foreach (var angle in subAngles)
             {
                 var radians = Math.PI * angle / 180.0;
@@ -55,10 +62,7 @@ namespace groundhog
 
             // Calculate ratio from percentiles
             var subRatioDenominators = new List<double>();
-            foreach (var percentage in subPercentiles)
-            {
-                subRatioDenominators.Add(100 / percentage);
-            }
+            foreach (var percentage in subPercentiles) subRatioDenominators.Add(100 / percentage);
 
             // Assign variables to output parameters
             DA.SetDataList(0, subMeshes);
@@ -80,17 +84,16 @@ namespace groundhog
             }
 
             foreach (var normal in normals)
-            {
                 if (normal.X == 0 && normal.Y == 0)
                 {
                     subAngles.Add(0); // On perfectly flat surfaces measured angles will produce an infinite number
-                } 
+                }
                 else
                 {
                     var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
                     subAngles.Add(angle);
-                } 
-            }
+                }
+
             return subAngles;
         }
     }
