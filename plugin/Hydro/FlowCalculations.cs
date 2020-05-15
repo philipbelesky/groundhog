@@ -36,7 +36,7 @@ public static class FlowCalculations
         var sensibleDistance = averageDistance / 5;
         return sensibleDistance;
     }
-
+    
     public static Tuple<Grasshopper.DataTree<object>, List<Polyline>> MakeOutputs(List<Point3d>[] flowPathPoints)
     {
         var allFlowPathPointsTree = new Grasshopper.DataTree<object>();

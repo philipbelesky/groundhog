@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
+using Rhino;
 using Rhino.Geometry;
 
 namespace groundhog.Hydro
@@ -66,7 +67,73 @@ namespace groundhog.Hydro
 
             return true;
         }
+        
+        protected List<Point3d> DispatchFlowPoints(bool isMesh, Mesh flowMesh, Brep flowBrep, Point3d initialStartPoint)
+        {
+            var flowPoints = new List<Point3d>(); // Holds each step
 
+            if (isMesh)
+                flowPoints.Add(flowMesh.ClosestPoint(initialStartPoint));
+            else
+                flowPoints.Add(flowBrep.ClosestPoint(initialStartPoint));
 
+            var startPoint = flowPoints[flowPoints.Count - 1];
+            while (true)
+            {
+                Point3d nextPoint;
+                if (isMesh)
+                {
+                    nextPoint = GetNextFlowStepOnMesh(flowMesh, startPoint);
+                }
+                else
+                {
+                    nextPoint = GetNextFlowStepOnSurface(flowBrep, startPoint);
+                }
+                
+                if (nextPoint.DistanceTo(startPoint) <= RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
+                    break; // Test the point has actully moved
+                if (nextPoint.Z >= startPoint.Z && FLOW_FIDELITY > 0) // When going downhill; break on moving up
+                    break; // Test this point is actually lower
+                if (nextPoint.Z <= startPoint.Z && FLOW_FIDELITY < 0) // When going uphill; break on moving down
+                    break; // Test this point is actually lower
+                flowPoints.Add(nextPoint);
+                if (FLOW_LIMIT != 0 && FLOW_LIMIT <= flowPoints.Count)
+                    break; // Stop if iteration limit reached
+                startPoint = nextPoint; // Checks out; iterate on
+            }
+
+            return flowPoints;
+        }
+        
+        private Point3d GetNextFlowStepOnMesh(Mesh FLOW_MESH, Point3d startPoint)
+        {
+            double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
+            Vector3d closestNormal;
+            Point3d closestPoint;
+
+            // Get closest point
+            FLOW_MESH.ClosestPoint(startPoint, out closestPoint, out closestNormal, maximumDistance);
+            // Get the next point following the vector
+            var nextFlowPoint = FlowCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
+            // Need to snap back to the surface (the vector may be pointing off the edge)
+            return FLOW_MESH.ClosestPoint(nextFlowPoint);
+        }
+        
+        private Point3d GetNextFlowStepOnSurface(Brep FLOW_SURFACE, Point3d startPoint)
+        {
+            double closestS, closestT;
+            double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
+            Vector3d closestNormal;
+            ComponentIndex closestCI;
+            Point3d closestPoint;
+
+            // Get closest point
+            FLOW_SURFACE.ClosestPoint(startPoint, out closestPoint, out closestCI, out closestS, out closestT,
+                maximumDistance, out closestNormal);
+            // Get the next point following the vector
+            var nextFlowPoint = FlowCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
+            // Need to snap back to the surface (the vector may be pointing off the edge)
+            return FLOW_SURFACE.ClosestPoint(nextFlowPoint);
+        }
     }
 }

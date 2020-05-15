@@ -50,66 +50,21 @@ namespace groundhog
             // End initial variable setup
 
             var allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
-            var flowPoints = new List<Point3d>();
             if (THREAD)
                 Parallel.For(0, startPoints.Length, i => // Shitty multithreading
                     {
-                        allFlowPathPoints[i] = DispatchFlowPoints(FLOW_BREP, startPoints[i], FLOW_FIDELITY, FLOW_LIMIT);
+                        allFlowPathPoints[i] = DispatchFlowPoints(false, null, FLOW_BREP, startPoints[i]);
                     }
                 );
             else
                 for (var i = 0; i < startPoints.Length; i = i + 1)
-                    allFlowPathPoints[i] = DispatchFlowPoints(FLOW_BREP, startPoints[i], FLOW_FIDELITY, FLOW_LIMIT);
+                    allFlowPathPoints[i] = DispatchFlowPoints(false, null, FLOW_BREP, startPoints[i]);
 
             var outputs = FlowCalculations.MakeOutputs(allFlowPathPoints);
+
             // Assign variables to output parameters
             DA.SetDataTree(0, outputs.Item1);
             DA.SetDataList(1, outputs.Item2);
-        }
-
-        private List<Point3d> DispatchFlowPoints(Brep FLOW_SURFACE, Point3d initialStartPoint,
-                                                 double MOVE_DISTANCE, int FLOW_LIMIT)
-        {
-            var flowPoints = new List<Point3d>(); // Holds each step
-
-            var startPoint = FLOW_SURFACE.ClosestPoint(initialStartPoint);
-            flowPoints.Add(startPoint);
-
-            while (true)
-            {
-                Point3d nextPoint;
-                nextPoint = GetNextFlowStepOnSurface(FLOW_SURFACE, startPoint, MOVE_DISTANCE);
-
-                if (nextPoint.DistanceTo(startPoint) <= RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
-                    break; // Test the point has actully moved
-                if (nextPoint.Z >= startPoint.Z && MOVE_DISTANCE > 0) // When going downhill; break on moving up
-                    break; // Test this point is actually lower
-                if (nextPoint.Z <= startPoint.Z && MOVE_DISTANCE < 0) // When going uphill; break on moving down
-                    break; // Test this point is actually lower
-                flowPoints.Add(nextPoint);
-                if (FLOW_LIMIT != 0 && FLOW_LIMIT <= flowPoints.Count)
-                    break; // Stop if iteration limit reached
-                startPoint = nextPoint; // Checks out; iterate on
-            }
-
-            return flowPoints;
-        }
-
-        private Point3d GetNextFlowStepOnSurface(Brep FLOW_SURFACE, Point3d startPoint, double MOVE_DISTANCE)
-        {
-            double closestS, closestT;
-            double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
-            Vector3d closestNormal;
-            ComponentIndex closestCI;
-            Point3d closestPoint;
-
-            // Get closest point
-            FLOW_SURFACE.ClosestPoint(startPoint, out closestPoint, out closestCI, out closestS, out closestT,
-                                      maximumDistance, out closestNormal);
-            // Get the next point following the vector
-            var nextFlowPoint = FlowCalculations.MoveFlowPoint(closestNormal, closestPoint, MOVE_DISTANCE);
-            // Need to snap back to the surface (the vector may be pointing off the edge)
-            return FLOW_SURFACE.ClosestPoint(nextFlowPoint);
         }
     }
 }
