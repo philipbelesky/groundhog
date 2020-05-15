@@ -11,6 +11,7 @@
 - Flow components can now trace uphill paths with negative distances
 - Flow catchments component now guesses a proximity threshold if one is not set
 - Plant components actually use variance values
+- Added "Volume %" output to catchment component to easily display the % of flow paths terminating within an area
 
 #### [0.10.2] - 2019-04-09
 ###### Fixed

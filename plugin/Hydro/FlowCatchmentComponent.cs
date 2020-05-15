@@ -42,6 +42,8 @@ namespace groundhog
             pManager.AddCurveParameter("Flow Paths", "P", "The flow paths grouped by catchment", GH_ParamAccess.tree);
             pManager.AddColourParameter("Color Codes", "C", "Colour codes the uniquely identify each path and boundary",
                 GH_ParamAccess.tree);
+            pManager.AddNumberParameter("Volumes %", "V", "The % of the total flow paths that drain to this area",
+                GH_ParamAccess.tree);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -157,6 +159,7 @@ namespace groundhog
             var groupedCurves = new DataTree<Curve>();
             var groupedBounds = new DataTree<Curve>();
             var groupedColors = new DataTree<Color>();
+            var groupedVolumes = new DataTree<double>();
 
             // We want the colors to randomly pick from an available index as their seed; otherwise adjacent cells have similar valuesList<int> iList = new List<int>();
             var colorIndices = Enumerable.Range(0, holdingListCurves.Length).ToList();
@@ -169,18 +172,22 @@ namespace groundhog
                     groupedCurves.EnsurePath(nextPath);
                     groupedBounds.EnsurePath(nextPath);
                     groupedColors.EnsurePath(nextPath);
+                    groupedVolumes.EnsurePath(nextPath);
                     groupedCurves.AddRange(holdingListCurves[i], groupedCurves.Path(nextPath));
                     groupedBounds.AddRange(holdingListBoundsCurves[i], groupedBounds.Path(nextPath));
                     groupedColors.AddRange(
                         GenerateGroupColors(shuffledIndices.ElementAt(i), holdingListCurves[i].Count,
                             holdingListCurves.Length), groupedColors.Path(nextPath)
                     );
+                    double flowVolumesPercent = (double)holdingListCurves[i].Count / FLOW_PATHS.Count;
+                    groupedVolumes.Add(flowVolumesPercent);
                 }
 
             // Assign variables to output parameters
             DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
             DA.SetDataTree(2, groupedColors);
+            DA.SetDataTree(3, groupedVolumes);
         }
 
         private List<Color> GenerateGroupColors(int groupIndex, int groupSize, int groupsCount)
@@ -262,7 +269,6 @@ namespace groundhog
                 lines.RemoveAt(indice);
             return lines;
         }
-
 
         private void CreateVoronoi(List<FlowStructure> flowStructures)
         {

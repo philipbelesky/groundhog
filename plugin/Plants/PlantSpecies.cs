@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Drawing;
+using GH_IO;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
+using groundhog;
 using Rhino.Geometry;
 
 namespace groundhog
 {
+    public interface Plant_IGH_Goo : IGH_Goo
+    {
+
+    }
+    
     public class PlantSpecies : GH_Param<IGH_Goo>
     {
         // Aesthetics
@@ -34,7 +41,7 @@ namespace groundhog
             heightVarianceMultiplier,
             rootVarianceMultiplier,
             trunkVarianceMultiplier;
-
+        
         // Init
         public PlantSpecies(
             string speciesName, string commonName, string indigenousName,
@@ -189,15 +196,14 @@ namespace groundhog
         }
 
         #region casting
-
+        
         protected override IGH_Goo InstantiateT()
         {
             return new GH_ObjectWrapper();
         }
 
         #endregion
-
-
+        
         #region properties
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
