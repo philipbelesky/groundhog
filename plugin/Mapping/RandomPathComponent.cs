@@ -98,7 +98,7 @@ namespace groundhog
                 }
                 for (int i = 0; i < PATH_ORIGINS.Count; i++)
                 {
-                    if (BOUNDARY.Contains(PATH_ORIGINS[i]) == PointContainment.Outside)
+                    if (BOUNDARY.Contains(PATH_ORIGINS[i], Plane.WorldXY, docUnitTolerance) == PointContainment.Outside)
                     {
                         AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "If using a boundary curve all points must start within in.");
                         return;
@@ -150,7 +150,7 @@ namespace groundhog
                 {
                     var stepPoint = GetNextStepPoint(stepPoints[step - 1], DIRECTIONS, STEP_SIZES, rnd);
                     attempts++;
-                    if (BOUNDARY == null || BOUNDARY.Contains(stepPoint) != PointContainment.Outside)
+                    if (BOUNDARY == null || BOUNDARY.Contains(stepPoint, Plane.WorldXY, docUnitTolerance) != PointContainment.Outside)
                     {
                         stepPoints.Add(stepPoint);
                         break;

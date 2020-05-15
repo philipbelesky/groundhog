@@ -51,7 +51,6 @@ namespace groundhog
             if (!DA.GetDataList(2, areas)) return;
             if (!DA.GetData(3, ref zRange)) return;
 
-            var TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             var FIDELITY = Convert.ToInt32(gridDivisions);
             var BOUNDARY = gridBounds;
             var ALL_DATA_REGIONS = areas;
@@ -94,7 +93,7 @@ namespace groundhog
 
             // Construct the bounding box for the search limits boundary; identify its extents and if its square
             var boundaryBox = BOUNDARY.GetBoundingBox(false); // False = uses estimate method
-            var BOUNDARY_IS_RECT = IsBoundaryRect(BOUNDARY, TOLERANCE);
+            var BOUNDARY_IS_RECT = IsBoundaryRect(BOUNDARY);
 
             // Construct the boundary boxes for the search targets
             var regionBoxes = new List<BoundingBox>();
@@ -125,7 +124,7 @@ namespace groundhog
             for (var i = 0; i < regionBoxes.Count; i = i + 1)
             {
                 // Construct a tuple to stuff state into the callback
-                var data = Tuple.Create(i, gridPts, ALL_DATA_REGIONS, xGridExtents, yGridExtents, TOLERANCE);
+                var data = Tuple.Create(i, gridPts, ALL_DATA_REGIONS, xGridExtents, yGridExtents);
                 rTree.Search(regionBoxes[i], RegionOverlapCallback, data);
             }
 
@@ -182,7 +181,6 @@ namespace groundhog
             var overlapRegion = data.Item3[regionIndex];
             var xExtents = data.Item4;
             var yExtents = data.Item5;
-            var tolerance = data.Item6;
 
             // Using the known GridPt 2D array bounds, locate the 2D indices from the 1D dataIndex
             //Print("regionOverlapCallback (start) xExtents={0} yExtents={1}", xExtents, yExtents);
@@ -196,13 +194,13 @@ namespace groundhog
 
             var worldXY = Plane.WorldXY;
             var isOutside = PointContainment.Outside;
-            var containmentTest = overlapRegion.Contains(overlappingPt.Location, worldXY, tolerance);
+            var containmentTest = overlapRegion.Contains(overlappingPt.Location, worldXY, docUnitTolerance);
             if (containmentTest != isOutside)
                 overlappingPt.BaseOverlaps += 1;
             //Print("\n");
         }
 
-        private bool IsBoundaryRect(Curve BOUNDARY, double TOLERANCE)
+        private bool IsBoundaryRect(Curve BOUNDARY)
         {
             var isRect = false;
             if (BOUNDARY.IsPolyline())
@@ -213,13 +211,13 @@ namespace groundhog
                 {
                     var edges = BOUNDARY_PLINE.GetSegments();
                     // Is each pair of segments the same length?
-                    if (Math.Abs(edges[0].Length - edges[1].Length) < TOLERANCE)
-                        if (Math.Abs(edges[0].Length - edges[1].Length) < TOLERANCE)
+                    if (Math.Abs(edges[0].Length - edges[1].Length) < docUnitTolerance)
+                        if (Math.Abs(edges[0].Length - edges[1].Length) < docUnitTolerance)
                         {
                             // Are each of the diagonals the same length?
                             var diagonalA = edges[0].From.DistanceTo(edges[2].From);
                             var diagonalB = edges[1].From.DistanceTo(edges[3].From);
-                            if (Math.Abs(diagonalA - diagonalB) < TOLERANCE)
+                            if (Math.Abs(diagonalA - diagonalB) < docUnitTolerance)
                                 isRect = true;
                         }
                 }
@@ -366,7 +364,7 @@ namespace groundhog
                 var isOutside = PointContainment.Outside;
                 for (var x = 0; x < gridPts.GetLength(0); x++)
                 for (var y = 0; y < gridPts.GetLength(1); y++)
-                    if (BOUNDARY.Contains(gridPts[x, y].Location) == isOutside)
+                    if (BOUNDARY.Contains(gridPts[x, y].Location, Plane.WorldXY, docUnitTolerance) == isOutside)
                         gridPts[x, y].InsideBoundary = false;
             }
 

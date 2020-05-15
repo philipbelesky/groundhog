@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using Grasshopper.Kernel;
+using Rhino;
 using Sentry;
 using Sentry.Protocol;
 
@@ -10,6 +11,9 @@ namespace groundhog
 {
     public abstract class GroundHogComponent : GH_Component
     {
+        protected readonly double docUnitTolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
+        protected readonly double docAngularTolerance = RhinoDoc.ActiveDoc.ModelAngleToleranceRadians;
+
         private Version getGroundHogVersion()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

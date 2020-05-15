@@ -83,7 +83,7 @@ namespace groundhog
 
                     if (gridBoundary != null)
                     {
-                        var pointContainment = gridBoundary.Contains(point);
+                        var pointContainment = gridBoundary.Contains(point, Plane.WorldXY, docUnitTolerance);
                         if (pointContainment.ToString() == "Inside")
                         {
                             inBoundsPoints.Add(point);

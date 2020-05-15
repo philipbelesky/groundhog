@@ -46,7 +46,6 @@ namespace groundhog
             // Create holder variables for input parameters
             var FLOW_PATHS = new List<Curve>();
             double MIN_PROXIMITY = 0;
-            var TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
 
             // Access and extract data from the input parameters individually
             DA.GetDataList(0, FLOW_PATHS);
@@ -94,7 +93,7 @@ namespace groundhog
                     {
                         var searchPt = searchFlowStructure.end;
                         var distance = originPt.DistanceTo(searchPt);
-                        if (distance <= searchFlowStructure.groupDistance + TOLERANCE)
+                        if (distance <= searchFlowStructure.groupDistance + docUnitTolerance)
                         {
                             // Then check if its closer to the previous match (and by default: the proximity)
                             searchFlowStructure.groupIndex = originFlowStructure.groupIndex;
@@ -138,7 +137,7 @@ namespace groundhog
                         }
                     }
 
-                    var culledEdges = DeduplicateLines(groupEdges, TOLERANCE);
+                    var culledEdges = DeduplicateLines(groupEdges);
 
                     var sortedCurves = new List<Curve>();
                     foreach (var line in culledEdges)
@@ -227,7 +226,7 @@ namespace groundhog
             return value;
         }
 
-        private List<Line> DeduplicateLines(List<Line> inputLines, double tolerance)
+        private List<Line> DeduplicateLines(List<Line> inputLines)
         {
             var lines = inputLines.OrderBy(o => o.Length).ToList(); // Sort so we can break after a no match
             var duplicateIndices = new List<int>();
@@ -240,7 +239,7 @@ namespace groundhog
                 var d3 = Math.Abs(lines[i].To.DistanceTo(lines[j].From));
                 var d4 = Math.Abs(lines[i].To.DistanceTo(lines[j].To));
 
-                if ((d1 < tolerance || d2 < tolerance) && (d3 < tolerance || d4 < tolerance))
+                if ((d1 < docUnitTolerance || d2 < docUnitTolerance) && (d3 < docUnitTolerance || d4 < docUnitTolerance))
                 {
                     duplicateIndices.Add(j);
                     duplicateIndices.Add(i);

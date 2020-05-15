@@ -82,11 +82,11 @@ namespace groundhog
                 fixedContours.Add(contour);
                 if (contour.IsClosed == false)
                 {
-                    var pointContainmentS = BOUNDARY.Contains(contour.PointAtStart);
+                    var pointContainmentS = BOUNDARY.Contains(contour.PointAtStart, Plane.WorldXY, docUnitTolerance);
                     if (pointContainmentS.ToString() == "Inside")
                         possibleSplitPoints.Add(contour.PointAtStart);
 
-                    var pointContainmentE = BOUNDARY.Contains(contour.PointAtEnd);
+                    var pointContainmentE = BOUNDARY.Contains(contour.PointAtEnd, Plane.WorldXY, docUnitTolerance);
                     if (pointContainmentE.ToString() == "Inside")
                         possibleSplitPoints.Add(contour.PointAtEnd);
                 }

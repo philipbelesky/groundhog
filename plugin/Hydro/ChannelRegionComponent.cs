@@ -44,7 +44,6 @@ namespace groundhog
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
             // Create holder variables for input parameters
-            double TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance; // Default; overwritten if set
             var CHANNEL_CURVE = default(Curve);
 
             // Curve Validation
@@ -55,7 +54,7 @@ namespace groundhog
                     "A null item has been provided as the Channel input; please correct this input.");
                 return;
             }
-            if (CHANNEL_CURVE.IsPlanar(TOLERANCE) == false) // Need to be strict here else the area calculation will fail
+            if (CHANNEL_CURVE.IsPlanar(docUnitTolerance) == false) // Need to be strict here else the area calculation will fail
             {
                 // The plane from TryGetPlane() seems off; as a work-around make one assuming the curve's end points define a good plane
                 var yPoint = new Point3d(CHANNEL_CURVE.PointAtEnd.X, CHANNEL_CURVE.PointAtEnd.Y, CHANNEL_CURVE.PointAtEnd.Z + 100);
@@ -125,7 +124,7 @@ namespace groundhog
                 middle = intervalBegin + ((intervalEnd - intervalBegin) / 2);
 
                 // Find the actual channel geometries at that parameter
-                var testChannels = GetWaterChannelsAtZHeight(middle, CHANNEL_CURVE, TOLERANCE);
+                var testChannels = GetWaterChannelsAtZHeight(middle, CHANNEL_CURVE);
                 if (testChannels == null)
                 {
                     break; // No test curve when <2 intersections; i.e. overflown perimeter
@@ -195,13 +194,13 @@ namespace groundhog
             return areas;
         }
 
-        private List<Curve> GetWaterChannelsAtZHeight(double zHeight, Curve CHANNEL_CURVE, double TOLERANCE)
+        private List<Curve> GetWaterChannelsAtZHeight(double zHeight, Curve CHANNEL_CURVE)
         {
             // Create an XY plane positioned vertically at the test point
             var test_plane = new Plane(new Point3d(0, 0, zHeight), new Vector3d(0, 0, 1));
 
             // Intersect Plane with the Curve to get water level(s)
-            var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, TOLERANCE);
+            var intersections = Rhino.Geometry.Intersect.Intersection.CurvePlane(CHANNEL_CURVE, test_plane, docUnitTolerance);
             if (intersections == null)
                 return null;
             if (intersections.Count < 2)

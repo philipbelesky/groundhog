@@ -49,7 +49,6 @@ namespace groundhog
             // Create holder variables for input parameters
             var CHANNEL_CURVE = default(Curve);
             var CHANNEL_PLANE = default(Plane);
-            var TOLERANCE = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             double GAUCKLER_MANNING = 0.0; // Default value
             double SLOPE = 0.0; // Default value
 
@@ -59,7 +58,7 @@ namespace groundhog
             DA.GetData(2, ref SLOPE);
 
             // Validation
-            if (CHANNEL_CURVE.TryGetPlane(out CHANNEL_PLANE, TOLERANCE) == false)
+            if (CHANNEL_CURVE.TryGetPlane(out CHANNEL_PLANE, docUnitTolerance) == false)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A non-planar curve has been provided as the channel section; please ensure it is planar.");

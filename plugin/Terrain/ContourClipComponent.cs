@@ -137,7 +137,7 @@ namespace groundhog
                 var planarSrfsArray = new Brep[allContours.Length - 1];
                 Parallel.For(0, allContours.Length - 1, i => // Shitty multithreading
                 {
-                    var planarSurfaces = Brep.CreatePlanarBreps(allContours[i]); // Create planar surfaces
+                    var planarSurfaces = Brep.CreatePlanarBreps(allContours[i], docUnitTolerance); // Create planar surfaces
                     planarSrfsArray[i] = planarSurfaces[0];
                 });
                 planarSrfs = new List<Brep>(planarSrfsArray); // Probably unecessary
@@ -156,7 +156,7 @@ namespace groundhog
 
             var testPoint = new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
 
-            var inBoundary = BOUNDARY.Contains(testPoint);
+            var inBoundary = BOUNDARY.Contains(testPoint, Plane.WorldXY, docUnitTolerance);
 
             if (inBoundary == PointContainment.Inside)
             {
@@ -172,11 +172,10 @@ namespace groundhog
 
         private Curve ClipCurveEndsToBoundary(Curve initialCurve, Point3d targetPoint, Surface boundarySrf)
         {
-            var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             Curve trimmedCurveEnds;
 
             // Find where the boundary and curve intersect
-            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), tolerance, 
+            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), docUnitTolerance, 
                                    out Curve[] intersectCurves, out Point3d[] intersectPoints);
 
             // Get closest point from intersections and its parameters
@@ -227,10 +226,9 @@ namespace groundhog
 
         private List<Curve> ClipMeanderingCurvesToBoundary(Curve initialCurve, Curve BOUNDARY, Surface boundarySrf)
         {
-            var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
             var returnCurves = new List<Curve>();
 
-            var splitCurves = initialCurve.Split(boundarySrf, tolerance);
+            var splitCurves = initialCurve.Split(boundarySrf, docUnitTolerance, docAngularTolerance);
 
             if (splitCurves.Length > 0)
             {
@@ -239,7 +237,7 @@ namespace groundhog
                     var testPoint = splitCurves[i].PointAt(splitCurves[i].Domain.Mid);
                     testPoint.Z = BOUNDARY.PointAtEnd.Z;
 
-                    var pointContainment = BOUNDARY.Contains(testPoint);
+                    var pointContainment = BOUNDARY.Contains(testPoint, Plane.WorldXY, docUnitTolerance);
 
                     if (pointContainment.ToString() == "Inside")
                         returnCurves.Add(splitCurves[i]);
@@ -250,7 +248,7 @@ namespace groundhog
                 // There are no intersections with the boundary. This could be because it is entirely outside the boundary though
                 // Check this and return None if that is the case
                 var evaluationPoint = initialCurve.PointAt(initialCurve.Domain.T0);
-                var containmentCheck = BOUNDARY.Contains(evaluationPoint);
+                var containmentCheck = BOUNDARY.Contains(evaluationPoint, Plane.WorldXY, docUnitTolerance);
                 if (containmentCheck.ToString() == "Outside")
                     returnCurves.Add(null); // Is completely outside the clipped area
                 else
@@ -262,12 +260,10 @@ namespace groundhog
 
         private Curve GetBoundedContour(Curve initialCurve, Curve BOUNDARY)
         {
-            var tolerance = RhinoDoc.ActiveDoc.ModelAbsoluteTolerance;
-
             // Move the boundary down to the same plane so we can do a curve curve intersection
             BOUNDARY.Transform(Transform.Translation(new Vector3d(0, 0, initialCurve.PointAtEnd.Z - BOUNDARY.PointAtEnd.Z)));
 
-            var ccx = Intersection.CurveCurve(initialCurve, BOUNDARY, tolerance, tolerance);
+            var ccx = Intersection.CurveCurve(initialCurve, BOUNDARY, docUnitTolerance, docUnitTolerance);
 
             // Used to be 0. It is possible to have a ccx array of only 1 element (which will crash) but unclear what that signifies
             if (ccx.Count > 1)
@@ -278,12 +274,12 @@ namespace groundhog
                 // This is going to be incorrect sometimes, but we want to get the shorter of the two pieces
                 if (innerEdgeA.GetLength() >= innerEdgeB.GetLength())
                 {
-                    var innerEdge = Curve.JoinCurves(new[] {innerEdgeB, initialCurve}, tolerance);
+                    var innerEdge = Curve.JoinCurves(new[] {innerEdgeB, initialCurve}, docUnitTolerance);
                     return innerEdge[0];
                 }
                 else
                 {
-                    var innerEdge = Curve.JoinCurves(new[] {innerEdgeA, initialCurve}, tolerance);
+                    var innerEdge = Curve.JoinCurves(new[] {innerEdgeA, initialCurve}, docUnitTolerance);
                     return innerEdge[0];
                 }
             }
