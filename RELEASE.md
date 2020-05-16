@@ -11,13 +11,6 @@
 - Version number to be iterated in `manifest.yml`
 - Release date/notes in `CHANGELOG.md`
 
-#### Update Models/Definitions
-
-- Downsave models to Rhinoceros 5
-- Update screenshots used on site
-    - Check Full Names are on; fancy wires are on
-    - Export as JPG with background 227, 222, 218; at 2X resolution (needs to be done in Rhinoceros 6)
-
 #### Update Plugin on Website
 
 - Rebuild `groundhog readme.pdf` from the Markdown source
