@@ -10,15 +10,15 @@ files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
 ---
 
-In 2006, landscape architects James Corner Field Operations worked with architects TEN Arquitectos to develop a competition entry for the design of a new Busan Cinema Centre in South Korea. Although their entry did not win, it is notable as an early example of computational design methods leaving their mark on landscape architectural design.
+In 2006, James Corner Field Operations worked with architects TEN Arquitectos to develop a competition entry for the design of a new Busan Cinema Centre in South Korea. Although their entry did not win, it is notable as an early example of computational design methods being clearly expressed in a designed landscape.
 
 {% include elements/figure.html image='busan-birds-eye' alt='Perspective of the landscape design' credit="James Corner Field Operations and TEN Arquitectos, from Film and Architecture, p. 215." %}
 
-The entry's landscape concept featured an undulating lawn dotted with planting to guide pedestrian circulation and an adaptive paving system that stretched across the site. The differentiated pavers are designed to be responsive to the landform of the proposal, whereby the orientation and size of each individual set of tiles smoothly shifts according to changes in slope. The result is a [field aesthetic]({% link _techniques/field-conditions.md %}) or "ambient surface"[@JoonKang:2006 208] where the tiles are smallest and most offset from their original horizontal orientation where the topography is highest.
+The competition entry's landscape features an undulating lawn dotted with planting to guide pedestrian circulation and an adaptive paving system that stretched across the site. The differentiated pavers are designed to be responsive to the landform of the proposal, whereby the orientation and size of each individual set of tiles smoothly shifts according to changes in slope. The result is a [field aesthetic]({% link _techniques/field-conditions.md %}) or "ambient surface"[@JoonKang:2006 208] where the tiles are smallest and most offset from their original horizontal orientation where the topography is highest.
 
 {% include elements/figure.html image='busan-field' caption='Details of the paving system and its relationship to landform.' credit='By James Corner Field Operations and TEN Arquitectos, via scenariojournal.com/lu-from-hand-to-land/.' %}
 
-This tie between surface and object suggests an approach that can establish a direct and intuitive link between a primary design driver — landform — and a secondary design feature — paving — that can be explored in an expressive manner. Once developed, the tiling system would be able to quickly respond to different iterations of the site's grading; creating a feedback loop that could inform both the topography and the geometry of the tiles as the design develops.
+This tie between surface and object suggests an approach that can establish a direct and intuitive link between a primary design driver — landform — and a secondary design feature — paving — that can be explored in an expressive manner. Once developed, the tiling system would be able to quickly respond to different landforms and so create a  feedback loop where the topography and the tile geometries are tied together throughout design development.
 
 {% include elements/figure.html image='busan-pspxv' alt='Perspective of the Busan Cinema competition entry.' credit="By James Corner Field Operations and TEN Arquitectos, adapted from scenariojournal.com/lu-from-hand-to-land/." %}
 
@@ -43,3 +43,7 @@ The vertical distance from the base `XY` plane to each tile-origin is measured a
 The result is a paving system that responds to and accentuates the topography of site. Moreover, the form of each tile can be quickly iterated upon in response to topographic manipulation, to the parameters that control the geometry of the paving elements, or to the regions that define where the tiling system is deployed.
 
 {% include elements/figure.html image='step_4' caption='The paving system responds dynamically to topography.' credit="Albert Rex, for groundhog.la." %}
+
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the basic tile effect and distribution.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
+
+{% include elements/files.html %}
