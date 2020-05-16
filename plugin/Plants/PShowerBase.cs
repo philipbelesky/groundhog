@@ -9,11 +9,11 @@ namespace groundhog
 {
     public abstract class PShowerBase : GroundHogComponent
     {
-        protected List<Color> allColours = new List<Color>();
-        protected List<GH_String> allLabels = new List<GH_String>();
-        protected List<Point3d> PLANT_LOCATIONS = new List<Point3d>();
+        protected List<Color> allColours;
+        protected List<GH_String> allLabels;
+        protected List<Point3d> PLANT_LOCATIONS;
         protected int PLANT_SIDES = 8;
-        protected List<PlantSpecies> PLANT_SPECIES = new List<PlantSpecies>();
+        protected List<PlantSpecies> PLANT_SPECIES;
         protected double PLANT_TIME = 10.0;
 
         // Pass the constructor parameters up to the main GH_Component abstract class
@@ -42,8 +42,10 @@ namespace groundhog
 
         protected bool SetupSharedVariables(IGH_DataAccess DA)
         {
-            // Inits shared variables; a false return triggers inheriting classes to return
+            allColours = new List<Color>();
+            allLabels = new List<GH_String>();
 
+            PLANT_SPECIES = new List<PlantSpecies>();
             // Need to unwrap the species from generic list to a plantSpecies list
             var wrappedSpecies = new List<GH_ObjectWrapper>();
             if (!DA.GetDataList(0, wrappedSpecies)) return false;
@@ -56,6 +58,7 @@ namespace groundhog
                 return false;
             }
 
+            PLANT_LOCATIONS = new List<Point3d>();
             DA.GetDataList(1, PLANT_LOCATIONS);
             if (PLANT_LOCATIONS.Count == 0)
             {
