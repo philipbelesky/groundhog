@@ -2,12 +2,10 @@
 
 #### Increment Version Numbers
 
-- Version number to be iterated in `plugin.md`
-- Version number to be iterated in `download.html`
+- Version number to be iterated in `_config.yml`
 - Version number to be iterated in `AssemblyInfo.cs`
 - Version number to be iterated in `groundhog readme.md`
 - Version number to be iterated in the `gh_string` of each definition; search string for *Definition prepared for Groundhog v0.8.0b and depends on*
-- Version number to be iterated in `package.json`
 - Version number to be iterated in `manifest.yml`
 - Release date/notes in `CHANGELOG.md`
 
@@ -26,4 +24,4 @@ In command prompt (not power shell) executed in the `plugin\release` directory:
 
 #### Update Plugin on Github
 
-- Upload plugin zip
+- Upload plugin zip (in the built site's downloads/plugin directory)
