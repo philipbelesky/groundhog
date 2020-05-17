@@ -80,15 +80,12 @@ namespace groundhog
             this.displayR = displayR;
             this.displayG = displayG;
             this.displayB = displayB;
-            // Fallbacks; should be overriden in showers
-            crownVarianceMultiplier = 1.0;
-            heightVarianceMultiplier = 1.0;
-            rootVarianceMultiplier = 1.0;
-            trunkVarianceMultiplier = 1.0;
         }
 
-        public void SetVarianceValues(Random rand) // Rand can't be generated here as its time dependent = same values
+        public void SetVarianceValues(int randomSeed) // Rand can't be generated here as its time dependent = same values
         {
+            // Seeds are index of plant in list order so that they are deterministic (when the time value changes)
+            var rand = new Random(randomSeed); 
             crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
             heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
             rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);

@@ -52,11 +52,9 @@ namespace groundhog
 
             // Create holder variables for output parameters
             canopyMeshes = new List<Mesh>();
-
-            var rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < PLANT_SPECIES.Count; i++)
             {
-                var plantInstance = GetPlantInstance(PLANT_SPECIES, i, rand, allLabels, allColours);
+                var plantInstance = GetPlantInstance(PLANT_SPECIES, i, allLabels, allColours);
                 canopyMeshes.Add(plantInstance.GetCrownMesh(PLANT_LOCATIONS[i], PLANT_TIME, PLANT_SIDES));
             }
 

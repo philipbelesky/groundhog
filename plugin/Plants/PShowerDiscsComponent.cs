@@ -41,11 +41,9 @@ namespace groundhog
             var allSpacings = new List<Circle>();
             var allTrunks = new List<Circle>();
 
-            var rand = new Random(); // Random seed for plant variances
             for (var i = 0; i < PLANT_SPECIES.Count; i++)
             {
-                var plantInstance = GetPlantInstance(PLANT_SPECIES, i, rand, allLabels, allColours);
-
+                var plantInstance = GetPlantInstance(PLANT_SPECIES, i, allLabels, allColours);
                 allTrunks.Add(plantInstance.GetTrunkDisc(PLANT_LOCATIONS[i], PLANT_TIME));
                 allRoots.Add(plantInstance.GetRootDisc(PLANT_LOCATIONS[i], PLANT_TIME));
                 allCrowns.Add(plantInstance.GetCrownDisc(PLANT_LOCATIONS[i], PLANT_TIME));

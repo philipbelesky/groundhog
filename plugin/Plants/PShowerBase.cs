@@ -93,11 +93,10 @@ namespace groundhog
             return true;
         }
 
-        protected PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, Random rand,
-            List<GH_String> allLabels, List<Color> allColours)
+        protected PlantSpecies GetPlantInstance(List<PlantSpecies> plantSpecies, int index, List<GH_String> allLabels, List<Color> allColours)
         {
             var plantInstance = plantSpecies[index];
-            plantInstance.SetVarianceValues(rand);
+            plantInstance.SetVarianceValues(index);
             allLabels.Add(plantInstance.GetLabel());
             allColours.Add(plantInstance.GetColor());
             return plantInstance;
