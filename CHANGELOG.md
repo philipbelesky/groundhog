@@ -1,5 +1,18 @@
 ## Changelog
 
+#### [0.11.0] - 2020-05-17
+###### Changed
+- Definitions and models now default to Rhino 6 compatibility
+- Clarified parameter labels in planting components
+- Renamed 'Fidelity' parameter to 'Jump' for flow components
+
+###### Added
+- Added components to visualise canopy/root masses using meshes
+- Flow components can now trace uphill paths with negative distances
+- Flow catchments component now guesses a proximity threshold if one is not set
+- Plant components actually use variance values
+- Added "Volume %" output to catchment component to easily display the % of flow paths terminating within an area
+
 #### [0.10.2] - 2019-04-09
 ###### Fixed
 - Fixed issue where no components would work due to problem in the build process

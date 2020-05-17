@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
+using groundhog.Properties;
 using Rhino.Geometry;
-using ShortestWalk.Gh;
 using ShortestWalk.Geometry;
+using ShortestWalk.Gh;
 
 // Component source lightly modified from Giulio Piacentino's repo, see License/Attribution in /ShortestWalk/
 
@@ -15,8 +15,13 @@ namespace groundhog
 {
     public class GroundhogShortestPathComponent : GroundHogComponent
     {
+        private static readonly Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
+        private static readonly Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
+        private static readonly Predicate<double> _isNegative = IsNegative;
+
         public GroundhogShortestPathComponent()
-            : base("Shortest Path", "ShortPath", "Calculates the shortest path in a network of curves", "Groundhog", "Mapping")
+            : base("Shortest Path", "ShortPath", "Calculates the shortest path in a network of curves", "Groundhog",
+                "Mapping")
         {
         }
 
@@ -28,21 +33,30 @@ namespace groundhog
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curves", "C", "The group of curves that form the network to traverse", GH_ParamAccess.list);
-            pManager.AddPointParameter("Starts", "S", "The point or points that form the starting point of the path", GH_ParamAccess.list);
-            pManager.AddPointParameter("Ends", "E", "The point or points that form the end point of the path", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Lengths", "L", String.Join("A manually-specified length for each curve; useful if you want to artificially ",
-                                                                    "increase or decrease their traversability. If no lengths provided, they will be ",
-                                                                    "manually calculated for each of the curves."), GH_ParamAccess.list);
+            pManager.AddCurveParameter("Curves", "C", "The group of curves that form the network to traverse",
+                GH_ParamAccess.list);
+            pManager.AddPointParameter("Starts", "S", "The point or points that form the starting point of the path",
+                GH_ParamAccess.list);
+            pManager.AddPointParameter("Ends", "E", "The point or points that form the end point of the path",
+                GH_ParamAccess.list);
+            pManager.AddNumberParameter("Lengths", "L", string.Join(
+                "A manually-specified length for each curve; useful if you want to artificially ",
+                "increase or decrease their traversability. If no lengths provided, they will be ",
+                "manually calculated for each of the curves."), GH_ParamAccess.list);
             pManager[3].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Shortest Path", "P", "The curve showing the shortest connection", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Succession", "S", "The indices of the curves that form the shortest path", GH_ParamAccess.tree);
-            pManager.AddBooleanParameter("Direction", "D", "True if the curve in succession is walked from start to end, false otherwise", GH_ParamAccess.tree);
-            pManager.AddNumberParameter("Length", "L", "The total length, as an aggregation of the input lengths measured along the path", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Shortest Path", "P", "The curve showing the shortest connection",
+                GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Succession", "S", "The indices of the curves that form the shortest path",
+                GH_ParamAccess.tree);
+            pManager.AddBooleanParameter("Direction", "D",
+                "True if the curve in succession is walked from start to end, false otherwise", GH_ParamAccess.tree);
+            pManager.AddNumberParameter("Length", "L",
+                "The total length, as an aggregation of the input lengths measured along the path",
+                GH_ParamAccess.list);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -59,19 +73,17 @@ namespace groundhog
             DA.GetDataList(3, LENGTHS);
 
             // Input validation
-            int negativeIndex = LENGTHS.FindIndex(_isNegative);
+            var negativeIndex = LENGTHS.FindIndex(_isNegative);
             if (negativeIndex != -1)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
-                                  string.Format("Distances cannot be negative. At least one negative value found at index {0}.", negativeIndex));
+                    string.Format("Distances cannot be negative. At least one negative value found at index {0}.",
+                        negativeIndex));
                 return;
             }
 
             CURVES.RemoveAll(_removeNullAndInvalidDelegate);
-            if (CURVES.Count < 1)
-            {
-                return;
-            }
+            if (CURVES.Count < 1) return;
 
             STARTS.RemoveAll(_removeInvalidDelegate);
             ENDS.RemoveAll(_removeInvalidDelegate);
@@ -80,34 +92,30 @@ namespace groundhog
                 if (ENDS.Count == 1 && STARTS.Count > 1)
                 {
                     // Assume multiple starts going to single end; populate ends to match
-                    for (int i = 1; i < STARTS.Count; i++)
-                    {
-                        ENDS.Add(ENDS[0]);
-                    }
+                    for (var i = 1; i < STARTS.Count; i++) ENDS.Add(ENDS[0]);
                 }
                 else if (STARTS.Count == 1 && ENDS.Count > 1)
                 {
                     // Assume single start going to multiple ends; populate starts to match
-                    for (int i = 1; i < ENDS.Count; i++)
-                    {
-                        STARTS.Add(STARTS[0]);
-                    }
+                    for (var i = 1; i < ENDS.Count; i++) STARTS.Add(STARTS[0]);
                 }
                 else
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The quantity of start points does not match the quantity of end points");
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                        "The quantity of start points does not match the quantity of end points");
                     return;
                 }
             }
 
             if (LENGTHS.Count > 0 && LENGTHS.Count != CURVES.Count)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "If lengths are provided they must match the number of curves");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    "If lengths are provided they must match the number of curves");
                 return;
             }
 
             // Construct topology
-            CurvesTopology top = new CurvesTopology(CURVES, GH_Component.DocumentTolerance());
+            var top = new CurvesTopology(CURVES, DocumentTolerance());
             //CurvesTopologyPreview.Mark(top, Color.BurlyWood, Color.Bisque);
             PathMethod pathSearch;
 
@@ -127,15 +135,13 @@ namespace groundhog
                 if (interfLengths.Count < top.EdgeLength)
                     interfLengths = new ListByPattern<double>(interfLengths, top.EdgeLength);
 
-                bool isAlwaysShorterOrEqual = true;
-                for(int i=0; i<top.EdgeLength; i++)
-                {
+                var isAlwaysShorterOrEqual = true;
+                for (var i = 0; i < top.EdgeLength; i++)
                     if (top.LinearDistanceAt(i) > interfLengths[i])
                     {
                         isAlwaysShorterOrEqual = false;
                         break;
                     }
-                }
 
                 if (isAlwaysShorterOrEqual)
                     pathSearch = new AStar(top, interfLengths);
@@ -148,24 +154,27 @@ namespace groundhog
             var resultDirs = new GH_Structure<GH_Boolean>();
             var resultLengths = new List<double>();
 
-            for (int i = 0; i < STARTS.Count; i++)
+            for (var i = 0; i < STARTS.Count; i++)
             {
-                int fromIndex = top.GetClosestNode(STARTS[i]);
-                int toIndex = top.GetClosestNode(ENDS[i]);
+                var fromIndex = top.GetClosestNode(STARTS[i]);
+                var toIndex = top.GetClosestNode(ENDS[i]);
 
                 if (fromIndex == toIndex)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The start and end positions are equal; perhaps because they are not close enough to one of the curves in the network.");
+                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
+                        "The start and end positions are equal; perhaps because they are not close enough to one of the curves in the network.");
                     resultCurves.Add(null);
                     continue;
                 }
 
-                var current = pathSearch.Cross(fromIndex, toIndex, out int[] nodes, out int[] edges, out bool[] dir, out double tot);
+                var current = pathSearch.Cross(fromIndex, toIndex, out var nodes, out var edges, out var dir,
+                    out var tot);
 
                 if (current == null)
                 {
                     AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        string.Format("No walk found for start point at position {0}. Are end points isolated?", i.ToString()));
+                        string.Format("No walk found for start point at position {0}. Are end points isolated?",
+                            i.ToString()));
                 }
                 else
                 {
@@ -184,10 +193,6 @@ namespace groundhog
             DA.SetDataTree(2, resultDirs);
             DA.SetDataList(3, resultLengths);
         }
-
-        static Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
-        static Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
-        static Predicate<double> _isNegative = IsNegative;
 
         private static bool RemoveNullAndInvalid(Curve obj)
         {
@@ -211,7 +216,7 @@ namespace groundhog
                 return null;
 
             var newArray = new TGh[input.Length];
-            for (int i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
                 var gh = new TGh
                 {
@@ -219,9 +224,8 @@ namespace groundhog
                 };
                 newArray[i] = gh;
             }
+
             return newArray;
         }
-
-
     }
 }

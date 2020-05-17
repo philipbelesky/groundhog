@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
+using groundhog.Properties;
 
 namespace groundhog
 {
     public class GroundhogPGenericComponent : GroundHogComponent
     {
-
         public GroundhogPGenericComponent()
-            : base("Generic Species", "PGeneric", "Output plant objects from pre-defined generic types ", "Groundhog", "Flora")
+            : base("Generic Species", "PGeneric", "Output plant objects from pre-defined generic types ", "Groundhog",
+                "Flora")
         {
         }
 
@@ -26,9 +26,9 @@ namespace groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Shrub", "S", "Generic Shrub (placeholder data)", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Grass", "G", "Generic Grass (placeholder data)", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Tree", "T", "Generic Tree (placeholder data)", GH_ParamAccess.item);
+            pManager.AddGenericParameter("ShrubS", "S", "Generic Shrub (placeholder data)", GH_ParamAccess.item);
+            pManager.AddGenericParameter("GrassS", "G", "Generic Grass (placeholder data)", GH_ParamAccess.item);
+            pManager.AddGenericParameter("TreeS", "T", "Generic Tree (placeholder data)", GH_ParamAccess.item);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)

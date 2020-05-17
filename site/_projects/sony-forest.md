@@ -1,7 +1,7 @@
 ---
 title:      Sony Forest
-date:       18-01-31
-published:  false
+date:       20-05-01
+published:  true
 excerpt:    lorum
 year:       2012 (constructed)
 location:
@@ -30,6 +30,10 @@ Because the design criteria could be encompassed in a relatively complete manner
 
 Similarly, it is unclear how generalisable this particular model is to other projects. Often highly advanced models become overly tied to project-specific criteria, and so are difficult to transplant into other situations. That this particular model does not seem to be implemented in a common CAD environment means it is likely to require a large degree of expertise to adapt and deploy within other projects.
 
+{% include elements/figure.html image='3' caption='TODO.' credit='TODO' %} <!-- from https://www.nikken.co.jp/en/expertise/mep_engineering/bioskin_a_facade_system_for_cooling_city_heat_islands.html -->
+
 {% include elements/figure.html image='model' alt='Rhinoceros model of the Sony Forest landscape' %}
 {% include elements/figure.html image='definition' caption='Grasshopper definition recreating the planting and tiling strategies.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
+
+{% include elements/files.html %}
 

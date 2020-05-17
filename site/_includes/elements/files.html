@@ -1,22 +1,13 @@
 {% capture filePath %}/downloads/{{ page.path | remove_first: "_" | remove_first: ".md" }}.zip{% endcapture %}
-
 <article class="message is-success no-print">
-  <div class="message-body">
-
-    <div class="columns is-mobile">
-
-      <div class="column is-narrow gh-message-icon">
-        <i data-feather="download"></i>
-      </div>
-
-      <div class="column">
-        The associated {{ page.files_text }} <a href="{{ site.baseurl }}{{ filePath }}">can be
-        downloaded here</a>. <span class="is-hidden-mobile">You will probably need to have installed
-        the <a href="{{ site.baseurl }}{% link plugin.md %}">Groundhog plugin</a> for the definition
-        to work correctly.</span>
-      </div>
-
-    </div>
-
-  </div>
+<div class="message-body">
+<div class="columns is-mobile">
+<div class="column is-narrow gh-message-icon">
+  <i data-feather="download"></i>
+</div>
+<div class="column">
+  The associated {{ page.files_text }} <a href="{{ site.baseurl }}{{ filePath }}">can be downloaded here</a>. <span class="is-hidden-mobile">You will need to have installed the <a href="{% link plugin.md %}">Groundhog plugin</a> for the definition to work correctly.</span>
+</div>
+</div>
+</div>
 </article>

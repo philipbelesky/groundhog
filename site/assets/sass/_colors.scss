@@ -4,22 +4,42 @@
 
 .gh-plugin {
   @extend .is-dark;
+
+  .title, .subtitle, p, .feather {
+    color: $text-bg !important;
+  }
 }
 
 .gh-documentation {
   @extend .is-danger;
+
+  .title, .subtitle, p, .feather {
+    color: $text-bg !important;
+  }
 }
 
 .gh-techniques {
   @extend .is-info;
+
+  .title, .subtitle, p, .feather {
+    color: $text-bg !important;
+  }
 }
 
 .gh-projects {
   @extend .is-primary;
+
+  .title, .subtitle, p, .feather {
+    color: $text-bg !important;
+  }
 }
 
 .gh-about {
   @extend .is-link;
+
+  .title, .subtitle, p, .feather {
+    color: $text-bg !important;
+  }
 }
 
 .gh-plugin-content {

@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using groundhog.Properties;
-using Grasshopper.Kernel;
 using Rhino.Geometry;
-
 
 public static class TerrainCalculations
 {
-
     public static List<Point3d> GetCenters(Mesh mesh)
     {
         var centers = new List<Point3d>();
@@ -24,7 +19,7 @@ public static class TerrainCalculations
         {
             var vertices = meshes[m].Vertices.ToPoint3dArray();
 
-            Array.Sort(vertices, delegate (Point3d x, Point3d y) { return x.Z.CompareTo(y.Z); }); // Sort by Z values
+            Array.Sort(vertices, delegate(Point3d x, Point3d y) { return x.Z.CompareTo(y.Z); }); // Sort by Z values
 
             Point3d min;
             if (vertices[0].Z == vertices[1].Z && vertices[1].Z == vertices[2].Z)
@@ -66,5 +61,4 @@ public static class TerrainCalculations
 
         return rtnlist;
     }
-
 }

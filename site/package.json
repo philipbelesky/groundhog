@@ -1,14 +1,14 @@
 {
   "name": "groundhog",
-  "version": "0.10.2b",
+  "version": "1.0.0",
   "description": "groundhog.la site source",
   "main": "index.html",
   "dependencies": {
     "@ibm/type": "^0.5.4",
-    "bulma": "^0.7.4",
+    "bulma": "^0.8.2",
     "feather-icons": "^4.21.0",
-    "gulp": "^4.0.0",
-    "gulp-responsive": "^2.13.0",
+    "gulp": "^4.0.2",
+    "gulp-responsive": "^3.0.1",
     "masonry-layout": "^4.2.2",
     "picturefill": "^3.0.3"
   },

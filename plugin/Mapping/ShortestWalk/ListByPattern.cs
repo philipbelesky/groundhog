@@ -1,30 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace ShortestWalk.Gh
 {
-    class ListByPattern<T> : IList<T>
+    internal class ListByPattern<T> : IList<T>
     {
-        readonly IList<T> _content;
-        readonly int _size;
-        readonly int _innerCount;
+        private readonly IList<T> _content;
+        private readonly int _innerCount;
 
         public ListByPattern(IList<T> content, int length)
         {
-            if(length < 0)
+            if (length < 0)
                 throw new ArgumentOutOfRangeException("Length is less than 0", "length");
 
-            _size = length;
+            Count = length;
             _content = content;
             _innerCount = _content.Count;
         }
 
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count)
+                    throw new ArgumentOutOfRangeException("index");
+
+                return _content[index % _innerCount];
+            }
+        }
+
         public int IndexOf(T item)
         {
-            int index = _content.IndexOf(item);
-            return index < _size ? index : -1;
+            var index = _content.IndexOf(item);
+            return index < Count ? index : -1;
         }
 
         public void Insert(int index, T item)
@@ -37,27 +46,10 @@ namespace ShortestWalk.Gh
             throw new NotSupportedException("This list is readonly.");
         }
 
-        public T this[int index]
-        {
-            get
-            {
-                if(index < 0 || index >= _size)
-                    throw new ArgumentOutOfRangeException("index");
-
-                return _content[index % _innerCount];
-            }
-        }
-
         T IList<T>.this[int index]
         {
-            get
-            {
-                return this[index];
-            }
-            set
-            {
-                throw new NotSupportedException("This list is readonly.");
-            }
+            get => this[index];
+            set => throw new NotSupportedException("This list is readonly.");
         }
 
         void ICollection<T>.Add(T item)
@@ -87,25 +79,14 @@ namespace ShortestWalk.Gh
                 throw new ArgumentException("Array rank must be 1, but this array is multi-dimensional.", "array");
 
             if (arrayIndex >= array.Length ||
-                _size + arrayIndex > array.Length)
-            {
+                Count + arrayIndex > array.Length)
                 throw new ArgumentException("arrayIndex");
-            }
-            for (int i = 0; i < _size; i++)
-            {
-                array[arrayIndex++] = this[i];
-            }
+            for (var i = 0; i < Count; i++) array[arrayIndex++] = this[i];
         }
 
-        public int Count
-        {
-            get { return _size; }
-        }
+        public int Count { get; }
 
-        bool ICollection<T>.IsReadOnly
-        {
-            get { return true; }
-        }
+        bool ICollection<T>.IsReadOnly => true;
 
         bool ICollection<T>.Remove(T item)
         {
@@ -114,10 +95,7 @@ namespace ShortestWalk.Gh
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < _size; i++)
-            {
-                yield return this[i];
-            }
+            for (var i = 0; i < Count; i++) yield return this[i];
         }
 
         IEnumerator IEnumerable.GetEnumerator()
