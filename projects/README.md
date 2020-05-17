@@ -13,6 +13,7 @@
 - "Initial State" saved
 - Groups have labels
 - Groups have named input/output parameters
+- Hardcoded numbers (i.e. indexes) use panels not sliders
 
 #### Project Page
 
