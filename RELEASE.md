@@ -25,3 +25,7 @@ In command prompt (not power shell) executed in the `plugin\release` directory:
 #### Update Plugin on Github
 
 - Upload plugin zip (in the built site's downloads/plugin directory)
+
+#### Update Plugin on Food4Rhino
+
+- https://www.food4rhino.com/node/2726/edit?destination=/node/2726
