@@ -20,13 +20,11 @@ Support requests, bug reports, feature suggestions and other plugin-related comm
 
 ### Contributors
 
-Albert Rex produced the [South Park]({% link _projects/south-park.md %}) documentation and model, alongside a range of improvements in other pages.
+Albert Rex produced various project models and their documentation pages, alongside a range of improvements in other pages and component icons.
 
 ### Acknowledgements
 
-<div class="third-image">
-![The RMIT University Logo](/assets/rmit-logo.svg)
-</div>
+<div class="third-image"><img src="/assets/rmit-logo.svg" alt="The RMIT University Logo" /></div>
 
 Thanks to the SRIC of the RMIT School of Architecture and Urban Design for their support. Thanks also to the RMIT Landscape Architecture students from *Communications 2* in 2018, and those from the *Skin & Scale* and *Interference Pattern* studio options.
 

@@ -28,6 +28,8 @@ This tight, or "articulated,"[@Hansen:2011] relationship between the two design 
 
 ### Reference Model
 
+{% include elements/files.html %}
+
 While the proposal pre-dated the release of Grasshopper, the software would have offered an easy means of prototyping and iterating upon what was likely developed as a script in Maya or Rhino. Such a parametric model could have proceeded by first referencing contours and `Patch`ing them to become a surface.
 
 {% include elements/figure.html image='step_1' caption='Creating a 3D surface by patching contours allows for later grading adjustments to be easily accommodated.' credit="Albert Rex, for groundhog.la." %}
@@ -46,4 +48,3 @@ The result is a paving system that responds to and accentuates the topography of
 
 {% include elements/figure.html image='definition' caption='Grasshopper definition recreating the basic tile effect and distribution.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
 
-{% include elements/files.html %}

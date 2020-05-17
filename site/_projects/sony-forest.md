@@ -1,7 +1,7 @@
 ---
 title:      Sony Forest
 date:       20-05-01
-published:  true
+published:  false
 excerpt:    lorum
 year:       2012 (constructed)
 location:

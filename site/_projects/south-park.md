@@ -34,7 +34,9 @@ While Fletcher Studio see the potential of computational tools, they are wary of
 
 ### Reference Model
 
-The reference model and definition for this project (link at the top of the page) attempts to reverse-engineer the path finding rule-set developed for the South Park design. It also speculates on how parametric methods could have been used to help develop the lawn and garden-bed areas defined by the initial spatial allocation.
+{% include elements/files.html %}
+
+The reference model and definition for this project attempts to reverse-engineer the path finding rule-set developed for the South Park design. It also speculates on how parametric methods could have been used to help develop the lawn and garden-bed areas defined by the initial spatial allocation.
 
 This first section of the script uses data from site to interpolate a line through the park pulled toward various data points according to their perceived importance. Here, for simplicity's sake, the points are divided simply into 2 sets for 'more important' and 'less important' and are visualised with a set of larger and smaller circles. Thereafter:
 
@@ -74,3 +76,6 @@ While *South Park* is a small site, the capabilities of the parametric methods u
 {% include elements/figure.html image='iteration_2' caption='The script is capable of operating over a wide range of environments. Here it regulates how a path moves through a forest.'  credit='Albert Rex, for groundhog.la' %}
 
 {% include elements/figure.html image='iteration_3' caption='The script can be easily altered to accommodate additional, site-specific. variations. Here an additional path is influenced by the original set of attractor curves and cuts under the first path, while at the same time the definition rebuilds garden beds around it.' credit='Albert Rex, for groundhog.la' %}
+
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the basic path distortion effect.' credit='' %}
+
