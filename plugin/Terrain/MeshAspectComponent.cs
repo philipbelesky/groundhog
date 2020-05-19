@@ -34,7 +34,7 @@ namespace groundhog
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
             pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)",
                 GH_ParamAccess.list);
-            pManager.AddNumberParameter("Face Aspects", "A", "The aspect of each mesh face (measured in degrees)",
+            pManager.AddNumberParameter("Face Aspects °", "A", "The aspect of each mesh face (measured in degrees)",
                 GH_ParamAccess.list);
         }
 
