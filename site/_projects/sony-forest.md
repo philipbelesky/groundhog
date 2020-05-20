@@ -9,7 +9,7 @@ files:      true
 files_text: model and definition that demonstrate a partial recreation of this project
 ---
 
-{% include elements/figure.html image='3' caption='' credit="Image via Nikken Sekkei's description of a building facade that the Sony Forest landscape surrounds (https://www.nikken.co.jp/en/expertise/mep_engineering/bioskin_a_facade_system_for_cooling_city_heat_islands.html)." %}
+{% include elements/figure.html image='3' caption="Image from within the 'Sony Forest' landscape that surrounds the NBF Osaki Building." credit="Image via Nikken Sekkei's description of the NBF Osaki Building's facade (https://www.nikken.co.jp/en/expertise/mep_engineering/bioskin_a_facade_system_for_cooling_city_heat_islands.html)." %}
 
 ANS Studio developed a "Seed Scattering System" to create a 'natural' distribution of plants for the garden surrounding an office building. The 'natural' stipulation here is not understood in terms of an untended garden or of a naturalistic formal pattern, but as a distribution that locates plants and chooses species in a manner that replicates the end-result of the localised growth and succession processes that occur in a forest. This was not the sole focus though — the model made heavy use of parameterised goals and constraints to allow for other design criteria to affect the distribution.
 
