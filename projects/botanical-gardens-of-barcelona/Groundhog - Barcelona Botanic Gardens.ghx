@@ -1170,7 +1170,7 @@
 
 The definition and model are provided as speculative reverse-engineerings of how this landscape project could have been (partly) designed using computational methods. More information available at https://groundhog.la/projects/botanical-gardens-of-barcelona/
 
-This definition depends on components from version v0.11.0b of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
+This definition depends on components from version v0.11.1b of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
                   </items>
                   <chunks count="2">
                     <chunk name="Attributes">
@@ -11603,8 +11603,8 @@ Fake 4,Fake 4,Fake 4,12,750,500,3000,30,100,250,20,500,6000,20,200,1850,20,136,2
                     <item name="Name" type_name="gh_string" type_code="10">Scribble</item>
                     <item name="NickName" type_name="gh_string" type_code="10">Scribble</item>
                     <item name="Size" type_name="gh_single" type_code="5">25</item>
-                    <item name="Text" type_name="gh_string" type_code="10">Jump to parameters 
-for classifying facets 
+                    <item name="Text" type_name="gh_string" type_code="10">Jump to parameters
+for classifying facets
 into aspect/slope ranges</item>
                   </items>
                   <chunks count="1">
