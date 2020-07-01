@@ -2,7 +2,7 @@
 title:      Busan Cinema Complex
 date:       19-03-11
 published:  true
-excerpt:    A scripted ties topography to tile over the course of this competition entry.
+excerpt:    A script ties topography to tile over the course of this competition entry.
 year:       2006 (designed)
 location:   Busan, South Korea
 designers:  James Corner Field Operations and TEN Arquitectos

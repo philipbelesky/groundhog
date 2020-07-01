@@ -1,5 +1,9 @@
 ## Changelog
 
+#### [0.11.1] - 2020-07-02
+###### Fixed
+- FieldComponent error
+
 #### [0.11.0] - 2020-05-17
 ###### Changed
 - Definitions and models now default to Rhino 6 compatibility
