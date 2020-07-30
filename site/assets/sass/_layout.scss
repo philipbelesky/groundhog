@@ -82,11 +82,11 @@ p > img + p > img {
 .gh-home-grid {
 
   .title {
-    @extend .is-size-5;
+    @extend .is-size-5 !optional;
   }
 
   p {
-    @extend .is-size-6;
+    @extend .is-size-6 !optional;
     margin-top: 4.5rem;
   }
 }
@@ -98,7 +98,7 @@ p > img + p > img {
 .gh-page-grid {
 
   .title {
-    @extend .is-size-3;
+    @extend .is-size-3 !optional;
   }
 
   .feather {
@@ -106,7 +106,7 @@ p > img + p > img {
   }
 
   p {
-    @extend .is-size-5;
+    @extend .is-size-5 !optional;
     margin-top: 9rem;
   }
 }
