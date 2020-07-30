@@ -49,7 +49,7 @@ em {
     overflow-x: hidden; // Can blow out widths on mobile
     // Use the emphasis part as a proxy for the attribution
     em {
-      @extend .is-size-7;
+      @extend .is-size-7 !optional;
       display: block;
       margin: 0 auto;
     }
