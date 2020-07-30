@@ -9,8 +9,7 @@
     "feather-icons": "^4.21.0",
     "gulp": "^4.0.2",
     "gulp-responsive": "^3.0.1",
-    "masonry-layout": "^4.2.2",
-    "picturefill": "^3.0.3"
+    "masonry-layout": "^4.2.2"
   },
   "devDependencies": {},
   "scripts": {
