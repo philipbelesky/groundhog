@@ -12,9 +12,13 @@ Groundhog provides a number of components for measuring particular characteristi
 
 {% include elements/figure.html image='1' caption="Visualisations of slope analysis across a `Mesh`, showing each face's grade as a vector, fill, and label" credit='Philip Belesky, for https://groundhog.la' %}
 
+## Slope
+
 The slope analysis components operate by identifying the normals of each face within the (land)form and measuring those vectors against the Z-axis. This produces a measure of steepness that can be output as either an angle or percentile. Either output can then be filtered and visualised to assist in grading tasks that may need to ensure slopes stay within a particular range (say to ensure accessible circulation) or to highlight areas that are vulnerable to erosion or require stabilisation.
 
 {% include elements/component.html title='MeshSlope' %}
+
+## Aspect
 
 The aspect analysis components operate in a similar fashion, but measure the faces' normals relative to a specified vector. This vector defaults to the Y-axis (assuming this is the North direction) and so produces a measure of which direction a slope faces. This can be used to identify areas within the landform that have a particular aspect, e.g. those that are predominantly north-easterly, and help determine the micro-climates of different areas of the landscape (based on their different levels of solar insolation) or to determine their visibility relative to a given vantage point.
 
