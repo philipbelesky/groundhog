@@ -9,9 +9,6 @@
 // Feather
 {% include_absolute /node_modules/feather-icons/dist/feather.min.js %}
 
-// Picture Element Polyfill
-{% include_absolute /node_modules/picturefill/dist/picturefill.min.js %}
-
 // ACTIONS
 
 // Instantiate Icons
