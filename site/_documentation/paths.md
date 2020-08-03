@@ -3,7 +3,7 @@ title:      Paths
 excerpt:    Components for ...
 date:       18-07-31
 files:      true
-files_text: model and definition that demonstrating the use of these components
+files_text: model and definition that demonstrating the use of this component
 thumbnail:  false
 published:  false
 ---

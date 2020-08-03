@@ -1,5 +1,5 @@
 ---
-title:      Flows
+title:      Flow Paths
 excerpt:    Components for creating simple projections and analysis of surface water flows.
 date:       17-10-14
 files:      true
