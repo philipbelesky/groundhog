@@ -99,7 +99,13 @@ namespace groundhog
             }
 
             // Loop through all the points that makeup a flow path
-            var drainAtPoint = START_VOLUME * SEGMENT_LOSS;
+            double drainAtPoint = START_VOLUME * SEGMENT_LOSS;
+            double removeFromVolume = drainAtPoint;
+            if (SEGMENT_LOSS == 0.0)
+            {
+                drainAtPoint = START_VOLUME; // If no segment loss (i.e. 0%) then still need to show something 
+            }
+
             for (var i = 0; i < FLOW_PATHS.Count; i++)
             {
                 Polyline flowPath;
@@ -108,7 +114,7 @@ namespace groundhog
 
                 for (var j = 0; j < flowPath.Count; j++)
                 {
-                    flowVolume -= drainAtPoint; // Remove deposited water from remaining 
+                    flowVolume -= removeFromVolume; // Remove deposited water from remaining 
                     if (flowVolume <= 0.0)
                     {
                         break; // All volumes drained; no need for further calculations
