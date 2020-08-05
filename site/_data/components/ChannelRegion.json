@@ -42,13 +42,6 @@
       "description": "The area of the calculated water body or bodies",
       "optional": false,
       "type": "NumberParameter"
-    },
-    {
-      "name": "DEBUG",
-      "id": "D",
-      "description": "The perimeter(s) of the calculated water body",
-      "optional": false,
-      "type": "CurveParameter"
     }
   ]
 }

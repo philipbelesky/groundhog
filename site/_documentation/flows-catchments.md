@@ -16,6 +16,6 @@ Each catchment type is assigned a "volume" figure, which represents the proporti
 
 {% include elements/component.html title='FlowCatchment' %}
 
-{% include elements/figure.html image='model' alt='Image of the flows component used across two hypothetical landforms' %}
+{% include elements/figure.html image='model' alt='Image of the flow catchment component used across two hypothetical landforms' %}
 
 {% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.la' %}

@@ -1,5 +1,9 @@
 ## Changelog
 
+#### [0.12.0] - 2020-08-05
+###### Added
+- Added component to analyse and display saturation gradients given a flow path
+
 #### [0.11.1] - 2020-07-02
 ###### Fixed
 - FieldComponent error
