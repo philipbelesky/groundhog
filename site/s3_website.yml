@@ -41,6 +41,8 @@ exclude_from_upload:
   - node_modules/get-size
   - node_modules/masonry-layout
   - node_modules/outlayer
+  - node_modules/outlayer
+  - assets/resize_cache
 
 s3_reduced_redundancy: true
 
