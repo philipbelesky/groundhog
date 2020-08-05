@@ -1,10 +1,9 @@
 ---
 title:      Channels
 excerpt:    Components for deriving and analysing water flows within a sectional profile.
-date:       18-07-31
+date:       19-07-31
 files:      true
 files_text: model and definition that demonstrating the use of these components
-published:  false
 ---
 
 - Introduction to general hydraulic principles

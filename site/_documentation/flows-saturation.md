@@ -1,6 +1,6 @@
 ---
 title:      Flow Saturation
-excerpt:    TODO
+excerpt:    Using surface water flow paths to display saturation gradients.
 date:       20-08-02
 files:      true
 files_text: model and definition that demonstrating the use of this component
