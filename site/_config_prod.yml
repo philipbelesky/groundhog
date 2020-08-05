@@ -12,6 +12,3 @@ plugins:
 
 sass:
   style: compressed
-
-google_analytics: UA-314178-30
-

@@ -19,7 +19,7 @@ namespace groundhog.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -62,8 +62,8 @@ namespace groundhog.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Species Name, Common Name,Indigenous Name,Time to Maturity,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Display R,Display G,Display B
-        ///Generic Shrub,Generic Shrub,Generic Shrub,25,1,100,1500,10,10,75,10,100,1500,15,150,1000,15,62,189,125
-        ///Generic Grass,Generic Grass,Generic Grass,50,1,75,500,10,5,20,10,50,400,25,100,500,25,26,17 [rest of string was truncated]&quot;;.
+        ///Generic Shrub,Generic Shrub,Generic Shrub,5,1,100,500,25,10,50,10,100,750,15,150,500,15,62,189,125
+        ///Generic Grass,Generic Grass,Generic Grass,2,1,75,250,10,5,25,10,50,500,35,100,250,25,26,171,2 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string generic_plants {
             get {
@@ -177,6 +177,16 @@ namespace groundhog.Properties {
         internal static System.Drawing.Bitmap icon_flows_mesh {
             get {
                 object obj = ResourceManager.GetObject("icon_flows_mesh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_flows_saturation {
+            get {
+                object obj = ResourceManager.GetObject("icon_flows_saturation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

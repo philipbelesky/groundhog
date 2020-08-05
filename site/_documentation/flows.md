@@ -1,12 +1,14 @@
 ---
-title:      Flows
-excerpt:    Components for creating simple projections and analysis of surface water flows.
+title:      Flow Paths
+excerpt:    Components for creating projections of surface water flows.
 date:       17-10-14
 files:      true
 files_text: model and definition that demonstrating the use of these components
 ---
 
 {% include elements/figure.html image='1' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
+
+## Flow Paths
 
 The "flows" components create naïve projections or simulations of surface water flows and provide further means to analyse the results of these calculations. The key component — the `FlowPath` — accepts a series of 'drop points' on a `Surface` or `Mesh` that become the starting locations of each hypothetical flow path. From there, each point samples the surface or mesh to determine its slope, which becomes a directing vector (i.e. one that points 'downhill'). Each point is then moved along this vector a pre-specified distance, forming a line. The end of this line then becomes the starting point for the next sample; creating a recursive process where flow paths assemble themselves as `Polylines` that grow through this series of descending jumps.
 
@@ -19,12 +21,18 @@ The `FlowPath` component takes two forms a `SurfaceFlowPath` and a `MeshFlowPath
 {% include elements/component.html title='SurfaceFlowPath' %}
 {% include elements/component.html title='MeshFlowPath' %}
 
-Once calculated, these flow paths can then be used to support further analysis of the landscape's hydrological features.
+## Workflows
 
-The first component for this is `FlowCatchment`. It uses the collection of pre-calculated flow paths to identify different catchment areas. To do so, it classifies each flow path into groups depending upon which paths finish or 'drain' into the same approximate location. This grouping is visually represented using a Voronoi diagram with each cell centred on the original `Pts` used as the 'start' of each flow path. Once formed, adjacent Voronoi cells whose origins drain to the same end location are joined together to form 'catchment' boundaries. Additionally, the different catchment groups are provided with a distinct color code and their cells/paths are output as distinct branches to aid further visualisation or analysis.
+Once calculated, these flow paths can then be used as inputs for two further components:
 
-{% include elements/component.html title='FlowCatchment' %}
+- See [documentation for the Catchments component]({% link _documentation/flows-catchments.md %})
+- See [documentation for the Saturation component]({% link _documentation/flows-saturation.md %})
 
-{% include elements/figure.html image='model' alt='Image of the flows component used across two hypothetical landforms' %}
+The example file (linked at the top of this page) demonstrates a number of options for visualisation and extension, such as:
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the flow and catchment analysis for Surface and Mesh form.' credit='Philip Belesky, for https://groundhog.la' %}
+- Using a `Metaball` component to display (a very crude) 'pooling' effect at the end of the flow paths
+- Using geometric intersections to test how drainage pits intercept water flows
+- Fading the color of the paths as they travel further from their 'source'
+
+{% include elements/figure.html image='model' alt='Example model for the flow paths definition.' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.la' %}

@@ -13,8 +13,8 @@
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{% link sitemap.xml %}" />
-    {%- if site.environment == 'production' and site.google_analytics -%}
-    {%- include google-analytics.html -%}
+    {%- if site.environment == 'production' -%}
+    {%- include analytics.html -%}
     {% else %}
     <meta name="robots" content="noindex"><!-- Block google indexing from Jekyll staging copy-->
     {% endif %}

@@ -42,6 +42,13 @@
       "description": "Colour codes the uniquely identify each path and boundary",
       "optional": false,
       "type": "ColourParameter"
+    },
+    {
+      "name": "Volume %s",
+      "id": "V",
+      "description": "The % of the total flow paths that drain to this area",
+      "optional": false,
+      "type": "NumberParameter"
     }
   ]
 }
