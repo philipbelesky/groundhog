@@ -1,0 +1,66 @@
+name: Grasshopper Plugin
+
+on:
+  push:
+    branches: [ main, develop, master ]
+  pull_request:
+    branches: [ main, develop, master ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Solution_Name: ./plugin/groundhog.sln                       # Replace with your solution name, i.e. MyWpfApp.sln.
+      Plugin_File_Name: groundhog
+      Debug_File_Path: ./plugin/bin/
+      Release_File_Path: ./plugin/release/
+      # Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      # Wap_Project_Directory: your-wap-project-directory-name    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
+      # Wap_Project_Path: your-wap-project-path                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+
+    # Add NuGet to the PATH: https://github.com/marketplace/actions/setup-nuget-exe-for-use-with-actions
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1
+
+    # Restore NuGet packages
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Build the application
+    - name: Build the application
+      run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # # DEBUG
+    # - name: "Check output (debug)"
+    #   if: ${{ matrix.configuration == 'Debug' }} # Only upload gha from a release build
+    #   run: dir ${{ env.Debug_File_Path }}
+    #   shell: cmd
+
+    - name: Upload release build of plugin as artefact
+      if: ${{ matrix.configuration == 'Release' }} # Only upload gha from a release build
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.Plugin_File_Name }}
+        path: ${{ env.Release_File_Path }}/${{ env.Plugin_File_Name }}.gha
