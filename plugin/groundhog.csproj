@@ -130,6 +130,7 @@
     <None Include="Resources\icon_surface_slope.png" />
     <None Include="Resources\icon_channel_region.png" />
     <None Include="Resources\icon_flows_catchments.png" />
+    <None Include="StyleCop.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_flows_saturation.png" />
@@ -146,6 +147,11 @@
     <PackageReference Include="Grasshopper">
       <Version>6.12.19029.6381</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <Version>2.9.9</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
     </PackageReference>
@@ -154,6 +160,11 @@
     </PackageReference>
     <PackageReference Include="Sentry">
       <Version>2.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Collections.Immutable">
       <Version>1.5.0</Version>
@@ -180,5 +191,7 @@
     <StartProgram Condition="Exists('C:\Program Files\Rhino 6\System\')">C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
     <StartProgram Condition="Exists('/Applications/Rhinoceros6.app')">/Applications/Rhinoceros6.app</StartProgram>
     <StartProgram Condition="Exists('/Applications/Rhinoceros.app')">/Applications/Rhinoceros.app</StartProgram>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>StyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>
