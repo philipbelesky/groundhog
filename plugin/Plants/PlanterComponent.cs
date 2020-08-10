@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Grasshopper.Kernel;
 
-namespace groundhog
+namespace Groundhog
 {
     // To fix/restore
     //public class GroundhogPlanterComponent : GroundHogComponent

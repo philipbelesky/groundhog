@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace groundhog
+namespace Groundhog
 {
     internal class PlantFactory
     {

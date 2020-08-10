@@ -6,7 +6,7 @@ using Rhino;
 using Sentry;
 using Sentry.Protocol;
 
-namespace groundhog
+namespace Groundhog
 {
     public abstract class GroundHogComponent : GH_Component
     {

@@ -6,11 +6,11 @@ using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Geometry;
 using Grasshopper.Kernel.Geometry.Voronoi;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Display;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogCatchmentComponent : GroundHogComponent
     {
@@ -118,6 +118,7 @@ namespace groundhog
                     holdingListCurves[flowStructure.groupIndex] = new List<Curve>();
                     holdingListBounds[flowStructure.groupIndex] = new List<Polyline>();
                 }
+
                 holdingListCurves[flowStructure.groupIndex].Add(flowStructure.curve);
                 holdingListBounds[flowStructure.groupIndex].Add(flowStructure.catchment);
             }
@@ -188,8 +189,8 @@ namespace groundhog
             // Given an area of X, we want to find x/y lengths given an 2:1 ratio
             var ratio = groupsCount / 2.0;
             var square = Math.Sqrt(ratio);
-            var xMax = (int) Math.Floor(square * 2.0) + 1;
-            var yMax = (int) Math.Floor(square * 1.0);
+            var xMax = (int)Math.Floor(square * 2.0) + 1;
+            var yMax = (int)Math.Floor(square * 1.0);
 
             // Once we have the lengths we go from the index to the x/y position
             int x;
@@ -205,7 +206,7 @@ namespace groundhog
             else
             {
                 double yPos = groupIndex / xMax;
-                y = (int) Math.Floor(yPos); // Get position on y axis
+                y = (int)Math.Floor(yPos); // Get position on y axis
             }
 
             //Print("{2}: {0} {1} maxes: {3} {4}", x.ToString(), y.ToString(), groupIndex.ToString(), xMax.ToString(), yMax.ToString());

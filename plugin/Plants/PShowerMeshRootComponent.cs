@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogShowerRootMeshComponent : PShowerBase
     {

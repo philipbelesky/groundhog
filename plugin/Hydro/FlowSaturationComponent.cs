@@ -7,13 +7,13 @@ using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Geometry;
 using Grasshopper.Kernel.Geometry.Voronoi;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Display;
 using Rhino.Geometry;
 
 // With thanks for Anders Holden Deleuran for providing his Python implementation and visualisation ideas
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogSaturationComponent : GroundHogComponent
     {

@@ -4,7 +4,7 @@ using Grasshopper.Kernel;
 using Rhino;
 using Rhino.Geometry;
 
-namespace groundhog.Hydro
+namespace Groundhog.Hydro
 {
     public abstract class FlowPathBase : GroundHogComponent
     {

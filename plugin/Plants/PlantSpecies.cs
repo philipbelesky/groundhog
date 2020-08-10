@@ -3,16 +3,14 @@ using System.Drawing;
 using GH_IO;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using groundhog;
+using Groundhog;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
-    public interface Plant_IGH_Goo : IGH_Goo
-    {
+    public interface IGH_Plant_Goo : IGH_Goo
+    { }
 
-    }
-    
     public class PlantSpecies : GH_Param<IGH_Goo>
     {
         // Aesthetics
@@ -35,13 +33,13 @@ namespace groundhog
         // Lifespan
         private readonly double timetoMaturity;
 
-        // Random seeds for variances (these are set during showers; not during init else they aren't unique 
+        // Random seeds for variances (these are set during showers; not during init else they aren't unique
         // As data is usually repeated in Grasshopper so object values are duplicated
         private double crownVarianceMultiplier,
             heightVarianceMultiplier,
             rootVarianceMultiplier,
             trunkVarianceMultiplier;
-        
+
         // Init
         public PlantSpecies(
             string speciesName, string commonName, string indigenousName,
@@ -52,8 +50,7 @@ namespace groundhog
             double initialHeight, double matureHeight, double varianceHeight,
             double initialTrunkRadius, double matureTrunkRadius, double varianceTrunkRadius,
             int displayR, int displayG, int displayB
-        )
-            : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
+        ) : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
         {
             // Naming
             this.speciesName = speciesName;
@@ -145,7 +142,7 @@ namespace groundhog
             var rootBallBottomDisc = GetTrunkDisc(location, time);
             var rootDepth =
                 GetGrowth(initialRootRadius, matureRootRadius, time,
-                    rootVarianceMultiplier); // Assume approx spherical 
+                    rootVarianceMultiplier); // Assume approx spherical
             rootBallBottomDisc.Translate(new Vector3d(0, 0, rootDepth * -1));
             return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }

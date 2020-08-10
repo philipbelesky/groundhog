@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using groundhog.Hydro;
-using groundhog.Properties;
+using Groundhog.Hydro;
+using Groundhog.Properties;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogFlowSurfaceComponent : FlowPathBase
     {
@@ -22,7 +22,7 @@ namespace groundhog
 
         public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d1}");
 
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as a surface) for the flow calculation",
                 GH_ParamAccess.item);

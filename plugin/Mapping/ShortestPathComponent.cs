@@ -4,14 +4,14 @@ using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Geometry;
 using ShortestWalk.Geometry;
 using ShortestWalk.Gh;
 
 // Component source lightly modified from Giulio Piacentino's repo, see License/Attribution in /ShortestWalk/
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogShortestPathComponent : GroundHogComponent
     {
@@ -218,10 +218,7 @@ namespace groundhog
             var newArray = new TGh[input.Length];
             for (var i = 0; i < input.Length; i++)
             {
-                var gh = new TGh
-                {
-                    Value = input[i]
-                };
+                var gh = new TGh { Value = input[i] };
                 newArray[i] = gh;
             }
 

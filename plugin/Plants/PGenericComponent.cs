@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
-using groundhog.Properties;
+using Groundhog.Properties;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogPGenericComponent : GroundHogComponent
     {

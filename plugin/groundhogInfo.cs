@@ -2,9 +2,9 @@
 using System.Drawing;
 using Grasshopper;
 using Grasshopper.Kernel;
-using groundhog.Properties;
+using Groundhog.Properties;
 
-namespace groundhog
+namespace Groundhog
 {
     public class groundhogInfo : GH_AssemblyInfo
     {

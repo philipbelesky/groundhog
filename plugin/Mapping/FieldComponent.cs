@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using groundhog.Properties;
 using Grasshopper.Kernel;
+using Groundhog.Properties;
 using Rhino;
 using Rhino.Geometry;
 using Point = System.Drawing.Point;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogFieldComponent : GroundHogComponent
     {
-
         public GroundhogFieldComponent()
             : base("Field Mapper", "Field", "Create a field representation from collections of bounded curves/lines.", "Groundhog", "Mapping")
         {
@@ -63,16 +62,19 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The number of grid divisions must be greater than 4 in order to create a field");
                 return;
             }
+
             if (!BOUNDARY.IsPlanar())
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not planar");
                 return;
             }
+
             if (!BOUNDARY.IsClosed)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not closed");
                 return;
             }
+
             for (var i = 0; i < areas.Count; i = i + 1)
             {
                 if (areas[i] == null)
@@ -192,8 +194,7 @@ namespace groundhog
 
             // Increment overlaps after checking if the curve actually overlaps
             var overlappingPt = gridPoints[xIndex, yIndex];
-            //Print("\t\tPt where gridIndex={0} is at {1}", overlappingPt.GridIndex, overlappingPt.Location);
-
+            // Print("\t\tPt where gridIndex={0} is at {1}", overlappingPt.GridIndex, overlappingPt.Location);
             var worldXY = Plane.WorldXY;
             var isOutside = PointContainment.Outside;
             var containmentTest = overlapRegion.Contains(overlappingPt.Location, worldXY, tolerance);
@@ -224,6 +225,7 @@ namespace groundhog
                         }
                 }
             }
+
             return isRect;
         }
 
@@ -269,7 +271,6 @@ namespace groundhog
                 //neighbourIndices.RemoveAll(pt => pt.X > xExtents);
                 //neighbourIndices.RemoveAll(pt => pt.Y > yExtents);
 
-
                 // Find the maximum hit value
                 for (var j = 0; j < neighbourIndices.Count; j++)
                 {
@@ -290,6 +291,7 @@ namespace groundhog
                     break; // Found the closest neighbour so we break
                 }
             }
+
             return interpolatedOverlaps;
         }
 
@@ -352,7 +354,7 @@ namespace groundhog
                         GridIndex = i,
                         BaseOverlaps = 0,
                         InterpolatedOverlaps = 0,
-                        InsideBoundary = true
+                        InsideBoundary = true,
                     };
                     i++;
                 }
@@ -378,7 +380,6 @@ namespace groundhog
             public Point3d Location { get; set; }
             public int GridIndex { get; set; }
             public bool InsideBoundary { get; set; }
-
             public double BaseOverlaps { get; set; } // Records number of times it overlaps with a data region
             public double InterpolatedOverlaps { get; set; } // Nearest neighbour interpolation of overlaps
 

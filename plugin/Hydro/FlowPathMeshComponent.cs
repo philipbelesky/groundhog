@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using groundhog.Hydro;
-using groundhog.Properties;
+using Groundhog.Hydro;
+using Groundhog.Properties;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogFlowMeshComponent : FlowPathBase
     {
@@ -22,7 +22,7 @@ namespace groundhog
 
         public override Guid ComponentGuid => new Guid("{2d218bdc-ecaa-2cf7-815a-c8111d1798d3}");
 
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddMeshParameter("Mesh", "M", "Base landscape form (as a mesh) for the flow calculation",
                 GH_ParamAccess.item);
@@ -44,7 +44,6 @@ namespace groundhog
                 return;
 
             // End initial variable setup
-
             var allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
             if (THREAD)
                 Parallel.For(0, startPoints.Length, i => // Shitty multithreading

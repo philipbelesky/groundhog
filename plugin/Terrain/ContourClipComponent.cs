@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Geometry;
 using Rhino.Geometry.Intersect;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogContourClipComponent : GroundHogComponent
     {
@@ -157,7 +157,6 @@ namespace groundhog
             DA.SetDataList(2, planarSrfs);
         }
 
-
         private Curve ClipCurveTerminus(Curve initialCurve, Point3d point, Curve BOUNDARY, Surface boundarySrf)
         {
             // Test, for a particular point where it is in relation to boundary and clip curve accordingly
@@ -283,12 +282,12 @@ namespace groundhog
                 // This is going to be incorrect sometimes, but we want to get the shorter of the two pieces
                 if (innerEdgeA.GetLength() >= innerEdgeB.GetLength())
                 {
-                    var innerEdge = Curve.JoinCurves(new[] {innerEdgeB, initialCurve}, docUnitTolerance);
+                    var innerEdge = Curve.JoinCurves(new[] { innerEdgeB, initialCurve }, docUnitTolerance);
                     return innerEdge[0];
                 }
                 else
                 {
-                    var innerEdge = Curve.JoinCurves(new[] {innerEdgeA, initialCurve}, docUnitTolerance);
+                    var innerEdge = Curve.JoinCurves(new[] { innerEdgeA, initialCurve }, docUnitTolerance);
                     return innerEdge[0];
                 }
             }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogRandomPathComponent : GroundHogComponent
     {
@@ -136,10 +136,7 @@ namespace groundhog
         private PolylineCurve DispatchRandomPaths(Point3d startPoint, List<double> DIRECTIONS,
             List<double> STEP_SIZES, int STEP_COUNT, Curve BOUNDARY, Random rnd)
         {
-            var stepPoints = new List<Point3d>
-            {
-                startPoint
-            };
+            var stepPoints = new List<Point3d> { startPoint };
 
             // Loop over the steps and make the movement
             var attempts = 0; // Safety check for when its impractical to find a solution that can not avoid boundary

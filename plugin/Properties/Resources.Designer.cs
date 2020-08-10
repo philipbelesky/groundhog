@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace groundhog.Properties {
+namespace Groundhog.Properties {
     using System;
     
     

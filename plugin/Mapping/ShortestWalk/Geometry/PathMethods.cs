@@ -6,7 +6,7 @@ using Rhino.Geometry;
 namespace ShortestWalk.Geometry
 {
     /// <summary>
-    ///     Defines a base class for methods to search paths in networks
+    ///     Defines a base class for methods to search paths in networks.
     /// </summary>
     public abstract class PathMethod
     {
@@ -14,12 +14,12 @@ namespace ShortestWalk.Geometry
         protected readonly CurvesTopology m_top;
 
         /// <summary>
-        ///     Set up the search
+        ///     Set up the search.
         /// </summary>
-        /// <param name="top">An input topology</param>
+        /// <param name="top">An input topology.</param>
         /// <param name="dist">
         ///     A series of distances. These cannot be less than the physical distance between starts and ends, but
-        ///     might be suitably longer
+        ///     might be suitably longer.
         /// </param>
         public PathMethod(CurvesTopology top, IList<double> dist)
         {
@@ -35,11 +35,11 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Searches the graph with the current algorithm
+        ///     Searches the graph with the current algorithm.
         /// </summary>
-        /// <param name="from">The vertex index of departure</param>
-        /// <param name="to">The vertex index of arrival</param>
-        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated</returns>
+        /// <param name="from">The vertex index of departure.</param>
+        /// <param name="to">The vertex index of arrival.</param>
+        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated.</returns>
         public virtual Curve Cross(int from, int to)
         {
             int[] nodes;
@@ -50,17 +50,17 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Searches the graph with the current algorithm. Retuns more information
+        ///     Searches the graph with the current algorithm. Retuns more information.
         /// </summary>
-        /// <param name="from">The vertex index of departure</param>
-        /// <param name="to">The vertex index of arrival</param>
-        /// <param name="nodes">Output parameter. The specific walked nodes, or null on error</param>
-        /// <param name="edges">Output parameter. The walked edges indices, or null on error</param>
+        /// <param name="from">The vertex index of departure.</param>
+        /// <param name="to">The vertex index of arrival.</param>
+        /// <param name="nodes">Output parameter. The specific walked nodes, or null on error.</param>
+        /// <param name="edges">Output parameter. The walked edges indices, or null on error.</param>
         /// <param name="eDirs">
         ///     Output parameter. Whether the edges were walked from front to end or in the opposite direction, or
-        ///     null on error
+        ///     null on error.
         /// </param>
-        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated</returns>
+        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated.</returns>
         public abstract Curve Cross(int from, int to, out int[] nodes, out int[] edges, out bool[] eDirs,
             out double totLength);
 
@@ -203,10 +203,10 @@ namespace ShortestWalk.Geometry
         ///     The A* search algorithm.
         ///     See http://en.wikipedia.org/wiki/A*_search_algorithm for description.
         /// </summary>
-        /// <param name="top">An input topology</param>
+        /// <param name="top">An input topology.</param>
         /// <param name="dist">
         ///     A series of distances. These cannot be less than the physical distance between starts and ends, but
-        ///     might be suitably longer
+        ///     might be suitably longer.
         /// </param>
         public AStar(CurvesTopology top, IList<double> dist) :
             base(top, dist)
@@ -303,7 +303,7 @@ namespace ShortestWalk.Geometry
         ///     The Dijkstra algorithm.
         ///     Each edge is given length 1. The graph is evaluated by link counts.
         /// </summary>
-        /// <param name="top">An input topology</param>
+        /// <param name="top">An input topology.</param>
         public Dijkstra(CurvesTopology top) :
             this(top, new AlwaysFixed(1, top.EdgeLength))
         {
@@ -313,7 +313,7 @@ namespace ShortestWalk.Geometry
         ///     The Dijkstra algorithm.
         ///     Each edge is given length [value]. The graph is evaluated by link counts.
         /// </summary>
-        /// <param name="top">An input topology</param>
+        /// <param name="top">An input topology.</param>
         public Dijkstra(CurvesTopology top, double value) :
             this(top, new AlwaysFixed(value, top.EdgeLength))
         {
@@ -323,8 +323,8 @@ namespace ShortestWalk.Geometry
         ///     The Dijkstra algorithm.
         ///     Each edge is given the length as set in "dist" parameter.
         /// </summary>
-        /// <param name="top">An input topology</param>
-        /// <param name="dist">A series of distances. These cannot be less than 0</param>
+        /// <param name="top">An input topology.</param>
+        /// <param name="dist">A series of distances. These cannot be less than 0.</param>
         public Dijkstra(CurvesTopology top, IList<double> dist) :
             base(top, dist)
         {
@@ -482,9 +482,8 @@ namespace ShortestWalk.Geometry
     public enum SearchMode
     {
         CurveLength = 1,
-
         //AdjustedCurveLength = 2,
         LinearDistance = 3,
-        Links = 4
+        Links = 4,
     }
 }

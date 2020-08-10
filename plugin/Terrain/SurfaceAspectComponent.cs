@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogSurfaceAspectComponent : GroundHogComponent
     {

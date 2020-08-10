@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Grasshopper.Kernel;
-using groundhog.Properties;
+using Groundhog.Properties;
 using Rhino.Geometry;
 using Rhino.Geometry.Intersect;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogChannelRegionComponent : GroundHogComponent
     {
@@ -61,8 +61,7 @@ namespace groundhog
                 return;
             }
 
-            if (CHANNEL_CURVE.IsPlanar(docUnitTolerance) == false
-            ) // Need to be strict here else the area calculation will fail
+            if (CHANNEL_CURVE.IsPlanar(docUnitTolerance) == false) // Need to be strict here else the area calculation will fail
             {
                 // The plane from TryGetPlane() seems off; as a work-around make one assuming the curve's end points define a good plane
                 var yPoint = new Point3d(CHANNEL_CURVE.PointAtEnd.X, CHANNEL_CURVE.PointAtEnd.Y,
@@ -92,7 +91,7 @@ namespace groundhog
 
             if (AREA_TARGET == 0)
             {
-                var boxDimensions = new double[3] {bbox.Diagonal.X, bbox.Diagonal.Y, bbox.Diagonal.Z};
+                var boxDimensions = new double[3] { bbox.Diagonal.X, bbox.Diagonal.Y, bbox.Diagonal.Z };
                 Array.Sort(boxDimensions); // If its the box of a planar curve one of the dimensions will be 0; need to sort + ignore
                 AREA_TARGET =
                     boxDimensions[1] * boxDimensions[2] *
@@ -247,7 +246,7 @@ namespace groundhog
                 var wettedLine = CHANNEL_CURVE.Trim(ixA.Item2, ixB.Item2); // Get the sub-curve of the channel
                 var waterLine = new Line(ixA.Item1, ixB.Item1).ToNurbsCurve();
 
-                var channel = Curve.JoinCurves(new[] {wettedLine, waterLine});
+                var channel = Curve.JoinCurves(new[] { wettedLine, waterLine });
                 if (channel.Length > 0)
                     channelCurves.Add(channel[0]);
             }

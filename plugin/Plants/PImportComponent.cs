@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using groundhog.Properties;
+using Groundhog.Properties;
 
-namespace groundhog
+namespace Groundhog
 {
     public class GroundhogPImportComponent : GroundHogComponent
     {

@@ -65,6 +65,4 @@ public static class FlowPathCalculations
         // Flow to the new point
         return Point3d.Add(closestPoint, flowVector);
     }
-
-
 }
