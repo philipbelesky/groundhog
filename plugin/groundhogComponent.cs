@@ -1,13 +1,13 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using Grasshopper.Kernel;
-using Rhino;
-using Sentry;
-using Sentry.Protocol;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
+    using System;
+    using System.Globalization;
+    using System.Reflection;
+    using Grasshopper.Kernel;
+    using Rhino;
+    using Sentry;
+    using Sentry.Protocol;
+
     public abstract class GroundHogComponent : GH_Component
     {
         protected readonly double docAngularTolerance = RhinoDoc.ActiveDoc.ModelAngleToleranceRadians;
@@ -20,17 +20,6 @@ namespace Groundhog
         {
         }
 
-        private Version getGroundHogVersion()
-        {
-            return Assembly.GetExecutingAssembly().GetName().Version;
-        }
-
-        private string getNiceGroundHogVersion()
-        {
-            var v = getGroundHogVersion();
-            return v.Major.ToString() + '.' + v.Minor + '.' + v.Build;
-        }
-
         // Components must implement the method
         protected abstract void GroundHogSolveInstance(IGH_DataAccess DA);
 
@@ -38,7 +27,7 @@ namespace Groundhog
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 #if DEBUG
-            GroundHogSolveInstance(DA);
+            this.GroundHogSolveInstance(DA);
 #else
             try
             {
@@ -86,6 +75,17 @@ namespace Groundhog
                 throw;
             }
 #endif
+        }
+
+        private Version GetGroundHogVersion()
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version;
+        }
+
+        private string GetNiceGroundHogVersion()
+        {
+            var v = this.GetGroundHogVersion();
+            return v.Major.ToString() + '.' + v.Minor + '.' + v.Build;
         }
     }
 }

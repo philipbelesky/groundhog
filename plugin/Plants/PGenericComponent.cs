@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogPGenericComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+
+    public class PGenericComponent : GroundHogComponent
     {
-        public GroundhogPGenericComponent()
+        public PGenericComponent()
             : base("Generic Species", "PGeneric", "Output plant objects from pre-defined generic types ", "Groundhog",
                 "Flora")
         {
@@ -49,8 +49,7 @@ namespace Groundhog
                 var instanceSpecies = createSpecies.Item1;
                 var instanceWarnings = createSpecies.Item2;
                 if (instanceWarnings.Length > 0)
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
+                    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
 
                 csvPlantSpecies.Add(instanceSpecies);
             }

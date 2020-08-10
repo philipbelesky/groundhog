@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogMeshAspectComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class MeshAspectComponent : GroundHogComponent
     {
-        public GroundhogMeshAspectComponent()
+        public MeshAspectComponent()
             : base("Mesh Aspect", "Aspect",
                 "Analyses the aspect of a Mesh, outputting separated faces for coloring and the aspect", "Groundhog",
                 "Terrain")
         {
         }
 
-        protected override Bitmap Icon => Resources.icon_mesh_aspect;
-
         public override Guid ComponentGuid => new Guid("{c3b67aca-0c15-2552-9d6c-96cce97fcb47}");
+
+        protected override Bitmap Icon => Resources.icon_mesh_aspect;
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -59,19 +59,19 @@ namespace Groundhog
             DA.SetDataList(2, subAspects);
         }
 
-        private List<double> GetAspects(List<Vector3d> subDirections, Vector3d ASPECT)
+        private List<double> GetAspects(List<Vector3d> subDirections, Vector3d aspect)
         {
             var subAspects = new List<double>();
             // Need to measure with a specified plane so it doesn't return the smallest angle but rather the rotational/radial angle
             var leftPlane = new Plane(new Point3d(0, 0, 0), new Vector3d(0, 0, -1));
             foreach (var direction in subDirections)
-                if (direction.X == 0 && direction.Y == 0 || direction.IsZero)
+                if ((direction.X == 0 && direction.Y == 0) || direction.IsZero)
                 {
                     subAspects.Add(0); // On perfectly flat surfaces measured angles will produce an infinite Angle
                 }
                 else
                 {
-                    var angle = Vector3d.VectorAngle(ASPECT, direction, leftPlane);
+                    var angle = Vector3d.VectorAngle(aspect, direction, leftPlane);
                     subAspects.Add(angle * (180 / Math.PI)); // Convert to radians
                 }
 
@@ -90,7 +90,7 @@ namespace Groundhog
 
             foreach (var normal in normals)
             {
-                var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
+                var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - (0.5 * Math.PI))) * (180.0 / Math.PI);
                 subAngles.Add(angle);
             }
 

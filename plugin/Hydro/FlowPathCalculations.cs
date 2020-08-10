@@ -6,7 +6,7 @@ using Rhino.Geometry;
 
 public static class FlowPathCalculations
 {
-    public static double getSensibleFidelity(Point3d[] flowPathPoints, BoundingBox bbox)
+    public static double GetSensibleFidelity(Point3d[] flowPathPoints, BoundingBox bbox)
     {
         // Below distance based method fails if there aren't at least three points; guess from mesh bounds if this is the case
         if (flowPathPoints.Length <= 3)
@@ -53,14 +53,14 @@ public static class FlowPathCalculations
         return Tuple.Create(allFlowPathPointsTree, allFlowPathCurvesList);
     }
 
-    public static Point3d MoveFlowPoint(Vector3d closestNormal, Point3d closestPoint, double MOVE_DISTANCE)
+    public static Point3d MoveFlowPoint(Vector3d closestNormal, Point3d closestPoint, double moveDistance)
     {
         // Get the vector to flow down
         var flowVector = Vector3d.CrossProduct(Vector3d.ZAxis, closestNormal);
         flowVector.Unitize();
         flowVector.Reverse();
         flowVector.Transform(Transform.Rotation(Math.PI / 2, closestNormal, closestPoint));
-        flowVector = flowVector * MOVE_DISTANCE;
+        flowVector = flowVector * moveDistance;
 
         // Flow to the new point
         return Point3d.Add(closestPoint, flowVector);

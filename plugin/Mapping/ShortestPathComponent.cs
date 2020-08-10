@@ -1,35 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Data;
-using Grasshopper.Kernel.Types;
-using Groundhog.Properties;
-using Rhino.Geometry;
-using ShortestWalk.Geometry;
-using ShortestWalk.Gh;
-
-// Component source lightly modified from Giulio Piacentino's repo, see License/Attribution in /ShortestWalk/
+﻿// Component source lightly modified from Giulio Piacentino's repo, see License/Attribution in /ShortestWalk/
 
 namespace Groundhog
 {
-    public class GroundhogShortestPathComponent : GroundHogComponent
-    {
-        private static readonly Predicate<Curve> _removeNullAndInvalidDelegate = RemoveNullAndInvalid;
-        private static readonly Predicate<Point3d> _removeInvalidDelegate = RemoveInvalid;
-        private static readonly Predicate<double> _isNegative = IsNegative;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Grasshopper.Kernel.Data;
+    using Grasshopper.Kernel.Types;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+    using ShortestWalk.Geometry;
+    using ShortestWalk.Gh;
 
-        public GroundhogShortestPathComponent()
+    public class ShortestPathComponent : GroundHogComponent
+    {
+        private static readonly Predicate<Curve> RemoveNullAndInvalidDelegate = RemoveNullAndInvalid;
+        private static readonly Predicate<Point3d> RemoveInvalidDelegate = RemoveInvalid;
+        private static readonly Predicate<double> IsNegativeP = IsNegative;
+
+        public ShortestPathComponent()
             : base("Shortest Path", "ShortPath", "Calculates the shortest path in a network of curves", "Groundhog",
                 "Mapping")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{07169277-e561-4d6f-93a2-5f9d6bb0084a}");
 
         protected override Bitmap Icon => Resources.icon_path_shortest;
-
-        public override Guid ComponentGuid => new Guid("{07169277-e561-4d6f-93a2-5f9d6bb0084a}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -48,13 +47,17 @@ namespace Groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Shortest Path", "P", "The curve showing the shortest connection",
+            pManager.AddCurveParameter(
+                "Shortest Path", "P", "The curve showing the shortest connection",
                 GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Succession", "S", "The indices of the curves that form the shortest path",
+            pManager.AddIntegerParameter(
+                "Succession", "S", "The indices of the curves that form the shortest path",
                 GH_ParamAccess.tree);
-            pManager.AddBooleanParameter("Direction", "D",
+            pManager.AddBooleanParameter(
+                "Direction", "D",
                 "True if the curve in succession is walked from start to end, false otherwise", GH_ParamAccess.tree);
-            pManager.AddNumberParameter("Length", "L",
+            pManager.AddNumberParameter(
+                "Length", "L",
                 "The total length, as an aggregation of the input lengths measured along the path",
                 GH_ParamAccess.list);
         }
@@ -73,7 +76,7 @@ namespace Groundhog
             DA.GetDataList(3, LENGTHS);
 
             // Input validation
-            var negativeIndex = LENGTHS.FindIndex(_isNegative);
+            var negativeIndex = LENGTHS.FindIndex(IsNegativeP);
             if (negativeIndex != -1)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
@@ -82,11 +85,11 @@ namespace Groundhog
                 return;
             }
 
-            CURVES.RemoveAll(_removeNullAndInvalidDelegate);
+            CURVES.RemoveAll(RemoveNullAndInvalidDelegate);
             if (CURVES.Count < 1) return;
 
-            STARTS.RemoveAll(_removeInvalidDelegate);
-            ENDS.RemoveAll(_removeInvalidDelegate);
+            STARTS.RemoveAll(RemoveInvalidDelegate);
+            ENDS.RemoveAll(RemoveInvalidDelegate);
             if (STARTS.Count != ENDS.Count)
             {
                 if (ENDS.Count == 1 && STARTS.Count > 1)
@@ -116,8 +119,8 @@ namespace Groundhog
 
             // Construct topology
             var top = new CurvesTopology(CURVES, DocumentTolerance());
-            //CurvesTopologyPreview.Mark(top, Color.BurlyWood, Color.Bisque);
-            PathMethod pathSearch;
+            // CurvesTopologyPreview.Mark(top, Color.BurlyWood, Color.Bisque);
+            PathMethods pathSearch;
 
             if (LENGTHS.Count == 0)
             {
@@ -161,20 +164,22 @@ namespace Groundhog
 
                 if (fromIndex == toIndex)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
+                    AddRuntimeMessage(
+                        GH_RuntimeMessageLevel.Error,
                         "The start and end positions are equal; perhaps because they are not close enough to one of the curves in the network.");
                     resultCurves.Add(null);
                     continue;
                 }
 
-                var current = pathSearch.Cross(fromIndex, toIndex, out var nodes, out var edges, out var dir,
-                    out var tot);
+                var current = pathSearch.Cross(
+                    fromIndex, toIndex, out var nodes, out var edges, out var dir, out var tot);
 
                 if (current == null)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                    AddRuntimeMessage(
+                        GH_RuntimeMessageLevel.Warning,
                         string.Format("No walk found for start point at position {0}. Are end points isolated?",
-                            i.ToString()));
+                        i.ToString()));
                 }
                 else
                 {

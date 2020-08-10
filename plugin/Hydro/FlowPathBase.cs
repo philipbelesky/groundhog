@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Grasshopper.Kernel;
-using Rhino;
-using Rhino.Geometry;
-
-namespace Groundhog.Hydro
+﻿namespace Groundhog.Hydro
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Grasshopper.Kernel;
+    using Rhino;
+    using Rhino.Geometry;
+
     public abstract class FlowPathBase : GroundHogComponent
     {
-        protected double FLOW_FIDELITY = 1000.0;
-        protected int FLOW_LIMIT;
-        protected List<Point3d> FLOW_ORIGINS;
-        protected Point3d[] startPoints;
-        protected bool THREAD;
+        public double FLOW_FIDELITY = 1000.0;
+        public int FLOW_LIMIT;
+        public List<Point3d> FLOW_ORIGINS;
+        public Point3d[] startPoints;
+        public bool THREAD;
 
         // Pass the constructor parameters up to the main GH_Component abstract class
         protected FlowPathBase(string name, string nickname, string description)
@@ -41,35 +41,32 @@ namespace Groundhog.Hydro
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Flow Points", "F", "The points of each simulated flow path 'jump'",
-                GH_ParamAccess.tree);
-            pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each of the flow points into a path",
-                GH_ParamAccess.list);
+            pManager.AddPointParameter("Flow Points", "F", "The points of each simulated flow path 'jump'", GH_ParamAccess.tree);
+            pManager.AddCurveParameter("Flow Paths", "C", "A polyline linking each of the flow points into a path", GH_ParamAccess.list);
         }
 
         protected bool SetupSharedVariables(IGH_DataAccess DA, BoundingBox bbox)
         {
             FLOW_ORIGINS = new List<Point3d>();
-            if (!DA.GetDataList(1, FLOW_ORIGINS)) return false;
+            if (!DA.GetDataList(1, this.FLOW_ORIGINS)) return false;
 
             // If referenced points get deleted in Rhino they default to 0,0,0 thus make a list that excludes these point types first
             var nullPoint = new Point3d(0, 0, 0);
-            var validFlowPathPoints = from point in FLOW_ORIGINS where point != nullPoint select point;
+            var validFlowPathPoints = from point in this.FLOW_ORIGINS where point != nullPoint select point;
 
-            if (validFlowPathPoints.Count() < 1)
+            if (!validFlowPathPoints.Any())
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "No valid points have been provided; perhaps check that you have not provided null or invalid points?");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid points have been provided; perhaps check that you have not provided null or invalid points?");
                 return false;
             }
 
-            startPoints = validFlowPathPoints.ToArray(); // Array for multithreading
+            this.startPoints = validFlowPathPoints.ToArray(); // Array for multithreading
 
-            DA.GetData(2, ref FLOW_FIDELITY);
-            if (FLOW_FIDELITY == 0) FLOW_FIDELITY = FlowPathCalculations.getSensibleFidelity(startPoints, bbox);
+            DA.GetData(2, ref this.FLOW_FIDELITY);
+            if (this.FLOW_FIDELITY == 0) this.FLOW_FIDELITY = FlowPathCalculations.GetSensibleFidelity(this.startPoints, bbox);
 
             DA.GetData(3, ref FLOW_LIMIT);
-            DA.GetData(4, ref THREAD);
+            DA.GetData(4, ref this.THREAD);
 
             return true;
         }
@@ -88,18 +85,18 @@ namespace Groundhog.Hydro
             {
                 Point3d nextPoint;
                 if (isMesh)
-                    nextPoint = GetNextFlowStepOnMesh(flowMesh, startPoint);
+                    nextPoint = this.GetNextFlowStepOnMesh(flowMesh, startPoint);
                 else
-                    nextPoint = GetNextFlowStepOnSurface(flowBrep, startPoint);
+                    nextPoint = this.GetNextFlowStepOnSurface(flowBrep, startPoint);
 
                 if (nextPoint.DistanceTo(startPoint) <= RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
                     break; // Test the point has actully moved
-                if (nextPoint.Z >= startPoint.Z && FLOW_FIDELITY > 0) // When going downhill; break on moving up
+                if (nextPoint.Z >= startPoint.Z && this.FLOW_FIDELITY > 0) // When going downhill; break on moving up
                     break; // Test this point is actually lower
-                if (nextPoint.Z <= startPoint.Z && FLOW_FIDELITY < 0) // When going uphill; break on moving down
+                if (nextPoint.Z <= startPoint.Z && this.FLOW_FIDELITY < 0) // When going uphill; break on moving down
                     break; // Test this point is actually lower
                 flowPoints.Add(nextPoint);
-                if (FLOW_LIMIT != 0 && FLOW_LIMIT <= flowPoints.Count)
+                if (this.FLOW_LIMIT != 0 && this.FLOW_LIMIT <= flowPoints.Count)
                     break; // Stop if iteration limit reached
                 startPoint = nextPoint; // Checks out; iterate on
             }
@@ -107,21 +104,21 @@ namespace Groundhog.Hydro
             return flowPoints;
         }
 
-        private Point3d GetNextFlowStepOnMesh(Mesh FLOW_MESH, Point3d startPoint)
+        private Point3d GetNextFlowStepOnMesh(Mesh flowMesh, Point3d startPoint)
         {
             double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
             Vector3d closestNormal;
             Point3d closestPoint;
 
             // Get closest point
-            FLOW_MESH.ClosestPoint(startPoint, out closestPoint, out closestNormal, maximumDistance);
+            flowMesh.ClosestPoint(startPoint, out closestPoint, out closestNormal, maximumDistance);
             // Get the next point following the vector
-            var nextFlowPoint = FlowPathCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
+            var nextFlowPoint = FlowPathCalculations.MoveFlowPoint(closestNormal, closestPoint, this.FLOW_FIDELITY);
             // Need to snap back to the surface (the vector may be pointing off the edge)
-            return FLOW_MESH.ClosestPoint(nextFlowPoint);
+            return flowMesh.ClosestPoint(nextFlowPoint);
         }
 
-        private Point3d GetNextFlowStepOnSurface(Brep FLOW_SURFACE, Point3d startPoint)
+        private Point3d GetNextFlowStepOnSurface(Brep flowSurface, Point3d startPoint)
         {
             double closestS, closestT;
             double maximumDistance = 0; // TD: setting this as +ve speeds up the search?
@@ -130,12 +127,12 @@ namespace Groundhog.Hydro
             Point3d closestPoint;
 
             // Get closest point
-            FLOW_SURFACE.ClosestPoint(startPoint, out closestPoint, out closestCI, out closestS, out closestT,
+            flowSurface.ClosestPoint(startPoint, out closestPoint, out closestCI, out closestS, out closestT,
                 maximumDistance, out closestNormal);
             // Get the next point following the vector
             var nextFlowPoint = FlowPathCalculations.MoveFlowPoint(closestNormal, closestPoint, FLOW_FIDELITY);
             // Need to snap back to the surface (the vector may be pointing off the edge)
-            return FLOW_SURFACE.ClosestPoint(nextFlowPoint);
+            return flowSurface.ClosestPoint(nextFlowPoint);
         }
     }
 }

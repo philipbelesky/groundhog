@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
+    using System;
+    using System.Collections.Generic;
+
     internal class PlantFactory
     {
         public static Dictionary<string, string> ParseToDictionary(string headers, string values)
@@ -14,7 +14,7 @@ namespace Groundhog
 
             int i;
             for (i = 0; i < splitKeys.Length; i = i + 1)
-                if (splitValues[i].Trim() != "")
+                if (!string.IsNullOrEmpty(splitValues[i].Trim()))
                     dictionary.Add(splitKeys[i].Trim(), splitValues[i].Trim());
 
             return dictionary;
@@ -22,7 +22,7 @@ namespace Groundhog
 
         public static Tuple<PlantSpecies, string> ParseFromDictionary(Dictionary<string, string> speciesInstance)
         {
-            var warnings = "";
+            var warnings = string.Empty;
             // Naming
             string speciesName, commonName, indigenousName;
             // Lifespan
@@ -250,8 +250,7 @@ namespace Groundhog
                 initialRootRadius, matureRootRadius, varianceRootRadius,
                 initialHeight, matureHeight, varianceHeight,
                 initialTrunkRadius, matureTrunkRadius, varianceTrunkRadius,
-                displayR, displayG, displayB
-            );
+                displayR, displayG, displayB);
 
             return Tuple.Create(initialisedSpecies, warnings);
         }

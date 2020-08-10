@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
-using Grasshopper.Kernel;
-using Groundhog.Hydro;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogFlowSurfaceComponent : FlowPathBase
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Threading.Tasks;
+    using Grasshopper.Kernel;
+    using Groundhog.Hydro;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class FlowPathSurfaceComponent : FlowPathBase
     {
-        public GroundhogFlowSurfaceComponent()
+        public FlowPathSurfaceComponent()
             : base("Flow Projection (Surface)", "Srf Flows", "Construct flow paths over a surface")
         {
         }
@@ -24,8 +24,8 @@ namespace Groundhog
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddSurfaceParameter("Surface", "S", "Base landscape form (as a surface) for the flow calculation",
-                GH_ParamAccess.item);
+            pManager.AddSurfaceParameter(
+                "Surface", "S", "Base landscape form (as a surface) for the flow calculation", GH_ParamAccess.item);
             base.RegisterInputParams(pManager);
         }
 
@@ -35,8 +35,7 @@ namespace Groundhog
             DA.GetData(0, ref FLOW_SURFACE);
             if (FLOW_SURFACE == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "A null item has been provided as the Surface input; please correct this input.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Surface input; please correct this input.");
                 return;
             }
 
@@ -46,17 +45,16 @@ namespace Groundhog
             if (!SetupSharedVariables(DA, FLOW_SURFACE.GetBoundingBox(false)))
                 return;
 
-            // End initial variable setup
+            /* End initial variable setup */
 
             var allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
-            if (THREAD)
-                Parallel.For(0, startPoints.Length, i => // Shitty multithreading
-                    {
-                        allFlowPathPoints[i] = DispatchFlowPoints(false, null, FLOW_BREP, startPoints[i]);
-                    }
-                );
+            if (this.THREAD)
+                Parallel.For(0, this.startPoints.Length, i => // Shitty multithreading
+                {
+                    allFlowPathPoints[i] = DispatchFlowPoints(false, null, FLOW_BREP, startPoints[i]);
+                });
             else
-                for (var i = 0; i < startPoints.Length; i = i + 1)
+                for (var i = 0; i < this.startPoints.Length; i = i + 1)
                     allFlowPathPoints[i] = DispatchFlowPoints(false, null, FLOW_BREP, startPoints[i]);
 
             var outputs = FlowPathCalculations.MakeOutputs(allFlowPathPoints);

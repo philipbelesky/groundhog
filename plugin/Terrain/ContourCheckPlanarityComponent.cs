@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogContourCheckPlanarityComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class ContourCheckPlanarityComponent : GroundHogComponent
     {
-        public GroundhogContourCheckPlanarityComponent()
+        public ContourCheckPlanarityComponent()
             : base("Contour Planarity Fix", "Contour Planarity", "Checks contours are planar and corrects them if not",
                 "Groundhog", "Terrain")
         {
@@ -54,8 +54,8 @@ namespace Groundhog
 
             if (ALL_CONTOURS.Count < preCullSize)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
-                    string.Format(
+                AddRuntimeMessage(
+                    GH_RuntimeMessageLevel.Remark, string.Format(
                         "{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.",
                         preCullSize - ALL_CONTOURS.Count));
             }

@@ -1,24 +1,23 @@
-﻿using System;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogSeaFloodComponent : GroundHogComponent
+    using System;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class FloodSeaComponent : GroundHogComponent
     {
-        public GroundhogSeaFloodComponent()
+        public FloodSeaComponent()
             : base("Sea Flood Levels", "Sea Floods", "Examine flooding levels along a surface from a tidal source",
                 "Groundhog", "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{2d234bdc-ecaa-4cf7-815a-c8111d1798d0}");
 
         protected override Bitmap Icon => Resources.icon_floods_sea;
-
-        public override Guid ComponentGuid => new Guid("{2d234bdc-ecaa-4cf7-815a-c8111d1798d0}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -84,12 +83,12 @@ namespace Groundhog
             // TODO: determine if I need to do input validation here
 
             // Create holder variables for output parameters
-            var seaLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, 0));
-            var stormSurgeLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, SURGE));
-            var highNeapLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
-            var lowNeapLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_NEAP));
-            var highSpringLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
-            var lowSpringLevel = CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_SPRING));
+            var seaLevel = this.CreateLevel(CalculateValue(YEAR, DATUM, RISE, 0));
+            var stormSurgeLevel = this.CreateLevel(CalculateValue(YEAR, DATUM, RISE, SURGE));
+            var highNeapLevel = this.CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_NEAP));
+            var lowNeapLevel = this.CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_NEAP));
+            var highSpringLevel = this.CreateLevel(CalculateValue(YEAR, DATUM, RISE, HIGH_SPRING));
+            var lowSpringLevel = this.CreateLevel(CalculateValue(YEAR, DATUM, RISE, LOW_SPRING));
 
             // Assign variables to output parameters
             DA.SetData(0, seaLevel);
@@ -100,11 +99,11 @@ namespace Groundhog
             DA.SetData(5, lowSpringLevel);
         }
 
-        private double CalculateValue(double SIMULATED_YEAR, double DATUM, double RISE, double EVENT_HEIGHT)
+        private double CalculateValue(double simulatedYear, double datum, double rise, double eventHeight)
         {
             // TODO: test with negative years; fractional years...
-            var yearsElapased = SIMULATED_YEAR - DateTime.Now.Year;
-            var simulatedLevel = DATUM + EVENT_HEIGHT + RISE * yearsElapased;
+            var yearsElapased = simulatedYear - DateTime.Now.Year;
+            var simulatedLevel = datum + eventHeight + (rise * yearsElapased);
             return simulatedLevel;
         }
 

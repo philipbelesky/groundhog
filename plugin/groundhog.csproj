@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="groundhogInfo.cs" />
+    <Compile Include="GroundhogInfo.cs" />
     <Compile Include="Hydro\ChannelRegionComponent.cs" />
     <Compile Include="Hydro\ChannelInfoComponent.cs" />
     <Compile Include="Hydro\FloodRiverComponent.cs" />
@@ -82,7 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="groundhogComponent.cs" />
+    <Compile Include="GroundhogComponent.cs" />
     <Compile Include="Terrain\ContourCheckGapsComponent.cs" />
     <Compile Include="Terrain\ContourCheckPlanarityComponent.cs" />
     <Compile Include="Terrain\ContourClipComponent.cs" />

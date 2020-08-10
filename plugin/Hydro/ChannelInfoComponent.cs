@@ -1,24 +1,23 @@
-﻿using System;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogChannelInfoComponent : GroundHogComponent
+    using System;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class ChannelInfoComponent : GroundHogComponent
     {
-        public GroundhogChannelInfoComponent()
+        public ChannelInfoComponent()
             : base("Channel Info", "CInfo",
                 "Calculate characteristics of water flow in a channel from its submerged region", "Groundhog", "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{008255a6-edff-44d9-b96f-23eb050b4a1a}");
 
         protected override Bitmap Icon => Resources.icon_channel_info;
-
-        public override Guid ComponentGuid => new Guid("{008255a6-edff-44d9-b96f-23eb050b4a1a}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -35,17 +34,20 @@ namespace Groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("Area", "A", "Area of the channel", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Max Depth", "mD", "Maximum depth of the channel", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Mean Depth", "aD", "Mean depth of the channel", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Wetted Perimeter", "P", "Length of the channel in the boundary",
-                GH_ParamAccess.item);
-            pManager.AddNumberParameter("Hydraulic Radius", "R", "Ratio of area to wetted perimeter",
-                GH_ParamAccess.item);
-            pManager.AddNumberParameter("Velocity", "V", "Velocity of the water flow in the channel",
-                GH_ParamAccess.item);
-            pManager.AddNumberParameter("Discharge", "Q", "The rate of discharge in cubic document units per second",
-                GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Area", "A", "Area of the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Max Depth", "mD", "Maximum depth of the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Mean Depth", "aD", "Mean depth of the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Wetted Perimeter", "P", "Length of the channel in the boundary", GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Hydraulic Radius", "R", "Ratio of area to wetted perimeter", GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Velocity", "V", "Velocity of the water flow in the channel", GH_ParamAccess.item);
+            pManager.AddNumberParameter(
+                "Discharge", "Q", "The rate of discharge in cubic document units per second", GH_ParamAccess.item);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -62,24 +64,21 @@ namespace Groundhog
             DA.GetData(2, ref SLOPE);
 
             // Validation
-            if (CHANNEL_CURVE.TryGetPlane(out CHANNEL_PLANE, docUnitTolerance) == false)
+            if (CHANNEL_CURVE.TryGetPlane(out CHANNEL_PLANE, this.docUnitTolerance) == false)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "A non-planar curve has been provided as the channel section; please ensure it is planar.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A non-planar curve has been provided as the channel section; please ensure it is planar.");
                 return;
             }
 
             if (CHANNEL_CURVE.IsClosed == false)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "A non-closed curve has been provided as the channel section; please ensure it is closed.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A non-closed curve has been provided as the channel section; please ensure it is closed.");
                 return;
             }
 
-            if (GAUCKLER_MANNING > 0 && SLOPE <= 0 || GAUCKLER_MANNING <= 0 && SLOPE > 0)
+            if ((GAUCKLER_MANNING > 0 && SLOPE <= 0) || (GAUCKLER_MANNING <= 0 && SLOPE > 0))
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "Calculating velocity and discarge requires both the slope and the roughness coefficient.");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Calculating velocity and discarge requires both the slope and the roughness coefficient.");
                 return;
             }
 

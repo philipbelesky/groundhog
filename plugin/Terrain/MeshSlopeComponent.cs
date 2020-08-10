@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogMeshSlopeComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class MeshSlopeComponent : GroundHogComponent
     {
-        public GroundhogMeshSlopeComponent()
+        public MeshSlopeComponent()
             : base("Mesh Slope", "Slope",
                 "Analyses the slope of a Mesh, outputting separated faces for coloring and the slope/grade",
                 "Groundhog", "Terrain")
@@ -90,7 +90,7 @@ namespace Groundhog
                 }
                 else
                 {
-                    var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - 0.5 * Math.PI)) * (180.0 / Math.PI);
+                    var angle = (0.0 - (Math.Asin(Math.Abs(normal.Z)) - (0.5 * Math.PI))) * (180.0 / Math.PI);
                     subAngles.Add(angle);
                 }
 

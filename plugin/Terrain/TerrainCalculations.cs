@@ -19,17 +19,16 @@ public static class TerrainCalculations
         {
             var vertices = meshes[m].Vertices.ToPoint3dArray();
 
-            Array.Sort(vertices, delegate(Point3d x, Point3d y) { return x.Z.CompareTo(y.Z); }); // Sort by Z values
+            Array.Sort(vertices, (x, y) => x.Z.CompareTo(y.Z)); // Sort by Z values
 
             Point3d min;
             if (vertices[0].Z == vertices[1].Z && vertices[1].Z == vertices[2].Z)
                 min = subCentres[m];
             else if (vertices[0].Z == vertices[1].Z)
                 min = new Point3d(
-                    0.5 * (vertices[0].X - vertices[1].X) + vertices[1].X,
-                    0.5 * (vertices[0].Y - vertices[1].Y) + vertices[1].Y,
-                    0.5 * (vertices[0].Z - vertices[1].Z) + vertices[1].Z
-                );
+                    (0.5 * (vertices[0].X - vertices[1].X)) + vertices[1].X,
+                    (0.5 * (vertices[0].Y - vertices[1].Y)) + vertices[1].Y,
+                    (0.5 * (vertices[0].Z - vertices[1].Z)) + vertices[1].Z);
             else
                 min = vertices[0]; // Otherwise use lowerst
 

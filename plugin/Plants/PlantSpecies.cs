@@ -1,15 +1,12 @@
-﻿using System;
-using System.Drawing;
-using GH_IO;
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
-using Groundhog;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public interface IGH_Plant_Goo : IGH_Goo
-    { }
+    using System;
+    using System.Drawing;
+    using GH_IO;
+    using Grasshopper.Kernel;
+    using Grasshopper.Kernel.Types;
+    using Groundhog;
+    using Rhino.Geometry;
 
     public class PlantSpecies : GH_Param<IGH_Goo>
     {
@@ -49,8 +46,8 @@ namespace Groundhog
             double initialRootRadius, double matureRootRadius, double varianceRootRadius,
             double initialHeight, double matureHeight, double varianceHeight,
             double initialTrunkRadius, double matureTrunkRadius, double varianceTrunkRadius,
-            int displayR, int displayG, int displayB
-        ) : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
+            int displayR, int displayG, int displayB)
+                : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
         {
             // Naming
             this.speciesName = speciesName;
@@ -82,18 +79,18 @@ namespace Groundhog
         public void SetVarianceValues(int randomSeed) // Rand can't be generated here as its time dependent = same values
         {
             // Seeds are index of plant in list order so that they are deterministic (when the time value changes)
-            var rand = new Random(randomSeed); 
-            crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
-            heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
-            rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
-            trunkVarianceMultiplier = GetVarianceMultiplier(rand, varianceTrunkRadius);
+            var rand = new Random(randomSeed);
+            this.crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
+            this.heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
+            this.rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
+            this.trunkVarianceMultiplier = GetVarianceMultiplier(rand, varianceTrunkRadius);
         }
 
         private double GetVarianceMultiplier(Random rand, double varianceValue)
         {
             var multiplier = rand.NextDouble() * varianceValue; // E.g. 0.5 * 20% = 10
-            if (rand.Next(2) > 0) return 1 + multiplier / 100; // E.g. 1 + (10 / 100) = 1.1
-            return 1 - multiplier / 100; // E.g. 1 - (10 / 100) = 0.9
+            if (rand.Next(2) > 0) return 1 + (multiplier / 100); // E.g. 1 + (10 / 100) = 1.1
+            return 1 - (multiplier / 100); // E.g. 1 - (10 / 100) = 0.9
         }
 
         // Get current state
@@ -102,28 +99,28 @@ namespace Groundhog
             var variedEndState = varianceMultiplier * eventualState;
             var annualRate = (variedEndState - initialState) / timetoMaturity;
             var grownTime = Math.Min(time, timetoMaturity);
-            var grownState = grownTime * annualRate + initialState;
+            var grownState = (grownTime * annualRate) + initialState;
             return grownState;
         }
 
         // Get geometry
         public Circle GetCrownDisc(Point3d location, double time)
         {
-            var height = GetGrowth(initialHeight, matureHeight, time, heightVarianceMultiplier);
-            var radius = GetGrowth(initialCrownRadius, matureCrownRadius, time, crownVarianceMultiplier);
+            var height = this.GetGrowth(initialHeight, matureHeight, time, heightVarianceMultiplier);
+            var radius = this.GetGrowth(initialCrownRadius, matureCrownRadius, time, crownVarianceMultiplier);
             var canopyLocation = new Point3d(location.X, location.Y, location.Z + height);
             return new Circle(canopyLocation, radius);
         }
 
         public Circle GetRootDisc(Point3d location, double time)
         {
-            var radius = GetGrowth(initialRootRadius, matureRootRadius, time, rootVarianceMultiplier);
+            var radius = this.GetGrowth(initialRootRadius, matureRootRadius, time, rootVarianceMultiplier);
             return new Circle(location, radius);
         }
 
         public Circle GetTrunkDisc(Point3d location, double time)
         {
-            var radius = GetGrowth(initialTrunkRadius, matureTrunkRadius, time, trunkVarianceMultiplier);
+            var radius = this.GetGrowth(initialTrunkRadius, matureTrunkRadius, time, trunkVarianceMultiplier);
             return new Circle(location, radius);
         }
 
@@ -134,7 +131,7 @@ namespace Groundhog
 
         public Mesh GetCrownMesh(Point3d location, double time, int plantSides)
         {
-            return makeMeshForAttribute(GetCrownDisc(location, time), GetTrunkDisc(location, time), plantSides);
+            return MakeMeshForAttribute(GetCrownDisc(location, time), GetTrunkDisc(location, time), plantSides);
         }
 
         public Mesh GetRootMesh(Point3d location, double time, int plantSides)
@@ -144,10 +141,10 @@ namespace Groundhog
                 GetGrowth(initialRootRadius, matureRootRadius, time,
                     rootVarianceMultiplier); // Assume approx spherical
             rootBallBottomDisc.Translate(new Vector3d(0, 0, rootDepth * -1));
-            return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
+            return MakeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }
 
-        private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference, int plantSides)
+        private Mesh MakeMeshForAttribute(Circle topCircumference, Circle bottomCircumference, int plantSides)
         {
             var mesh = new Mesh();
             var topPolygon = Polyline.CreateCircumscribedPolygon(topCircumference, plantSides * 2);
@@ -157,14 +154,14 @@ namespace Groundhog
             mesh.Vertices.AddVertices(topPolygon);
             mesh.Vertices.Add(topPolygon.CenterPoint());
 
-            //// Build the edges of the canopy mesh 
-            mesh.Faces.AddFace(new MeshFace(0, plantSides + 1,
-                mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
+            // Build the edges of the canopy mesh
+            mesh.Faces.AddFace(new MeshFace(
+                0, plantSides + 1, mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
             for (var i = 1; i < plantSides; i++)
             {
-                var baseNodeIndex = i * 2 + plantSides + 1;
+                var baseNodeIndex = (i * 2) + plantSides + 1;
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex, baseNodeIndex - 1)); // Counter clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
@@ -189,16 +186,10 @@ namespace Groundhog
             return new GH_String(speciesName);
         }
 
-        #region casting
-        
         protected override IGH_Goo InstantiateT()
         {
             return new GH_ObjectWrapper();
         }
-
-        #endregion
-        
-        #region properties
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
 
@@ -208,7 +199,9 @@ namespace Groundhog
         {
             return "groundhog Plant Species (" + speciesName + ")";
         }
+    }
 
-        #endregion
+    public interface IGH_Plant_Goo : IGH_Goo
+    {
     }
 }
