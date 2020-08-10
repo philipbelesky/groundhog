@@ -6,11 +6,13 @@ using Grasshopper;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Geometry;
 using Grasshopper.Kernel.Geometry.Voronoi;
-using Groundhog.Properties;
+using groundhog.Properties;
 using Rhino.Display;
 using Rhino.Geometry;
+using Rhino.Render.UI;
+using Plane = Rhino.Geometry.Plane;
 
-namespace Groundhog
+namespace groundhog
 {
     public class GroundhogCatchmentComponent : GroundHogComponent
     {
@@ -78,109 +80,66 @@ namespace Groundhog
 
             // End initial variable setup
 
-            // Create the flowStructure objects
-            var flowStructures = new List<FlowStructure>();
-            for (var i = 0; i < FLOW_PATHS.Count; i++)
-                flowStructures.Add(new FlowStructure(FLOW_PATHS[i], i, MIN_PROXIMITY));
+            // Get start and end points of all flowPaths
+            var flowPathStarts = FLOW_PATHS.Select(t => t.PointAtStart);
+            var flowPathEnds = FLOW_PATHS.Select(t => t.PointAtEnd);
 
-            // Create voronoi cells and associate with each flow object
-            CreateVoronoi(flowStructures);
+            // Classify all of the end points of the flow paths into groups based on their proximity to each other
+            // Just use the Group Points component via node in code to do this sorting
+            var groupPointsInfo = Rhino.NodeInCode.Components.FindComponent("PointGroups");
+            var groupPointsFunction = groupPointsInfo.DelegateTree as dynamic;
+            var groupPointsResults = groupPointsFunction(flowPathEnds, MIN_PROXIMITY);
+            var flowPathEndsGrouped = groupPointsResults[0] as DataTree<object>; // A tree (group then item)
+            var flowGroupIndicesforPaths = groupPointsResults[1] as DataTree<object>; // A tree (group then item)
+            int flowGroupsCount = flowPathEndsGrouped.BranchCount;
 
-            // Search through each point, check distance apart and assign to groups based on this
-            foreach (var originFlowStructure in flowStructures)
-            {
-                var originPt = originFlowStructure.end;
-                foreach (var searchFlowStructure in flowStructures)
-                    if (originFlowStructure != searchFlowStructure)
-                    {
-                        var searchPt = searchFlowStructure.end;
-                        var distance = originPt.DistanceTo(searchPt);
-                        if (distance <= searchFlowStructure.groupDistance + docUnitTolerance)
-                        {
-                            // Then check if its closer to the previous match (and by default: the proximity)
-                            searchFlowStructure.groupIndex = originFlowStructure.groupIndex;
-                            searchFlowStructure.groupDistance = distance; // We set the new distance to beat
-                        }
-                    }
-            }
+            // Create a Voronoi diagram based on the start points of all flowPaths
+            Rhino.Geometry.Rectangle3d boundaryForVoronoi = this.getBoundary(flowPathStarts as IEnumerable<Point3d>);
+            var voronoiInfo = Rhino.NodeInCode.Components.FindComponent("Voronoi");
+            var voronoiFunction = voronoiInfo.Delegate as dynamic;
+            var voronoiResults = voronoiFunction(flowPathStarts, null, boundaryForVoronoi, null) as List<Polyline>;
 
-            // Create an array of points lists
-            var holdingListCurves = new List<Curve>[flowStructures.Count];
-            var holdingListBounds = new List<Polyline>[flowStructures.Count];
-            var holdingListBoundsCurves = new Curve[flowStructures.Count][];
-
-            foreach (var flowStructure in flowStructures)
-            {
-                // For each catchment group instantiate a list and add paths that match that group
-                if (holdingListCurves[flowStructure.groupIndex] == null)
-                {
-                    // Need to add the list if it doesn't exist
-                    holdingListCurves[flowStructure.groupIndex] = new List<Curve>();
-                    holdingListBounds[flowStructure.groupIndex] = new List<Polyline>();
-                }
-
-                holdingListCurves[flowStructure.groupIndex].Add(flowStructure.curve);
-                holdingListBounds[flowStructure.groupIndex].Add(flowStructure.catchment);
-            }
-
-            // To unify adjacent and connected catchment curves we explode all the cells, delete duplicates and rejoin
-            for (var v = 0; v < flowStructures.Count; v++)
-                if (holdingListBounds[v] != null) // Check the group exists
-                {
-                    // Explode all polylines into their segments
-                    var groupEdges = new List<Line>();
-                    for (var i = 0; i < holdingListBounds[v].Count; i++)
-                        if (holdingListBounds[v][i] != null
-                        ) // Null when just a point? Or provided a blank data tree item?
-                        {
-                            var test = holdingListBounds[v][i];
-                            var segmentLengths = holdingListBounds[v][i].GetSegments();
-                            var segmentCounts = segmentLengths.Length;
-                            groupEdges.AddRange(holdingListBounds[v][i].GetSegments()); //REENABLE: THIS EXPLODES IT
-                        }
-
-                    var culledEdges = DeduplicateLines(groupEdges);
-
-                    var sortedCurves = new List<Curve>();
-                    foreach (var line in culledEdges)
-                        sortedCurves.Add(line.ToNurbsCurve());
-
-                    holdingListBoundsCurves[v] = Curve.JoinCurves(sortedCurves);
-                }
-            
             // Create the branch structures where each path is a catchment group and add the relevant geometry
             var groupedCurves = new DataTree<Curve>();
-            var groupedBounds = new DataTree<Curve>();
+            //var groupedBounds = new DataTree<Curve>();
             var groupedColors = new DataTree<Color>();
-            var groupedVolumes = new DataTree<double>();
+            //var groupedVolumes = new DataTree<double>();
 
-            // We want the colors to randomly pick from an available index as their seed; otherwise adjacent cells have similar valuesList<int> iList = new List<int>();
-            var colorIndices = Enumerable.Range(0, holdingListCurves.Length).ToList();
-            var shuffledIndices = colorIndices.OrderBy(a => Guid.NewGuid());
+            for (var groupIndex = 0; groupIndex < flowGroupsCount; groupIndex++)
+            {
+                var nextPath = groupedCurves.Paths.Count;
 
-            for (var i = 0; i < holdingListCurves.Length; i++)
-                if (holdingListCurves[i] != null)
+                // Gather all the original flow paths based on their grouped index
+                groupedCurves.EnsurePath(nextPath);
+                var indicesForGroup = flowGroupIndicesforPaths.Branch(groupIndex).Cast<int>();
+                foreach (var pathGroupIndex in indicesForGroup)
                 {
-                    var nextPath = groupedCurves.Paths.Count;
-                    groupedCurves.EnsurePath(nextPath);
-                    groupedBounds.EnsurePath(nextPath);
-                    groupedColors.EnsurePath(nextPath);
-                    groupedVolumes.EnsurePath(nextPath);
-                    groupedCurves.AddRange(holdingListCurves[i], groupedCurves.Path(nextPath));
-                    groupedBounds.AddRange(holdingListBoundsCurves[i], groupedBounds.Path(nextPath));
-                    groupedColors.AddRange(
-                        GenerateGroupColors(shuffledIndices.ElementAt(i), holdingListCurves[i].Count,
-                            holdingListCurves.Length), groupedColors.Path(nextPath)
-                    );
-                    double flowVolumesPercent = (double)holdingListCurves[i].Count / FLOW_PATHS.Count;
-                    groupedVolumes.Add(flowVolumesPercent);
+                    groupedCurves.Add(FLOW_PATHS[pathGroupIndex], groupedCurves.Path(nextPath));
                 }
 
-            // Assign variables to output parameters
-            DA.SetDataTree(0, groupedBounds);
+                // Generate a distinct color for this group and populate the count
+                groupedColors.EnsurePath(nextPath);
+                var colors = this.GenerateGroupColors(groupIndex, flowGroupIndicesforPaths.Branch(groupIndex).Count, flowGroupsCount);
+                groupedColors.AddRange(colors, groupedColors.Path(nextPath));
+
+                //    if (holdingListCurves[i] != null)
+                //    {
+                //        var nextPath = groupedCurves.Paths.Count;
+                //        groupedBounds.EnsurePath(nextPath);
+                //        
+                //        groupedVolumes.EnsurePath(nextPath);
+                //        groupedCurves.AddRange(holdingListCurves[i], groupedCurves.Path(nextPath));
+                //        groupedBounds.AddRange(holdingListBoundsCurves[i], groupedBounds.Path(nextPath));
+
+                //        double flowVolumesPercent = (double)holdingListCurves[i].Count / FLOW_PATHS.Count;
+                //        groupedVolumes.Add(flowVolumesPercent);
+            }
+
+            //// Assign variables to output parameters
+            //DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
             DA.SetDataTree(2, groupedColors);
-            DA.SetDataTree(3, groupedVolumes);
+            //DA.SetDataTree(3, groupedVolumes);
         }
 
         private List<Color> GenerateGroupColors(int groupIndex, int groupSize, int groupsCount)
@@ -232,81 +191,17 @@ namespace Groundhog
             return value;
         }
 
-        private List<Line> DeduplicateLines(List<Line> inputLines)
+        private Rhino.Geometry.Rectangle3d getBoundary(IEnumerable<Point3d> points)
         {
-            var lines = inputLines.OrderBy(o => o.Length).ToList(); // Sort so we can break after a no match
-            var duplicateIndices = new List<int>();
-
-            for (var i = lines.Count - 1; i >= 0; i--)
-            for (var j = i - 1; j >= 0; j--)
-            {
-                var d1 = Math.Abs(lines[i].From.DistanceTo(lines[j].From));
-                var d2 = Math.Abs(lines[i].From.DistanceTo(lines[j].To));
-                var d3 = Math.Abs(lines[i].To.DistanceTo(lines[j].From));
-                var d4 = Math.Abs(lines[i].To.DistanceTo(lines[j].To));
-
-                if ((d1 < docUnitTolerance || d2 < docUnitTolerance) &&
-                    (d3 < docUnitTolerance || d4 < docUnitTolerance))
-                {
-                    duplicateIndices.Add(j);
-                    duplicateIndices.Add(i);
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            // Remove duplicate indices and cull the list
-            foreach (var indice in duplicateIndices.Distinct().ToList().OrderByDescending(x => x))
-                lines.RemoveAt(indice);
-            return lines;
-        }
-
-        private void CreateVoronoi(List<FlowStructure> flowStructures)
-        {
-            // Get the starts from everything
-            var allStartPoints = flowStructures.Select(x => x.start).ToList();
-            // Make a 2d list of all the start points
-            var nodes = new Node2List(allStartPoints);
-
-            // Create a 2d list that forms the boundary
-            var outline = new List<Node2>();
-            // Get sorted lists of coordinates to guestimate a boundary rectangle
-
-            var sortedX = allStartPoints.OrderByDescending(item => item.X);
-            var sortedY = allStartPoints.OrderByDescending(item => item.Y);
-            outline.Add(new Node2(sortedX.First().X, sortedY.First().Y));
-            outline.Add(new Node2(sortedX.First().X, sortedY.Last().Y));
-            outline.Add(new Node2(sortedX.Last().X, sortedY.Last().Y));
-            outline.Add(new Node2(sortedX.Last().X, sortedY.First().Y));
-
-            // TODO: a delauney first so the brute force isn't needed, and the topology can be used to group
-
-            var voronoiCells = Solver.Solve_BruteForce(nodes, outline);
-            // Cells are order as the nodes were; so we can loop through both
-            for (var i = 0; i < voronoiCells.Count; i++)
-                flowStructures[i].catchment = voronoiCells[i].ToPolyline();
-        }
-
-        private class FlowStructure
-        {
-            public readonly Curve curve;
-            public readonly Point3d end;
-            public readonly Point3d start;
-            public Polyline catchment;
-            public double groupDistance;
-            public int groupIndex;
-
-            // Constructor
-            public FlowStructure(Curve flowCurve, int i, double minProximity)
-            {
-                curve = flowCurve;
-                start = flowCurve.PointAtStart;
-                end = flowCurve.PointAtEnd;
-                groupIndex = i;
-                groupDistance = minProximity;
-            }
+            var sortedX = points.OrderBy(item => item.X);
+            var sortedY = points.OrderBy(item => item.Y);
+            var sortedZ = points.OrderBy(item => item.Z);
+            var width = sortedX.Last().X - sortedX.First().X;
+            var height = sortedX.Last().Y - sortedX.First().Y;
+            // We need to offset the rectangle slightly so that the voronoi points aren't right on the boundary.
+            // To do so we just shift things over by 10%
+            var plane = new Plane(new Point3d(sortedX.First().X - (width * 0.1), sortedY.First().Y - (width * 0.1), sortedZ.First().Z), new Vector3d(0, 0, 1));
+            return new Rectangle3d(plane, width + (width * 0.2), height + (width * 0.2));
         }
     }
 }
