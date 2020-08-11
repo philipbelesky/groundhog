@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.12.1] -
+#### [0.12.1] - 2020-08-11
 ###### Fixed
 - Fixed issue that prevented Groundhog from installing on older Rhino versions
 
