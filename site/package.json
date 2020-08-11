@@ -22,7 +22,7 @@
     "compile-images": "gulp images",
     "compile-version": "bash ./compile_plugin.sh",
     "compile-assets": "bash ./compile_assets.sh",
-    "compile-deploy": "npm run compile-assets & npm run compile-images",
+    "compile-deploy": "npm run compile-assets && npm run compile-images",
     "build": "npm run compile-deploy && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
     "publish": "npm run purge && npm run build && npm run test && s3_website push"
   },
