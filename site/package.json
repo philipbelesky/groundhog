@@ -19,7 +19,7 @@
     "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
     "test": "htmlproofer ./_site",
-    "compile-images": "gulp images",
+    "compile-images": "rm -f ./assets/resize_cache/channels/*.jpg && gulp images",
     "compile-version": "bash ./compile_plugin.sh",
     "compile-assets": "bash ./compile_assets.sh",
     "compile-deploy": "npm run compile-assets && npm run compile-images",
