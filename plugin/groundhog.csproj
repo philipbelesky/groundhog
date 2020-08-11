@@ -43,24 +43,24 @@
     <Reference Include="Costura, Version=3.3.3.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>packages\Costura.Fody.3.3.3\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>packages\RhinoCommon.6.12.19029.6381\lib\net45\Eto.dll</HintPath>
+    <Reference Include="Eto, Version=2.3.6612.11168, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>packages\RhinoCommon.6.1.18037.13441\lib\net45\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="GH_IO, Version=6.12.19029.6380, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
-      <HintPath>packages\Grasshopper.6.12.19029.6381\lib\net45\GH_IO.dll</HintPath>
+    <Reference Include="GH_IO, Version=6.1.18037.13441, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>packages\Grasshopper.6.1.18037.13441\lib\net45\GH_IO.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper, Version=6.12.19029.6380, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
-      <HintPath>packages\Grasshopper.6.12.19029.6381\lib\net45\Grasshopper.dll</HintPath>
+    <Reference Include="Grasshopper, Version=6.1.18037.13441, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>packages\Grasshopper.6.1.18037.13441\lib\net45\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.UI, Version=6.12.19029.6380, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>packages\RhinoCommon.6.12.19029.6381\lib\net45\Rhino.UI.dll</HintPath>
+    <Reference Include="Rhino.UI, Version=6.1.18037.13441, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>packages\RhinoCommon.6.1.18037.13441\lib\net45\Rhino.UI.dll</HintPath>
     </Reference>
-    <Reference Include="RhinoCommon, Version=6.12.19029.6380, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>packages\RhinoCommon.6.12.19029.6381\lib\net45\RhinoCommon.dll</HintPath>
+    <Reference Include="RhinoCommon, Version=6.1.18037.13441, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>packages\RhinoCommon.6.1.18037.13441\lib\net45\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="Sentry, Version=2.1.5.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
       <HintPath>packages\Sentry.2.1.5\lib\net461\Sentry.dll</HintPath>
@@ -180,8 +180,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.4.2.1\build\Fody.targets'))" />
     <Error Condition="!Exists('packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.3.3.3\build\Costura.Fody.props'))" />
-    <Error Condition="!Exists('packages\RhinoCommon.6.12.19029.6381\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\RhinoCommon.6.12.19029.6381\build\net45\RhinoCommon.targets'))" />
-    <Error Condition="!Exists('packages\Grasshopper.6.12.19029.6381\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grasshopper.6.12.19029.6381\build\net45\Grasshopper.targets'))" />
+    <Error Condition="!Exists('packages\RhinoCommon.6.1.18037.13441\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\RhinoCommon.6.1.18037.13441\build\net45\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('packages\Grasshopper.6.1.18037.13441\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grasshopper.6.1.18037.13441\build\net45\Grasshopper.targets'))" />
   </Target>
   <!-- Removes the extra pdbs and stuff that get bundled in -->
   <Target AfterTargets="AfterBuild;NonWinFodyTarget" Name="CleanReferenceCopyLocalPaths">
@@ -204,6 +204,6 @@
     <StartProgram Condition="Exists('/Applications/Rhinoceros6.app')">/Applications/Rhinoceros6.app</StartProgram>
     <StartProgram Condition="Exists('/Applications/Rhinoceros.app')">/Applications/Rhinoceros.app</StartProgram>
   </PropertyGroup>
-  <Import Project="packages\RhinoCommon.6.12.19029.6381\build\net45\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.6.12.19029.6381\build\net45\RhinoCommon.targets')" />
-  <Import Project="packages\Grasshopper.6.12.19029.6381\build\net45\Grasshopper.targets" Condition="Exists('packages\Grasshopper.6.12.19029.6381\build\net45\Grasshopper.targets')" />
+  <Import Project="packages\RhinoCommon.6.1.18037.13441\build\net45\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.6.1.18037.13441\build\net45\RhinoCommon.targets')" />
+  <Import Project="packages\Grasshopper.6.1.18037.13441\build\net45\Grasshopper.targets" Condition="Exists('packages\Grasshopper.6.1.18037.13441\build\net45\Grasshopper.targets')" />
 </Project>

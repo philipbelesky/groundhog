@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using GH_IO;
 using Grasshopper.Kernel;
@@ -150,17 +151,33 @@ namespace groundhog
             return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }
 
+        // Polyline.CreateCircumscribedPolygon would work here but is not in older RhinoCommon versions
+        private Polyline drawPolygon(int sides, double radii, Point3d origin, double rotation = 0)
+        {
+            var sector = Math.PI * 2 / sides;
+            var points = new List<Point3d>();
+            for (var i = 0; i < sides; i++)
+            {
+                points.Add(new Point3d(
+                    origin.X + (Math.Sin((sector * i) + rotation) * radii),
+                    origin.Y + (Math.Cos((sector * i) + rotation) * radii),
+                    origin.Z
+                ));
+            }
+            points.Add(points[0]); // Re-add origin to ensure polygon is closed
+            return new Polyline(points);
+        }
+
         private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference, int plantSides)
         {
             var mesh = new Mesh();
-            var topPolygon = Polyline.CreateCircumscribedPolygon(topCircumference, plantSides * 2);
-            var bottomPolygon = Polyline.CreateCircumscribedPolygon(bottomCircumference, plantSides);
-
-            mesh.Vertices.AddVertices(bottomPolygon);
+            var topPolygon = drawPolygon(plantSides * 2, topCircumference.Radius, topCircumference.Center);
+            var bottomPolygon = drawPolygon(plantSides, bottomCircumference.Radius, bottomCircumference.Center);
+ mesh.Vertices.AddVertices(bottomPolygon);
             mesh.Vertices.AddVertices(topPolygon);
             mesh.Vertices.Add(topPolygon.CenterPoint());
 
-            //// Build the edges of the canopy mesh 
+            // Build the edges of the canopy mesh 
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 1,
                 mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
