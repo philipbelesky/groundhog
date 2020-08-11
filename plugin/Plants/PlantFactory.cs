@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using groundhog;
+    using Groundhog;
 
     internal class PlantFactory
     {

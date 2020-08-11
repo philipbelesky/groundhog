@@ -5,7 +5,7 @@
     using System.Drawing;
     using Grasshopper.Kernel;
     using Groundhog.Properties;
-    using groundhog;
+    using Groundhog;
 
     public class PGenericComponent : GroundHogComponent
     {

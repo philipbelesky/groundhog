@@ -8,7 +8,7 @@
     <ProjectGuid>{B7E79B45-51E8-4B72-9B2D-44F3454273B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>groundhog</RootNamespace>
+    <RootNamespace>Groundhog</RootNamespace>
     <AssemblyName>Groundhog</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
