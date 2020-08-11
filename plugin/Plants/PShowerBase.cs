@@ -6,6 +6,7 @@
     using Grasshopper.Kernel;
     using Grasshopper.Kernel.Types;
     using Rhino.Geometry;
+    using groundhog;
 
     public abstract class PShowerBase : GroundHogComponent
     {

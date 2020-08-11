@@ -39,7 +39,7 @@
                 // Log exception to Sentry
                 using (SentrySdk.Init(o => {
                     o.Dsn = new Dsn("https://2677778a4e2147f0b2e2aa2c39c403b0@o99429.ingest.sentry.io/218018");
-                    o.Release = getGroundHogVersion().ToString();
+                    o.Release = this.GetGroundHogVersion().ToString();
                 }))
                 {
                     SentrySdk.ConfigureScope(scope =>
@@ -47,7 +47,7 @@
                         scope.SetTag("Language", CultureInfo.InstalledUICulture.EnglishName);
                         scope.SetTag("System", System.Environment.OSVersion.ToString());
                         scope.SetTag("Time", TimeZoneInfo.Local.StandardName);
-                        scope.SetTag("Groundhog", getNiceGroundHogVersion());
+                        scope.SetTag("Groundhog", this.GetNiceGroundHogVersion());
                         scope.SetTag("Grasshopper", Grasshopper.Versioning.Version.ToString());
                         scope.SetTag("Component", this.Name);
 

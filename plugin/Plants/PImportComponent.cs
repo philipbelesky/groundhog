@@ -6,6 +6,7 @@ namespace Groundhog
     using Grasshopper.Kernel;
     using Grasshopper.Kernel.Types;
     using Groundhog.Properties;
+    using groundhog;
 
     public class PImportComponent : GroundHogComponent
     {

@@ -18,7 +18,7 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Solution_Name: groundhog                       # Replace with your solution name, i.e. MyWpfApp.sln.
+      Solution_Name: .\plugin\groundhog.sln                       # Replace with your solution name, i.e. MyWpfApp.sln.
       Plugin_File_Name: groundhog
       Debug_File_Path: '.\plugin\bin\'
       Release_File_Path: '.\plugin\release\'
