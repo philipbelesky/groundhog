@@ -89,6 +89,7 @@ exclude:
   - style.csl
   - npm-debug.log
   - vendor # Exclude gem file on travis
+  - assets/resize_cache
   - assets/documentation/**/*.jpg # Made by gulp
   - assets/documentation/**/*.jpeg # Made by gulp
   - assets/documentation/**/*.png # Made by gulp
