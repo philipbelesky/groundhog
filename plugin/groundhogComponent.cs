@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using System.Reflection;
+    using GH_IO.Serialization;
     using Grasshopper.Kernel;
     using Rhino;
     using Sentry;
@@ -19,6 +20,21 @@
             : base(name, nickname, description, category, subCategory)
         {
         }
+
+        // Provides the message with current version string while debugging 
+#if DEBUG
+        public override bool Read(GH_IReader reader) // Triggered on definition load
+        {
+            this.Message = "Gh" + this.GetNiceGroundHogVersion();
+            return base.Read(reader);
+        }
+
+        public override void AddedToDocument(GH_Document document)
+        {
+            this.Message = "Gh v" + this.GetNiceGroundHogVersion();
+            base.AddedToDocument(document); // Triggered on component placement
+        }
+#endif
 
         // Components must implement the method
         protected abstract void GroundHogSolveInstance(IGH_DataAccess DA);
