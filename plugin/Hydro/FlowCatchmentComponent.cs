@@ -41,9 +41,6 @@
             pManager.AddNumberParameter("Proximity Threshold", "T", "The distance between end points required to form a catchment", 
                 GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Boundaries via Ends", "E", "Visualise catchment boundaries as surrounding only the final 'drain' location of each flow path. If set to false, all points along the path are used",
-                GH_ParamAccess.item, true);
-            pManager[2].Optional = true;
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -86,8 +83,6 @@
                         $"Proximity Threshold parameter not provided; guessed {this.providedMinProximity} as a good value");
                 }
             }
-
-            DA.GetData(2, ref this.boundariesAroundEndPoints);
 
             // End initial variable setup
 
@@ -224,8 +219,6 @@
                 y = (int)Math.Floor(yPos); // Get position on y axis
             }
 
-            //Print("{2}: {0} {1} maxes: {3} {4}", x.ToString(), y.ToString(), groupIndex.ToString(), xMax.ToString(), yMax.ToString());
-
             // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)
             var hue = this.ColorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
             var saturation = 1.0; // Maximise contrast
@@ -255,10 +248,11 @@
             var width = sortedX.Last().X - sortedX.First().X;
             var height = sortedY.Last().Y - sortedY.First().Y;
 
-            // We need to offset the rectangle slightly so that the voronoi points aren't right on the boundary. To do so we just shift things over by 10%
-            Point3d shiftedOrigin = new Point3d(sortedX.First().X - (width * 0.05), sortedY.First().Y - (height * 0.05), sortedZ.First().Z);
+            // We need to offset the rectangle slightly so that the voronoi points aren't right on the boundary. To do so we just shift things over by a small amount
+            var offset = 0.01;
+            Point3d shiftedOrigin = new Point3d(sortedX.First().X - (width * offset), sortedY.First().Y - (height * offset), sortedZ.First().Z);
             Plane plane = new Plane(shiftedOrigin, new Vector3d(0, 0, 1));
-            return new Rectangle3d(plane, width * 1.1, height * 1.1);
+            return new Rectangle3d(plane, width * (1 + (offset * 2)), height * (1 + (offset * 2)));
         }
     }
 }
