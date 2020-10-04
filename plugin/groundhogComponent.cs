@@ -1,13 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using Grasshopper.Kernel;
-using Rhino;
-using Sentry;
-using Sentry.Protocol;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
+    using System;
+    using System.Globalization;
+    using System.Reflection;
+    using GH_IO.Serialization;
+    using Grasshopper.Kernel;
+    using Rhino;
+    using Sentry;
+    using Sentry.Protocol;
+
     public abstract class GroundHogComponent : GH_Component
     {
         protected readonly double docAngularTolerance = RhinoDoc.ActiveDoc.ModelAngleToleranceRadians;
@@ -20,16 +21,20 @@ namespace Groundhog
         {
         }
 
-        private Version getGroundHogVersion()
+        // Provides the message with current version string while debugging 
+#if DEBUG
+        public override bool Read(GH_IReader reader) // Triggered on definition load
         {
-            return Assembly.GetExecutingAssembly().GetName().Version;
+            this.Message = "Gh" + this.GetNiceGroundHogVersion();
+            return base.Read(reader);
         }
 
-        private string getNiceGroundHogVersion()
+        public override void AddedToDocument(GH_Document document)
         {
-            var v = getGroundHogVersion();
-            return v.Major.ToString() + '.' + v.Minor + '.' + v.Build;
+            this.Message = "Gh v" + this.GetNiceGroundHogVersion();
+            base.AddedToDocument(document); // Triggered on component placement
         }
+#endif
 
         // Components must implement the method
         protected abstract void GroundHogSolveInstance(IGH_DataAccess DA);
@@ -38,7 +43,7 @@ namespace Groundhog
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 #if DEBUG
-            GroundHogSolveInstance(DA);
+            this.GroundHogSolveInstance(DA);
 #else
             try
             {
@@ -50,7 +55,7 @@ namespace Groundhog
                 // Log exception to Sentry
                 using (SentrySdk.Init(o => {
                     o.Dsn = new Dsn("https://2677778a4e2147f0b2e2aa2c39c403b0@o99429.ingest.sentry.io/218018");
-                    o.Release = getGroundHogVersion().ToString();
+                    o.Release = this.GetGroundHogVersion().ToString();
                 }))
                 {
                     SentrySdk.ConfigureScope(scope =>
@@ -58,7 +63,7 @@ namespace Groundhog
                         scope.SetTag("Language", CultureInfo.InstalledUICulture.EnglishName);
                         scope.SetTag("System", System.Environment.OSVersion.ToString());
                         scope.SetTag("Time", TimeZoneInfo.Local.StandardName);
-                        scope.SetTag("Groundhog", getNiceGroundHogVersion());
+                        scope.SetTag("Groundhog", this.GetNiceGroundHogVersion());
                         scope.SetTag("Grasshopper", Grasshopper.Versioning.Version.ToString());
                         scope.SetTag("Component", this.Name);
 
@@ -86,6 +91,17 @@ namespace Groundhog
                 throw;
             }
 #endif
+        }
+
+        private Version GetGroundHogVersion()
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version;
+        }
+
+        private string GetNiceGroundHogVersion()
+        {
+            var v = this.GetGroundHogVersion();
+            return v.Major.ToString() + '.' + v.Minor + '.' + v.Build;
         }
     }
 }

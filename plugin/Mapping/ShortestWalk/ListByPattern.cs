@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace ShortestWalk.Gh
+﻿namespace ShortestWalk.Gh
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
     internal class ListByPattern<T> : IList<T>
     {
         private readonly IList<T> _content;

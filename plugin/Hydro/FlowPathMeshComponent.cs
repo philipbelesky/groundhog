@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
-using Grasshopper.Kernel;
-using Groundhog.Hydro;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogFlowMeshComponent : FlowPathBase
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Threading.Tasks;
+    using Grasshopper.Kernel;
+    using Groundhog.Hydro;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class FlowPathMeshComponent : FlowPathBase
     {
-        public GroundhogFlowMeshComponent()
+        public FlowPathMeshComponent()
             : base("Flow Projection (Mesh)", "Mesh Flows", "Construct flow paths over a mesh")
         {
         }
@@ -35,7 +35,7 @@ namespace Groundhog
             DA.GetData(0, ref FLOW_MESH);
             if (FLOW_MESH == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "A null item has been provided as the Mesh input; please correct this input.");
                 return;
             }
@@ -44,16 +44,15 @@ namespace Groundhog
                 return;
 
             // End initial variable setup
-            var allFlowPathPoints = new List<Point3d>[startPoints.Length]; // Array of all the paths
-            if (THREAD)
-                Parallel.For(0, startPoints.Length, i => // Shitty multithreading
-                    {
-                        allFlowPathPoints[i] = DispatchFlowPoints(true, FLOW_MESH, null, startPoints[i]);
-                    }
-                );
+            var allFlowPathPoints = new List<Point3d>[this.startPoints.Length]; // Array of all the paths
+            if (this.THREAD)
+                Parallel.For(0, this.startPoints.Length, i => // Shitty multithreading
+                {
+                    allFlowPathPoints[i] = this.DispatchFlowPoints(true, FLOW_MESH, null, this.startPoints[i]);
+                });
             else
-                for (var i = 0; i < startPoints.Length; i = i + 1)
-                    allFlowPathPoints[i] = DispatchFlowPoints(true, FLOW_MESH, null, startPoints[i]);
+                for (var i = 0; i < this.startPoints.Length; i = i + 1)
+                    allFlowPathPoints[i] = this.DispatchFlowPoints(true, FLOW_MESH, null, this.startPoints[i]);
 
             var outputs = FlowPathCalculations.MakeOutputs(allFlowPathPoints);
 

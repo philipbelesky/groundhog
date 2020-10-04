@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogShowerDiscsComponent : PShowerBase
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+
+    public class PShowerDiscsComponent : PShowerBase
     {
-        public GroundhogShowerDiscsComponent() : base(
-            "Plant Appearance (discs)", "Shower (discs)",
+        public PShowerDiscsComponent()
+            : base("Plant Appearance (discs)", "Shower (discs)",
             "Simulate the appearance of a particular plant instance using circles")
         {
         }
@@ -32,7 +32,7 @@ namespace Groundhog
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
         {
-            if (!SetupSharedVariables(DA))
+            if (!this.SetupSharedVariables(DA))
                 return;
 
             // Create holder variables for output parameters
@@ -41,14 +41,14 @@ namespace Groundhog
             var allSpacings = new List<Circle>();
             var allTrunks = new List<Circle>();
 
-            for (var i = 0; i < PLANT_SPECIES.Count; i++)
+            for (var i = 0; i < this.PLANT_SPECIES.Count; i++)
             {
-                var plantInstance = GetPlantInstance(PLANT_SPECIES, i, allLabels, allColours);
-                allTrunks.Add(plantInstance.GetTrunkDisc(PLANT_LOCATIONS[i], PLANT_TIME));
-                allRoots.Add(plantInstance.GetRootDisc(PLANT_LOCATIONS[i], PLANT_TIME));
-                allCrowns.Add(plantInstance.GetCrownDisc(PLANT_LOCATIONS[i], PLANT_TIME));
-                allSpacings.Add(plantInstance.GetSpacingDisc(PLANT_LOCATIONS[i]));
-                allLabels.Add(plantInstance.GetLabel());
+                var plantInstance = GetPlantInstance(this.PLANT_SPECIES, i, this.allLabels, this.allColours);
+                allTrunks.Add(plantInstance.GetTrunkDisc(this.PLANT_LOCATIONS[i], this.PLANT_TIME));
+                allRoots.Add(plantInstance.GetRootDisc(this.PLANT_LOCATIONS[i], this.PLANT_TIME));
+                allCrowns.Add(plantInstance.GetCrownDisc(this.PLANT_LOCATIONS[i], this.PLANT_TIME));
+                allSpacings.Add(plantInstance.GetSpacingDisc(this.PLANT_LOCATIONS[i]));
+                this.allLabels.Add(plantInstance.GetLabel());
             }
 
             // Assign variables to output parameters
@@ -56,8 +56,8 @@ namespace Groundhog
             DA.SetDataList(1, allRoots);
             DA.SetDataList(2, allCrowns);
             DA.SetDataList(3, allSpacings);
-            DA.SetDataList(4, allColours);
-            DA.SetDataList(5, allLabels);
+            DA.SetDataList(4, this.allColours);
+            DA.SetDataList(5, this.allLabels);
         }
     }
 }

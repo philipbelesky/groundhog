@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Collections;
-using Rhino.Geometry;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogContourCheckGapsComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Collections;
+    using Rhino.Geometry;
+
+    public class ContourCheckGapsComponent : GroundHogComponent
     {
-        public GroundhogContourCheckGapsComponent()
+        public ContourCheckGapsComponent()
             : base("Contour Gap Fix", "Contour Gaps", "Checks if contours have gaps, and bridges them if so",
                 "Groundhog", "Terrain")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{2d234cdc-ecaa-4ce7-815a-c8136d1798d0}");
 
         protected override Bitmap Icon => Resources.icon_contour_gap;
-
-        public override Guid ComponentGuid => new Guid("{2d234cdc-ecaa-4ce7-815a-c8136d1798d0}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -57,13 +56,13 @@ namespace Groundhog
             ALL_CONTOURS.RemoveAll(item => item == null);
             if (ALL_CONTOURS.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
                 return;
             }
 
             if (ALL_CONTOURS.Count < preCullSize)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                     string.Format(
                         "{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.",
                         preCullSize - ALL_CONTOURS.Count));
@@ -74,7 +73,7 @@ namespace Groundhog
             {
                 DA.SetDataList(0, ALL_CONTOURS);
                 DA.SetDataList(1, null);
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
                     "Maximum Distance was set at or below 0 so no changes were made to the contours.");
                 return;
             }
@@ -90,11 +89,11 @@ namespace Groundhog
                 fixedContours.Add(contour);
                 if (contour.IsClosed == false)
                 {
-                    var pointContainmentS = BOUNDARY.Contains(contour.PointAtStart, Plane.WorldXY, docUnitTolerance);
+                    var pointContainmentS = BOUNDARY.Contains(contour.PointAtStart, Plane.WorldXY, this.docUnitTolerance);
                     if (pointContainmentS.ToString() == "Inside")
                         possibleSplitPoints.Add(contour.PointAtStart);
 
-                    var pointContainmentE = BOUNDARY.Contains(contour.PointAtEnd, Plane.WorldXY, docUnitTolerance);
+                    var pointContainmentE = BOUNDARY.Contains(contour.PointAtEnd, Plane.WorldXY, this.docUnitTolerance);
                     if (pointContainmentE.ToString() == "Inside")
                         possibleSplitPoints.Add(contour.PointAtEnd);
                 }

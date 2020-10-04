@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
-using Grasshopper.Kernel;
-using Groundhog.Properties;
-using Rhino.Geometry;
-using Rhino.Geometry.Intersect;
-
-namespace Groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogContourClipComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Threading.Tasks;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino.Geometry;
+    using Rhino.Geometry.Intersect;
+
+    public class ContourClipComponent : GroundHogComponent
     {
-        public GroundhogContourClipComponent()
+        public ContourClipComponent()
             : base("Contour Clipper", "Contour Clip",
                 "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{2d234adc-dcfd-4cf7-815a-c8136d1798d0}");
 
         protected override Bitmap Icon => Resources.icon_contour_clip;
-
-        public override Guid ComponentGuid => new Guid("{2d234adc-dcfd-4cf7-815a-c8136d1798d0}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -61,14 +60,14 @@ namespace Groundhog
             ALL_CONTOURS.RemoveAll(item => item == null);
             if (ALL_CONTOURS.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No valid contour curves were provided.");
                 return;
             }
 
             if (ALL_CONTOURS.Count < preCullSize)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
-                    string.Format(
+                this.AddRuntimeMessage(
+                    GH_RuntimeMessageLevel.Remark, string.Format(
                         "{0} contours were removed because they were null items — perhaps because they are no longer present in the Rhino model.",
                         preCullSize - ALL_CONTOURS.Count));
             }
@@ -107,16 +106,16 @@ namespace Groundhog
             {
                 if (curve.IsValid == false)
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        "A contour curve was not valid and has been skipped. You probably want to find and fix that curve.");
+                    this.AddRuntimeMessage(
+                        GH_RuntimeMessageLevel.Warning, "A contour curve was not valid and has been skipped. You probably want to find and fix that curve.");
                     continue;
                 }
 
                 Curve curveWithEndClipped;
                 if (curve.IsClosed == false)
                 {
-                    var curveWithStartClipped = ClipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
-                    curveWithEndClipped = ClipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY,
+                    var curveWithStartClipped = this.ClipCurveTerminus(curve, curve.PointAtStart, BOUNDARY, boundarySrf);
+                    curveWithEndClipped = this.ClipCurveTerminus(curveWithStartClipped, curve.PointAtEnd, BOUNDARY,
                         boundarySrf);
                 }
                 else
@@ -125,7 +124,7 @@ namespace Groundhog
                 }
 
                 var curveWithMiddlesClipped =
-                    ClipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
+                    this.ClipMeanderingCurvesToBoundary(curveWithEndClipped, BOUNDARY, boundarySrf);
                 foreach (var curveClip in curveWithMiddlesClipped)
                 {
                     if (curveClip == null)
@@ -133,7 +132,7 @@ namespace Groundhog
 
                     fixedContours.Add(curveClip);
                     var edgedContour =
-                        GetBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
+                        this.GetBoundedContour(curveClip, BOUNDARY); // Create the profiles matching the boundary
                     edgedContours.Add(edgedContour);
                 }
             }
@@ -145,7 +144,7 @@ namespace Groundhog
                 Parallel.For(0, allContours.Length - 1, i => // Shitty multithreading
                 {
                     var planarSurfaces =
-                        Brep.CreatePlanarBreps(allContours[i], docUnitTolerance); // Create planar surfaces
+                        Brep.CreatePlanarBreps(allContours[i], this.docUnitTolerance); // Create planar surfaces
                     planarSrfsArray[i] = planarSurfaces[0];
                 });
                 planarSrfs = new List<Brep>(planarSrfsArray); // Probably unecessary
@@ -160,16 +159,14 @@ namespace Groundhog
         private Curve ClipCurveTerminus(Curve initialCurve, Point3d point, Curve BOUNDARY, Surface boundarySrf)
         {
             // Test, for a particular point where it is in relation to boundary and clip curve accordingly
+            var testPoint = new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
 
-            var testPoint =
-                new Point3d(point.X, point.Y, BOUNDARY.PointAtEnd.Z); // Equalise the Z's for containment check
-
-            var inBoundary = BOUNDARY.Contains(testPoint, Plane.WorldXY, docUnitTolerance);
+            var inBoundary = BOUNDARY.Contains(testPoint, Plane.WorldXY, this.docUnitTolerance);
 
             if (inBoundary == PointContainment.Inside)
             {
                 // Extend
-                var extendedCurve = ExtendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
+                var extendedCurve = this.ExtendCurveTerminusToBoundary(initialCurve, point, boundarySrf);
                 if (extendedCurve != null) // Extension presumably fails due to no extendable path
                     return extendedCurve;
             }
@@ -182,7 +179,7 @@ namespace Groundhog
             Curve trimmedCurveEnds;
 
             // Find where the boundary and curve intersect
-            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), docUnitTolerance,
+            Intersection.CurveBrep(initialCurve, boundarySrf.ToBrep(), this.docUnitTolerance,
                 out var intersectCurves, out var intersectPoints);
 
             // Get closest point from intersections and its parameters
@@ -224,27 +221,27 @@ namespace Groundhog
 
         private Curve ExtendCurveTerminusToBoundary(Curve initialCurve, Point3d startPoint, Surface boundarySrf)
         {
-            Brep[] boundaryCollision = {boundarySrf.ToBrep()};
+            Brep[] boundaryCollision = { boundarySrf.ToBrep() };
 
             if (startPoint.DistanceTo(initialCurve.PointAtEnd) == 0)
                 return initialCurve.Extend(CurveEnd.End, CurveExtensionStyle.Smooth, boundaryCollision);
             return initialCurve.Extend(CurveEnd.Start, CurveExtensionStyle.Smooth, boundaryCollision);
         }
 
-        private List<Curve> ClipMeanderingCurvesToBoundary(Curve initialCurve, Curve BOUNDARY, Surface boundarySrf)
+        private List<Curve> ClipMeanderingCurvesToBoundary(Curve initialCurve, Curve boundary, Surface boundarySrf)
         {
             var returnCurves = new List<Curve>();
 
-            var splitCurves = initialCurve.Split(boundarySrf, docUnitTolerance, docAngularTolerance);
+            var splitCurves = initialCurve.Split(boundarySrf, this.docUnitTolerance, this.docAngularTolerance);
 
             if (splitCurves.Length > 0)
             {
                 for (var i = 0; i < splitCurves.Length; i = i + 1)
                 {
                     var testPoint = splitCurves[i].PointAt(splitCurves[i].Domain.Mid);
-                    testPoint.Z = BOUNDARY.PointAtEnd.Z;
+                    testPoint.Z = boundary.PointAtEnd.Z;
 
-                    var pointContainment = BOUNDARY.Contains(testPoint, Plane.WorldXY, docUnitTolerance);
+                    var pointContainment = boundary.Contains(testPoint, Plane.WorldXY, this.docUnitTolerance);
 
                     if (pointContainment.ToString() == "Inside")
                         returnCurves.Add(splitCurves[i]);
@@ -255,7 +252,7 @@ namespace Groundhog
                 // There are no intersections with the boundary. This could be because it is entirely outside the boundary though
                 // Check this and return None if that is the case
                 var evaluationPoint = initialCurve.PointAt(initialCurve.Domain.T0);
-                var containmentCheck = BOUNDARY.Contains(evaluationPoint, Plane.WorldXY, docUnitTolerance);
+                var containmentCheck = boundary.Contains(evaluationPoint, Plane.WorldXY, this.docUnitTolerance);
                 if (containmentCheck.ToString() == "Outside")
                     returnCurves.Add(null); // Is completely outside the clipped area
                 else
@@ -271,7 +268,7 @@ namespace Groundhog
             BOUNDARY.Transform(
                 Transform.Translation(new Vector3d(0, 0, initialCurve.PointAtEnd.Z - BOUNDARY.PointAtEnd.Z)));
 
-            var ccx = Intersection.CurveCurve(initialCurve, BOUNDARY, docUnitTolerance, docUnitTolerance);
+            var ccx = Intersection.CurveCurve(initialCurve, BOUNDARY, this.docUnitTolerance, this.docUnitTolerance);
 
             // Used to be 0. It is possible to have a ccx array of only 1 element (which will crash) but unclear what that signifies
             if (ccx.Count > 1)
@@ -282,12 +279,12 @@ namespace Groundhog
                 // This is going to be incorrect sometimes, but we want to get the shorter of the two pieces
                 if (innerEdgeA.GetLength() >= innerEdgeB.GetLength())
                 {
-                    var innerEdge = Curve.JoinCurves(new[] { innerEdgeB, initialCurve }, docUnitTolerance);
+                    var innerEdge = Curve.JoinCurves(new[] { innerEdgeB, initialCurve }, this.docUnitTolerance);
                     return innerEdge[0];
                 }
                 else
                 {
-                    var innerEdge = Curve.JoinCurves(new[] { innerEdgeA, initialCurve }, docUnitTolerance);
+                    var innerEdge = Curve.JoinCurves(new[] { innerEdgeA, initialCurve }, this.docUnitTolerance);
                     return innerEdge[0];
                 }
             }

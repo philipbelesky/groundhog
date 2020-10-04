@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using GH_IO;
 using Grasshopper.Kernel;
@@ -8,8 +9,9 @@ using Rhino.Geometry;
 
 namespace Groundhog
 {
-    public interface IGH_Plant_Goo : IGH_Goo
-    { }
+    public interface Plant_IGH_Goo : IGH_Goo
+    {
+    }
 
     public class PlantSpecies : GH_Param<IGH_Goo>
     {
@@ -40,6 +42,10 @@ namespace Groundhog
             rootVarianceMultiplier,
             trunkVarianceMultiplier;
 
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
+        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
+
         // Init
         public PlantSpecies(
             string speciesName, string commonName, string indigenousName,
@@ -49,8 +55,8 @@ namespace Groundhog
             double initialRootRadius, double matureRootRadius, double varianceRootRadius,
             double initialHeight, double matureHeight, double varianceHeight,
             double initialTrunkRadius, double matureTrunkRadius, double varianceTrunkRadius,
-            int displayR, int displayG, int displayB
-        ) : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
+            int displayR, int displayG, int displayB)
+            : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
         {
             // Naming
             this.speciesName = speciesName;
@@ -82,7 +88,7 @@ namespace Groundhog
         public void SetVarianceValues(int randomSeed) // Rand can't be generated here as its time dependent = same values
         {
             // Seeds are index of plant in list order so that they are deterministic (when the time value changes)
-            var rand = new Random(randomSeed); 
+            var rand = new Random(randomSeed);
             crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
             heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
             rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
@@ -92,8 +98,8 @@ namespace Groundhog
         private double GetVarianceMultiplier(Random rand, double varianceValue)
         {
             var multiplier = rand.NextDouble() * varianceValue; // E.g. 0.5 * 20% = 10
-            if (rand.Next(2) > 0) return 1 + multiplier / 100; // E.g. 1 + (10 / 100) = 1.1
-            return 1 - multiplier / 100; // E.g. 1 - (10 / 100) = 0.9
+            if (rand.Next(2) > 0) return 1 + (multiplier / 100); // E.g. 1 + (10 / 100) = 1.1
+            return 1 - (multiplier / 100); // E.g. 1 - (10 / 100) = 0.9
         }
 
         // Get current state
@@ -102,7 +108,7 @@ namespace Groundhog
             var variedEndState = varianceMultiplier * eventualState;
             var annualRate = (variedEndState - initialState) / timetoMaturity;
             var grownTime = Math.Min(time, timetoMaturity);
-            var grownState = grownTime * annualRate + initialState;
+            var grownState = (grownTime * annualRate) + initialState;
             return grownState;
         }
 
@@ -147,24 +153,40 @@ namespace Groundhog
             return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }
 
+        // Polyline.CreateCircumscribedPolygon would work here but is not in older RhinoCommon versions
+        private Polyline DrawPolygon(int sides, double radii, Point3d origin, double rotation = 0)
+        {
+            var sector = Math.PI * 2 / sides;
+            var points = new List<Point3d>();
+            for (var i = 0; i < sides; i++)
+            {
+                points.Add(new Point3d(
+                    origin.X + (Math.Sin((sector * i) + rotation) * radii),
+                    origin.Y + (Math.Cos((sector * i) + rotation) * radii),
+                    origin.Z));
+            }
+
+            points.Add(points[0]); // Re-add origin to ensure polygon is closed
+            return new Polyline(points);
+        }
+
         private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference, int plantSides)
         {
             var mesh = new Mesh();
-            var topPolygon = Polyline.CreateCircumscribedPolygon(topCircumference, plantSides * 2);
-            var bottomPolygon = Polyline.CreateCircumscribedPolygon(bottomCircumference, plantSides);
-
+            var topPolygon = DrawPolygon(plantSides * 2, topCircumference.Radius, topCircumference.Center);
+            var bottomPolygon = DrawPolygon(plantSides, bottomCircumference.Radius, bottomCircumference.Center);
             mesh.Vertices.AddVertices(bottomPolygon);
             mesh.Vertices.AddVertices(topPolygon);
             mesh.Vertices.Add(topPolygon.CenterPoint());
 
-            //// Build the edges of the canopy mesh 
+            // Build the edges of the canopy mesh
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 1,
                 mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
             for (var i = 1; i < plantSides; i++)
             {
-                var baseNodeIndex = i * 2 + plantSides + 1;
+                var baseNodeIndex = (i * 2) + plantSides + 1;
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex, baseNodeIndex - 1)); // Counter clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
@@ -189,26 +211,14 @@ namespace Groundhog
             return new GH_String(speciesName);
         }
 
-        #region casting
-        
         protected override IGH_Goo InstantiateT()
         {
             return new GH_ObjectWrapper();
         }
 
-        #endregion
-        
-        #region properties
-
-        public override GH_Exposure Exposure => GH_Exposure.primary;
-
-        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
-
         public override string ToString()
         {
             return "groundhog Plant Species (" + speciesName + ")";
         }
-
-        #endregion
     }
 }

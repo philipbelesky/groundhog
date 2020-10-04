@@ -1,9 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-
-namespace ShortestWalk.Geometry
+﻿namespace ShortestWalk.Geometry
 {
+    using System;
+    using System.Diagnostics;
+    using System.Text;
+
     /// <summary>
     ///     A node, or the location where edges are attached to each other.
     ///     A NodeAddress does not store any Node index, it merely
@@ -102,8 +102,6 @@ namespace ShortestWalk.Geometry
             return top.GetIsVertexEdgeRevOrientedFromArray(_edgeStart + i);
         }
 
-        #region Debugging Help and ToString()
-
 #if DEBUG
 
         public CurvesTopology Topology { get; set; }
@@ -137,7 +135,5 @@ namespace ShortestWalk.Geometry
                 );
         }
 #endif
-
-        #endregion
     }
 }

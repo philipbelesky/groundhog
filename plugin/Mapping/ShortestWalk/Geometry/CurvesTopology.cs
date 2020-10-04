@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Rhino;
-using Rhino.DocObjects;
-using Rhino.Geometry;
-
-namespace ShortestWalk.Geometry
+﻿namespace ShortestWalk.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Rhino;
+    using Rhino.DocObjects;
+    using Rhino.Geometry;
+
     /// <summary>
     ///     Constains an immutable instance of a non-oriented curve network.
     /// </summary>
@@ -84,7 +84,6 @@ namespace ShortestWalk.Geometry
 
             // we might add a method to remove loose lines
             // we might add a method to remove completely identical vEdges
-
             _vertices = new NodeAddress[weldedVertexBounds.Count];
             SetupEdgesToVerticesCounts(weldedVertexBounds);
 
@@ -250,8 +249,8 @@ namespace ShortestWalk.Geometry
 
         private struct VertexOnCurve
         {
-            //public readonly int LinePosition;
-            //public readonly bool IsStart;
+            // public readonly int LinePosition;
+            // public readonly bool IsStart;
             public VertexOnCurve(int vertexPosition)
             {
                 ConsecutiveVertex = vertexPosition;
@@ -310,8 +309,6 @@ namespace ShortestWalk.Geometry
                 return 0;
             }
         }
-
-        #region Setup constructor methods
 
         private VertexOnCurve[] CopyVertexEndings(Curve[] curves)
         {
@@ -456,13 +453,13 @@ namespace ShortestWalk.Geometry
         {
             InTolerance = 1,
             OutOfToleranceAndContinue = 0,
-            OutOfToleranceAndStop = 2
+            OutOfToleranceAndStop = 2,
         }
 
         private static ToleranceState ArePointsInTolerance(Point3d p0, Point3d p1, double tolerance, double sqTolerance)
         {
             var dx = p1.X - p0.X;
-            if (dx > tolerance) return ToleranceState.OutOfToleranceAndStop; //points are sorted by X
+            if (dx > tolerance) return ToleranceState.OutOfToleranceAndStop; // points are sorted by X
 
             var dy = p1.Y - p0.Y;
             if (Math.Abs(dy) > tolerance)
@@ -470,7 +467,7 @@ namespace ShortestWalk.Geometry
 
             var dz = p1.Z - p0.Z;
 
-            return dx * dx + dy * dy + dz * dz <= sqTolerance
+            return (dx * dx) + (dy * dy) + (dz * dz) <= sqTolerance
                 ? ToleranceState.InTolerance
                 : ToleranceState.OutOfToleranceAndContinue;
         }
@@ -506,8 +503,6 @@ namespace ShortestWalk.Geometry
 
             return repetitionsCounts;
         }
-
-        #endregion
     }
 
     /// <summary>
@@ -525,7 +520,7 @@ namespace ShortestWalk.Geometry
             var oa = RhinoDoc.ActiveDoc.CreateDefaultAttributes();
             oa.ColorSource = ObjectColorSource.ColorFromObject;
 
-            //Graph vertices color
+            // Graph vertices color
             oa.ObjectColor = verticesColor;
             for (var i = 0; i < top.VertexLength; i++)
             {
@@ -533,7 +528,7 @@ namespace ShortestWalk.Geometry
                 var sette = top.VertexAt(i);
             }
 
-            //Graph edges
+            // Graph edges
             oa.ObjectColor = edgesColor;
             for (var i = 0; i < top.EdgeLength; i++)
             {

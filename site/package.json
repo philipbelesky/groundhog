@@ -5,7 +5,7 @@
   "main": "index.html",
   "dependencies": {
     "@ibm/type": "^0.5.4",
-    "bulma": "^0.9.0",
+    "bulma": "^0.9.1",
     "feather-icons": "^4.21.0",
     "gulp": "^4.0.2",
     "gulp-changed": "^4.0.2",
@@ -22,7 +22,7 @@
     "compile-images": "gulp images",
     "compile-version": "bash ./compile_plugin.sh",
     "compile-assets": "bash ./compile_assets.sh",
-    "compile-deploy": "npm run compile-assets & npm run compile-images",
+    "compile-deploy": "npm run compile-assets && npm run compile-images",
     "build": "npm run compile-deploy && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
     "publish": "npm run purge && npm run build && npm run test && s3_website push"
   },
