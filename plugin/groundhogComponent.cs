@@ -21,7 +21,7 @@
         {
         }
 
-        // Provides the message with current version string while debugging 
+        // Provides the message with current version string while debugging
 #if DEBUG
         public override bool Read(GH_IReader reader) // Triggered on definition load
         {
