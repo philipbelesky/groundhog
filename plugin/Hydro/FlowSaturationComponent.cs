@@ -24,10 +24,8 @@ namespace Groundhog
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
-
-        protected override Bitmap Icon => Resources.icon_flows_saturation;
-
         public override Guid ComponentGuid => new Guid("{48cae0b9-2c40-4030-92de-4e622db09f88}");
+        protected override Bitmap Icon => Resources.icon_flows_saturation;
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -59,7 +57,7 @@ namespace Groundhog
             DA.GetData(0, ref FLOW_MESH);
             if (FLOW_MESH == null)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Mesh input; please correct this input.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "A null item has been provided as the Mesh input; please correct this input.");
                 return;
             }
 
@@ -68,7 +66,7 @@ namespace Groundhog
             FLOW_PATHS.RemoveAll(curve => curve == null); // Remove null items; can be due to passing in the points not the path
             if (FLOW_PATHS.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "No Flow Paths provided or they were provided as an inappropriate geometry.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "No Flow Paths provided or they were provided as an inappropriate geometry.");
                 return;
             }
 
@@ -76,7 +74,7 @@ namespace Groundhog
             DA.GetData(2, ref START_VOLUME);
             if (START_VOLUME < 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Start volume must be a positive number.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Start volume must be a positive number.");
                 return;
             }
 

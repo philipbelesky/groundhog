@@ -1,32 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using Grasshopper;
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Geometry;
-using Grasshopper.Kernel.Geometry.Voronoi;
-using groundhog.Properties;
-using Rhino.Display;
-using Rhino.Geometry;
-using Rhino.Render.UI;
-using Plane = Rhino.Geometry.Plane;
-
-namespace groundhog
+﻿namespace Groundhog
 {
-    public class GroundhogCatchmentComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using Grasshopper;
+    using Grasshopper.Kernel;
+    using Grasshopper.Kernel.Geometry;
+    using Grasshopper.Kernel.Geometry.Voronoi;
+    using Groundhog.Properties;
+    using Rhino.Display;
+    using Rhino.Geometry;
+    using Rhino.Render.UI;
+    using Plane = Rhino.Geometry.Plane;
+
+    public class FlowCatchmentComponent : GroundHogComponent
     {
-        public GroundhogCatchmentComponent()
+        public FlowCatchmentComponent()
             : base("Flow Catchments", "Catchments", "Identify the catchments within a set of flow paths", "Groundhog",
                 "Hydro")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{2d241bdc-ecaa-4cf3-815a-c8001d1798d1}");
 
         protected override Bitmap Icon => Resources.icon_flows_catchments;
-
-        public override Guid ComponentGuid => new Guid("{2d241bdc-ecaa-4cf3-815a-c8001d1798d1}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -55,7 +54,7 @@ namespace groundhog
             FLOW_PATHS.RemoveAll(curve => curve == null); // Remove null items; can be due to passing in the points not the path
             if (FLOW_PATHS.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error,
                     "No Flow Paths provided or they were provided as an inappropriate geometry.");
                 return;
             }
@@ -64,7 +63,7 @@ namespace groundhog
             DA.GetData(1, ref MIN_PROXIMITY);
             if (MIN_PROXIMITY < 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Proximity threshold must be a positive number.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Proximity threshold must be a positive number.");
                 return;
             }
             else if (MIN_PROXIMITY == 0)
@@ -73,7 +72,7 @@ namespace groundhog
                 if (FLOW_PATHS[0].TryGetPolyline(out samplePath))
                 {
                     MIN_PROXIMITY = samplePath.SegmentAt(0).Length * 2;
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
+                    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Remark,
                         $"Proximity Threshold parameter not provided; guessed {MIN_PROXIMITY} as a good value");
                 }
             }
@@ -94,52 +93,58 @@ namespace groundhog
             int flowGroupsCount = flowPathEndsGrouped.BranchCount;
 
             // Create a Voronoi diagram based on the start points of all flowPaths
-            Rhino.Geometry.Rectangle3d boundaryForVoronoi = this.getBoundary(flowPathStarts as IEnumerable<Point3d>);
+            Rhino.Geometry.Rectangle3d boundaryForVoronoi = this.GetBoundary(flowPathStarts as IEnumerable<Point3d>);
             var voronoiInfo = Rhino.NodeInCode.Components.FindComponent("Voronoi");
             var voronoiFunction = voronoiInfo.Delegate as dynamic;
             var voronoiResults = voronoiFunction(flowPathStarts, null, boundaryForVoronoi, null) as List<Polyline>;
 
             // Create the branch structures where each path is a catchment group and add the relevant geometry
             var groupedCurves = new DataTree<Curve>();
-            //var groupedBounds = new DataTree<Curve>();
+            var groupedBounds = new DataTree<Curve>();
             var groupedColors = new DataTree<Color>();
-            //var groupedVolumes = new DataTree<double>();
+            var groupedVolumes = new DataTree<double>();
 
             for (var groupIndex = 0; groupIndex < flowGroupsCount; groupIndex++)
             {
+                // Setup paths for output data trees
                 var nextPath = groupedCurves.Paths.Count;
+                groupedCurves.EnsurePath(nextPath);
+                groupedBounds.EnsurePath(nextPath);
+                groupedColors.EnsurePath(nextPath);
+                groupedVolumes.EnsurePath(nextPath);
 
                 // Gather all the original flow paths based on their grouped index
-                groupedCurves.EnsurePath(nextPath);
                 var indicesForGroup = flowGroupIndicesforPaths.Branch(groupIndex).Cast<int>();
                 foreach (var pathGroupIndex in indicesForGroup)
                 {
                     groupedCurves.Add(FLOW_PATHS[pathGroupIndex], groupedCurves.Path(nextPath));
                 }
+                var numberOfFlowPaths = groupedCurves.Branch(nextPath).Count;
 
                 // Generate a distinct color for this group and populate the count
-                groupedColors.EnsurePath(nextPath);
                 var colors = this.GenerateGroupColors(groupIndex, flowGroupIndicesforPaths.Branch(groupIndex).Count, flowGroupsCount);
                 groupedColors.AddRange(colors, groupedColors.Path(nextPath));
 
-                //    if (holdingListCurves[i] != null)
-                //    {
+                //if ( < 0)
+                //{
                 //        var nextPath = groupedCurves.Paths.Count;
                 //        groupedBounds.EnsurePath(nextPath);
                 //        
                 //        groupedVolumes.EnsurePath(nextPath);
                 //        groupedCurves.AddRange(holdingListCurves[i], groupedCurves.Path(nextPath));
                 //        groupedBounds.AddRange(holdingListBoundsCurves[i], groupedBounds.Path(nextPath));
+                //}
 
-                //        double flowVolumesPercent = (double)holdingListCurves[i].Count / FLOW_PATHS.Count;
-                //        groupedVolumes.Add(flowVolumesPercent);
+                // Calculate flow volumes via proportion of curves in given path
+                double flowVolumesPercent = (double)numberOfFlowPaths / FLOW_PATHS.Count;
+                groupedVolumes.Add(flowVolumesPercent, groupedVolumes.Path(nextPath));
             }
 
             //// Assign variables to output parameters
             //DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
             DA.SetDataTree(2, groupedColors);
-            //DA.SetDataTree(3, groupedVolumes);
+            DA.SetDataTree(3, groupedVolumes);
         }
 
         private List<Color> GenerateGroupColors(int groupIndex, int groupSize, int groupsCount)
@@ -171,10 +176,10 @@ namespace groundhog
             //Print("{2}: {0} {1} maxes: {3} {4}", x.ToString(), y.ToString(), groupIndex.ToString(), xMax.ToString(), yMax.ToString());
 
             // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)
-            var hue = ColorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
+            var hue = this.ColorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
             var saturation = 1.0; // Maximise contrast
             var luminance =
-                ColorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
+                this.ColorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
             var groupColorHSL = new ColorHSL(hue, saturation, luminance);
 
             // Convert to RGB and make a list with a color for each item in the branch
@@ -187,11 +192,11 @@ namespace groundhog
         private double ColorDistributionInRange(double lower, double upper, int index, int count)
         {
             var step = (upper - lower) / count;
-            var value = lower + step * index;
+            var value = lower + (step * index);
             return value;
         }
 
-        private Rhino.Geometry.Rectangle3d getBoundary(IEnumerable<Point3d> points)
+        private Rhino.Geometry.Rectangle3d GetBoundary(IEnumerable<Point3d> points)
         {
             var sortedX = points.OrderBy(item => item.X);
             var sortedY = points.OrderBy(item => item.Y);
