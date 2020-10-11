@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CHANGELOG.md" />
     <None Include="Resources\generic_plants.csv" />
     <None Include="Resources\icon_contour_clip.png" />
     <None Include="Resources\icon_contour_gap.png" />

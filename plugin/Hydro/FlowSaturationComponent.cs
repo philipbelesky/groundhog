@@ -6,6 +6,7 @@ namespace Groundhog
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Net.Http.Headers;
     using System.Runtime.InteropServices;
     using Grasshopper;
     using Grasshopper.Kernel;
@@ -45,10 +46,11 @@ namespace Groundhog
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Flow Overlaps", "O", "TODO", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Flow Volumes", "V", "TODO", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("Face Overlaps", "O", "The quantity of flow paths that crossed each sub mesh face", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Face Volumes", "V", "The volume of water collected in each sub mesh face", GH_ParamAccess.list);
             pManager.AddMeshParameter("Mesh Faces", "F", "The sub mesh faces (for coloring)", GH_ParamAccess.list);
             pManager.AddPointParameter("Face Centers", "C", "The centers of each mesh face (for vector previews)", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Path Volumes", "P", "The discharged water volume at each vertex of each flow path", GH_ParamAccess.tree);
         }
 
         protected override void GroundHogSolveInstance(IGH_DataAccess DA)
@@ -86,6 +88,7 @@ namespace Groundhog
             Point3d[] meshFacePoints = new Point3d[FLOW_MESH.Faces.Count]; // The center points of each mesh face
             int[] meshAreaOverlaps = new int[FLOW_MESH.Faces.Count]; // Count of the overlaps of flow points to this mesh face
             double[] meshAreaVolumes = new double[FLOW_MESH.Faces.Count]; // Count of the overlaps of flow points to this mesh face
+            var flowPathVolumes = new List<List<double>>(); // Count the flow volumes per-point along flow paths
             for (var i = 0; i < FLOW_MESH.Faces.Count; i++)
             {
                 meshFacePoints[i] = FLOW_MESH.Faces.GetFaceCenter(i);
@@ -104,10 +107,12 @@ namespace Groundhog
                 Polyline flowPath;
                 FLOW_PATHS[i].TryGetPolyline(out flowPath);
                 var flowVolume = START_VOLUME; // Per path volume tracking
+                var remainingVolumes = new List<double>();
 
                 for (var j = 0; j < flowPath.Count; j++)
                 {
                     flowVolume -= removeFromVolume; // Remove deposited water from remaining
+                    remainingVolumes.Add(flowVolume);
                     if (flowVolume <= 0.0)
                     {
                         break; // All volumes drained; no need for further calculations
@@ -126,6 +131,7 @@ namespace Groundhog
                         meshAreaVolumes[closestMeshPoint.FaceIndex] += drainAtPoint;
                     }
                 }
+                flowPathVolumes.Add(remainingVolumes);
             }
 
             // Assign variables to output parameters
@@ -133,6 +139,16 @@ namespace Groundhog
             DA.SetDataList(1, meshAreaVolumes);
             DA.SetDataList(2, TerrainCalculations.Explode(FLOW_MESH));
             DA.SetDataList(3, meshFacePoints);
+
+            var perPointVolumes = new DataTree<double>();
+            for (var i = 0; i < flowPathVolumes.Count; i++)
+            {
+                // Setup paths for output data trees
+                var nextPath = perPointVolumes.Paths.Count;
+                perPointVolumes.EnsurePath(nextPath);
+                perPointVolumes.AddRange(flowPathVolumes[i], perPointVolumes.Path(nextPath));
+            }
+            DA.SetDataTree(4, perPointVolumes);
         }
     }
 }
