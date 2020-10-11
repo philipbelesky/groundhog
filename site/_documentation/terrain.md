@@ -3,7 +3,7 @@ title:      Terrain
 excerpt:    Components for analysing different elements of landform.
 date:       18-05-01
 files:      true
-files_text: model and definition that demonstrating the use of these components
+files_text: model and definition demonstrating the use of these components
 ---
 
 Landform is more heterogeneous and complex than contour lines suggest. Seemingly-similar areas of terrain can possess quite distinct characteristics depending on relatively small variations in their grading and position within the wider landscape. Digital models of landscapes often obscure this variety and make it difficult to determine or apprehend these characteristics given the artificial manner in which they are rendered.

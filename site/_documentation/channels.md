@@ -3,7 +3,7 @@ title:      Channels
 excerpt:    Components for deriving and analysing water flows within a sectional profile.
 date:       19-07-31
 files:      true
-files_text: model and definition that demonstrating the use of these components
+files_text: model and definition demonstrating the use of these components
 ---
 
 The first channel component, `Channel Region`, determines a water level for a given section and a given area of water. It allows different channel geometries to be tested against a particular capacity of water and thus quickly gauge the efficacy of different profile geometries.

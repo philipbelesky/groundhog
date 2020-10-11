@@ -1,0 +1,61 @@
+{
+  "name": "Flow Projection (Surface) / Flow Projection (Mesh)",
+  "nickname": "Srf Flows / Mesh Flows",
+  "icon": "icon_flows_srf.png",
+  "description": "Construct flow paths over a surface or mesh",
+  "category": "Groundhog",
+  "subcategory": "Hydro",
+  "inputs": [
+    {
+      "name": "Surface or Mesh",
+      "id": "S or M",
+      "description": "Base landscape form (as a surface or a mesh) for the flow calculation",
+      "optional": false,
+      "type": "SurfaceParameter or MeshParameter"
+    },
+    {
+      "name": "Points",
+      "id": "P",
+      "description": "Start points for the flow paths. These should be above the surface (they will be projected on to it)",
+      "optional": false,
+      "type": "PointParameter"
+    },
+    {
+      "name": "Fidelity",
+      "id": "F",
+      "description": "Amount to move for each flow iteration. Small numbers may take a long time to compute. If not specified or set to 0 a (hopefully) sensible step size will be calculated.",
+      "optional": true,
+      "type": "NumberParameter"
+    },
+    {
+      "name": "Steps",
+      "id": "L",
+      "description": "A limit to the number of flow iterations. Leave unset or to 0 for an unlimited set of iterations",
+      "optional": true,
+      "type": "IntegerParameter"
+    },
+    {
+      "name": "Thread",
+      "id": "T",
+      "description": "Whether to multithread the solution (this can speed up long calculations)",
+      "optional": true,
+      "type": "BooleanParameter"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Flow Points",
+      "id": "F",
+      "description": "The points of each simulated flow path 'jump'",
+      "optional": false,
+      "type": "PointParameter"
+    },
+    {
+      "name": "Flow Paths",
+      "id": "C",
+      "description": "A polyline linking each of the flow points into a path",
+      "optional": false,
+      "type": "CurveParameter"
+    }
+  ]
+}
