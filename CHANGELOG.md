@@ -1,5 +1,14 @@
 ## Changelog
 
+#### [0.13.0] - 2020-??-??
+###### Fixed
+- Various documentation improvements
+- Improvement to the catchment boundary cells
+- Added further examples to Flow Saturation examples
+
+###### Added
+- Additional output parameters to Flow Saturation component
+
 #### [0.12.1] - 2020-08-11
 ###### Fixed
 - Fixed issue that prevented Groundhog from installing on older Rhino versions
