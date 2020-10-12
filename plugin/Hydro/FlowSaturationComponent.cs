@@ -107,12 +107,11 @@ namespace Groundhog
                 Polyline flowPath;
                 FLOW_PATHS[i].TryGetPolyline(out flowPath);
                 var flowVolume = START_VOLUME; // Per path volume tracking
-                var remainingVolumes = new List<double>();
+                var dischargedVolumes = new List<double>();
 
                 for (var j = 0; j < flowPath.Count; j++)
                 {
                     flowVolume -= removeFromVolume; // Remove deposited water from remaining
-                    remainingVolumes.Add(flowVolume);
                     if (flowVolume <= 0.0)
                     {
                         break; // All volumes drained; no need for further calculations
@@ -124,14 +123,22 @@ namespace Groundhog
                     {
                         // If at the end point then drain remaining volume
                         meshAreaVolumes[closestMeshPoint.FaceIndex] += flowVolume;
+                        dischargedVolumes.Add(flowVolume);
                     }
                     else
                     {
                         // ...otherwise flow paths loose x% of original volume at each segment they cross
                         meshAreaVolumes[closestMeshPoint.FaceIndex] += drainAtPoint;
+                        dischargedVolumes.Add(drainAtPoint);
                     }
                 }
-                flowPathVolumes.Add(remainingVolumes);
+
+                if (flowPathVolumes.Count < flowPath.Count) // If the flow paths depleted before curve ended
+                {
+                    var remainingFlowPoints = flowPath.Count - dischargedVolumes.Count;
+                    dischargedVolumes.AddRange(Enumerable.Repeat(0.0, remainingFlowPoints).ToArray());
+                }
+                flowPathVolumes.Add(dischargedVolumes);
             }
 
             // Assign variables to output parameters
