@@ -4,6 +4,7 @@
 ###### Fixed
 - Various documentation improvements
 - Improvement to the catchment boundary cells
+- Improved handling of flow path lines near edges of meshes and surfaces
 - Added further examples to Flow Saturation examples
 
 ###### Added

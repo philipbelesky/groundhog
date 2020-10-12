@@ -12,7 +12,8 @@
         public int FLOW_LIMIT;
         public List<Point3d> FLOW_ORIGINS;
         public Point3d[] startPoints;
-        public bool THREAD;
+        public bool THREAD;        
+        private double basinTreshold; // If the distance between each point is less than this amount then terminate the path
 
         // Pass the constructor parameters up to the main GH_Component abstract class
         protected FlowPathBase(string name, string nickname, string description)
@@ -64,6 +65,7 @@
 
             DA.GetData(2, ref this.FLOW_FIDELITY);
             if (this.FLOW_FIDELITY == 0) this.FLOW_FIDELITY = FlowPathCalculations.GetSensibleFidelity(this.startPoints, bbox);
+            this.basinTreshold = this.FLOW_FIDELITY * 0.25;
 
             DA.GetData(3, ref FLOW_LIMIT);
             DA.GetData(4, ref this.THREAD);
@@ -91,13 +93,18 @@
 
                 if (nextPoint.DistanceTo(startPoint) <= RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)
                     break; // Test the point has actully moved
-                if (nextPoint.Z >= startPoint.Z && this.FLOW_FIDELITY > 0) // When going downhill; break on moving up
+                else if (nextPoint.Z >= startPoint.Z && this.FLOW_FIDELITY > 0) // When going downhill; break on moving up
                     break; // Test this point is actually lower
-                if (nextPoint.Z <= startPoint.Z && this.FLOW_FIDELITY < 0) // When going uphill; break on moving down
+                else if (nextPoint.Z <= startPoint.Z && this.FLOW_FIDELITY < 0) // When going uphill; break on moving down
                     break; // Test this point is actually lower
-                flowPoints.Add(nextPoint);
-                if (this.FLOW_LIMIT != 0 && this.FLOW_LIMIT <= flowPoints.Count)
+                else if (this.FLOW_LIMIT != 0 && this.FLOW_LIMIT < flowPoints.Count)
                     break; // Stop if iteration limit reached
+                else if (nextPoint.DistanceTo(startPoint) < this.basinTreshold)
+                    break; // Distance between points can be less than FLOW_FIDELITY when the downhill vector is off of the surface/mesh 
+                           // so upon finding the closest point it snaps back to a closer position on the surface/mesh
+                           // These points tend to get hyper compressed and throw off other calculations
+
+                flowPoints.Add(nextPoint);
                 startPoint = nextPoint; // Checks out; iterate on
             }
 
