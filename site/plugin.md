@@ -21,4 +21,4 @@ Support is offered — subject to availability — through [this email address](
 
 The preferred method of submitting bug reports and feature requests is through [Github Issues](https://github.com/philipbelesky/groundhog/issues). As with support enquiries, please ensure any bug reports provide an example model/definition along with a detailed description of your intended use and the resulting problem.
 
-{% include_absolute ../CHANGELOG.md %}
+{% include_absolute ../.github/CHANGELOG.md %}
