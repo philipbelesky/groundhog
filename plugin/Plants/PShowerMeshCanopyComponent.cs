@@ -26,7 +26,7 @@
             base.RegisterInputParams(pManager);
             pManager.AddIntegerParameter("Sides", "S",
                 "The number of polygon sides for each mesh. Higher numbers will create more complex geometry",
-                GH_ParamAccess.item);
+                GH_ParamAccess.item, PLANT_SIDES);
             pManager[3].Optional = true;
         }
 

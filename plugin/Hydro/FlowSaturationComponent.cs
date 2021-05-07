@@ -75,7 +75,7 @@ namespace Groundhog
                 return;
             }
 
-            double START_VOLUME;
+            double START_VOLUME = DEFAULT_START_VOLUME;
             DA.GetData(2, ref START_VOLUME);
             if (START_VOLUME < 0)
             {
@@ -83,7 +83,7 @@ namespace Groundhog
                 return;
             }
 
-            double SEGMENT_LOSS;
+            double SEGMENT_LOSS = DEFAULT_SEGMENT_LOSS;
             DA.GetData(3, ref SEGMENT_LOSS);
 
             /* End initial variable setup */
