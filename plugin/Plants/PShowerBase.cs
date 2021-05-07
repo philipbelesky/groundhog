@@ -30,7 +30,7 @@
             pManager.AddPointParameter("Locations", "L", "The locations to assign to each attribute",
                 GH_ParamAccess.list);
             pManager.AddNumberParameter("Times", "T", "The time (in years) since initial planting to display",
-                GH_ParamAccess.item);
+                GH_ParamAccess.item, 10.0);
             pManager[2].Optional = true;
         }
 
