@@ -28,6 +28,8 @@
             if (!DA.GetData(0, ref meshToColor)) return;
             if (!DA.GetDataList(1, colorsPerFace)) return;
 
+            // TODO: validate face count vs color count
+
             meshToColor.VertexColors.CreateMonotoneMesh(System.Drawing.Color.White);
             meshToColor.Unweld(0, false);
 
@@ -51,7 +53,7 @@
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddMeshParameter("All Contours", "AC", "All contours whether or not they were fixed",
+            pManager.AddMeshParameter("Mesh", "M", "The painted mesh",
                 GH_ParamAccess.item);
         }
     }
