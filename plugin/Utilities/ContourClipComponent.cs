@@ -13,7 +13,7 @@
     {
         public ContourClipComponent()
             : base("Contour Clipper", "Contour Clip",
-                "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Terrain")
+                "Checks contours meet a specific boundary, otherwise extend/trim them", "Groundhog", "Utilities")
         {
         }
 

@@ -11,7 +11,7 @@
     {
         public ContourCheckPlanarityComponent()
             : base("Contour Planarity Fix", "Contour Planarity", "Checks contours are planar and corrects them if not",
-                "Groundhog", "Terrain")
+                "Groundhog", "Utilities")
         {
         }
 

@@ -84,9 +84,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="GroundhogComponent.cs" />
-    <Compile Include="Terrain\ContourCheckGapsComponent.cs" />
-    <Compile Include="Terrain\ContourCheckPlanarityComponent.cs" />
-    <Compile Include="Terrain\ContourClipComponent.cs" />
+    <Compile Include="Utilities\ContourCheckGapsComponent.cs" />
+    <Compile Include="Utilities\ContourCheckPlanarityComponent.cs" />
+    <Compile Include="Utilities\ContourClipComponent.cs" />
     <Compile Include="Terrain\MeshAspectComponent.cs" />
     <Compile Include="Terrain\MeshSlopeComponent.cs" />
     <Compile Include="Terrain\SurfaceAspectComponent.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Mapping\ShortestWalk\Geometry\NodeAddress.cs" />
     <Compile Include="Mapping\ShortestWalk\Geometry\PathMethods.cs" />
     <Compile Include="Hydro\FlowPathCalculations.cs" />
+    <Compile Include="Utilities\MeshDecalComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -175,6 +176,9 @@
     <PackageReference Include="System.Collections.Immutable">
       <Version>1.5.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_mesh_fill.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Removes the extra pdbs and stuff that get bundled in -->
