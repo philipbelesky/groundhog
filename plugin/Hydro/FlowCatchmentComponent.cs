@@ -188,7 +188,7 @@
                 groupedVolumes.Add(flowVolumesPercent, groupedVolumes.Path(nextPath));
             }
 
-            //// Assign variables to output parameters
+            // Assign variables to output parameters
             DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
             DA.SetDataTree(2, groupedColors);
@@ -237,7 +237,7 @@
 
         private double ColorDistributionInRange(double lower, double upper, int index, int count)
         {
-            var step = (upper - lower) / count;
+            var step = (upper - lower) / Math.Max(count, 1.0); // Max to prevent division by infinity
             var value = lower + (step * index);
             return value;
         }
