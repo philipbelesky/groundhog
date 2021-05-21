@@ -51,10 +51,9 @@
             }
             catch (Exception componentException)
             {
-                Console.WriteLine("Exception caught: {0}", componentException);
                 // Log exception to Sentry
                 using (SentrySdk.Init(o => {
-                    o.Dsn = new Dsn("https://2677778a4e2147f0b2e2aa2c39c403b0@o99429.ingest.sentry.io/218018");
+                    o.Dsn = "https://2677778a4e2147f0b2e2aa2c39c403b0@o99429.ingest.sentry.io/218018";
                     o.Release = this.GetGroundHogVersion().ToString();
                 }))
                 {

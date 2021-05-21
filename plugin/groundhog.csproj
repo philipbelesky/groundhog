@@ -166,7 +166,7 @@
       <Version>6.12.19029.6381</Version>
     </PackageReference>
     <PackageReference Include="Sentry">
-      <Version>2.1.5</Version>
+      <Version>3.3.4</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
