@@ -329,8 +329,8 @@
           <chunks count="1">
             <chunk name="Library" index="0">
               <items count="6">
-                <item name="AssemblyFullName" type_name="gh_string" type_code="10">Groundhog, Version=0.12.1.0, Culture=neutral, PublicKeyToken=null</item>
-                <item name="AssemblyVersion" type_name="gh_string" type_code="10">0.12.1.0</item>
+                <item name="AssemblyFullName" type_name="gh_string" type_code="10">Groundhog, Version=0.13.0.0, Culture=neutral, PublicKeyToken=null</item>
+                <item name="AssemblyVersion" type_name="gh_string" type_code="10">0.13.0.0</item>
                 <item name="Author" type_name="gh_string" type_code="10">Philip Belesky</item>
                 <item name="Id" type_name="gh_guid" type_code="9">7dc547b5-ca43-457d-a3e2-8286f0784ad0</item>
                 <item name="Name" type_name="gh_string" type_code="10">Groundhog</item>
@@ -1202,7 +1202,7 @@
 
 The definition and model are provided as speculative reverse-engineerings of how this landscape project could have been (partly) designed using computational methods. More information available at https://groundhog.la/projects/botanical-gardens-of-barcelona/
 
-This definition depends on components from version v0.11.1b of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
+This definition depends on components from version v0.13.0 of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
                   </items>
                   <chunks count="2">
                     <chunk name="Attributes">
