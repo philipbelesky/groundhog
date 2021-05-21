@@ -3,12 +3,17 @@
 #### [0.13.0] - 2020-??-??
 ###### Fixed
 - Various documentation improvements
-- Improvement to the catchment boundary cells
+- Improvement to the catchment boundary cell generation
 - Improved handling of flow path lines near edges of meshes and surfaces
 - Added further examples to Flow Saturation examples
+- Various improvements to precedent projects, particularly Edaphic
+
+###### Changed
+- Moved contour components into a 'Utilities' section
 
 ###### Added
 - Additional output parameters to Flow Saturation component
+- New *Mesh Color by Face* utility to assign a single per mesh face must more efficiently
 
 #### [0.12.1] - 2020-08-11
 ###### Fixed

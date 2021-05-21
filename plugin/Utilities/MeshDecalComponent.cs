@@ -11,7 +11,7 @@
     public class MeshDecalComponent : GroundHogComponent
     {
         public MeshDecalComponent()
-            : base("Mesh Color by Face", "Mesh Paint", "Colors each mesh face with a solid color, in order. Like mesh spray, but without any blending.", "Groundhog", "Utilities")
+            : base("Mesh Color by Face", "Mesh Paint", "Colors each mesh face with a solid color, in order. Like mesh spray, but without any blending between faces.", "Groundhog", "Utilities")
         {
         }
 
@@ -45,9 +45,9 @@
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddMeshParameter("Mesh", "M", "TODO", GH_ParamAccess.item);
+            pManager.AddMeshParameter("Mesh", "M", "The mesh to be colored", GH_ParamAccess.item);
             pManager[0].Optional = false;
-            pManager.AddColourParameter("Colors", "C", "TODO", GH_ParamAccess.list);
+            pManager.AddColourParameter("Colors", "C", "A list of colors (one per face) to be applied to the mesh", GH_ParamAccess.list);
             pManager[1].Optional = false;
         }
 
