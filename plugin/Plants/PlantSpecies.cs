@@ -4,16 +4,15 @@ using System.Drawing;
 using GH_IO;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
-using groundhog;
+using Groundhog;
 using Rhino.Geometry;
 
-namespace groundhog
+namespace Groundhog
 {
     public interface Plant_IGH_Goo : IGH_Goo
     {
-
     }
-    
+
     public class PlantSpecies : GH_Param<IGH_Goo>
     {
         // Aesthetics
@@ -36,13 +35,17 @@ namespace groundhog
         // Lifespan
         private readonly double timetoMaturity;
 
-        // Random seeds for variances (these are set during showers; not during init else they aren't unique 
+        // Random seeds for variances (these are set during showers; not during init else they aren't unique
         // As data is usually repeated in Grasshopper so object values are duplicated
         private double crownVarianceMultiplier,
             heightVarianceMultiplier,
             rootVarianceMultiplier,
             trunkVarianceMultiplier;
-        
+
+        public override GH_Exposure Exposure => GH_Exposure.primary;
+
+        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
+
         // Init
         public PlantSpecies(
             string speciesName, string commonName, string indigenousName,
@@ -52,8 +55,7 @@ namespace groundhog
             double initialRootRadius, double matureRootRadius, double varianceRootRadius,
             double initialHeight, double matureHeight, double varianceHeight,
             double initialTrunkRadius, double matureTrunkRadius, double varianceTrunkRadius,
-            int displayR, int displayG, int displayB
-        )
+            int displayR, int displayG, int displayB)
             : base(new GH_InstanceDescription("Plant param", "P", "TODO:", "Params"))
         {
             // Naming
@@ -86,7 +88,7 @@ namespace groundhog
         public void SetVarianceValues(int randomSeed) // Rand can't be generated here as its time dependent = same values
         {
             // Seeds are index of plant in list order so that they are deterministic (when the time value changes)
-            var rand = new Random(randomSeed); 
+            var rand = new Random(randomSeed);
             crownVarianceMultiplier = GetVarianceMultiplier(rand, varianceCrownRadius);
             heightVarianceMultiplier = GetVarianceMultiplier(rand, varianceHeight);
             rootVarianceMultiplier = GetVarianceMultiplier(rand, varianceRootRadius);
@@ -96,8 +98,8 @@ namespace groundhog
         private double GetVarianceMultiplier(Random rand, double varianceValue)
         {
             var multiplier = rand.NextDouble() * varianceValue; // E.g. 0.5 * 20% = 10
-            if (rand.Next(2) > 0) return 1 + multiplier / 100; // E.g. 1 + (10 / 100) = 1.1
-            return 1 - multiplier / 100; // E.g. 1 - (10 / 100) = 0.9
+            if (rand.Next(2) > 0) return 1 + (multiplier / 100); // E.g. 1 + (10 / 100) = 1.1
+            return 1 - (multiplier / 100); // E.g. 1 - (10 / 100) = 0.9
         }
 
         // Get current state
@@ -106,7 +108,7 @@ namespace groundhog
             var variedEndState = varianceMultiplier * eventualState;
             var annualRate = (variedEndState - initialState) / timetoMaturity;
             var grownTime = Math.Min(time, timetoMaturity);
-            var grownState = grownTime * annualRate + initialState;
+            var grownState = (grownTime * annualRate) + initialState;
             return grownState;
         }
 
@@ -146,13 +148,13 @@ namespace groundhog
             var rootBallBottomDisc = GetTrunkDisc(location, time);
             var rootDepth =
                 GetGrowth(initialRootRadius, matureRootRadius, time,
-                    rootVarianceMultiplier); // Assume approx spherical 
+                    rootVarianceMultiplier); // Assume approx spherical
             rootBallBottomDisc.Translate(new Vector3d(0, 0, rootDepth * -1));
             return makeMeshForAttribute(GetRootDisc(location, time), rootBallBottomDisc, plantSides);
         }
 
         // Polyline.CreateCircumscribedPolygon would work here but is not in older RhinoCommon versions
-        private Polyline drawPolygon(int sides, double radii, Point3d origin, double rotation = 0)
+        private Polyline DrawPolygon(int sides, double radii, Point3d origin, double rotation = 0)
         {
             var sector = Math.PI * 2 / sides;
             var points = new List<Point3d>();
@@ -161,9 +163,9 @@ namespace groundhog
                 points.Add(new Point3d(
                     origin.X + (Math.Sin((sector * i) + rotation) * radii),
                     origin.Y + (Math.Cos((sector * i) + rotation) * radii),
-                    origin.Z
-                ));
+                    origin.Z));
             }
+
             points.Add(points[0]); // Re-add origin to ensure polygon is closed
             return new Polyline(points);
         }
@@ -171,20 +173,20 @@ namespace groundhog
         private Mesh makeMeshForAttribute(Circle topCircumference, Circle bottomCircumference, int plantSides)
         {
             var mesh = new Mesh();
-            var topPolygon = drawPolygon(plantSides * 2, topCircumference.Radius, topCircumference.Center);
-            var bottomPolygon = drawPolygon(plantSides, bottomCircumference.Radius, bottomCircumference.Center);
- mesh.Vertices.AddVertices(bottomPolygon);
+            var topPolygon = DrawPolygon(plantSides * 2, topCircumference.Radius, topCircumference.Center);
+            var bottomPolygon = DrawPolygon(plantSides, bottomCircumference.Radius, bottomCircumference.Center);
+            mesh.Vertices.AddVertices(bottomPolygon);
             mesh.Vertices.AddVertices(topPolygon);
             mesh.Vertices.Add(topPolygon.CenterPoint());
 
-            // Build the edges of the canopy mesh 
+            // Build the edges of the canopy mesh
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 1,
                 mesh.Vertices.Count - 3)); // Counter clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, plantSides + 2, plantSides + 1)); // Clockwise; pointing in
             mesh.Faces.AddFace(new MeshFace(0, 1, plantSides + 2)); // Clockwise; pointing out
             for (var i = 1; i < plantSides; i++)
             {
-                var baseNodeIndex = i * 2 + plantSides + 1;
+                var baseNodeIndex = (i * 2) + plantSides + 1;
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex, baseNodeIndex - 1)); // Counter clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, baseNodeIndex + 1, baseNodeIndex)); // Clockwise; pointing in
                 mesh.Faces.AddFace(new MeshFace(i, i + 1, baseNodeIndex + 1)); // Clockwise; pointing out
@@ -209,26 +211,14 @@ namespace groundhog
             return new GH_String(speciesName);
         }
 
-        #region casting
-        
         protected override IGH_Goo InstantiateT()
         {
             return new GH_ObjectWrapper();
         }
 
-        #endregion
-        
-        #region properties
-
-        public override GH_Exposure Exposure => GH_Exposure.primary;
-
-        public override Guid ComponentGuid => new Guid("2d268bdc-ecaa-4cf7-815a-c8111d1798d7");
-
         public override string ToString()
         {
             return "groundhog Plant Species (" + speciesName + ")";
         }
-
-        #endregion
     }
 }

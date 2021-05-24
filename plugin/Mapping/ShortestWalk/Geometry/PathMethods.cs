@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Rhino.Geometry;
-
-namespace ShortestWalk.Geometry
+﻿namespace ShortestWalk.Geometry
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using Rhino.Geometry;
+
     /// <summary>
-    ///     Defines a base class for methods to search paths in networks
+    ///     Defines a base class for methods to search paths in networks.
     /// </summary>
-    public abstract class PathMethod
+    public abstract class PathMethods
     {
         protected readonly IList<double> m_dist;
         protected readonly CurvesTopology m_top;
 
         /// <summary>
-        ///     Set up the search
+        ///     Set up the search.
         /// </summary>
-        /// <param name="top">An input topology</param>
+        /// <param name="top">An input topology.</param>
         /// <param name="dist">
         ///     A series of distances. These cannot be less than the physical distance between starts and ends, but
-        ///     might be suitably longer
+        ///     might be suitably longer.
         /// </param>
-        public PathMethod(CurvesTopology top, IList<double> dist)
+        public PathMethods(CurvesTopology top, IList<double> dist)
         {
             if (top == null)
                 throw new ArgumentNullException("top");
@@ -35,33 +35,33 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Searches the graph with the current algorithm
+        ///     Searches the graph with the current algorithm.
         /// </summary>
-        /// <param name="from">The vertex index of departure</param>
-        /// <param name="to">The vertex index of arrival</param>
-        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated</returns>
-        public virtual Curve Cross(int from, int to)
+        /// <param name="fromIndex">The vertex index of departure.</param>
+        /// <param name="toIndex">The vertex index of arrival.</param>
+        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated.</returns>
+        public virtual Curve Cross(int fromIndex, int toIndex)
         {
             int[] nodes;
             int[] edges;
             bool[] eDirs;
             double totLength;
-            return Cross(from, to, out nodes, out edges, out eDirs, out totLength);
+            return Cross(fromIndex, toIndex, out nodes, out edges, out eDirs, out totLength);
         }
 
         /// <summary>
-        ///     Searches the graph with the current algorithm. Retuns more information
+        ///     Searches the graph with the current algorithm. Retuns more information.
         /// </summary>
-        /// <param name="from">The vertex index of departure</param>
-        /// <param name="to">The vertex index of arrival</param>
-        /// <param name="nodes">Output parameter. The specific walked nodes, or null on error</param>
-        /// <param name="edges">Output parameter. The walked edges indices, or null on error</param>
+        /// <param name="fromIndex">The vertex index of departure.</param>
+        /// <param name="toIndex">The vertex index of arrival.</param>
+        /// <param name="nodes">Output parameter. The specific walked nodes, or null on error.</param>
+        /// <param name="edges">Output parameter. The walked edges indices, or null on error.</param>
         /// <param name="eDirs">
         ///     Output parameter. Whether the edges were walked from front to end or in the opposite direction, or
-        ///     null on error
+        ///     null on error.
         /// </param>
-        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated</returns>
-        public abstract Curve Cross(int from, int to, out int[] nodes, out int[] edges, out bool[] eDirs,
+        /// <returns>A Curve that shows the entire walk, or null if nodes are isolated.</returns>
+        public abstract Curve Cross(int fromIndex, int toIndex, out int[] nodes, out int[] edges, out bool[] eDirs,
             out double totLength);
 
         protected Curve ReconstructPath(int[] cameFrom, int currentNode, out int[] nodes, out int[] edges,
@@ -153,9 +153,9 @@ namespace ShortestWalk.Geometry
                 throw new ArgumentException("Walking indices from and to are the same");
         }
 
-        public static PathMethod FromMode(SearchMode sm, CurvesTopology crvTopology, double[] distances)
+        public static PathMethods FromMode(SearchMode sm, CurvesTopology crvTopology, double[] distances)
         {
-            PathMethod pathSearch;
+            PathMethods pathSearch;
             switch (sm)
             {
                 case SearchMode.CurveLength:
@@ -197,33 +197,33 @@ namespace ShortestWalk.Geometry
         }
     }
 
-    public class AStar : PathMethod
+    public class AStar : PathMethods
     {
         /// <summary>
         ///     The A* search algorithm.
         ///     See http://en.wikipedia.org/wiki/A*_search_algorithm for description.
         /// </summary>
-        /// <param name="top">An input topology</param>
+        /// <param name="top">An input topology.</param>
         /// <param name="dist">
         ///     A series of distances. These cannot be less than the physical distance between starts and ends, but
-        ///     might be suitably longer
+        ///     might be suitably longer.
         /// </param>
-        public AStar(CurvesTopology top, IList<double> dist) :
-            base(top, dist)
+        public AStar(CurvesTopology top, IList<double> dist)
+            : base(top, dist)
         {
         }
 
-        public override Curve Cross(int from, int to, out int[] nodes, out int[] edges, out bool[] eDirs,
+        public override Curve Cross(int fromIndex, int toIndex, out int[] nodes, out int[] edges, out bool[] eDirs,
             out double totLength)
         {
-            CheckArguments(from, to);
+            CheckArguments(fromIndex, toIndex);
 
             var closed = new Dictionary<int, byte>(m_top.EdgeLength / 4);
             var open = new SortedList<int, byte>(m_top.EdgeLength / 5);
+
             // We do not need the byte generic type in either collections. List<> works and
             // is smaller in memory but is much slower for large datasets. HashSet<T> might work in .Net 3.5+
-
-            open.Add(from, default(byte));
+            open.Add(fromIndex, default(byte));
 
             var gScore = new double[m_top.VertexLength];
             var hScore = new double[m_top.VertexLength];
@@ -232,15 +232,15 @@ namespace ShortestWalk.Geometry
             for (var i = 0; i < cameFrom.Length; i++)
                 cameFrom[i] = -1;
 
-            hScore[from] = HeuristicEstimateDistance(m_top, from, to);
-            fScore[from] = hScore[from];
+            hScore[fromIndex] = HeuristicEstimateDistance(m_top, fromIndex, toIndex);
+            fScore[fromIndex] = hScore[fromIndex];
 
             while (open.Count > 0)
             {
                 var n = FindMinimumScoreAmongOpen(open.Keys, fScore);
-                if (n == to)
-                    return ReconstructPath(cameFrom, to, out nodes, out edges, out eDirs,
-                        out totLength); //Found the path
+                if (n == toIndex)
+                    return ReconstructPath(
+                        cameFrom, toIndex, out nodes, out edges, out eDirs, out totLength); // Found the path
 
                 open.Remove(n);
                 closed.Add(n, default(byte));
@@ -275,7 +275,7 @@ namespace ShortestWalk.Geometry
                         cameFrom[y] = n;
 
                         gScore[y] = tentativeGscore;
-                        hScore[y] = HeuristicEstimateDistance(m_top, y, to);
+                        hScore[y] = HeuristicEstimateDistance(m_top, y, toIndex);
                         fScore[y] = gScore[y] + hScore[y];
                     }
                 }
@@ -284,7 +284,7 @@ namespace ShortestWalk.Geometry
             nodes = edges = null;
             eDirs = null;
             totLength = double.NaN;
-            return null; //no path found. Isolation
+            return null; // no path found. Isolation
         }
 
         protected static double HeuristicEstimateDistance(CurvesTopology top, int to, int y)
@@ -297,15 +297,15 @@ namespace ShortestWalk.Geometry
     ///     The Dijkstra algorithm.
     ///     See http://en.wikipedia.org/wiki/Dijkstra's_algorithm for description.
     /// </summary>
-    public class Dijkstra : PathMethod
+    public class Dijkstra : PathMethods
     {
         /// <summary>
         ///     The Dijkstra algorithm.
         ///     Each edge is given length 1. The graph is evaluated by link counts.
         /// </summary>
-        /// <param name="top">An input topology</param>
-        public Dijkstra(CurvesTopology top) :
-            this(top, new AlwaysFixed(1, top.EdgeLength))
+        /// <param name="top">An input topology.</param>
+        public Dijkstra(CurvesTopology top)
+            : this(top, new AlwaysFixed(1, top.EdgeLength))
         {
         }
 
@@ -313,9 +313,9 @@ namespace ShortestWalk.Geometry
         ///     The Dijkstra algorithm.
         ///     Each edge is given length [value]. The graph is evaluated by link counts.
         /// </summary>
-        /// <param name="top">An input topology</param>
-        public Dijkstra(CurvesTopology top, double value) :
-            this(top, new AlwaysFixed(value, top.EdgeLength))
+        /// <param name="top">An input topology.</param>
+        public Dijkstra(CurvesTopology top, double value)
+            : this(top, new AlwaysFixed(value, top.EdgeLength))
         {
         }
 
@@ -323,17 +323,17 @@ namespace ShortestWalk.Geometry
         ///     The Dijkstra algorithm.
         ///     Each edge is given the length as set in "dist" parameter.
         /// </summary>
-        /// <param name="top">An input topology</param>
-        /// <param name="dist">A series of distances. These cannot be less than 0</param>
-        public Dijkstra(CurvesTopology top, IList<double> dist) :
-            base(top, dist)
+        /// <param name="top">An input topology.</param>
+        /// <param name="dist">A series of distances. These cannot be less than 0.</param>
+        public Dijkstra(CurvesTopology top, IList<double> dist)
+            : base(top, dist)
         {
         }
 
-        public override Curve Cross(int from, int to, out int[] nodes, out int[] edges, out bool[] eDirs,
-            out double totLength)
+        public override Curve Cross(
+            int fromIndex, int toIndex, out int[] nodes, out int[] edges, out bool[] eDirs, out double totLength)
         {
-            CheckArguments(from, to);
+            CheckArguments(fromIndex, toIndex);
 
             var countDist = new double[m_top.VertexLength];
             var cameFrom = new int[m_top.VertexLength];
@@ -347,7 +347,7 @@ namespace ShortestWalk.Geometry
             for (var i = 0; i < cameFrom.Length; i++)
                 open.Add(i);
 
-            countDist[from] = 0;
+            countDist[fromIndex] = 0;
 
             while (open.Count > 0)
             {
@@ -358,12 +358,12 @@ namespace ShortestWalk.Geometry
                     nodes = edges = null;
                     eDirs = null;
                     totLength = double.NaN;
-                    return null; //no path found. Island
+                    return null; // no path found. Island
                 }
 
-                if (u == to)
-                    return ReconstructPath(cameFrom, to, out nodes, out edges, out eDirs,
-                        out totLength); //Found the path
+                if (u == toIndex)
+                    return ReconstructPath(cameFrom, toIndex, out nodes, out edges, out eDirs,
+                        out totLength); // Found the path
 
                 open.Remove(u);
 
@@ -425,26 +425,16 @@ namespace ShortestWalk.Geometry
                 set => throw new NotSupportedException();
             }
 
-            #region IEnumerable<double> Members
-
             public IEnumerator<double> GetEnumerator()
             {
                 for (var i = 0; i < Count; i++)
                     yield return _value;
             }
 
-            #endregion
-
-            #region IEnumerable Members
-
             IEnumerator IEnumerable.GetEnumerator()
             {
                 return GetEnumerator();
             }
-
-            #endregion
-
-            #region ICollection<double> Members
 
             void ICollection<double>.Add(double item)
             {
@@ -474,17 +464,14 @@ namespace ShortestWalk.Geometry
             {
                 throw new NotSupportedException();
             }
-
-            #endregion
         }
     }
 
     public enum SearchMode
     {
         CurveLength = 1,
-
-        //AdjustedCurveLength = 2,
+        // AdjustedCurveLength = 2,
         LinearDistance = 3,
-        Links = 4
+        Links = 4,
     }
 }

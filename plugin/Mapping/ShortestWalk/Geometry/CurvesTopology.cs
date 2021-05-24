@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Rhino;
-using Rhino.DocObjects;
-using Rhino.Geometry;
-
-namespace ShortestWalk.Geometry
+﻿namespace ShortestWalk.Geometry
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Rhino;
+    using Rhino.DocObjects;
+    using Rhino.Geometry;
+
     /// <summary>
-    ///     Constains an immutable instance of a non-oriented curve network
+    ///     Constains an immutable instance of a non-oriented curve network.
     /// </summary>
     public class CurvesTopology
     {
@@ -23,7 +23,7 @@ namespace ShortestWalk.Geometry
         private readonly Point3d[] _vPositions;
 
         /// <summary>
-        ///     Constructs a single topology
+        ///     Constructs a single topology.
         /// </summary>
         /// <param name="curves">The array or list of curves that will be shallow copied. Modifying curves invalidates this class.</param>
         public CurvesTopology(IList<Curve> curves)
@@ -32,10 +32,10 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Constructs a single topology with tolerance
+        ///     Constructs a single topology with tolerance.
         /// </summary>
         /// <param name="curves">The array or list of curves that will be shallow copied. Modifying curves invalidates this class.</param>
-        /// <param name="tolerance">A positive tolerance value, measured in document units</param>
+        /// <param name="tolerance">A positive tolerance value, measured in document units.</param>
         public CurvesTopology(IList<Curve> curves, double tolerance)
         {
             if (curves == null)
@@ -84,7 +84,6 @@ namespace ShortestWalk.Geometry
 
             // we might add a method to remove loose lines
             // we might add a method to remove completely identical vEdges
-
             _vertices = new NodeAddress[weldedVertexBounds.Count];
             SetupEdgesToVerticesCounts(weldedVertexBounds);
 
@@ -95,12 +94,12 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     The total amount of vertices
+        ///     The total amount of vertices.
         /// </summary>
         public int VertexLength => _vertices.Length;
 
         /// <summary>
-        ///     The total amount of edges
+        ///     The total amount of edges.
         /// </summary>
         public int EdgeLength => _edges.Length;
 
@@ -115,35 +114,35 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Retrieves a topological edge
+        ///     Retrieves a topological edge.
         /// </summary>
         /// <param name="i">
         ///     The ordered index. Edges have the exact same order and indices as the input curves, that you can access
-        ///     through CurveAt(i)
+        ///     through CurveAt(i).
         /// </param>
-        /// <returns>The topological edge</returns>
+        /// <returns>The topological edge.</returns>
         public EdgeAddress EdgeAt(int i)
         {
             return _edges[i];
         }
 
         /// <summary>
-        ///     Retrieves an input curve at an edge index
+        ///     Retrieves an input curve at an edge index.
         /// </summary>
         /// <param name="i">
         ///     The ordered index. Curves have the exact same order and indices as edges: you can access the edges
-        ///     through EdgeAt(i)
+        ///     through EdgeAt(i).
         /// </param>
-        /// <returns>The curve</returns>
+        /// <returns>The curve.</returns>
         public Curve CurveAt(int i)
         {
             return _curves[i];
         }
 
         /// <summary>
-        ///     Retrieves a node (the idea of a location where curves connect)
+        ///     Retrieves a node (the idea of a location where curves connect).
         /// </summary>
-        /// <param name="i">The ordered vertex index. You can access the location with the same index through VertexAt()</param>
+        /// <param name="i">The ordered vertex index. You can access the location with the same index through VertexAt().</param>
         /// <returns></returns>
         public NodeAddress NodeAt(int i)
         {
@@ -155,7 +154,7 @@ namespace ShortestWalk.Geometry
         /// </summary>
         /// <param name="i">
         ///     The position where a Node exists (might be one of the points within the chosen tolerance).
-        ///     It has the exact same ordering as NodeAt()
+        ///     It has the exact same ordering as NodeAt().
         /// </param>
         /// <returns></returns>
         public Point3d VertexAt(int i)
@@ -164,10 +163,10 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Iterate through vertices and find the one index within tolerance
+        ///     Iterate through vertices and find the one index within tolerance.
         /// </summary>
-        /// <param name="position">The cartesian location of the wanted point</param>
-        /// <returns>The index of the vertex, or -1 if no suitable vertex was found</returns>
+        /// <param name="position">The cartesian location of the wanted point.</param>
+        /// <returns>The index of the vertex, or -1 if no suitable vertex was found.</returns>
         public int GetVertexIndexOf(Point3d position)
         {
             var sqT = _tolerance * _tolerance;
@@ -178,10 +177,10 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Iterate through vertices and find the closest index, no matter of the distance
+        ///     Iterate through vertices and find the closest index, no matter of the distance.
         /// </summary>
-        /// <param name="position">The cartesian location of the wanted point</param>
-        /// <returns>The index of the vertex</returns>
+        /// <param name="position">The cartesian location of the wanted point.</param>
+        /// <returns>The index of the vertex.</returns>
         public int GetClosestNode(Point3d position)
         {
             var val = 0;
@@ -201,9 +200,9 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Get the physical length of all input curves
+        ///     Get the physical length of all input curves.
         /// </summary>
-        /// <returns>The ordered physical length of all input curves</returns>
+        /// <returns>The ordered physical length of all input curves.</returns>
         public double[] MeasureAllEdgeLengths()
         {
             var distances = new double[EdgeLength];
@@ -213,9 +212,9 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Get the physical length of all input curves
+        ///     Get the physical length of all input curves.
         /// </summary>
-        /// <returns>The ordered physical length of all input curves</returns>
+        /// <returns>The ordered physical length of all input curves.</returns>
         public double[] MeasureAllEdgeLinearDistances()
         {
             var distances = new double[EdgeLength];
@@ -229,20 +228,20 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Returns the linear distance of an edge
+        ///     Returns the linear distance of an edge.
         /// </summary>
-        /// <param name="edge">The edgeaddress</param>
-        /// <returns>The length</returns>
+        /// <param name="edge">The edgeaddress.</param>
+        /// <returns>The length.</returns>
         public double LinearDistanceAt(EdgeAddress edge)
         {
             return (VertexAt(edge.A) - VertexAt(edge.B)).Length;
         }
 
         /// <summary>
-        ///     Returns the linear distance of an edge
+        ///     Returns the linear distance of an edge.
         /// </summary>
-        /// <param name="edgeIndex">The edge index</param>
-        /// <returns>The length</returns>
+        /// <param name="edgeIndex">The edge index.</param>
+        /// <returns>The length.</returns>
         public double LinearDistanceAt(int edgeIndex)
         {
             return LinearDistanceAt(EdgeAt(edgeIndex));
@@ -250,9 +249,8 @@ namespace ShortestWalk.Geometry
 
         private struct VertexOnCurve
         {
-            //public readonly int LinePosition;
-            //public readonly bool IsStart;
-
+            // public readonly int LinePosition;
+            // public readonly bool IsStart;
             public VertexOnCurve(int vertexPosition)
             {
                 ConsecutiveVertex = vertexPosition;
@@ -312,8 +310,6 @@ namespace ShortestWalk.Geometry
             }
         }
 
-        #region Setup constructor methods
-
         private VertexOnCurve[] CopyVertexEndings(Curve[] curves)
         {
             var vls = new VertexOnCurve[_curves.Length * 2];
@@ -343,8 +339,8 @@ namespace ShortestWalk.Geometry
 
         private void SetupVerticesPositionsThatNeedToBeMapped(VertexOnCurve[] vls, int[] map)
         {
-            //This might be improved to avarage all different locations that are pointed to by the same node.
-            //Now the last one wins.
+            // This might be improved to avarage all different locations that are pointed to by the same node.
+            // Now the last one wins.
             for (var i = 0; i < map.Length; i++)
             {
                 var v = vls[i];
@@ -457,13 +453,13 @@ namespace ShortestWalk.Geometry
         {
             InTolerance = 1,
             OutOfToleranceAndContinue = 0,
-            OutOfToleranceAndStop = 2
+            OutOfToleranceAndStop = 2,
         }
 
         private static ToleranceState ArePointsInTolerance(Point3d p0, Point3d p1, double tolerance, double sqTolerance)
         {
             var dx = p1.X - p0.X;
-            if (dx > tolerance) return ToleranceState.OutOfToleranceAndStop; //points are sorted by X
+            if (dx > tolerance) return ToleranceState.OutOfToleranceAndStop; // points are sorted by X
 
             var dy = p1.Y - p0.Y;
             if (Math.Abs(dy) > tolerance)
@@ -471,7 +467,7 @@ namespace ShortestWalk.Geometry
 
             var dz = p1.Z - p0.Z;
 
-            return dx * dx + dy * dy + dz * dz <= sqTolerance
+            return (dx * dx) + (dy * dy) + (dz * dz) <= sqTolerance
                 ? ToleranceState.InTolerance
                 : ToleranceState.OutOfToleranceAndContinue;
         }
@@ -507,26 +503,24 @@ namespace ShortestWalk.Geometry
 
             return repetitionsCounts;
         }
-
-        #endregion
     }
 
     /// <summary>
-    ///     An helper class to quickly show a topology
+    ///     An helper class to quickly show a topology.
     /// </summary>
     public static class CurvesTopologyPreview
     {
         /// <summary>
-        ///     Marks all edges and nodes of this graph and returns the result as an array of Guids
+        ///     Marks all edges and nodes of this graph and returns the result as an array of Guids.
         /// </summary>
-        /// <returns>The resulting array of Guids</returns>
+        /// <returns>The resulting array of Guids.</returns>
         public static Guid[] Mark(CurvesTopology top, Color verticesColor, Color edgesColor)
         {
             var dots = new Guid[top.VertexLength + top.EdgeLength];
             var oa = RhinoDoc.ActiveDoc.CreateDefaultAttributes();
             oa.ColorSource = ObjectColorSource.ColorFromObject;
 
-            //Graph vertices color
+            // Graph vertices color
             oa.ObjectColor = verticesColor;
             for (var i = 0; i < top.VertexLength; i++)
             {
@@ -534,7 +528,7 @@ namespace ShortestWalk.Geometry
                 var sette = top.VertexAt(i);
             }
 
-            //Graph edges
+            // Graph edges
             oa.ObjectColor = edgesColor;
             for (var i = 0; i < top.EdgeLength; i++)
             {
@@ -547,9 +541,9 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Deletes an array of Guids
+        ///     Deletes an array of Guids.
         /// </summary>
-        /// <param name="dots">The Guid array to delete</param>
+        /// <param name="dots">The Guid array to delete.</param>
         public static void Unmark(Guid[] dots)
         {
             if (dots != null)

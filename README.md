@@ -5,15 +5,14 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![GitHub release](https://img.shields.io/github/release/philipbelesky/groundhog.svg)](https://github.com/philipbelesky/groundhog/releases)
-[![Component Build status](https://ci.appveyor.com/api/projects/status/v54xuu2rea3q4r3p/branch/develop?svg=true)](https://ci.appveyor.com/project/philipbelesky/groundhog/branch/develop)
-[![Website Build Status](https://travis-ci.org/philipbelesky/groundhog.svg?branch=develop)](https://travis-ci.org/philipbelesky/groundhog)
+![Build Action](https://github.com/philipbelesky/groundhog/workflows/Grasshopper%20Plugin/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/86683403554e426baad9225687d5ca00)](https://www.codacy.com/app/philipbelesky/groundhog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=philipbelesky/groundhog&amp;utm_campaign=Badge_Grade)
 
 </div>
 
 Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of reference models, and wiki exploring the applications of computational design in landscape architecture. Groundhog is currently in beta and material is added sporadically, usually in conjunction with [courses at RMIT](http://landscapearchitecture.rmit.edu.au) that teach parametric modelling.
 
-Please visit [www.groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
+Please visit [groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
 
 ## Documentation, Demos, and Reference Definitions
 
@@ -25,7 +24,7 @@ Refer to [groundhog.la/plugin/](http://groundhog.la/plugin/).
 
 ## Contributing
 
-Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md).
+Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/.github/CONTRIBUTING.md).
 
 ## Plugin Installation
 

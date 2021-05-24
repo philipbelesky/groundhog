@@ -8,7 +8,7 @@
 
 #### Minimum Requirements
 
-- Grasshopper `0.9.0076` and Rhinoceros `5.0`/`6.0` on Windows or `5.4` on macOS.
+- Rhinoceros `6.0` on Windows or `6.0` on macOS.
 
 #### Installation
 

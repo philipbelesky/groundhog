@@ -1,6 +1,0 @@
-# For www.dependencies.io
-version: 2
-dependencies:
-- type: js
-  path: site
-# Ruby support to be re-enabled?

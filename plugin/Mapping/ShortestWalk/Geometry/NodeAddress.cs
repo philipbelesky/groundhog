@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-
-namespace ShortestWalk.Geometry
+﻿namespace ShortestWalk.Geometry
 {
+    using System;
+    using System.Diagnostics;
+    using System.Text;
+
     /// <summary>
-    ///     A node, or the location where edges are attached to eachother.
+    ///     A node, or the location where edges are attached to each other.
     ///     A NodeAddress does not store any Node index, it merely
-    ///     bookmarks the positions where to look for Node indices
+    ///     bookmarks the positions where to look for Node indices.
     /// </summary>
     public struct NodeAddress
     {
@@ -16,7 +16,7 @@ namespace ShortestWalk.Geometry
         private int _edgeCount;
 
         /// <summary>
-        ///     Constructs a node from start location inside a topology and count
+        ///     Constructs a node from start location inside a topology and count.
         /// </summary>
         /// <param name="edgeStart"></param>
         /// <param name="edgeCount"></param>
@@ -41,7 +41,7 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     The number of edges at this Node
+        ///     The number of edges at this Node.
         /// </summary>
         public int EdgeCount
         {
@@ -61,11 +61,11 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Retrieves the Topology edge index of the Edge at position i at this Node
+        ///     Retrieves the Topology edge index of the Edge at position i at this Node.
         /// </summary>
-        /// <param name="i">An index smaller than EdgeCount and larger than 0</param>
-        /// <param name="top">The reference topology</param>
-        /// <returns>The Topology edge index</returns>
+        /// <param name="i">An index smaller than EdgeCount and larger than 0.</param>
+        /// <param name="top">The reference topology.</param>
+        /// <returns>The Topology edge index.</returns>
         public int EdgeIndexAt(int i, CurvesTopology top)
         {
             if (i < 0 || i >= EdgeCount)
@@ -75,11 +75,11 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Retrieves the Topology edge of the Edge at position i at this Node
+        ///     Retrieves the Topology edge of the Edge at position i at this Node.
         /// </summary>
-        /// <param name="i">An edge index smaller than EdgeCount and larger than 0</param>
-        /// <param name="top">The reference topology</param>
-        /// <returns>The Topology edge</returns>
+        /// <param name="i">An edge index smaller than EdgeCount and larger than 0.</param>
+        /// <param name="top">The reference topology.</param>
+        /// <returns>The Topology edge.</returns>
         public EdgeAddress EdgeAt(int i, CurvesTopology top)
         {
             if (i < 0 || i >= EdgeCount)
@@ -89,11 +89,11 @@ namespace ShortestWalk.Geometry
         }
 
         /// <summary>
-        ///     Retrieves the direction of the Edge at position i at this Node
+        ///     Retrieves the direction of the Edge at position i at this Node.
         /// </summary>
-        /// <param name="i">An edge index smaller than EdgeCount and larger than 0</param>
-        /// <param name="top">The reference topology</param>
-        /// <returns>A boolean indicating if the edge is oriented frontal or backwards</returns>
+        /// <param name="i">An edge index smaller than EdgeCount and larger than 0.</param>
+        /// <param name="top">The reference topology.</param>
+        /// <returns>A boolean indicating if the edge is oriented frontal or backwards.</returns>
         public bool RevAt(int i, CurvesTopology top)
         {
             if (i < 0 || i >= EdgeCount)
@@ -101,8 +101,6 @@ namespace ShortestWalk.Geometry
 
             return top.GetIsVertexEdgeRevOrientedFromArray(_edgeStart + i);
         }
-
-        #region Debugging Help and ToString()
 
 #if DEBUG
 
@@ -137,7 +135,5 @@ namespace ShortestWalk.Geometry
                 );
         }
 #endif
-
-        #endregion
     }
 }

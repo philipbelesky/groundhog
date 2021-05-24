@@ -1,18 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using groundhog.Properties;
-using Grasshopper.Kernel;
-using Rhino;
-using Rhino.Geometry;
-using Point = System.Drawing.Point;
-
-namespace groundhog
+namespace Groundhog
 {
-    public class GroundhogFieldComponent : GroundHogComponent
-    {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Groundhog.Properties;
+    using Rhino;
+    using Rhino.Geometry;
+    using Point = System.Drawing.Point;
 
-        public GroundhogFieldComponent()
+    public class FieldComponent : GroundHogComponent
+    {
+        public FieldComponent()
             : base("Field Mapper", "Field", "Create a field representation from collections of bounded curves/lines.", "Groundhog", "Mapping")
         {
         }
@@ -63,16 +62,19 @@ namespace groundhog
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "The number of grid divisions must be greater than 4 in order to create a field");
                 return;
             }
+
             if (!BOUNDARY.IsPlanar())
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not planar");
                 return;
             }
+
             if (!BOUNDARY.IsClosed)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Boundary curve is not closed");
                 return;
             }
+
             for (var i = 0; i < areas.Count; i = i + 1)
             {
                 if (areas[i] == null)
@@ -114,7 +116,7 @@ namespace groundhog
             // Best check by setting an out of bounds = false property or something
 
             // Create and search the rTree
-            //Print("Creating/searching the rTree");
+            // Print("Creating/searching the rTree");
             var rTree = new RTree();
             for (var x = 0; x < gridPts.GetLength(0); x = x + 1)
                 for (var y = 0; y < gridPts.GetLength(1); y = y + 1)
@@ -144,14 +146,14 @@ namespace groundhog
                 for (var y = 0; y < gridPts.GetLength(1); y = y + 1)
                     if (gridPts[x, y].BaseOverlaps > overlapsMax)
                         overlapsMax = gridPts[x, y].BaseOverlaps;
-            //Print("overlapsMax: {0}", overlapsMax);
+            // Print("overlapsMax: {0}", overlapsMax);
 
             // Set Z values according to range/max
             for (var x = 0; x < gridPts.GetLength(0); x = x + 1)
                 for (var y = 0; y < gridPts.GetLength(1); y = y + 1)
                 {
                     var pt = gridPts[x, y];
-                    var newZ = pt.Location.Z + pt.LargestOverlap() / overlapsMax * zRange;
+                    var newZ = (pt.Location.Z + pt.LargestOverlap()) / (overlapsMax * zRange);
                     pt.Location = new Point3d(pt.Location.X, pt.Location.Y, newZ);
                 }
 
@@ -185,45 +187,45 @@ namespace groundhog
             var tolerance = data.Item6;
 
             // Using the known GridPt 2D array bounds, locate the 2D indices from the 1D dataIndex
-            //Print("regionOverlapCallback (start) xExtents={0} yExtents={1}", xExtents, yExtents);
+            // Print("regionOverlapCallback (start) xExtents={0} yExtents={1}", xExtents, yExtents);
             var xIndex = dataIndex / yExtents;
             var yIndex = dataIndex % yExtents;
-            //Print("\t\tPt where dataIndex={0} is at {1},{2}", dataIndex, xIndex, yIndex);
+            // Print("\t\tPt where dataIndex={0} is at {1},{2}", dataIndex, xIndex, yIndex);
 
             // Increment overlaps after checking if the curve actually overlaps
             var overlappingPt = gridPoints[xIndex, yIndex];
-            //Print("\t\tPt where gridIndex={0} is at {1}", overlappingPt.GridIndex, overlappingPt.Location);
-
+            // Print("\t\tPt where gridIndex={0} is at {1}", overlappingPt.GridIndex, overlappingPt.Location);
             var worldXY = Plane.WorldXY;
             var isOutside = PointContainment.Outside;
             var containmentTest = overlapRegion.Contains(overlappingPt.Location, worldXY, tolerance);
             if (containmentTest != isOutside)
                 overlappingPt.BaseOverlaps += 1;
-            //Print("\n");
+            // Print("\n");
         }
 
-        private bool IsBoundaryRect(Curve BOUNDARY, double TOLERANCE)
+        private bool IsBoundaryRect(Curve boundary, double tolerance)
         {
             var isRect = false;
-            if (BOUNDARY.IsPolyline())
+            if (boundary.IsPolyline())
             {
                 Polyline BOUNDARY_PLINE;
-                BOUNDARY.TryGetPolyline(out BOUNDARY_PLINE);
+                boundary.TryGetPolyline(out BOUNDARY_PLINE);
                 if (BOUNDARY_PLINE != null && BOUNDARY_PLINE.SegmentCount == 4)
                 {
                     var edges = BOUNDARY_PLINE.GetSegments();
                     // Is each pair of segments the same length?
-                    if (Math.Abs(edges[0].Length - edges[1].Length) < TOLERANCE)
-                        if (Math.Abs(edges[0].Length - edges[1].Length) < TOLERANCE)
+                    if (Math.Abs(edges[0].Length - edges[1].Length) < tolerance)
+                        if (Math.Abs(edges[0].Length - edges[1].Length) < tolerance)
                         {
                             // Are each of the diagonals the same length?
                             var diagonalA = edges[0].From.DistanceTo(edges[2].From);
                             var diagonalB = edges[1].From.DistanceTo(edges[3].From);
-                            if (Math.Abs(diagonalA - diagonalB) < TOLERANCE)
+                            if (Math.Abs(diagonalA - diagonalB) < tolerance)
                                 isRect = true;
                         }
                 }
             }
+
             return isRect;
         }
 
@@ -232,7 +234,7 @@ namespace groundhog
             // Oh for python
             var sequence = new int[times];
             for (var i = 0; i < times; i = i + 1)
-                sequence[i] = start + i * step;
+                sequence[i] = start + (i * step);
             return sequence;
         }
 
@@ -247,11 +249,10 @@ namespace groundhog
             // Here i is the offset from the base position
             for (var i = 1; i < maximumProximity; i++)
             {
-                //Print("#[{0},{1} iteration {2}]_______", x, y, i);
-
-                var travelDistance = i * 2 + 1; // The length of the rows to find
+                // Print("#[{0},{1} iteration {2}]_______", x, y, i);
+                var travelDistance = (i * 2) + 1; // The length of the rows to find
                 var offset = (travelDistance - 1) / 2; // The amount to go in x/y directions from centerpts
-                var totalNeighbours = travelDistance * 4 - 4;
+                var totalNeighbours = (travelDistance * 4) - 4;
 
                 var neighbourIndices = new List<Point>();
 
@@ -264,36 +265,36 @@ namespace groundhog
                 for (var u = 0; u < travelDistance - 2; u++)
                     neighbourIndices.Add(new Point(x + offset, y - offset + u + 1)); // Rights
 
-                //neighbourIndices.RemoveAll(pt => pt.X < 0);
-                //neighbourIndices.RemoveAll(pt => pt.Y < 0);
-                //neighbourIndices.RemoveAll(pt => pt.X > xExtents);
-                //neighbourIndices.RemoveAll(pt => pt.Y > yExtents);
-
+                // neighbourIndices.RemoveAll(pt => pt.X < 0);
+                // neighbourIndices.RemoveAll(pt => pt.Y < 0);
+                // neighbourIndices.RemoveAll(pt => pt.X > xExtents);
+                // neighbourIndices.RemoveAll(pt => pt.Y > yExtents);
 
                 // Find the maximum hit value
                 for (var j = 0; j < neighbourIndices.Count; j++)
                 {
                     var pt = neighbourIndices[j];
-                    //Print("{0},{1}", pt.X, pt.Y);
+                    // Print("{0},{1}", pt.X, pt.Y);
                     // TODO: index out of range here; why?
-                    //double searchPtOverlaps = searchPts[pt.X, pt.Y].BaseOverlaps;
-                    //if (searchPtOverlaps > maximumOverlaps) {
+                    // double searchPtOverlaps = searchPts[pt.X, pt.Y].BaseOverlaps;
+                    // if (searchPtOverlaps > maximumOverlaps) {
                     //  maximumOverlaps = searchPtOverlaps;
                     //  Print("    Found a maximum overlap of {0} at position {1}", maximumOverlaps, neighbourIndices[j]);
-                    //}
+                    // }
                 }
 
                 if (maximumOverlaps > 0)
                 {
                     interpolatedOverlaps = (maximumProximity - i) / maximumProximity * maximumOverlaps;
-                    //Print("    Setting max overlap to {0}", interpolatedOverlaps);
+                    // Print("    Setting max overlap to {0}", interpolatedOverlaps);
                     break; // Found the closest neighbour so we break
                 }
             }
+
             return interpolatedOverlaps;
         }
 
-        private Tuple<GridPt[,], double, int, int> CreateGridPts(Curve BOUNDARY, BoundingBox boundaryBox,
+        private Tuple<GridPt[,], double, int, int> CreateGridPts(Curve boundary, BoundingBox boundaryBox,
             bool BOUNDARY_IS_RECT, int FIDELITY,
             double zRange)
         {
@@ -310,14 +311,14 @@ namespace groundhog
             var yGridExtents = (int)Math.Floor(yLength / gridSpacing);
 
             var middlePt = new Point3d(
-                corners[0][0] + xLength / 2,
-                corners[0][1] + yLength / 2,
+                corners[0][0] + (xLength / 2),
+                corners[0][1] + (yLength / 2),
                 BOUNDARYZ);
 
             // Start bottom left (as measured from center point)
             var startPt = new Point3d(
-                middlePt[0] - gridSpacing * (xGridExtents / 2),
-                middlePt[1] - gridSpacing * (yGridExtents / 2),
+                middlePt[0] - (gridSpacing * (xGridExtents / 2)),
+                middlePt[1] - (gridSpacing * (yGridExtents / 2)),
                 BOUNDARYZ);
 
             double xSpacingBump;
@@ -334,7 +335,7 @@ namespace groundhog
 
             if (zRange == 0)
                 zRange = Math.Max(xLength, yLength) * 0.05;
-            //Print("createGridPts: with a Z range of {0}", zRange);
+            // Print("createGridPts: with a Z range of {0}", zRange);
 
             // Make grid points
             var gridPts = new GridPt[xGridExtents, yGridExtents];
@@ -346,19 +347,19 @@ namespace groundhog
                     gridPts[x, y] = new GridPt
                     {
                         Location = new Point3d(
-                            startPt[0] + gridSpacing * x + xSpacingBump,
-                            startPt[1] + gridSpacing * y + ySpacingBump,
+                            startPt[0] + (gridSpacing * x) + xSpacingBump,
+                            startPt[1] + (gridSpacing * y) + ySpacingBump,
                             BOUNDARYZ),
                         GridIndex = i,
                         BaseOverlaps = 0,
                         InterpolatedOverlaps = 0,
-                        InsideBoundary = true
+                        InsideBoundary = true,
                     };
                     i++;
                 }
 
-            //Print("createGridPts: Making {0} columns", gridPts.GetLength(0));
-            //Print("createGridPts: Making {0} rows", gridPts.GetLength(1));
+            // Print("createGridPts: Making {0} columns", gridPts.GetLength(0));
+            // Print("createGridPts: Making {0} rows", gridPts.GetLength(1));
 
             // If out boundary is not rectangular cull the points outside of it
             if (!BOUNDARY_IS_RECT)
@@ -366,7 +367,7 @@ namespace groundhog
                 var isOutside = PointContainment.Outside;
                 for (var x = 0; x < gridPts.GetLength(0); x++)
                     for (var y = 0; y < gridPts.GetLength(1); y++)
-                        if (BOUNDARY.Contains(gridPts[x, y].Location) == isOutside)
+                        if (boundary.Contains(gridPts[x, y].Location) == isOutside)
                             gridPts[x, y].InsideBoundary = false;
             }
 
@@ -378,7 +379,6 @@ namespace groundhog
             public Point3d Location { get; set; }
             public int GridIndex { get; set; }
             public bool InsideBoundary { get; set; }
-
             public double BaseOverlaps { get; set; } // Records number of times it overlaps with a data region
             public double InterpolatedOverlaps { get; set; } // Nearest neighbour interpolation of overlaps
 

@@ -1,25 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Grasshopper.Kernel;
-using Grasshopper.Kernel.Types;
-using groundhog.Properties;
-
-namespace groundhog
+namespace Groundhog
 {
-    public class GroundhogPImportComponent : GroundHogComponent
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Grasshopper.Kernel;
+    using Grasshopper.Kernel.Types;
+    using Groundhog.Properties;
+
+    public class PImportComponent : GroundHogComponent
     {
-        public GroundhogPImportComponent()
+        public PImportComponent()
             : base("Species Importer", "PImport", "Create plant attributes from an imported spreadsheet", "Groundhog",
                 "Flora")
         {
         }
 
         public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d4}");
 
         protected override Bitmap Icon => Resources.icon_pimport;
-
-        public override Guid ComponentGuid => new Guid("{2d268bdc-ecaa-4cf7-815a-c8111d1798d4}");
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
@@ -47,15 +46,13 @@ namespace groundhog
             // Validation
             if (csvContents.Count == 0)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "An invalid CSV path or empty CSV has been provided so there is nothing to import.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "An invalid CSV path or empty CSV has been provided so there is nothing to import.");
                 return;
             }
 
             if (csvContents.Count == 1)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                    "Your CSV file has ony 1 line; it must be missing either the headers or any species.");
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Your CSV file has ony 1 line; it must be missing either the headers or any species.");
                 return;
             }
 
@@ -65,7 +62,7 @@ namespace groundhog
 
             foreach (var csvValue in csvContents)
             {
-                if (csvValue.Trim() == "") // Skip blank lines
+                if (string.IsNullOrEmpty(csvValue.Trim())) // Skip blank lines
                     continue;
 
                 var instanceDictionary = new Dictionary<string, string>();
@@ -75,10 +72,9 @@ namespace groundhog
                 }
                 catch (IndexOutOfRangeException e) // CS0168
                 {
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        string.Format(
-                            "Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}; the error is {1}",
-                            csvValue, e));
+                    this.AddRuntimeMessage(
+                        GH_RuntimeMessageLevel.Warning, string.Format(
+                            "Couldn't parse a particular species from the CSV file; perhaps because an attribute was missing. The line in question is: {0}; the error is {1}", csvValue, e));
                     continue;
                 }
 
@@ -87,8 +83,7 @@ namespace groundhog
                 var instanceSpecies = createSpecies.Item1;
                 var instanceWarnings = createSpecies.Item2;
                 if (instanceWarnings.Length > 0)
-                    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning,
-                        "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
+                    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Species " + instanceSpecies.speciesName + " has " + instanceWarnings);
 
                 csvPlantSpecies.Add(instanceSpecies);
             }
