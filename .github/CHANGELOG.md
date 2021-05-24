@@ -1,6 +1,6 @@
 ## Changelog
 
-#### [0.13.0] - 2020-??-??
+#### [0.13.0] - 2021-05-24
 ###### Fixed
 - Various documentation improvements
 - Improvement to the catchment boundary cell generation
