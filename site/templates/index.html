@@ -20,25 +20,25 @@
       {%- set techniques = get_section(path="techniques/_index.md") -%}
       {%- set combined = docs.pages | concat(with=projects.pages) | concat(with=techniques.pages) -%}
 
-        {% for page in combined %}
-          {% if page.category and page.category == 'top' %}
-            <div class="column is-one-third has-text-centered">
-              <h3 class="title is-3 gh-{{ page.title|lower }}-content">
-                <a href="{{ config.base_url }}{{ page.extra.url }}">
-                  {% if page.path == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
-                  {% if page.path == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
-                  {% if page.path == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
-                </a>
-              </h3>
-              <p class="gh-info-boxes">
-                {% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}
-              </p>
-              <a class="button gh-{{ page.title|lower }} is-outlined is-block" href="{{ config.base_url }}{{ page.extra.url }}">
-                View {{ page.title }}
+      {% for page in combined %}
+        {#{% if page.category and page.category == 'top' %}#}
+          <div class="column is-one-third has-text-centered">
+            <h3 class="title is-3 gh-{{ page.title|lower }}-content">
+              <a href="{{ config.base_url }}{{ page.path }}">
+                {% if page.path == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
+                {% if page.path == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
+                {% if page.path == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
               </a>
-            </div>
-          {% endif %}
-        {% endfor %}
+            </h3>
+            <p class="gh-info-boxes">
+              {% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}
+            </p>
+            <a class="button gh-{{ page.title|lower }} is-outlined is-block" href="{{ page.permalink }}">
+              View {{ page.title }}
+            </a>
+          </div>
+        {#{% endif %}#}
+      {% endfor %}
 
       </div>
     </div>

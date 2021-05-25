@@ -5,9 +5,9 @@
 
 
 # Plugin Icons
-rm -rf ./assets/plugin/icons/*.png
-cp ../plugin/Resources/**.png ./assets/plugin/icons/
-ICONS=$(ls -1 "./assets/plugin/icons/" | wc -l | xargs)
+rm -rf .{{ config.base_url|safe }}/plugin/icons/*.png
+cp ../plugin/Resources/**.png .{{ config.base_url|safe }}/plugin/icons/
+ICONS=$(ls -1 ".{{ config.base_url|safe }}/plugin/icons/" | wc -l | xargs)
 echo "Extracted ${ICONS} Component Icons"
 
 
@@ -39,8 +39,8 @@ echo "Moved ${PROJECTS} Project Files"
 
 
 # NPM Dependencies
-cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 ./assets/fonts/
-cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./assets/fonts/
+cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 .{{ config.base_url|safe }}/fonts/
+cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff .{{ config.base_url|safe }}/fonts/
 echo "Moved Asset Files"
 
 

@@ -2,7 +2,7 @@
 
 
 {%- capture basePath -%}
-  /assets/img/{{ page.extra.slug }}/{{ include.image }}
+  {{ config.base_url|safe }}/img/{{ page.extra.slug }}/{{ include.image }}
 {%- endcapture -%}
 {%- capture imageAlt -%}
   {%- if include.alt -%}{{ include.alt }}{%- else -%}{{ include.caption }}{%- endif -%}

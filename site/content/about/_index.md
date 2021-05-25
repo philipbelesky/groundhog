@@ -1,7 +1,7 @@
 +++
+title=        "About Groundhog"
 template=     "page.html"
 [extra]
-title=        "About Groundhog"
 meta=         "info about this plugin and wiki"
 +++
 
@@ -25,7 +25,7 @@ Albert Rex produced various project models and their documentation pages, alongs
 
 ### Acknowledgements
 
-<div class="third-image"><img src="/assets/rmit-logo.svg" alt="The RMIT University Logo" /></div>
+<div class="third-image"><img src="{{ config.base_url|safe }}/rmit-logo.svg" alt="The RMIT University Logo" /></div>
 
 Thanks to the SRIC of the RMIT School of Architecture and Urban Design for their support. Thanks also to the RMIT Landscape Architecture students from *Communications 2* in 2018, and those from the *Skin & Scale* and *Interference Pattern* studio options.
 

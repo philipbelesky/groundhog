@@ -1,7 +1,8 @@
-+++
-template="page.html"
-+++
-{#
-{% set items = site.projects | sort(attribute='date') | reverse %}
-{% include "list-page.html" %}
-#}
+{%- extends "default.html" -%}
+
+{%- block content -%}
+
+    {% set items = site.projects | sort(attribute='date') | reverse %}
+    {% include "list-page.html" %}
+
+{%- endblock content -%}

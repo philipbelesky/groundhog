@@ -7,11 +7,12 @@
     <title>{{ config.title | escape }} - {% if page.meta %}{{ page.extra.meta | escape }}{% elif page.title %}{{ page.title | escape }}{% endif %}</title>
     {# TODO <meta name="description" content="{% if page.excerpt %}{{ page.extra.excerpt | strip_html | normalize_whitespace | truncate: 160 | escape }}{% else %}{{ config.description }}">#}
 
-    <link rel="icon" type="image/png" href="/assets/logo-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/assets/logo-16x16.png" sizes="16x16" />
-    <link rel="stylesheet" href="{{ config.base_url }}{{ '/assets/main.css' }}">
+    <link rel="icon" type="image/png" href="{{ config.base_url|safe }}/logo-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ config.base_url|safe }}/logo-16x16.png" sizes="16x16" />
+  <link rel="stylesheet" href="{{ config.base_url ~ '/main.css'}}" />
 
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xmls" />
+    <link rel="canonical" href="{{ current_url|safe }}">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ config.base_url|safe }}/sitemap.xml" />
     {%- if config.debug -%}
     {%- include "analytics.html" -%}
     {% else %}

@@ -1,8 +1,10 @@
-+++
-template="page.html"
-+++
+{%- extends "default.html" -%}
+
+{%- block content -%}
 
 {#
 {% set items = site.techniques | sort(attribute='date') | reverse %}
 {% include "list-page.html" %}
 #}
+
+{%- endblock content -%}

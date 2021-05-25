@@ -1,7 +1,9 @@
-+++
+{%- extends "default.html" -%}
 
-+++
+{%- block content -%}
 
 <h1>About Groundhog</h1>
 
-{{ page.content }}
+{{ page.content | safe }}
+
+{%- endblock content -%}
