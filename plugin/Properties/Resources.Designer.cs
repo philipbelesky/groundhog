@@ -63,8 +63,7 @@ namespace Groundhog.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Species Name, Common Name,Indigenous Name,Time to Maturity,Spacing Radius,Initial Crown Radius,Mature Crown Radius,Crown Variance,Initial Trunk Radius,Mature Trunk Radius,Trunk Variance, Initial Height,Mature Height, Height Variance, Initial Root Radius,Mature Root Radius, Root Variance,Display R,Display G,Display B
         ///Generic Shrub,Generic Shrub,Generic Shrub,5,1,100,500,25,10,50,10,100,750,15,150,500,15,62,189,125
-        ///Generic Grass,Generic Grass,Generic Grass,2,1,75,250,10,5,25,10,50,500,35,100,250,25,26,171,23
-        /// [rest of string was truncated]&quot;;.
+        ///Generic Grass,Generic Grass,Generic Grass,2,1,75,250,10,5,25,10,50,500,35,100,250,25,26,171,2 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string generic_plants {
             get {
