@@ -24,10 +24,10 @@
         {#{% if page.category and page.category == 'top' %}#}
           <div class="column is-one-third has-text-centered">
             <h3 class="title is-3 gh-{{ page.title|lower }}-content">
-              <a href="{{ config.base_url }}{{ page.path }}">
-                {% if page.path == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
-                {% if page.path == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
-                {% if page.path == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
+              <a href="{{ config.base_url }}{{ page.permalink }}">
+                {% if page.permalink == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
+                {% if page.permalink == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
+                {% if page.permalink == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
               </a>
             </h3>
             <p class="gh-info-boxes">

@@ -14,7 +14,7 @@
     "test": "htmlproofer --extension .html ./public",
     "lint": "stylelint 'sass/**/*.scss' --config 'sass/.stylelintrc'",
     "lint-fix": "stylelint 'sass/**/*.scss' --config 'sass/.stylelintrc' --fix",
-    "bundle": "TODO",
+    "bundle": "",
     "serve": "zola serve --drafts -p 4008 --interface 0.0.0.0  --base-url 192.168.1.100",
     "preview": "zola serve -p 4008 --interface 0.0.0.0  --base-url 192.168.1.100",
     "build": "npm run bundle && zola build",

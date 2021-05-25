@@ -1,5 +1,5 @@
 +++
-template=   "landing_documentation.html"
+template=   "section.html"
 title=      "Documentation"
 [extra]
 meta=       "documentation for the Grasshopper plugin's components"

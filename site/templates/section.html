@@ -6,11 +6,9 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1 is-size-2-mobile">
-          {% if page.title %}{{ page.title }}{% endif %}
           {% if section.title %}{{ section.title }}{% endif %}
         </h1>
         <h2 class="subtitle is-size-4-mobile">
-          {% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}
           {% if section.extra.excerpt %}{{ section.extra.excerpt }}{% endif %}
         </h2>
       </div>
@@ -20,14 +18,14 @@
   <section class="section">
     <div class="container">
 
-      {% if page.content %}
-        {{ page.content | safe }}
-      {% endif %}
       {% if section.content %}
         {{ section.content | safe }}
       {% endif %}
 
     </div>
   </section>
+
+    {% set items = section.pages %}
+    {% include "list-page.html" %}
 
 {%- endblock content -%}

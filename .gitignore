@@ -16,6 +16,7 @@ site/assets/resize_cache
 site/downloads/documentation
 site/downloads/projects
 site/downloads/techniques
+site/public
 
 ################################################################################
 # Groundhog Plugin

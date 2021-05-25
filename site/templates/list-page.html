@@ -1,9 +1,11 @@
 <div class="columns masonry-grid gh-page-grid">
 
   {% for item in items %}
-    {% if item.published != false or site.unpublished == true %}
-      {#TODO{% include "tile.html" span = 'is-half' %}#}
-    {% endif %}
+
+    <h4 class="title">{{ item.title }}</h4>
+    <p>{{ item.extra.excerpt }}</p>
+    {#{% include "tile.html" %}#}
+
   {% endfor %}
 
 </div>

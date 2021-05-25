@@ -6,7 +6,7 @@
     <title>{{ site.title }}</title>
     <description>{%- if site.description -%}{{ site.description | xml_escape }}{%- endif -%}</description>
     <link>{{ site.url }}</link>
-    <atom:link href="{{ site.url }}/{{ page.path }}" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ site.url }}/{{ page.permalink }}" rel="self" type="application/rss+xml" />
     {%- assign everything = site.documentation | concat: site.techniques | concat: site.projects -%}
     <lastBuildDate>{%- for item in everything limit:1 -%}{{ item.date | date_to_rfc822 }}{%- endfor -%}</lastBuildDate>
     {%- for item in everything limit:10 -%}
@@ -16,8 +16,8 @@
         {%- if item.author.name -%}
         <dc:creator>{{ item.author.name | xml_escape }}</dc:creator>
         {%- endif -%}
-        {%- if item.excerpt -%}
-        <description>{{ item.excerpt | xml_escape }}</description>
+        {%- if item.extra.excerpt -%}
+        <description>{{ item.extra.excerpt | xml_escape }}</description>
         {%- else -%}
         <description>{{ item.content | xml_escape }}</description>
         {%- endif -%}
