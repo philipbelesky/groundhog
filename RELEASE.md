@@ -18,9 +18,15 @@
 
 In command prompt (not power shell) executed in the `plugin\release` directory:
 
-    > "C:\Program Files\Rhino 6\System\Yak.exe" build
-    > "C:\Program Files\Rhino 6\System\Yak.exe" push groundhog-X.Y.Z.yak
-    > "C:\Program Files\Rhino 6\System\Yak.exe" search groundhog
+    > "C:\Program Files\Rhino 7\System\Yak.exe" build
+    > "C:\Program Files\Rhino 7\System\Yak.exe" push groundhog-X.Y.Z.yak
+    > "C:\Program Files\Rhino 7\System\Yak.exe" search groundhog
+
+Or, on macOS:
+
+    > "/Applications/Rhino 7.app/Contents/Resources/bin/yak" build
+    > "/Applications/Rhino 7.app/Contents/Resources/bin/yak" push groundhog-X.Y.Z.yak
+    > "/Applications/Rhino 7.app/Contents/Resources/bin/yak" search groundhog
 
 #### Update Plugin on Github
 

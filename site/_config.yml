@@ -16,7 +16,7 @@
 title: Groundhog
 email: groundhog@philipbelesky.com
 description: a Grasshopper plugin and wiki exploring the applications of computational design in landscape architecture.
-version: 0.12.1b
+version: 0.13.0b
 
 # Build settings
 markdown: Pandoc
@@ -89,6 +89,7 @@ exclude:
   - style.csl
   - npm-debug.log
   - vendor # Exclude gem file on travis
+  - assets/resize_cache
   - assets/documentation/**/*.jpg # Made by gulp
   - assets/documentation/**/*.jpeg # Made by gulp
   - assets/documentation/**/*.png # Made by gulp

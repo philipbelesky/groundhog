@@ -12,7 +12,7 @@
 
 Groundhog is a [Grasshopper plugin](http://grasshopper3d.com), a set of reference models, and wiki exploring the applications of computational design in landscape architecture. Groundhog is currently in beta and material is added sporadically, usually in conjunction with [courses at RMIT](http://landscapearchitecture.rmit.edu.au) that teach parametric modelling.
 
-Please visit [www.groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
+Please visit [groundhog.la](http://groundhog.la) for documentation and examples of how to use the plugin and for resources on computational approaches to landscape architectural design in general.
 
 ## Documentation, Demos, and Reference Definitions
 
@@ -24,7 +24,7 @@ Refer to [groundhog.la/plugin/](http://groundhog.la/plugin/).
 
 ## Contributing
 
-Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md).
+Feedback and pull requests welcome; see [`CONTRIBUTING.md` file](https://github.com/philipbelesky/groundhog/blob/develop/.github/CONTRIBUTING.md).
 
 ## Plugin Installation
 

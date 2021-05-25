@@ -4155,7 +4155,7 @@
 
 The definition and model are provided as speculative reverse-engineerings of how this landscape project could have been (partly) designed using computational methods. More information available at https://www.groundhog.la/projects/max-iv-laboratory/
 
-This definition depends on components from version v0.11.1b of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
+This definition depends on components from version v0.13.0 of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
                   </items>
                   <chunks count="2">
                     <chunk name="Attributes">

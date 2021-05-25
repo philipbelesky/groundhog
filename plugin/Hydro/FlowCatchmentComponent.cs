@@ -188,7 +188,7 @@
                 groupedVolumes.Add(flowVolumesPercent, groupedVolumes.Path(nextPath));
             }
 
-            //// Assign variables to output parameters
+            // Assign variables to output parameters
             DA.SetDataTree(0, groupedBounds);
             DA.SetDataTree(1, groupedCurves);
             DA.SetDataTree(2, groupedColors);
@@ -210,6 +210,7 @@
                 x = 0;
             else
                 x = groupIndex % xMax; // Get position on x axis
+
             int y;
             if (groupIndex == 0)
             {
@@ -224,8 +225,7 @@
             // Create a color from within a given range (set bounds to ensure things are relatively bright/distinct)
             var hue = this.ColorDistributionInRange(0.0, 1.0, x, xMax); // Not -1 as 0.0 and 1.0 are equivalent
             var saturation = 1.0; // Maximise contrast
-            var luminance =
-                this.ColorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
+            var luminance = this.ColorDistributionInRange(0.2, 0.6, y, yMax - 1); // -1 as we want to use the full range or 0.2-0.6
             var groupColorHSL = new ColorHSL(hue, saturation, luminance);
 
             // Convert to RGB and make a list with a color for each item in the branch
@@ -237,7 +237,7 @@
 
         private double ColorDistributionInRange(double lower, double upper, int index, int count)
         {
-            var step = (upper - lower) / count;
+            var step = (upper - lower) / Math.Max(count, 1.0); // Max to prevent division by infinity
             var value = lower + (step * index);
             return value;
         }

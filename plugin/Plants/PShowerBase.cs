@@ -36,8 +36,8 @@
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddColourParameter("Color", "Co", "The species color of each plant", GH_ParamAccess.list);
-            pManager.AddTextParameter("Label", "La", "The species label of each plant", GH_ParamAccess.list);
+            pManager.AddColourParameter("Colors", "Co", "The species color of each plant", GH_ParamAccess.list);
+            pManager.AddTextParameter("Labels", "La", "The species label of each plant", GH_ParamAccess.list);
         }
 
         protected bool SetupSharedVariables(IGH_DataAccess da)

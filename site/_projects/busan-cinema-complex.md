@@ -16,11 +16,11 @@ In 2006, James Corner Field Operations worked with architects TEN Arquitectos to
 
 The competition entry's landscape features an undulating lawn dotted with planting to guide pedestrian circulation and an adaptive paving system that stretched across the site. The differentiated pavers are designed to be responsive to the landform of the proposal, whereby the orientation and size of each individual set of tiles smoothly shifts according to changes in slope. The result is a [field aesthetic]({% link _techniques/field-conditions.md %}) or "ambient surface"[@JoonKang:2006 208] where the tiles are smallest and most offset from their original horizontal orientation where the topography is highest.
 
-{% include elements/figure.html image='busan-field' caption='Details of the paving system and its relationship to landform.' credit='By James Corner Field Operations and TEN Arquitectos, via scenariojournal.com/lu-from-hand-to-land/.' %}
+{% include elements/figure.html image='busan-field' caption='Details of the paving system and its relationship to landform.' credit='By James Corner Field Operations and TEN Arquitectos, via scenariojournal.com/article/from-hand-to-land/.' %}
 
 This tie between surface and object suggests an approach that can establish a direct and intuitive link between a primary design driver — landform — and a secondary design feature — paving — that can be explored in an expressive manner. Once developed, the tiling system would be able to quickly respond to different landforms and so create a  feedback loop where the topography and the tile geometries are tied together throughout design development.
 
-{% include elements/figure.html image='busan-pspxv' alt='Perspective of the Busan Cinema competition entry.' credit="By James Corner Field Operations and TEN Arquitectos, adapted from scenariojournal.com/lu-from-hand-to-land/." %}
+{% include elements/figure.html image='busan-pspxv' alt='Perspective of the Busan Cinema competition entry.' credit="By James Corner Field Operations and TEN Arquitectos, adapted from scenariojournal.com/article/from-hand-to-land/." %}
 
 This tight, or "articulated,"[@Hansen:2011] relationship between the two design features seems especially valuable in the context of developing a competition entry where time constraints often limit the full realisation of a concept. Here, the use of scripting likely allowed the tiling elements to exist at both a conceptual and detailed level of development simultaneously  as changes to the topography, tile shape, tile size, or architectural form could be accommodated with ease because the relationships between each were explicitly defined using computational rules.
 

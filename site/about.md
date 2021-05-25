@@ -14,7 +14,7 @@ Most of the functionality and documentation provided here is not at the bleeding
 
 ### Developer
 
-Philip Belesky is an Lecturer in the Landscape Architecture discipline at RMIT University in Melbourne, Australia. He has previously worked as a programmer and computational designer. His current research explores the use of computational methods and tooling to design landscape systems — more information available at [philipbelesky.com](http://www.philipbelesky.com).
+Philip Belesky is an Lecturer in the Landscape Architecture discipline at RMIT University in Melbourne, Australia. He has previously worked as a programmer and computational designer. His current research explores the use of computational methods and tooling to design landscape systems — more information available at [philipbelesky.com](https://philipbelesky.com).
 
 Support requests, bug reports, feature suggestions and other plugin-related communications can be made as outlined on the [plugin page](https://groundhog.la/plugin/). For other matters please email me using at [contact@philipbelesky.com](mailto:contact@philipbelesky.com).
 
@@ -30,7 +30,7 @@ Thanks to the SRIC of the RMIT School of Architecture and Urban Design for their
 
 ### Contributing
 
-See the [CONTRIBUTING.md](https://github.com/philipbelesky/groundhog/blob/develop/CONTRIBUTING.md) file on Github for information on how to help contribute to the project. Pull requests are welcome for both the plugin code and to the example files and documentation that define this website.
+See the [CONTRIBUTING.md](https://github.com/philipbelesky/groundhog/blob/develop/.github/CONTRIBUTING.md) file on Github for information on how to help contribute to the project. Pull requests are welcome for both the plugin code and to the example files and documentation that define this website.
 
 ### License and Use
 
