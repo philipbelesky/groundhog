@@ -1,12 +1,13 @@
----
-title:      Paths
-excerpt:    Components for ...
-date:       18-07-31
-files:      true
-files_text: model and definition demonstrating the use of this component
-thumbnail:  false
-published:  false
----
++++
+title=      "Paths"
+[extra]
+excerpt=    "Components for ..."
+date=       18-07-31
+files=      true
+files_text= "model and definition demonstrating the use of this component"
+thumbnail=  false
+published=  false
++++
 
 - Introduction to general hydraulic principles
 - Describe process for deriving level from flow quantity; noting not that water does not strictly follow this process (i.e. settling effects)

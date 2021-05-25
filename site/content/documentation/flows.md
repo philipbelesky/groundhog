@@ -1,12 +1,13 @@
----
-title:      Flow Paths
-excerpt:    Components for creating projections of surface water flows.
-date:       17-10-14
-files:      true
-files_text: model and definition demonstrating the use of these components
----
++++
+title=      "Flow Paths"
+[extra]
+excerpt=    "Components for creating projections of surface water flows."
+date=       17-10-14
+files=      true
+files_text= "model and definition demonstrating the use of these components"
++++
 
-{% include elements/figure.html image='1' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
+{% include "elements/figure.html" image='1' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
 
 ## Flow Paths
 
@@ -34,8 +35,8 @@ The `FlowPath` component takes two forms a `SurfaceFlowPath` and a `MeshFlowPath
 
 Once calculated, these flow paths can then be used as inputs for two further components:
 
-- See [documentation for the Catchments component]({% link _documentation/flows-catchments.md %})
-- See [documentation for the Saturation component]({% link _documentation/flows-saturation.md %})
+- See [documentation for the Catchments component](@/documentation/flows-catchments.md)
+- See [documentation for the Saturation component](@/documentation/flows-saturation.md)
 
 The example file for this component demonstrates a number of options for visualisation and extension, such as:
 
@@ -43,5 +44,5 @@ The example file for this component demonstrates a number of options for visuali
 - Using geometric intersections to test how drainage pits intercept water flows
 - Fading the color of the paths as they travel further from their 'source'
 
-{% include elements/figure.html image='model' alt='Example model for the flow paths definition.' %}
-{% include elements/figure.html image='definition' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.la' %}
+{% include "elements/figure.html" image='model' alt='Example model for the flow paths definition.' %}
+{% include "elements/figure.html" image='definition' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.la' %}

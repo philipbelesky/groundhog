@@ -1,20 +1,20 @@
 <footer class="footer no-print">
-  <div class="container content gh-{{ current[1] }}-content has-text-centered">
+  <div class="container content gh-{{ current }}-content has-text-centered">
 
     <nav class="level">
-      <a class="level-item" href="{% link about.md %}">
+      <a class="level-item" href="/about">
         <i data-feather="help-circle"></i> About
       </a>
-      <a class="level-item" href="{% link plugin.md %}">
+      <a class="level-item" href="/plugin">
         <i data-feather="package"></i> Plugin
       </a>
-      <a class="level-item" href="{% link documentation.md %}">
+      <a class="level-item" href="/documentation">
         <i data-feather="book"></i> Docs
       </a>
-      <a class="level-item" href="{% link techniques.md %}">
+      <a class="level-item" href="/techniques">
         <i data-feather="briefcase"></i> Techniques
       </a>
-      <a class="level-item" href="{% link projects.md %}">
+      <a class="level-item" href="/projects">
         <i data-feather="aperture"></i> Projects
       </a>
       <a class="level-item" href="https://github.com/philipbelesky/groundhog" target="_blank">
@@ -39,7 +39,7 @@
     </nav>
 
     <p class="">
-      <em>The Groundhog plugin and website are © {{ 'now' | date: "%Y" }} under the terms of the <a href="https://opensource.org/licenses/GPL-3.0">GPL v3 License</a>.</em>
+      <em>The Groundhog plugin and website are © {{ now() | date(format="%Y") }} under the terms of the <a href="https://opensource.org/licenses/GPL-3.0">GPL v3 License</a>.</em>
     </p>
 
   </div>

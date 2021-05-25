@@ -1,8 +1,8 @@
----
-layout: default
----
++++
 
-<section class="hero gh-{{ page.collection | downcase }}">
++++
+
+<section class="hero gh-{{ page.extra.collection | lower }}">
   <div class="hero-body has-text-left">
     <div class="container">
       <h1 class="title is-1">
@@ -11,22 +11,22 @@ layout: default
       <div class="level gh-meta-info">
         {% if page.designers %}
           <div class="level-item is-narrow gh-left-padding">
-            <h5 class="subtitle"><i data-feather="users"></i>{{ page.designers }}</h5>
+            <h5 class="subtitle"><i data-feather="users"></i>{{ page.extra.designers }}</h5>
           </div>
         {% endif %}
         {% if page.location %}
           <div class="level-item is-narrow gh-left-padding">
-            <h5 class="subtitle"><i data-feather="map"></i>{{ page.location }}</h5>
+            <h5 class="subtitle"><i data-feather="map"></i>{{ page.extra.location }}</h5>
           </div>
         {% endif %}
         {% if page.year %}
           <div class="level-item is-narrow">
-            <h5 class="subtitle"><i data-feather="clock"></i>{{ page.year }}</h5>
+            <h5 class="subtitle"><i data-feather="clock"></i>{{ page.extra.year }}</h5>
           </div>
         {% endif %}
       </div>
       <h2 class="subtitle">
-        {{ page.excerpt }}
+        {{ page.extra.excerpt }}
       </h2>
     </div>
   </div>
@@ -40,7 +40,7 @@ layout: default
       {% include "elements/files.html" %}
     {% endif %}
 
-    {{ content }}
+    {{ page.content }}
 
   </div>
 </section>

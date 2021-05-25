@@ -1,33 +1,34 @@
+{#
 {% if include.collection %}
-  {% assign collection = include.collection %}
+  {% set collection = include.collection %}
 {% else %}
-  {% assign collection = item.collection %}
+  {% set collection = item.collection %}
 {% endif %}
 
 {% if collection == 'documentation' %}
-  {% assign icon = 'book' %}
-  {% assign color = 'rgba(142, 215, 89, 0.90)' %}
+  {% set icon = 'book' %}
+  {% set color = 'rgba(142, 215, 89, 0.90)' %}
 {% endif %}
 {% if collection == 'techniques' %}
-  {% assign icon = 'briefcase' %}
-  {% assign color = 'rgba(233, 185, 56, 0.90)' %}
+  {% set icon = 'briefcase' %}
+  {% set color = 'rgba(233, 185, 56, 0.90)' %}
 {% endif %}
 {% if collection == 'projects' %}
-  {% assign icon = 'aperture' %}
-  {% assign color = 'rgba(246, 112, 140, 0.90)' %}
+  {% set icon = 'aperture' %}
+  {% set color = 'rgba(246, 112, 140, 0.90)' %}
 {% endif %}
 
 {% if collection == 'plugin' %}
-  {% assign icon = 'package' %}
-  {% assign color = 'rgba(114, 227, 210, 0.90)' %}
-  {% assign thumbnailAssetPath = '/assets/plugin/thumbnail.png' %}
+  {% set icon = 'package' %}
+  {% set color = 'rgba(114, 227, 210, 0.90)' %}
+  {% set thumbnailAssetPath = '/assets/plugin/thumbnail.png' %}
 {% else %}
   {% capture thumbnailFullPath %}/assets/img/{{ item.slug }}/thumbnail-medium.jpg{% endcapture %}
-  {% assign thumbnailAssetPath = thumbnailFullPath %}
+  {% set thumbnailAssetPath = thumbnailFullPath %}
 {% endif %}
 
 <div class="column {{ include.span }} masonry-item">
-  <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ site.baseurl }}{{ item.url }}"
+  <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ config.base_url }}{{ item.url }}"
      style="background: linear-gradient({{ color }}, {{ color }}), 50% 50% url('{{ thumbnailAssetPath }}'); background-size: cover;">
 
     <div class="is-white is-pulled-right">
@@ -39,3 +40,4 @@
 
   </a>
 </div>
+#}

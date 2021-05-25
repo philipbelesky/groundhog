@@ -1,12 +1,13 @@
----
-title:      Flow Saturation
-excerpt:    Using surface water flow paths to calculate gradients of infiltration and saturation.
-date:       20-08-02
-files:      true
-files_text: model and definition demonstrating the use of this component
----
++++
+title=      "Flow Saturation"
+[extra]
+excerpt=    "Using surface water flow paths to calculate gradients of infiltration and saturation."
+date=       20-08-02
+date=       true
+files_text= "model and definition demonstrating the use of this component"
++++
 
-The `FlowCatchment` component uses the collection of [pre-calculated flow paths]({% link _documentation/flows.md %}) to calculate surface infiltration across a given landform. These calculations allow for estimates of infiltration volumes across a given landform and the flow volumes collected in a landform's basins or edges. In many cases, the same methods will also be applicable to roofs and other surfaces.
+The `FlowCatchment` component uses the collection of [pre-calculated flow paths](@/documentation/flows.md) to calculate surface infiltration across a given landform. These calculations allow for estimates of infiltration volumes across a given landform and the flow volumes collected in a landform's basins or edges. In many cases, the same methods will also be applicable to roofs and other surfaces.
 
 To perform this calculation, the component:
 
@@ -26,16 +27,14 @@ This parameter essentially models the infiltration rate of runoff across the lan
 
 > If `Segment Loss` is set to 0 then the `Start Volume` value will always be used at each point. E.g. the `Start Volume` is not treated as a budget, but rather as a per-point water load.
 
-{% include elements/component.html title='FlowSaturation' %}
+{% include "elements/component.html" title='FlowSaturation' %}
 
 ## Workflows and Examples
 
-{% include elements/files.html %}
+{% include "elements/files.html" %}
 
 The example file for this component demonstrates a number of options for visualisation and extension, such as:
 
+{% include "elements/figure.html" image='model' alt='Image of the flow saturation component used across two hypothetical landforms' %}
 
-
-{% include elements/figure.html image='model' alt='Image of the flow saturation component used across two hypothetical landforms' %}
-
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.la' %}
+{% include "elements/figure.html" image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.la' %}

@@ -1,3 +1,5 @@
+{#
+
 {% capture filePath %}/downloads/{{ page.path | remove_first: "_" | remove_first: ".md" }}.zip{% endcapture %}
 <article class="message is-success no-print">
 <div class="message-body">
@@ -6,8 +8,10 @@
   <i data-feather="download"></i>
 </div>
 <div class="column">
-  The associated {{ page.files_text }} <a href="{{ site.baseurl }}{{ filePath }}">can be downloaded here</a>.
+  The associated {{ page.extra.files_text }} <a href="{{ config.base_url }}{{ filePath }}">can be downloaded here</a>.
 </div>
 </div>
 </div>
 </article>
+
+#}

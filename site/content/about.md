@@ -1,8 +1,9 @@
----
-layout:     page
-title:      About Groundhog
-meta:       info about this plugin and wiki
----
++++
+template=     "page.html"
+[extra]
+title=        "About Groundhog"
+meta=         "info about this plugin and wiki"
++++
 
 ### Introduction
 

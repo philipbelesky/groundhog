@@ -1,16 +1,17 @@
----
-title:      Flowing Gardens
-date:       18-01-31
-published:  false
-excerpt:    lorum
-year:       2011 (constructed)
-location:   Xi'an, China
-designers:  Plasma Studio and Groundlab
-files:      true
-files_text: model and definition that demonstrate a partial recreation of this project
----
++++
+title=      "Flowing Gardens"
+[extra]
+date=       18-01-31
+published=  false
+excerpt=    "lorum"
+year=       "2011 (constructed)"
+location=   "Xi'an, China"
+designers=  "Plasma Studio and Groundlab"
+files=      true
+files_text= "model and definition that demonstrate a partial recreation of this project"
++++
 
-{% include elements/figure.html image='1' caption='TODO' credit="TODO" %}
+{% include "elements/figure.html" image='1' caption='TODO' credit="TODO" %}
 
 A number of projects use similar parametric geometries at greater scales to explore, if not answer, these questions. Often these parametric techniques take shape as tiling strategies or path configurations that feature branching, flowing, twisting, folding, or fracturing geometries. Such forms echo architectural applications of surface panelling and manipulation techniques, but apply them to the ground plane — façades turned into fields.
 

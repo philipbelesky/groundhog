@@ -4,17 +4,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ site.title | escape }} - {% if page.meta %}{{ page.meta | escape }}{% else %}{{ page.title | escape }}{% endif %}</title>
-    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+    <title>{{ config.title | escape }} - {% if page.meta %}{{ page.extra.meta | escape }}{% elif page.title %}{{ page.title | escape }}{% endif %}</title>
+    {# TODO <meta name="description" content="{% if page.excerpt %}{{ page.extra.excerpt | strip_html | normalize_whitespace | truncate: 160 | escape }}{% else %}{{ config.description }}">#}
 
-    <link rel="icon" type="image/png" href="{% link /assets/logo-32x32.png %}" sizes="32x32" />
-    <link rel="icon" type="image/png" href="{% link /assets/logo-16x16.png %}" sizes="16x16" />
-    <link rel="stylesheet" href="{{ site.baseurl }}{{ '/assets/main.css' }}">
+    <link rel="icon" type="image/png" href="/assets/logo-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/assets/logo-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="{{ config.base_url }}{{ '/assets/main.css' }}">
 
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="{% link sitemap.xml %}" />
-    {%- if site.environment == 'production' -%}
-    {%- include analytics.html -%}
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xmls" />
+    {%- if config.debug -%}
+    {%- include "analytics.html" -%}
     {% else %}
     <meta name="robots" content="noindex"><!-- Block google indexing from Jekyll staging copy-->
     {% endif %}

@@ -1,8 +1,9 @@
----
-title:      "Field Conditions"
-excerpt:    "On 'the complexity of the given' as a compositional strategy in mapping and design."
-date:       17-11-13
----
++++
+title=      "Field Conditions"
+[extra]
+excerpt=    "On 'the complexity of the given' as a compositional strategy in mapping and design."
+date=       17-11-13
++++
 
 The notion of a 'field condition' came to the fore of both architectural and landscape architectural theory over the course of the 90's as part of the 'digital turn' and  emergence of landscape urbanism.[@Llabres:2014 64] To follow Stan Allen's *From Object to Field*, field conditions are:
 
@@ -13,7 +14,7 @@ Unlike the hierarchical patterns of classicism or the minimal montages of modern
 The descriptions of urban phenomena (particularly urban growth) as field conditions are one of the enduring impacts of this notion within landscape architecture, wherein the distinctions between architectural and landscape conditions collapse if seen within a broader milieu of continuous differentiation.[@Moloney:2011 219] Considering sites in this manner was seen as better registering the complexity and dynamism of landscape systems; particularly given contemporary patterns of urbanism
 that move away from strict spatial and geometric orders and towards other methods of organisation.[@Barnett:2013 69]
 
-{% include elements/figure.html image='1' caption='Diagram of various field compositions.' credit='Peter Hudac (https://peterhudac.wordpress.com/2010/09/22/from-object-to-field/) largely adapted from page 26 of Stan Allen, “From Object to Field,” Architectural Design 67, no. 5 (1997)' %}
+{% include "elements/figure.html" image='1' caption='Diagram of various field compositions.' credit='Peter Hudac (https://peterhudac.wordpress.com/2010/09/22/from-object-to-field/) largely adapted from page 26 of Stan Allen, “From Object to Field,” Architectural Design 67, no. 5 (1997)' %}
 
 The second enduring impact is in a re-evaluation of figure-ground relationships in mapping. Considered as a field, the figure is understood "not as a demarcated object but as an effect emerging from the field itself — as moments of intensity; as peaks or valleys."[@Allen:1997 28] This approach has lead to strategies that seek to employ the field condition as a generative or analytic device, primarily in plan, as evident in a number of graphic techniques:[^ghn]
 
@@ -24,14 +25,14 @@ The second enduring impact is in a re-evaluation of figure-ground relationships 
 - The use of vector diagrams to measure site information; often paired with variable-length or colored arrows to display site information that has both a spatial direction (say the movement of air) as well as a given magnitude.
 - The use of grids that transform and transfigure in relation to a site's embedded spatial systems so that they can be appropriated as a structure for generating novelty rather than enforcing order.[@Monacella:2011 44]
 
-{% include elements/figure.html image='2' caption="Lateral Office's study of the ecological characteristics across Baffin Island in Nunavut, Canada." credit='Image via Lateral Office for the Arctic Food Network project, posted on ArchDaily (https://www.archdaily.com/182435/arctic-food-network-lateral-office)' %}
+{% include "elements/figure.html" image='2' caption="Lateral Office's study of the ecological characteristics across Baffin Island in Nunavut, Canada." credit='Image via Lateral Office for the Arctic Food Network project, posted on ArchDaily (https://www.archdaily.com/182435/arctic-food-network-lateral-office)' %}
 
 In each case, the graphic symbols employed attempt to — as much as is possible within a primarily graphic medium — shift away from strictly demarcated geometries towards more distributed and diffuse modes of representation. This parallels a distinction often discussed in relation to field conditions: that of intensive conditions and extensive conditions. In the original (thermodynamics) sense an extensive material property is one that is proportional to quantity: the mass or volume of an object will reduce if that object is divided whereas intensive properties — such as temperature or density — would not.[@DeLanda:2006 152] When talking about more general types of phenomena, rather than individual properties, intensive conditions are described as those that drive or exhibit continuous dynamism, such as meteorological conditions that flux according to constant shifts in pressure differences, air movement, or temperature fronts.[@DeLanda:2006 152] Such "mobile and productive" differences set up a kind of map/territory distinction whereby underpinning intensive conditions — say that of lithospheric lava movements — produce extensive measures — landform.[@DeLanda:2006 152] Traditional forms of mapping document extensive phenomena (by geometrically extensive means) that are the results of these underpinning processes whereas more 'intensive' modes of mapping can begin to "show the process itself."[@DeLanda:2006 152]
 
-{% include elements/figure.html image='4' caption="Plan of the different 'climatic lands' of the Jade Eco Park, as expressed by the different intensities of the heat-shifting (pink) and humidity-shifting (blue) vegetation and devices." credit='Image by Mosbach paysagates, Philippe Rahm architects, and Ricky Liu & Associates for the TAICHUNG GATEWAY PARK competition.' %}
+{% include "elements/figure.html" image='4' caption="Plan of the different 'climatic lands' of the Jade Eco Park, as expressed by the different intensities of the heat-shifting (pink) and humidity-shifting (blue) vegetation and devices." credit='Image by Mosbach paysagates, Philippe Rahm architects, and Ricky Liu & Associates for the TAICHUNG GATEWAY PARK competition.' %}
 
 Complicating this distinction is a characterisation of design strategies and graphic techniques as themselves emblematic of an intensive or extensive process. Codified systems of documentation and drawing — plans, sections, elevations — can be characterised as self-limiting techniques for "domesticating matter within metric space" whose geometric rigour is required for clear communication.[@Reiser:2009 80] In contrast, the lack of constraints found in a sketch[@Reiser:2009 80] or the diagram[@Reiser:2009 122] render it as a method for intensive exploration; whose expressions can be then be translated and evaluated against the constraints of codified techniques. An interplay between intensive and extensive modes of design exploration is often desirable, such as stepping between a plan and an exploratory physical model, as the differences in mode create a reciprocity where the "creative tendency of intensive fields and the codifying tendency of extensive fields do not merely work in succession."[@Reiser:2009 80]
 
 As in analogue media, the role of geometry in digital models is to act as a regulator of intensive material conditions. It delimits their properties into a particular fixed scalar, temporal, and spatial limit.[@Reiser:2009 80] At the same time, most digital models can be seen as more extensive in their codification of these properties: they are assemblages of data organised according to highly structured and inflexible properties that define geometric types such as that of a `Surface` or `Mesh`. While parametric modelling would be considered as extensive (if not more so) than standard forms of geometric modelling in terms of implementation and codification, the malleability of that codification (as assemblages of parametric relationships) can enable a generative intensity as previously-fixed geometric properties become dynamic from the perspective of the person creating and operating the model.
 
-{% include elements/figure.html image='3' caption='Mapping of soil conditions across a littoral area according to the parametric analysis of a terrain model and site data.' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
+{% include "elements/figure.html" image='3' caption='Mapping of soil conditions across a littoral area according to the parametric analysis of a terrain model and site data.' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}

@@ -1,4 +1,6 @@
-{% assign component = site.data.components[include.title] %}
+{#
+
+{% set component = site.data.components[include.title] %}
 <div class="card gh-component">
 <div class="card-content">
 
@@ -30,7 +32,7 @@
 
 <div class="level-item"><div class="tags has-addons">
 <div class="tag is-medium">Icon</div>
-<div class="tag is-medium"><img src="{{ site.baseurl }}{{ '/assets/plugin/icons/' | append: component.icon }}" alt="Icon for the {{ component.nickname }} component"></div>
+<div class="tag is-medium"><img src="{{ config.base_url }}{{ '/assets/plugin/icons/' | append: component.icon }}" alt="Icon for the {{ component.nickname }} component"></div>
 </div></div>
 
 </div>
@@ -76,3 +78,5 @@
 
 </div>
 </div>
+
+#}

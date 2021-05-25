@@ -1,19 +1,20 @@
----
-layout:     page
-title:      Plugin
-meta:       download latest plugin version
-excerpt:    Download the latest version of the Groundhog plugin for Grasshopper.
----
++++
+template=     "page.html"
+[extra]
+title=      "Plugin"
+meta=       "download latest plugin version"
+excerpt=    "Download the latest version of the Groundhog plugin for Grasshopper."
++++
 
 # Download and Install
 
----
++++
 
 {% include "elements/beta.html" %}
 {% include "elements/download.html" %}
 {% include "elements/newsletter.html" %}
 
----
++++
 
 ## Support, Bug Reports, and Feature Requests
 

@@ -1,0 +1,130 @@
+//------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+
+.gh-no-top-padding {
+  padding-top: 0;
+}
+
+.gh-left-padding {
+  padding-right: 1.5rem;
+}
+
+.gh-half-section {
+  padding: 1.5rem; // Half vertical padding on main section class
+}
+
+p > img + p > img {
+  border: 5px solid red;
+}
+
+.third-image {
+  width: 33%;
+  float: right;
+
+  figcaption {
+    display: none;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Menu
+//------------------------------------------------------------------------------
+
+#logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
+  margin-bottom: -2px;
+}
+
+.navbar-end .navbar-item {
+  color: $dull;
+}
+
+.navbar-menu.is-active .navbar-item {
+  padding: .5rem 1rem; // Restore default padding for mobile menus
+}
+
+@media print
+{
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Homepage
+//------------------------------------------------------------------------------
+
+// Callouts
+.gh-callouts {
+
+  .column {
+    padding-bottom: 3rem;
+
+    p {
+      min-height: 90px; // Equalise paragraph heights; should fix with flexbox
+    }
+  }
+}
+
+.masonry-grid {
+  margin-bottom: 50px;
+  margin-top: -20px;
+}
+
+.masonry-item p {
+  font-family: $family-heading; // else FOUT loading messes up height calculations
+}
+
+.gh-home-grid {
+
+  .title {
+    @extend .is-size-5 !optional;
+  }
+
+  p {
+    @extend .is-size-6 !optional;
+    margin-top: 4.5rem;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Pages List
+//------------------------------------------------------------------------------
+
+.gh-page-grid {
+
+  .title {
+    @extend .is-size-3 !optional;
+  }
+
+  .feather {
+    display: none;
+  }
+
+  p {
+    @extend .is-size-5 !optional;
+    margin-top: 9rem;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Pages
+//------------------------------------------------------------------------------
+
+@media only screen and (max-width : 768px) {
+  .gh-meta-info .level-item {
+    justify-content: left; // Force center-alignment until they can span horizontal
+  }
+}
+
+//------------------------------------------------------------------------------
+// Footer
+//------------------------------------------------------------------------------
+
+.footer {
+  padding-bottom: 3rem;
+}

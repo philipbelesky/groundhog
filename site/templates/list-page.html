@@ -2,7 +2,7 @@
 
   {% for item in items %}
     {% if item.published != false or site.unpublished == true %}
-      {% include tile.html span = 'is-half' %}
+      {#TODO{% include "tile.html" span = 'is-half' %}#}
     {% endif %}
   {% endfor %}
 

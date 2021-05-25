@@ -1,16 +1,17 @@
----
-title:      Plants
-excerpt:    Components that enable the parametric control of plant selection, distribution, performance, and visualisation.
-date:       17-11-08
-files:      true
-files_text: model and definition demonstrating the use of these components
----
++++
+title=      "Plants"
+[extra]
+excerpt=    "Components that enable the parametric control of plant selection, distribution, performance, and visualisation."
+date=       17-11-08
+files=      true
+files_text= "model and definition demonstrating the use of these components"
++++
 
 If considered just in terms of its CAD representation, planting design appears to be an exercise in arranging circles. Some circles are smaller or larger, brighter or duller; more round or more frayed. But, after removing the metadata of sprites, colors, and labels, we start and end with a representation of a particular species' dimensions at maturity: a disc.
 
 It is regrettable that in both digital and analogue mediums the typical representations used poorly reflect their subject matter. Depictions of vegetation are rarely spatially explicit, and often rely on fixed and idealised averages that do not reflect the general nature, or the actual reality, of specific species.[@Elkin:2017 60-61][@Raxworthy:2013 113] A plan, once planted, will reach the 'mature' state it depicts after years if not decades. This mature state is itself an abstraction, as each plant's dimensions vary according to the localised conditions that propel or constrain individual growth and are typically altered through ongoing maintenance regimes.
 
-{% include elements/figure.html image='1' caption='Parametric methods can manage vast quantities of plants distributed across a site and evaluate how they change over time.' credit='Philip Belesky, for https://groundhog.la' %}
+{% include "elements/figure.html" image='1' caption='Parametric methods can manage vast quantities of plants distributed across a site and evaluate how they change over time.' credit='Philip Belesky, for https://groundhog.la' %}
 
 While many options exist for visualising planting plans with a high degree of fidelity (presuming the correct models for a given species are available) these are typically deployed after the concept design stage, given that they are difficult to implement and modify. As a result, they are often ill-suited to design exploration but useful for evaluating aesthetics.
 
@@ -46,6 +47,6 @@ While these components are relatively simple in their individual calculations, (
 
 The tripartite attribute/placement/simulation process has emerged from extensive iteration as a means to best support planting design workflows by allowing each task to easily interface with the existing methods available in Grasshopper and its broader plugin ecosystem.
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to select particular species, place them, and simulate basic growth characteristics.' credit='Philip Belesky, for https://groundhog.la' %}
+{% include "elements/figure.html" image='definition' caption='Grasshopper definition demonstrating how to select particular species, place them, and simulate basic growth characteristics.' credit='Philip Belesky, for https://groundhog.la' %}
 
 > ***Coming Soon**: further components that allow for more naturalistic or performance-based planting distribution and 3D visualisation methods.*

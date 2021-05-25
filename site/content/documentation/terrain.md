@@ -1,16 +1,17 @@
----
-title:      Terrain
-excerpt:    Components for analysing different elements of landform.
-date:       18-05-01
-files:      true
-files_text: model and definition demonstrating the use of these components
----
++++
+title=      "Terrain"
+[extra]
+excerpt=    "Components for analysing different elements of landform."
+date=       18-05-01
+files=      true
+files_text= "model and definition demonstrating the use of these components"
++++
 
 Landform is more heterogeneous and complex than contour lines suggest. Seemingly-similar areas of terrain can possess quite distinct characteristics depending on relatively small variations in their grading and position within the wider landscape. Digital models of landscapes often obscure this variety and make it difficult to determine or apprehend these characteristics given the artificial manner in which they are rendered.
 
 Groundhog provides a number of components for measuring particular characteristics of a given landform. However its worth noting that, as above, such tools for classifying topographic features are only as good as their underpinning 3D representations. Representing a landform as (say) either a `Mesh` or a `Surface` will create different trade-offs in the types of accuracy and detail offered.
 
-{% include elements/figure.html image='1' caption="Visualisations of slope analysis across a `Mesh`, showing each face's grade as a vector, fill, and label" credit='Philip Belesky, for https://groundhog.la' %}
+{% include "elements/figure.html" image='1' caption="Visualisations of slope analysis across a `Mesh`, showing each face's grade as a vector, fill, and label" credit='Philip Belesky, for https://groundhog.la' %}
 
 ## Slope
 

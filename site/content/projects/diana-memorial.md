@@ -1,16 +1,17 @@
----
-title:      Diana Princess of Wales Memorial
-date:       18-01-31
-published:  false
-excerpt:    lorum
-year:       2004 (constructed)
-location:   London, United Kingdom
-designers:  Gustafson Porter
-files:      true
-files_text: model and definition that demonstrate a partial recreation of this project
----
++++
+title=      "Diana Princess of Wales Memorial"
+[extra]
+date=       18-01-31
+published=  false
+excerpt=    "lorum"
+year=       "2004 (constructed)"
+location=   "London, United Kingdom"
+designers=  "Gustafson Porter"
+files=      true
+files_text= "model and definition that demonstrate a partial recreation of this project"
++++
 
-{% include elements/figure.html image='1' caption='CNC machined granite was used to create surface forms and control the movement of water.' credit="TODO" %}
+{% include "elements/figure.html" image='1' caption='CNC machined granite was used to create surface forms and control the movement of water.' credit="TODO" %}
 
 The need for such precision at such scale in Max Lab IV in part stemmed from the demands of its unique brief. Similar stipulations are more often found in smaller scales with harder materials where fabrication challenges drive the adoption of digital modeling.
 

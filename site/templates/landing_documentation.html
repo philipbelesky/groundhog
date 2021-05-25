@@ -1,6 +1,8 @@
----
-layout: page
----
++++
+template="page.html"
++++
 
-{% assign items = site.documentation | sort: 'date' | reverse %}
-{% include list-page.html %}
+{#
+{% set items = site.documentation | sort(attribute='date') | reverse %}
+{% include "list-page.html" %}
+#}

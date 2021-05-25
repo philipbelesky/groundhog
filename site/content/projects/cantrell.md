@@ -1,14 +1,15 @@
----
-title:      Cantrell
-date:       18-01-31
-published:  false
-excerpt:    lorum
-year:
-location:
-designers:
-files:      true
-files_text: model and definition that demonstrate a partial recreation of this project
----
++++
+title=      "Cantrell"
+[extra]
+date=       18-01-31
+published=  false
+excerpt=    "lorum"
+year=       ""
+location=   ""
+designers=  ""
+files=      true
+files_text= "model and definition that demonstrate a partial recreation of this project"
++++
 
 <!-- TODO: nail down which project to show/discuss  -->
 
