@@ -1,6 +1,0 @@
-# For Github pages; just sets the configuration variables to the required URL
-
-environment: development
-
-baseurl: "/groundhog"
-url: ""

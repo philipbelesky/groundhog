@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include structural/head.html %}
+  <body>
+
+    {% assign current = page.url | downcase | split: '/' %}
+
+    {% include structural/menu.html %}
+
+    <main class="content gh-{{ current[1] }}-content is-fluid footer-pushdown" aria-label="Content">
+      {{ content }}
+    </main>
+
+    {% include structural/footer.html %}
+
+  </body>
+
+  <script src="{{ site.baseurl }}/assets/main.js"></script>
+  <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+</html>

@@ -1,0 +1,31 @@
+# The URL the site will be built for
+base_url = "https://groundhog.la"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false # See Zola docs for search implementations
+
+# Used in RSS
+title = "Groundhog"
+description = "a Grasshopper plugin and wiki exploring the applications of computational design in landscape architecture."
+default_language = "en"
+generate_rss = true
+feed_filename = "rss.xml"
+
+[markdown]
+smart_punctuation = true
+external_links_target_blank = false
+
+# Whether to do syntax highlighting
+highlight_code = true
+highlight_theme = "ayu-light"
+
+[link_checker]
+skip_prefixes = []
+skip_anchor_prefixes = []
+
+# Extra site-wide variables
+[extra]
+debug = true
