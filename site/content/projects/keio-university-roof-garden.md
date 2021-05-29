@@ -26,7 +26,7 @@ The project's goals are a productive contradiction: a desire for a roof garden â
 
 ### Reference Model
 
-<!-- {% include elements/files.html }} -->
+<!-- {{ files() }} -->
 
 {{ figure(image='model.png', alt='Rhinoceros model of the Keio University Roof Garden') }}
 {{ figure(image='definition.png', caption='Grasshopper definition recreating the basic pattern effect and planting distribution.', credit='Philip Belesky, for https://groundhog.la') }}

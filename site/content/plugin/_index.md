@@ -8,9 +8,9 @@ excerpt=    "Download the latest version of the Groundhog plugin for Grasshopper
 
 # Download and Install
 
-elements/beta.html") }}
-elements/download.html") }}
-elements/newsletter.html") }}
+{{ beta() }}
+{{ download() }}
+{{ newsletter() }}
 
 ## Support, Bug Reports, and Feature Requests
 
@@ -18,4 +18,4 @@ Support is offered — subject to availability — through [this email address](
 
 The preferred method of submitting bug reports and feature requests is through [Github Issues](https://github.com/philipbelesky/groundhog/issues). As with support enquiries, please ensure any bug reports provide an example model/definition along with a detailed description of your intended use and the resulting problem.
 
-{% include_absolute ../.github/CHANGELOG.md }}
+{{ readme() }}

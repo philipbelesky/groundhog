@@ -19,7 +19,7 @@ done
 
 rm -rf ./downloads/documentation/*.zip
 mv ../docs/**.zip ./downloads/documentation/
-DOCS=$(ls -1 "./downloads/documentation/" | wc -l | xargs)
+DOCS=$(ls -1 "./downloads/" | wc -l | xargs)
 echo "Moved ${DOCS} Documentation Files"
 
 
@@ -34,7 +34,7 @@ cd "../site/"
 
 rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./downloads/projects/
-PROJECTS=$(ls -1 "./downloads/projects/" | wc -l | xargs)
+PROJECTS=$(ls -1 "./downloads/" | wc -l | xargs)
 echo "Moved ${PROJECTS} Project Files"
 
 
@@ -47,6 +47,6 @@ echo "Moved Asset Files"
 # Move plugin files
 rm -f ./downloads/plugin/groundhog.zip
 # Zip for distribution
-zip -r -q -j ./downloads/plugin/groundhog.zip "../plugin/release/groundhog.gha" "../plugin/groundhog readme.pdf" -x "*.DS_Store*" -x "*manifest.yml*"
+zip -r -q -j ./downloads/groundhog.zip "../plugin/release/groundhog.gha" "../plugin/groundhog readme.pdf" -x "*.DS_Store*" -x "*manifest.yml*"
 echo "Built and Moved Plugin Files"
 

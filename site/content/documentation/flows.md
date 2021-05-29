@@ -31,7 +31,7 @@ The `FlowPath` component takes two forms a `SurfaceFlowPath` and a `MeshFlowPath
 
 ## Workflows and Examples
 
-{% include elements/files.html }}
+{{ files() }}
 
 Once calculated, these flow paths can then be used as inputs for two further components:
 

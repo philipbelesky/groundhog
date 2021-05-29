@@ -29,3 +29,4 @@ skip_anchor_prefixes = []
 # Extra site-wide variables
 [extra]
 debug = true
+version = "0.13.0"

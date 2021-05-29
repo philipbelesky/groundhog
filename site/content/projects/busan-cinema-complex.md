@@ -29,7 +29,7 @@ This tight, or "articulated,"[@Hansen:2011] relationship between the two design 
 
 ### Reference Model
 
-{% include elements/files.html }}
+{{ files() }}
 
 While the proposal pre-dated the release of Grasshopper, the software would have offered an easy means of prototyping and iterating upon what was likely developed as a script in Maya or Rhino. Such a parametric model could have proceeded by first referencing contours and `Patch`ing them to become a surface.
 

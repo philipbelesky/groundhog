@@ -35,7 +35,7 @@ While Fletcher Studio see the potential of computational tools, they are wary of
 
 ### Reference Model
 
-{% include elements/files.html }}
+{{ files() }}
 
 The reference model and definition for this project attempts to reverse-engineer the path finding rule-set developed for the South Park design. It also speculates on how parametric methods could have been used to help develop the lawn and garden-bed areas defined by the initial spatial allocation.
 

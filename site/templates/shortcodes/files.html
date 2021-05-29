@@ -1,4 +1,4 @@
-{% set filePath = "/downloads/" ~ page.permalink | replace(from=".md", to=".zip") %}
+{% set filePath = config.base_url ~ "/downloads/" ~ page.slug ~ ".zip" %}
 <article class="message is-success no-print">
 <div class="message-body">
 <div class="columns is-mobile">

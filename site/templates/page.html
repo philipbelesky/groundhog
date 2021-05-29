@@ -2,7 +2,7 @@
 
 {%- block content -%}
 
-  <section class="hero {% if page.current_path %}gh-{{ page.current_path | lower | trim_end_matches(pat=".md") }}{% endif %}">
+  <section class="hero gh-{% if section %}{{ section.title | lower }}{% endif %}">
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-1 is-size-2-mobile">
@@ -22,8 +22,7 @@
 
       {% if page.content %}
         {{ page.content | safe }}
-      {% endif %}
-      {% if section.content %}
+      {% elif section.content %}
         {{ section.content | safe }}
       {% endif %}
 

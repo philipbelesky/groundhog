@@ -28,7 +28,7 @@ As the design criteria could be encompassed in a relatively complete manner by c
 
 #### Reference Model
 
-{% include elements/files.html }}
+{{ files() }}
 
 {{ figure(image='model.png', alt='Rhinoceros model of the Sony Forest landscape') }}
 {{ figure(image='definition.png', caption='Grasshopper definition recreating the planting and tiling strategies.', credit='Albert Rex and Philip Belesky, for https://groundhog.la') }}

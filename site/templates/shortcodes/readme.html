@@ -1,0 +1,2 @@
+{% set data = load_data(url="https://raw.githubusercontent.com/philipbelesky/groundhog/main/README.md", format="plain") %}
+{{ data | markdown | safe  }}

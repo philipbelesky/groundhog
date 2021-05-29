@@ -4,8 +4,10 @@
   {% include "structural/head.html" %}
   <body>
 
-    {# set current = page.section | lower #}
-    {% set current = "TODO" %}
+    {% set current = '' %}
+    {% if page.section %}
+      {% set current = section.title | lower %}
+    {% endif %}
 
     {% include "structural/menu.html" %}
 
