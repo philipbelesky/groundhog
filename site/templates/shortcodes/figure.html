@@ -1,0 +1,41 @@
+{%- set url = page.path ~ image -%}
+{%- set relativeUrl = "../static" ~ url -%}
+{%- set linkUrl = page.path ~ image -%}
+
+{%- set X = resize_image(path=relativeUrl, width=2000, quality=75, op='fit_width') -%}
+{%- set L = resize_image(path=relativeUrl, width=1600, quality=75, op='fit_width') -%}
+{%- set M = resize_image(path=relativeUrl, width=1200, quality=75, op='fit_width') -%}
+{%- set S = resize_image(path=relativeUrl, width=640, quality=75, op='fit_width') -%}
+
+{%- set X2 = resize_image(path=relativeUrl, width=4000, quality=50, op='fit_width') -%}
+{%- set L2 = resize_image(path=relativeUrl, width=3200, quality=50, op='fit_width') -%}
+{%- set M2 = resize_image(path=relativeUrl, width=2400, quality=50, op='fit_width') -%}
+{%- set S2 = resize_image(path=relativeUrl, width=1280, quality=50, op='fit_width') -%}
+
+<figure class="{% if not inline %}full-bleed{% endif %}{% if side %} side-by-side{% endif %}">
+  <a class="image-link" href="{{ linkUrl|safe }}" target="_blank">
+    <picture>
+      <source srcset="{{ X|safe }} 1x, {{ X2|safe }} 2x" media="(min-width: 1600px)"> {# large desktop #}
+      <source srcset="{{ L|safe }} 1x, {{ L2|safe }} 2x" media="(min-width: 1200px)"> {# small desktop #}
+      <source srcset="{{ M|safe }} 1x, {{ M2|safe }} 2x" media="(min-width: 640px)">  {# tablets #}
+      <source srcset="{{ S|safe }} 1x, {{ S2|safe }} 2x">                             {# smartphones #}
+      {# fallback #}
+      <img src="{{ S|safe }}" alt="{%- if alt -%}{{ alt|markdown(inline=true)|safe }}{%- elif caption -%}{{ caption|markdown(inline=true) }}{%- else -%}Figure{%- endif -%}">
+    </picture>
+    <div class="zoomer"><i class="" data-feather="zoom-in"></i></div>
+  </a>
+  {%- if caption or credit -%}
+  <figcaption class="">
+    {%- if caption -%}
+      <p class="figure-caption">{{ caption | markdown(inline=true) | safe }}</p>
+    {%- endif -%}
+    {%- if not no_number or credit -%}<p>{%- endif -%}
+    {% if not no_number %}<span class="figure-number"></span>{% endif %}
+    {%- if credit -%}
+      <span class="figure-credit"> {{ credit | markdown(inline=true) | safe }}</span>
+    {%- endif -%}
+    {%- if not no_number or credit -%}</p>{%- endif -%}
+  </figcaption>
+  {%- endif -%}
+</figure>
+

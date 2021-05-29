@@ -27,14 +27,14 @@ This parameter essentially models the infiltration rate of runoff across the lan
 
 > If `Segment Loss` is set to 0 then the `Start Volume` value will always be used at each point. E.g. the `Start Volume` is not treated as a budget, but rather as a per-point water load.
 
-{% include "elements/component.html" title='FlowSaturation' %}
+elements/component.html", title='FlowSaturation') }}
 
 ## Workflows and Examples
 
-{% include "elements/files.html" %}
+elements/files.html") }}
 
 The example file for this component demonstrates a number of options for visualisation and extension, such as:
 
-{% include "elements/figure.html" image='model' alt='Image of the flow saturation component used across two hypothetical landforms' %}
+{{ figure(image='model.jpg', alt='Image of the flow saturation component used across two hypothetical landforms') }}
 
-{% include "elements/figure.html" image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.la' %}
+{{ figure(image='definition.jpg', caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.', credit='Philip Belesky, for https://groundhog.la') }}

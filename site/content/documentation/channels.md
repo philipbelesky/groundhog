@@ -11,20 +11,20 @@ The first channel component, `Channel Region`, determines a water level for a gi
 <!-- - Introduction to general hydraulic principles
 - Describe process for deriving level from flow quantity; noting not that water does not strictly follow this process (i.e. settling effects) -->
 
-{% include "elements/component.html" title='ChannelRegion' %}
+<!-- elements/component.html", title='ChannelRegion') }} -->
 
 <!-- - Description of the calculated attributes and their meaning/purpose
 - More detailed discussion of manning formula and link to predefined values for channel materials (noting the uncertainty involved in using them) -->
 
 The second channel component, `Channel Info`, calculates a number of hydraulic calculations from the sectional area determined by the `Channel Region` component. Most of these are geometric (e.g. *Mean Depth*) but a number of others can be calculated if the component is provided with a slope value and a [roughness coefficient](https://www.engineeringtoolbox.com/mannings-roughness-d_799.html) for the channel.
 
-{% include "elements/component.html" title='ChannelInfo' %}
+<!-- elements/component.html", title='ChannelInfo') }} -->
 
 <!-- - Discussion of applications to design
 
 ## Workflows
 -->
 
-{% include "elements/figure.html" image='model' alt='Images of the channel tool applied to various geometries' %}
+{{ figure(image='model.jpg', alt='Images of the channel tool applied to various geometries') }}
 
-{% include "elements/figure.html" image='definition' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for https://groundhog.la' %}
+{{ figure(image='definition.jpg', caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.', credit='Philip Belesky, for https://groundhog.la') }}

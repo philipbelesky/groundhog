@@ -14,14 +14,14 @@ This grouping is visually represented using a Voronoi diagram with each cell cen
 
 Each catchment type is assigned a "volume" figure, which represents the proportion of flow paths that end within that catchment. For instance, a catchment that 22 of 50 flow paths end inside would have a corresponding volume % of `0.44`. This number can then be multiplied by whatever volumetric load the flow paths represent.
 
-{% include "elements/component.html" title='FlowCatchment' %}
+<!-- elements/component.html", title='FlowCatchment') }} -->
 
 ## Workflows and Examples
 
-{% include "elements/files.html" %}
+elements/files.html") }}
 
 The example file for this component demonstrates a number of options for visualisation and extension, such as:
 
-{% include "elements/figure.html" image='model' alt='Image of the flow catchment component used across two hypothetical landforms' %}
+{{ figure(image='model.jpg', alt='Image of the flow catchment component used across two hypothetical landforms') }}
 
-{% include "elements/figure.html" image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.la' %}
+{{ figure(image='definition.jpg', caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.', credit='Philip Belesky, for https://groundhog.la') }}

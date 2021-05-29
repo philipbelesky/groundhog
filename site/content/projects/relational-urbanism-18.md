@@ -11,7 +11,7 @@ files=      true
 files_text= "model and definition that demonstrate a partial recreation of this project"
 +++
 
-{% include "elements/figure.html" image='1' caption='The particular topography and substrates present on site inform simulations that examine new potential water flows over time' credit='(image from paper)' %}
+<!-- figure(image='1.jpg', caption='The particular topography and substrates present on site inform simulations that examine new potential water flows over time', credit='(image from paper)')  -->
 
 Enriqueta Llabres and Eduardo Rico's work at the Bartlett identifies a lineage of material computation in design practices, with Frei Otto's work as key "project of extracting logics of distribution and form derived from the careful study of material behaviour".[@Llabres:2014vv 52] In particular they look at his experiments at a territorial level, where he identified large scale organisational patterns in real landscapes and then reproduced these through physical tests that employed self-organising phenomena. As an example, on of these investigations used floating magnets to identify a minimal-energy state of equilibrium within a network while maintaining connectivity between key nodes.[@Llabres:2014vv 53]
 
@@ -25,8 +25,10 @@ Physical models, working in conjunction with digital sensing systems, explored t
 
 The results of these tests were recorded using laser capture and chromatic filtering to create a 3D model that can identify particular patterns in the direction and distance of water flows.[@Llabres:2014vv 59] Designers can then intervene into the form of the model to their understanding of the sedimentary dynamics against both the existing landscape state and against alternative states that introduce new physical formations.[@Llabres:2014vv 59]
 
-{% include "elements/figure.html" image='2' caption='The model tests Hydrological flows against a variety of different morphological interventions.' credit='(image from paper)' %}
-{% include "elements/figure.html" image='3' caption="Digital capture of the model's water flows over time depict the water's trajectory and volume." credit='(image from paper)' %}
+<!--
+figure(image='2.jpg', caption='The model tests Hydrological flows against a variety of different morphological interventions.', credit='(image from paper)')
+figure(image='3.jpg' caption="Digital capture of the model's water flows over time depict the water's trajectory and volume." credit='(image from paper)')
+-->
 
 There are difficulties in 'miniaturising' such a simulation, in terms of both ensuring the dynamics are correct reflection of the larger scale system[@Llabres:2014vv 55] and in terms of ensuring the sensing techniques are of sufficient resolution to capture small scale changes.[@Llabres:2014vv 61] Nevertheless the hybrid analog/digital system allows the design process to become more intuitive where seeing and modifying a physical model creates causative relationships between complex non-linear phenomena that can be examined and tested with a specificity that well exceeds the designer's understanding.[@Llabres:2014vv 62]
 

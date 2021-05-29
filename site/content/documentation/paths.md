@@ -12,11 +12,11 @@ published=  false
 - Introduction to general hydraulic principles
 - Describe process for deriving level from flow quantity; noting not that water does not strictly follow this process (i.e. settling effects)
 
-<!-- {% include elements/component.html title='ShortestPath' %} -->
+<!-- {% include elements/component.html title='ShortestPath') }} -->
 
 - Description of topology / shortest path algorithm
 
-<!-- {% include elements/component.html title='RandomPath' %} -->
+<!-- {% include elements/component.html title='RandomPath') }} -->
 
 - Description of random path component
 - Note link to ecologist's behavioural models
