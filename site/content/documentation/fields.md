@@ -1,9 +1,9 @@
 +++
 title=      "Fields"
+draft=      true
 [extra]
 excerpt=    "Sed ut perspiciatis unde omnis"
 date=       17-09-14
-published=  false
 thumbnail=  false
 +++
 

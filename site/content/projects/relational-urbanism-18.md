@@ -1,8 +1,8 @@
 +++
 title=      "Relational Urbanism Research Cluster 18"
+draft=      true
 [extra]
 date=       18-01-31
-published=  false
 excerpt=    "lorum"
 year=       "2014 (designed)"
 location=   "Bartlett, London, United Kingdom"

@@ -1,12 +1,12 @@
 +++
 title=      "Paths"
+draft=      true
 [extra]
 excerpt=    "Components for ..."
 date=       18-07-31
 files=      true
 files_text= "model and definition demonstrating the use of this component"
 thumbnail=  false
-published=  false
 +++
 
 - Introduction to general hydraulic principles

@@ -1,8 +1,8 @@
 +++
 title=      "Diana Princess of Wales Memorial"
+draft=      true
 [extra]
 date=       18-01-31
-published=  false
 excerpt=    "lorum"
 year=       "2004 (constructed)"
 location=   "London, United Kingdom"

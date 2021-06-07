@@ -5,8 +5,8 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title is-1">{% if page.title %}{{ page.title }}{% endif %}</h1>
-        <h2 class="subtitle">{% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}</h2>
+        <h1 class="title is-1">Groundhog</h1>
+        <h2 class="subtitle">Groundhog is a Grasshopper plugin and wiki exploring the applications of computational design in landscape architecture.</h2>
       </div>
     </div>
   </section>
@@ -21,23 +21,21 @@
       {%- set combined = docs.pages | concat(with=projects.pages) | concat(with=techniques.pages) -%}
 
       {% for page in combined %}
-        {#{% if page.category and page.category == 'top' %}#}
-          <div class="column is-one-third has-text-centered">
-            <h3 class="title is-3 gh-{{ page.title|lower }}-content">
-              <a href="{{ config.base_url }}{{ page.permalink }}">
-                {% if page.permalink == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
-                {% if page.permalink == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
-                {% if page.permalink == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
-              </a>
-            </h3>
-            <p class="gh-info-boxes">
-              {% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}
-            </p>
-            <a class="button gh-{{ page.title|lower }} is-outlined is-block" href="{{ page.permalink }}">
-              View {{ page.title }}
+        <div class="column is-one-third has-text-centered">
+          <h3 class="title is-3 gh-{{ page.title|lower }}-content">
+            <a href="{{ config.base_url }}{{ page.permalink }}">
+              {% if page.permalink == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
+              {% if page.permalink == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
+              {% if page.permalink == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
             </a>
-          </div>
-        {#{% endif %}#}
+          </h3>
+          <p class="gh-info-boxes">
+            {% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}
+          </p>
+          <a class="button gh-{{ page.title|lower }} is-outlined is-block" href="{{ page.permalink }}">
+            View {{ page.title }}
+          </a>
+        </div>
       {% endfor %}
 
       </div>

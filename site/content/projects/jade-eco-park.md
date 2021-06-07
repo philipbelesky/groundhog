@@ -1,8 +1,8 @@
 +++
 title=      "Jade Eco Park"
+draft=      true
 [extra]
 date=       18-01-31
-published=  false
 excerpt=    "lorum"
 year=       "2018 (constructed)"
 location=   "Taichung, Taiwan"

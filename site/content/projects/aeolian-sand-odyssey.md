@@ -1,8 +1,8 @@
 +++
 title=      "Aeolian Sand Odyssey"
+draft=      true
 [extra]
 date=       18-01-31
-published=  false
 excerpt=    "lorum"
 year=       "2014 (designed)"
 location=   "TODO"

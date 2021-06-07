@@ -2,9 +2,7 @@
 
   {% for item in items %}
 
-    <h4 class="title">{{ item.title }}</h4>
-    <p>{{ item.extra.excerpt }}</p>
-    {#{% include "tile.html" %}#}
+    {% include "tile.html" %}
 
   {% endfor %}
 
