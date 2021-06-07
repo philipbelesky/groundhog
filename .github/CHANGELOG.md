@@ -1,5 +1,9 @@
 ## Changelog
 
+#### [0.13.1] - 2021-06-08
+###### Changed
+- Altered license to LGPL
+
 #### [0.13.0] - 2021-05-24
 ###### Fixed
 - Various documentation improvements
