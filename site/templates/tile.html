@@ -1,10 +1,4 @@
-
-{% if include.collection %}
-  {% set collection = include.section.title | lower %}
-{% else %}
-  {#{% set collection = item.section.title | lower %}#}
-  {% set collection = "test" %}
-{% endif %}
+{% set collection = page.components.0 %}
 
 {% set icon = '' %}
 {% set color = 'rgba(0, 0, 0, 0)' %}
@@ -26,20 +20,21 @@
   {% set color = 'rgba(114, 227, 210, 0.90)' %}
   {% set thumbnailAssetPath = '{{ config.base_url|safe }}/plugin/thumbnail.png' %}
 {% else %}
-  {% set thumbnailFullPath = config.base_url ~ "/img/" ~ item.slug ~ "thumbnail-medium.jpg" %}
+  {% set thumbnailFullPath = "../static/" ~ collection ~ "/" ~ page.slug ~ "/thumbnail.jpg" %}
   {% set thumbnailAssetPath = thumbnailFullPath %}
 {% endif %}
+{% set thumbnail = resize_image(path=thumbnailAssetPath, width=400, quality=75, op='fit_width') -%}
 
-<div class="column masonry-item">
-  <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ item.permalink }}"
-     style="background: linear-gradient({{ color }}, {{ color }}), 50% 50% url('{{ thumbnailAssetPath }}'); background-size: cover;">
+<div class="column is-one-third masonry-page">
+  <a class="tile notification is-vertical is-child gh-{{ collection }}" href="{{ page.permalink }}"
+     style="background: linear-gradient({{ color }}, {{ color }}), 50% 50% url('{{ thumbnail }}'); background-size: cover;">
 
     <div class="is-white is-pulled-right">
       <i data-feather="{{ icon }}"></i>
     </div>
 
-    <h4 class="title">{{ item.title }}</h4>
-    <p>{% if item.excerpt %}{{ item.excerpt }}{% endif %}</p>
+    <h4 class="title">{{ page.title }}</h4>
+    <p>{% if page.extra.excerpt %}{{ page.extra.excerpt }}{% endif %}</p>
 
   </a>
 </div>

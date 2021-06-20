@@ -15,18 +15,24 @@
     <div class="container">
       <div class="columns">
 
-      {%- set docs = get_section(path="documentation/_index.md") -%}
-      {%- set projects = get_section(path="projects/_index.md") -%}
-      {%- set techniques = get_section(path="techniques/_index.md") -%}
-      {%- set combined = docs.pages | concat(with=projects.pages) | concat(with=techniques.pages) -%}
+      {%- set docs = get_section(path="documentation/_index.md", metadata_only=true) -%}
+      {%- set projects = get_section(path="projects/_index.md", metadata_only=true) -%}
+      {%- set techniques = get_section(path="techniques/_index.md", metadata_only=true) -%}
+      {%- set sections = [docs, projects, techniques] -%}
 
-      {% for page in combined %}
+      {% for page in sections %}
         <div class="column is-one-third has-text-centered">
           <h3 class="title is-3 gh-{{ page.title|lower }}-content">
             <a href="{{ config.base_url }}{{ page.permalink }}">
-              {% if page.permalink == 'documentation.md' %}<i data-feather="book"></i>Docs{% endif %}
-              {% if page.permalink == 'techniques.md' %}<i data-feather="briefcase"></i>{{ page.title }}{% endif %}
-              {% if page.permalink == 'projects.md' %}<i data-feather="aperture"></i>{{ page.title }}{% endif %}
+              {% if page.path == '/documentation/' %}
+                <i data-feather="book"></i>Docs
+              {% endif %}
+              {% if page.path == '/techniques/' %}
+                <i data-feather="briefcase"></i>{{ page.title }}
+              {% endif %}
+              {% if page.path == '/projects/' %}
+                <i data-feather="aperture"></i>{{ page.title }}
+              {% endif %}
             </a>
           </h3>
           <p class="gh-info-boxes">
@@ -36,6 +42,26 @@
             View {{ page.title }}
           </a>
         </div>
+      {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section gh-no-top-padding">
+    <div class="container">
+      <div class="columns masonry-grid gh-home-grid">
+
+      <!-- tile.html collection='plugin' -->
+
+      {%- set docs_items = get_section(path="documentation/_index.md") -%}
+      {%- set projects_items = get_section(path="projects/_index.md") -%}
+      {%- set techniques_items = get_section(path="techniques/_index.md") -%}
+      {%- set pages = docs_items.pages | concat(with=projects_items.pages) | concat(with=techniques_items.pages) -%}
+
+      {% for page in pages | reverse | slice(end=8) %}
+        {% include 'tile.html' %}
+
       {% endfor %}
 
       </div>
