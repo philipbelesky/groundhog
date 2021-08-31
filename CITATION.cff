@@ -1,0 +1,26 @@
+cff-version: "1.2.0"
+message: "If you use this software or are referring to it in an academic context, please cite it using these metadata."
+title: Groundhog
+authors:
+  - family-names: Belesky
+    given-names: Philip
+    orcid: "https://orcid.org/0000-0002-4656-3576"
+identifiers:
+  - description: The documentation and discussion of the plugin
+    type: url
+    value: "https://groundhog.la"
+date-released: 2017-09-18
+repository-code: "https://github.com/philipbelesky/Groundhog/"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Belesky"
+    given-names: "Philip"
+    orcid: "https://orcid.org/0000-0002-4656-3576"
+  doi: "10.14627/537642043"
+  journal: "Journal of Digital Landscape Architecture"
+  start: 406
+  end: 413 
+  title: "The Green Grasshopper"
+  volume: 3
+  year: 2018
