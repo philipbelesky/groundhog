@@ -22,7 +22,7 @@
   {% assign color = 'rgba(114, 227, 210, 0.90)' %}
   {% assign thumbnailAssetPath = '/assets/plugin/thumbnail.png' %}
 {% else %}
-  {% capture thumbnailFullPath %}/assets/{{ item.slug }}/thumbnail.jpg{% endcapture %}
+  {% capture thumbnailFullPath %}/assets/{{ collection }}/{{ item.slug }}/thumbnail.jpg{% endcapture %}
   {% assign thumbnailAssetPath = thumbnailFullPath %}
 {% endif %}
 
