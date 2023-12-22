@@ -10,7 +10,6 @@
     "gulp": "^4.0.2",
     "gulp-changed": "^4.0.2",
     "gulp-count": "^1.0.0",
-    "gulp-responsive": "^3.0.1",
     "masonry-layout": "^4.2.2"
   },
   "devDependencies": {},
