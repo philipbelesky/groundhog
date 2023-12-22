@@ -16,7 +16,7 @@ Most of the functionality and documentation provided here is not at the bleeding
 
 Philip Belesky is an Lecturer in the Landscape Architecture discipline at RMIT University in Melbourne, Australia. He has previously worked as a programmer and computational designer. His current research explores the use of computational methods and tooling to design landscape systems — more information available at [philipbelesky.com](https://philipbelesky.com).
 
-Support requests, bug reports, feature suggestions and other plugin-related communications can be made as outlined on the [plugin page](https://groundhog.la/plugin/). For other matters please email me using at [contact@philipbelesky.com](mailto:contact@philipbelesky.com).
+Support requests, bug reports, feature suggestions and other plugin-related communications can be made as outlined on the [plugin page](https://groundhog.philipbelesky.com/plugin/). For other matters please email me using at [contact@philipbelesky.com](mailto:contact@philipbelesky.com).
 
 ### Contributors
 

@@ -21,7 +21,7 @@ Refer [to this video](https://www.youtube.com/watch?v=TB5wkh79Pv4) for further h
 
 #### Documentation
 
-A full range of documentation detailing individual components, examples of how to use them together, recreations of landscape projects, and strategies for employing computational design in a landscape architectural context are available at [http://groundhog.la/](http://groundhog.la/).
+A full range of documentation detailing individual components, examples of how to use them together, recreations of landscape projects, and strategies for employing computational design in a landscape architectural context are available at [http://groundhog.philipbelesky.com/](http://groundhog.philipbelesky.com/).
 
 #### Support
 
@@ -29,7 +29,7 @@ The preferred method of submitting bug reports and feature requests is through [
 
 #### Contributing
 
-This is an open source project and the code for both the plugin and [groundhog.la](http://groundhog.la) site are [hosted on Github](https://github.com/philipbelesky/groundhog). Contributions to the plugin, and to the articles or models on the site are welcome.
+This is an open source project and the code for both the plugin and [groundhog.philipbelesky.com](http://groundhog.philipbelesky.com) site are [hosted on Github](https://github.com/philipbelesky/groundhog). Contributions to the plugin, and to the articles or models on the site are welcome.
 
 #### Developer and License
 

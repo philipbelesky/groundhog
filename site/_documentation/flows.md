@@ -44,4 +44,4 @@ The example file for this component demonstrates a number of options for visuali
 - Fading the color of the paths as they travel further from their 'source'
 
 {% include elements/figure.html image='model' alt='Example model for the flow paths definition.' %}
-{% include elements/figure.html image='definition' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.la' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.philipbelesky.com' %}

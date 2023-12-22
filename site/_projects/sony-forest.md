@@ -30,6 +30,4 @@ As the design criteria could be encompassed in a relatively complete manner by c
 {% include elements/files.html %}
 
 {% include elements/figure.html image='model' alt='Rhinoceros model of the Sony Forest landscape' %}
-{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the planting and tiling strategies.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
-
-
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the planting and tiling strategies.' credit='Albert Rex and Philip Belesky, for https://groundhog.philipbelesky.com' %}

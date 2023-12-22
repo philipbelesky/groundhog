@@ -8,7 +8,7 @@ authors:
 identifiers:
   - description: The documentation and discussion of the plugin
     type: url
-    value: "https://groundhog.la"
+    value: "https://groundhog.philipbelesky.com"
 date-released: 2017-09-18
 repository-code: "https://github.com/philipbelesky/Groundhog/"
 preferred-citation:

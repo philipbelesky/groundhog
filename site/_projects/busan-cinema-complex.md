@@ -32,19 +32,18 @@ This tight, or "articulated,"[@Hansen:2011] relationship between the two design 
 
 While the proposal pre-dated the release of Grasshopper, the software would have offered an easy means of prototyping and iterating upon what was likely developed as a script in Maya or Rhino. Such a parametric model could have proceeded by first referencing contours and `Patch`ing them to become a surface.
 
-{% include elements/figure.html image='step_1' caption='Creating a 3D surface by patching contours allows for later grading adjustments to be easily accommodated.' credit="Albert Rex, for groundhog.la." %}
+{% include elements/figure.html image='step_1' caption='Creating a 3D surface by patching contours allows for later grading adjustments to be easily accommodated.' credit="Albert Rex, for groundhog.philipbelesky.com." %}
 
 Once defined, the 2D bounding box of the surface can be used to roughly calculate the number of pavers (given a set spacing interval) that will fit comfortably within the paving area. After creating a corresponding grid of points on the `XY` plane, each point is then `Project`ed onto the surface to establish the origins of each tile shape.
 
-{% include elements/figure.html image='step_2' caption='The origin points of each paver are projected onto the topography.' credit="Albert Rex, for groundhog.la." %}
+{% include elements/figure.html image='step_2' caption='The origin points of each paver are projected onto the topography.' credit="Albert Rex, for groundhog.philipbelesky.com." %}
 
 The vertical distance from the base `XY` plane to each tile-origin is measured and remapped to become the variable data that informs the geometry of the two elements that constitute each individual tile. By controlling the range of numbers that inform the minimum/maximum rotational/scaling factors the designer can 'hone' exactly how the tile system responds to the surface.
 
-{% include elements/figure.html image='step_3' caption='The elevation of each paver is used to define its shape, size and rotation' credit="Albert Rex, for groundhog.la." %}
+{% include elements/figure.html image='step_3' caption='The elevation of each paver is used to define its shape, size and rotation' credit="Albert Rex, for groundhog.philipbelesky.com." %}
 
 The result is a paving system that responds to and accentuates the topography of site. Moreover, the form of each tile can be quickly iterated upon in response to topographic manipulation, to the parameters that control the geometry of the paving elements, or to the regions that define where the tiling system is deployed.
 
-{% include elements/figure.html image='step_4' caption='The paving system responds dynamically to topography.' credit="Albert Rex, for groundhog.la." %}
+{% include elements/figure.html image='step_4' caption='The paving system responds dynamically to topography.' credit="Albert Rex, for groundhog.philipbelesky.com." %}
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the basic tile effect and distribution.' credit='Albert Rex and Philip Belesky, for https://groundhog.la' %}
-
+{% include elements/figure.html image='definition' caption='Grasshopper definition recreating the basic tile effect and distribution.' credit='Albert Rex and Philip Belesky, for https://groundhog.philipbelesky.com' %}

@@ -38,4 +38,4 @@ The example file for this component demonstrates a number of options for visuali
 
 {% include elements/figure.html image='model' alt='Image of the flow saturation component used across two hypothetical landforms' %}
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.la' %}
+{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use and extend the catchment analysis for Surface and Mesh forms.' credit='Philip Belesky, for https://groundhog.philipbelesky.com' %}
