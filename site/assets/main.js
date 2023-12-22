@@ -4,10 +4,10 @@
 // INCLUDES
 
 // Masonry
-{% include_absolute /node_modules/masonry-layout/dist/masonry.pkgd.min.js %}
+{% include masonry.pkgd.min.js %}
 
 // Feather
-{% include_absolute /node_modules/feather-icons/dist/feather.min.js %}
+{% include feather.min.js %}
 
 // ACTIONS
 
