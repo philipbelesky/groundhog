@@ -1557,9 +1557,9 @@
                     <item name="SourceCount" type_name="gh_int32" type_code="3">0</item>
                     <item name="UserText" type_name="gh_string" type_code="10">This Grasshopper definition and its corresponding Rhinoceros model were developed by Albert Rex and Philip Belesky as part of the Groundhog project.
 
-The definition and model are provided as speculative reverse-engineerings of how this landscape project could have been (partly) designed using computational methods. More information available at https://www.groundhog.la/projects/south-park/
+The definition and model are provided as speculative reverse-engineerings of how this landscape project could have been (partly) designed using computational methods. More information available at https://groundhog.philipbelesky.com/projects/south-park/
 
-This definition depends on components from version v0.13.0 of the Groundhog plugin. It is available for download at http://groundhog.la/plugin/</item>
+This definition depends on components from version v0.13.0 of the Groundhog plugin. It is available for download at http://groundhog.philipbelesky.com/plugin/</item>
                   </items>
                   <chunks count="2">
                     <chunk name="Attributes">

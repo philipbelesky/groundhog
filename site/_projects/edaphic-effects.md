@@ -33,12 +33,12 @@ The reference model and definition for this project (downloaded from the link at
 
 To begin, a surface is constructed by lofting a series of curves. The script then divides the resultant surface into a grid of point and generates a diamond grid between them. The cells of this grid warp to conform to the surface and thus provide an initial layer of site-specific geometry.
 
-{% include elements/figure.html image='step_1' caption='A surface is lofted through a set of 4 base curves and a diamond grid is fitted across it.' credit='Albert Rex, for groundhog.la' %}
+{% include elements/figure.html image='step_1' caption='A surface is lofted through a set of 4 base curves and a diamond grid is fitted across it.' credit='Albert Rex, for groundhog.philipbelesky.com' %}
 
 The script then measures the vertical distance between the highest and lowest point of each cell. This difference is taken as a rough interpolation of slope and the value is 'remapped' to influence the width of each cell and thus control cell dilation. That is to say, the steeper the angle of each cell, the more that its inner wall becomes offset from its outer. Note: this mechanism is used speculatively and the actual Edaphic project likely had a different means of articulating the surface that seems to have incorporated the results of a [gradient-descent method]({% link _documentation/flows.md %}) alongside other analytics.
 
-{% include elements/figure.html image='step_2' caption='The offset of each cell\'s inner wall (left) is controlled by each cell\'s vertical range (right). While the first layer of patterning conforms to the topography of a 3D surface, the second responds in size to a specific environmental input (in this case, slope).' credit='Albert Rex, for groundhog.la' %}
+{% include elements/figure.html image='step_2' caption='The offset of each cell\'s inner wall (left) is controlled by each cell\'s vertical range (right). While the first layer of patterning conforms to the topography of a 3D surface, the second responds in size to a specific environmental input (in this case, slope).' credit='Albert Rex, for groundhog.philipbelesky.com' %}
 
 The script has a versatility that allows it to be applied to a range of landscape conditions by re-configuring the underlying surface. This without even taking into consideration the additional variation possible when different data sets are introduced to influence the secondary offset pattern.
 
-{% include elements/figure.html image='step_3' caption='The pattern has a versatility that allows it be applied to a wide range of sites/ shapes.' credit='Albert Rex, for groundhog.la' %}
+{% include elements/figure.html image='step_3' caption='The pattern has a versatility that allows it be applied to a wide range of sites/ shapes.' credit='Albert Rex, for groundhog.philipbelesky.com' %}

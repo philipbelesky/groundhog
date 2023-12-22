@@ -14,6 +14,8 @@ Install dependencies using:
     bundler install
     npm install
 
+Also install pandoc
+
 ## Serving
 
 To start a local copy of the website, use:

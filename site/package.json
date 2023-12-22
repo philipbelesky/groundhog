@@ -1,7 +1,7 @@
 {
   "name": "groundhog",
   "version": "1.0.0",
-  "description": "groundhog.la site source",
+  "description": "groundhog.philipbelesky.com site source",
   "main": "index.html",
   "dependencies": {
     "@ibm/type": "^0.5.4",
