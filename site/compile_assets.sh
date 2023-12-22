@@ -42,11 +42,3 @@ echo "Moved ${PROJECTS} Project Files"
 cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 ./assets/fonts/
 cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./assets/fonts/
 echo "Moved Asset Files"
-
-
-# Move plugin files
-rm -f ./downloads/plugin/groundhog.zip
-# Zip for distribution
-zip -r -q -j ./downloads/plugin/groundhog.zip "../plugin/release/groundhog.gha" "../plugin/groundhog readme.pdf" -x "*.DS_Store*" -x "*manifest.yml*"
-echo "Built and Moved Plugin Files"
-

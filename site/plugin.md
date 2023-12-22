@@ -9,7 +9,6 @@ excerpt:    Download the latest version of the Groundhog plugin for Grasshopper.
 
 ---
 
-{% include elements/beta.html %}
 {% include elements/download.html %}
 {% include elements/newsletter.html %}
 
