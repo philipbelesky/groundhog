@@ -25,6 +25,6 @@ The second channel component, `Channel Info`, calculates a number of hydraulic c
 ## Workflows
 -->
 
-{% include elements/figure.html image='model' alt='Images of the channel tool applied to various geometries' %}
+{% include elements/figure.html image='model.jpg' alt='Images of the channel tool applied to various geometries' %}
 
-{% include elements/figure.html image='definition' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for https://groundhog.philipbelesky.com' %}
+{% include elements/figure.html image='definition.jpg' caption='Grasshopper definition demonstrating how to use the channel region and channel profile components.' credit='Philip Belesky, for https://groundhog.philipbelesky.com' %}

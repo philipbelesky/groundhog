@@ -6,7 +6,7 @@ files:      true
 files_text: model and definition demonstrating the use of these components
 ---
 
-{% include elements/figure.html image='1' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
+{% include elements/figure.html image='1.jpg' caption='Surface water flow paths across a littoral region' credit='Image via Philip Belesky for the "Processes and Processors" project (http://philipbelesky.com/projects/processes-and-processors/)' %}
 
 ## Flow Paths
 
@@ -43,5 +43,5 @@ The example file for this component demonstrates a number of options for visuali
 - Using geometric intersections to test how drainage pits intercept water flows
 - Fading the color of the paths as they travel further from their 'source'
 
-{% include elements/figure.html image='model' alt='Example model for the flow paths definition.' %}
-{% include elements/figure.html image='definition' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.philipbelesky.com' %}
+{% include elements/figure.html image='model.jpg' alt='Example model for the flow paths definition.' %}
+{% include elements/figure.html image='definition.jpg' caption='Grasshopper definition for the flow paths definition.' credit='Philip Belesky, for https://groundhog.philipbelesky.com' %}
