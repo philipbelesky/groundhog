@@ -10,8 +10,6 @@ _site
 .env
 
 # Redundant Assets (generated during deployment)
-site/assets/fonts
-site/assets/resize_cache
 site/downloads/documentation
 site/downloads/projects
 site/downloads/techniques

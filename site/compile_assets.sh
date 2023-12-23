@@ -36,9 +36,3 @@ rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./downloads/projects/
 PROJECTS=$(ls -1 "./downloads/projects/" | wc -l | xargs)
 echo "Moved ${PROJECTS} Project Files"
-
-
-# NPM Dependencies
-cp ./node_modules/@ibm/type/fonts/Sans/web/woff2/IBMPlexSans-Regular*.woff2 ./assets/fonts/
-cp ./node_modules/@ibm/type/fonts/Sans/web/woff/IBMPlexSans-Regular*.woff ./assets/fonts/
-echo "Moved Asset Files"
