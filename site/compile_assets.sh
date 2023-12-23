@@ -18,7 +18,7 @@ for i in ../docs/*;
 done
 
 rm -rf ./downloads/documentation/*.zip
-mv ../docs/**.zip ./downloads/documentation/
+mv ../docs/**.zip ./assets/downloads/documentation/
 DOCS=$(ls -1 "./downloads/documentation/" | wc -l | xargs)
 echo "Moved ${DOCS} Documentation Files"
 
@@ -33,6 +33,6 @@ done
 cd "../site/"
 
 rm -rf ./downloads/projects/*.zip
-mv ../projects/**.zip ./downloads/projects/
+mv ../projects/**.zip ./assets/downloads/projects/
 PROJECTS=$(ls -1 "./downloads/projects/" | wc -l | xargs)
 echo "Moved ${PROJECTS} Project Files"

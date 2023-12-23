@@ -18,10 +18,9 @@
     "serve": "bundle exec jekyll serve --unpublished --future --config=_config.yml,_config_dev.yml",
     "purge": "bundle exec jekyll clean && rm -rf .jekyll-cache",
     "test": "htmlproofer ./_site",
-    "compile-images": "rm -f ./assets/resize_cache/**/*.{jpg,png}",
     "compile-version": "bash ./compile_plugin.sh",
     "compile-assets": "bash ./compile_assets.sh",
-    "compile-deploy": "npm run compile-assets && npm run compile-images",
+    "compile-deploy": "npm run compile-assets",
     "build": "npm run compile-deploy && bundle exec jekyll build --config=_config.yml,_config_prod.yml",
     "publish": "npm run purge && npm run build && npm run test && s3_website push"
   },

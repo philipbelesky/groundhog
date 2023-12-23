@@ -9,11 +9,6 @@
 _site
 .env
 
-# Redundant Assets (generated during deployment)
-site/downloads/documentation
-site/downloads/projects
-site/downloads/techniques
-
 ################################################################################
 # Groundhog Plugin
 ################################################################################
