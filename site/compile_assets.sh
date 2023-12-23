@@ -17,6 +17,7 @@ for i in ../docs/*;
     do if [ -d $i ]; then zip -r -q -j "${i%/}.zip" "$i" -x "*.DS_Store"; fi
 done
 
+rm -rf ../docs/**/*.3dmbak
 rm -rf ./downloads/documentation/*.zip
 mv ../docs/**.zip ./assets/downloads/documentation/
 DOCS=$(ls -1 "./downloads/documentation/" | wc -l | xargs)
@@ -32,6 +33,7 @@ for i in ./*;
 done
 cd "../site/"
 
+rm -rf ../projects/**/*.3dmbak
 rm -rf ./downloads/projects/*.zip
 mv ../projects/**.zip ./assets/downloads/projects/
 PROJECTS=$(ls -1 "./downloads/projects/" | wc -l | xargs)
